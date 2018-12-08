@@ -11,7 +11,7 @@ with open('secrets.json') as cgx_secret_key:
 
 
 def get_secret(setting, secrets=secrets):
-    ''' Get the secret variable or return explicit exception'''
+    ''' Get the secret variable or return explicit exception '''
     try:
         return secrets[setting]
     except KeyError:
@@ -19,7 +19,7 @@ def get_secret(setting, secrets=secrets):
         raise ImproperlyConfigured(error_msg)
 
 
-# Application definitions
+# Application  definition
 
 LOCAL_APPS = (
     'users',
@@ -34,7 +34,12 @@ DJANGO_APPS = (
     'django.contrib.staticfiles',
 )
 
-INSTALLED_APPS = LOCAL_APPS + DJANGO_APPS
+THIRD_PART_APPS = (
+    'rest_framework',
+    'django_filters',
+)
+
+INSTALLED_APPS = LOCAL_APPS + DJANGO_APPS + THIRD_PART_APPS
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
@@ -49,18 +54,10 @@ MIDDLEWARE = [
 ]
 
 
-# Logging
-def levelname_filter(*args):
-    class LevelNameFilter(logging.Filter):
-        def filter(self, record):
-            return record.levelname.lower() in args
-    return LevelNameFilter
-
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -73,24 +70,29 @@ TEMPLATES = [
     },
 ]
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'src')
+)
 
-# Password validation
-# https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
+STATIC_ROOT = (
+    os.path.join(BASE_DIR, 'static/web')
+)
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
+LOGIN_REDIRECT_URL = ''
+
+LOGIN_URL = ''
+
+LOGIN_EXEMPT_URLS = (
+    'admin/',
+)
+
+# Logging
+def levelname_filter(*args):
+    class LevelNameFilter(logging.Filter):
+        def filter(self, record):
+            return record.levelname.lower() in args
+    return LevelNameFilter
 
 
 LOGGING = {
