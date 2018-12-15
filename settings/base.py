@@ -22,6 +22,10 @@ def get_secret(setting, secrets=secrets):
 # Application  definition
 
 LOCAL_APPS = (
+    'carrier',
+    'cgx',
+    'dme',
+    'insurance',
     'users',
 )
 
