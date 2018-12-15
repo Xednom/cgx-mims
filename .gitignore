@@ -1,10 +1,9 @@
-secrets.json
-local.py
 *.pyc
 *.pyo
 .idea
 *.__pycache__
 *.vscode
 db.sqlite3
-settings/local.py
 *.log
+venv/
+.env

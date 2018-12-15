@@ -2,22 +2,14 @@ import json
 import os
 import logging
 from django.core.exceptions import ImproperlyConfigured
+import environ
 
+ROOT_DIR = environ.Path(__file__) - 2
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# JSON-based secrets module
-with open('secrets.json') as cgx_secret_key:
-    secrets = json.loads(cgx_secret_key.read())
-
-
-def get_secret(setting, secrets=secrets):
-    ''' Get the secret variable or return explicit exception '''
-    try:
-        return secrets[setting]
-    except KeyError:
-        error_msg = 'Set the {0} environment variable'.format(setting)
-        raise ImproperlyConfigured(error_msg)
-
+env = environ.Env(DEBUG=(bool, False), )  # set default values and casting
+env_file = str(ROOT_DIR.path('.env'))
+env.read_env(env_file)
 
 # Application  definition
 
