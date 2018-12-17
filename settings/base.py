@@ -19,6 +19,7 @@ LOCAL_APPS = (
     'dme',
     'insurance',
     'users',
+    'grappelli',
 )
 
 DJANGO_APPS = (

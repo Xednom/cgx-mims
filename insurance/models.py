@@ -40,6 +40,7 @@ class Pending(models.Model):
     notes = models.TextField(null=True, blank=True)
 
     class Meta:
+        verbose_name_plural = 'Pending insurance records'
         ordering = ['name']
 
     def __str__(self):
@@ -64,6 +65,7 @@ class Hold(models.Model):
     notes = models.TextField(null=True, blank=True)
 
     class Meta:
+        verbose_name_plural = 'Hold insurance records'
         ordering = ['name']
 
     def __str__(self):
@@ -88,6 +90,7 @@ class Rejected(models.Model):
     notes = models.TextField(null=True, blank=True)
 
     class Meta:
+        verbose_name = 'Rejected insurance records'
         ordering = ['name']
 
     def __str__(self):
@@ -112,6 +115,7 @@ class Completed(models.Model):
     notes = models.TextField(null=True, blank=True)
 
     class Meta:
+        verbose_name_plural = 'Completed insurance records'
         ordering = ['name']
 
     def __str__(self):
