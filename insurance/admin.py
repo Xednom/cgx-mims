@@ -7,6 +7,7 @@ class PendingProfile(admin.ModelAdmin):
     list_display = ('name', 'promo_code', 'agent', 'manager', 'state', 'type_of_insurance', 'active_inactive', 'verification_date')
     list_filter = ('status', 'active_inactive', 'state')
     list_per_page = 30
+    change_list_template = 'insurance/pending_change_list_graph.html'
     fieldsets = (
         ('Insurance Informations', {
             'fields': (
@@ -37,6 +38,7 @@ class HoldProfile(admin.ModelAdmin):
     list_display = ('name', 'promo_code', 'agent', 'manager', 'state', 'type_of_insurance', 'active_inactive', 'verification_date')
     list_filter = ('status', 'active_inactive', 'state')
     list_per_page = 30
+    change_list_template = 'insurance/hold_change_list_graph.html'
     fieldsets = (
         ('Insurance Informations', {
             'fields': (
@@ -67,6 +69,7 @@ class RejectedProfile(admin.ModelAdmin):
     list_display = ('name', 'promo_code', 'agent', 'manager', 'state', 'type_of_insurance', 'active_inactive', 'verification_date')
     list_filter = ('status', 'active_inactive', 'state')
     list_per_page = 30
+    change_list_template = 'insurance/rejected_change_list_graph.html'
     fieldsets = (
         ('Insurance Informations', {
             'fields': (
@@ -97,6 +100,7 @@ class CompletedProfile(admin.ModelAdmin):
     list_display = ('name', 'promo_code', 'agent', 'manager', 'state', 'type_of_insurance', 'active_inactive', 'verification_date')
     list_filter = ('status', 'active_inactive', 'state')
     list_per_page = 30
+    change_list_template = 'insurance/completed_change_list_graph.html'
     fieldsets = (
         ('Insurance Informations', {
             'fields': (

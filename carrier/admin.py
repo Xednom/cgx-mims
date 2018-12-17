@@ -7,6 +7,7 @@ class CarrierProfile(admin.ModelAdmin):
     list_display = ('patient_name', 'promo_code', 'agent', 'date_app_rec', 'date_sample_rec')
     list_filter = ('status',)
     list_per_page = 30
+    change_list_template = 'carrier/change_list_graph.html'
     search_fields = ('patient_name', 'promo_code', 'agent')
     fieldsets = (
         ('Patient Informations', {

@@ -54,7 +54,7 @@ MIDDLEWARE = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -73,7 +73,7 @@ STATICFILES_DIRS = (
 )
 
 STATIC_ROOT = (
-    os.path.join(BASE_DIR, 'static/web')
+    os.path.join(BASE_DIR, 'staticfiles')
 )
 
 LOGIN_REDIRECT_URL = ''
@@ -83,6 +83,13 @@ LOGIN_URL = ''
 LOGIN_EXEMPT_URLS = (
     'admin/',
 )
+
+# Grappelli customization(s)
+GRAPPELLI_ADMIN_TITLE = 'CGX Administration'
+GRAPPELLI_AUTOCOMPLETE_LIMIT = 7
+GRAPPELLI_SWITCH_USER = True
+GRAPPELLI_CLEAN_INPUT_TYPES = True
+
 
 # Logging
 def levelname_filter(*args):

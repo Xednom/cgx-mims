@@ -7,6 +7,7 @@ class DMEProfile(admin.ModelAdmin):
     list_display = ('agent_id', 'patient_first_name', 'patient_last_name', 'patient_id', 'patient_status')
     list_filter = ('patient_status',)
     list_per_page = 30
+    change_list_template = 'dme/change_list_graph.html'
     search_filters = ('agent_id', 'patient_id', 'patient_last_name', 'patient_first_name')
     fieldsets = (
         ("Patient's Informations", {

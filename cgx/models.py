@@ -67,10 +67,16 @@ class Agent(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Agent id")
     name = models.CharField(max_length=50, verbose_name="Agent name")
 
+    def __str__(self):
+        return self.name
+
 
 class Manager(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Manager id")
     name = models.CharField(max_length=50, verbose_name="Manager name")
+
+    def __str__(self):
+        return self.name
 
 
 class BioConfirmMaster(models.Model):

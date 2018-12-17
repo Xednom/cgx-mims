@@ -21,6 +21,9 @@ class TypeOfInsurance(models.Model):
     name = models.CharField(max_length=250, verbose_name='Name of the Insurance')
     notes = models.TextField(null=True, blank=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Pending(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
