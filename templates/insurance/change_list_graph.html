@@ -23,15 +23,15 @@
             }
         };
         window.onload = function () {
-            var ctx = document.getElementById("state-chart");
-            {% regroup cl.queryset|dictsort:"state" by get_state_display as state_list %}
+            var ctx = document.getElementById("insurance_status-chart");
+            {% regroup cl.queryset|dictsort:"insurance_status" by insurance_status as insurance_status_list %}
             var lineChart = new Chart(ctx, {
-                type: 'doughnut',
+                type: 'pie',
                 data: {
-                    labels: [{% for state in state_list %}'{{ state.grouper }}',{% endfor %}],
+                    labels: [{% for insurance_status in insurance_status_list %}'{{ insurance_status.grouper }}',{% endfor %}],
                     datasets: [{
-                        data: [{% for state in state_list %}'{{ state.list|length }}',{% endfor %}],
-                        backgroundColor: [{% for state in state_list %}randomColorGenerator(),{% endfor %}]
+                        data: [{% for insurance_status in insurance_status_list %}'{{ insurance_status.list|length }}',{% endfor %}],
+                        backgroundColor: [{% for insurance_status in insurance_status_list %}randomColorGenerator(),{% endfor %}]
                     }]
                 },
                 options: options
@@ -39,12 +39,24 @@
             ctx = document.getElementById("active_inactive-chart");
             {% regroup cl.queryset|dictsort:"active_inactive" by active_inactive as active_inactive_list %}
             lineChart = new Chart(ctx, {
-                type: 'doughnut',
+                type: 'pie',
                 data: {
                     labels: [{% for active_inactive in active_inactive_list %}'{{ active_inactive.grouper }}',{% endfor %}],
                     datasets: [{
                         data: [{% for active_inactive in active_inactive_list %}'{{ active_inactive.list|length }}',{% endfor %}],
                         backgroundColor: [{% for active_inactive in active_inactive_list %}randomColorGenerator(),{% endfor %}]
+                    }]
+                }, options: options
+            });
+            ctx = document.getElementById("type_of_insurance-chart");
+            {% regroup cl.queryset|dictsort:"type_of_insurance" by type_of_insurance as type_of_insurance_list %}
+            lineChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: [{% for type_of_insurance in type_of_insurance_list %}'{{ type_of_insurance.grouper }}',{% endfor %}],
+                    datasets: [{
+                        data: [{% for type_of_insurance in type_of_insurance_list %}'{{ type_of_insurance.list|length }}',{% endfor %}],
+                        backgroundColor: [{% for type_of_insurance in type_of_insurance_list %}randomColorGenerator(),{% endfor %}]
                     }]
                 }, options: options
             });
@@ -55,10 +67,16 @@
     <hr>
     <div class="row">
         <div class="col-md-4">
-            <canvas id="state-chart" style="width: 100px !important;"></canvas>
+          <label class="col-sm-offset-6">Insurance Status</label>
+            <canvas id="insurance_status-chart" style="width: 100px !important;"></canvas>
         </div>
         <div class="col-sm-4">
+          <label class="col-sm-offset-6">Active/Inactive</label>
             <canvas id="active_inactive-chart" style="width: 100px !important;"></canvas>
+        </div>
+        <div class="col-sm-4">
+          <label class="col-sm-offset-6">Type of Insurance</label>
+          <canvas id="type_of_insurance-chart" style="width 100px !important;"></canvas>
         </div>
     </div>
     {{ block.super }}

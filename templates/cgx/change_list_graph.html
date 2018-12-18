@@ -26,7 +26,7 @@
             var ctx = document.getElementById("status-chart");
             {% regroup cl.queryset|dictsort:"status" by get_status_display as status_list %}
             var lineChart = new Chart(ctx, {
-                type: 'doughnut',
+                type: 'pie',
                 data: {
                     labels: [{% for status in status_list %}'{{ status.grouper }}',{% endfor %}],
                     datasets: [{
@@ -39,7 +39,7 @@
             ctx = document.getElementById("state-chart");
             {% regroup cl.queryset|dictsort:"state" by state as state_list %}
             lineChart = new Chart(ctx, {
-                type: 'doughnut',
+                type: 'pie',
                 data: {
                     labels: [{% for state in state_list %}'{{ state.grouper }}',{% endfor %}],
                     datasets: [{
@@ -55,9 +55,11 @@
     <hr>
     <div class="row">
         <div class="col-md-4">
+          <label class="col-sm-offset-5">Status information graph</label>
             <canvas id="status-chart" style="width: 100px !important;"></canvas>
         </div>
         <div class="col-sm-4">
+          <label class="col-sm-offset-5">State information graph</label>
             <canvas id="state-chart" style="width: 100px !important;"></canvas>
         </div>
     </div>

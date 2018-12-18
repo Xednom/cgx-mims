@@ -2,6 +2,8 @@ import uuid
 import datetime
 from django.db import models
 
+from django.utils import timezone
+
 from cgx.models import Manager
 
 
@@ -26,10 +28,10 @@ class DME(models.Model):
     agent_id = models.CharField(max_length=250, verbose_name='Agent ID Number')
     manager_name = models.ForeignKey(Manager, verbose_name='Manager Name', on_delete=models.PROTECT, null=True, blank=True)
     patient_id = models.CharField(max_length=250, verbose_name='Patient ID Number', null=True, blank=True)
-    date = models.DateField(default=datetime.date.today(), verbose_name='Date', null=True, blank=True)
+    date = models.DateField(default=timezone.now, verbose_name='Date', null=True, blank=True)
     sent_to_telemed = models.CharField(max_length=250, verbose_name='Sent to Telemed', null=True, blank=True)
     patient_status = models.CharField(max_length=2, choices=PATIENT_STATUS_CHOICES, null=True, blank=True)
-    date_returned_for_refiling_with_remn = models.DateField(datetime.date.today(), null=True, blank=True)
+    date_returned_for_refiling_with_remn = models.DateField(timezone.now, null=True, blank=True)
     eligibility_verified = models.CharField(max_length=250, verbose_name='Eligibility Verified', null=True, blank=True)
     patient_first_name = models.CharField(max_length=250, verbose_name="Patient's First Name", null=True, blank=True)
     patient_last_name = models.CharField(max_length=250, verbose_name="Patient's Last Name", null=True, blank=True)
@@ -38,7 +40,7 @@ class DME(models.Model):
     braces_s_plus_s_approved = models.CharField(max_length=250, verbose_name='Braces S+S approved', null=True, blank=True)
     braces_shipped = models.CharField(max_length=250, verbose_name='Braces Shipped', null=True, blank=True)
     notes = models.TextField(null=True, blank=True)
-    created_at = models.DateField(default=datetime.date.today(), verbose_name='Created date of these informations')
+    created_at = models.DateField(default=timezone.now, verbose_name='Created date of these informations')
     updated_at = models.DateField(verbose_name='Date updated')
     who_updated = models.CharField(max_length=150, verbose_name='User who updated these informations')
 

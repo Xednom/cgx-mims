@@ -2,6 +2,8 @@ import uuid
 import datetime
 from django.db import models
 
+from django.utils import timezone
+
 
 # type of test choices
 CARRIER = 1
@@ -85,22 +87,22 @@ class BioConfirmMaster(models.Model):
     patient_phone_number = models.CharField(max_length=250, verbose_name="Patient phone number", null=True, blank=True)
     promo_code = models.CharField(max_length=250, verbose_name="Promo Code")
     agent = models.ForeignKey(Agent, verbose_name="Agent name", null=True, blank=True, on_delete=models.PROTECT)
-    date_app_rec = models.DateField(default=datetime.date.today(), verbose_name="Date application recorded", null=True, blank=True)
-    date_sample_rec = models.DateField(default=datetime.date.today(), verbose_name="Date sample recorded", null=True, blank=True)
+    date_app_rec = models.DateField(default=timezone.now, verbose_name="Date application recorded", null=True, blank=True)
+    date_sample_rec = models.DateField(default=timezone.now, verbose_name="Date sample recorded", null=True, blank=True)
     type_of_test = models.IntegerField(choices=TYPE_OF_TEST_CHOICES, verbose_name="Test choices", null=True, blank=True)
-    date_of_qca = models.DateField(default=datetime.date.today(), verbose_name="Date of QCA", null=True, blank=True)
-    submitted_to_tamika_ins_verifier = models.DateField(default=datetime.date.today(), verbose_name="Date submitted to Tamika ins verifier", null=True, blank=True)
+    date_of_qca = models.DateField(default=timezone.now, verbose_name="Date of QCA", null=True, blank=True)
+    submitted_to_tamika_ins_verifier = models.DateField(default=timezone.now, verbose_name="Date submitted to Tamika ins verifier", null=True, blank=True)
     telemed_name = models.CharField(max_length=250, verbose_name="Telemed name", null=True, blank=True)
-    date_submitted_to_telemed = models.DateField(default=datetime.date.today(), verbose_name="Date submitted to telemed", null=True, blank=True)
-    date_telemed_returned = models.DateField(default=datetime.date.today(), verbose_name="Date telemed returned", null=True, blank=True)
-    date_bioconfim_rec_app = models.DateField(default=datetime.date.today(), verbose_name="Date bioconfirm recorded application", null=True, blank=True)
-    date_paid = models.DateField(default=datetime.date.today(), verbose_name="Date paid", null=True, blank=True)
+    date_submitted_to_telemed = models.DateField(default=timezone.now, verbose_name="Date submitted to telemed", null=True, blank=True)
+    date_telemed_returned = models.DateField(default=timezone.now, verbose_name="Date telemed returned", null=True, blank=True)
+    date_bioconfim_rec_app = models.DateField(default=timezone.now, verbose_name="Date bioconfirm recorded application", null=True, blank=True)
+    date_paid = models.DateField(default=timezone.now, verbose_name="Date paid", null=True, blank=True)
     state = models.CharField(max_length=50, verbose_name="State", null=True, blank=True)
     status = models.IntegerField(choices=STATUS_CHOICES, verbose_name="Status", null=True, blank=True)
     month = models.DateField(null=True, blank=True)
     insurance_company = models.CharField(max_length=50, verbose_name="Insurance company name", null=True, blank=True)
     notes = models.TextField(verbose_name="Notes", null=True, blank=True)
-    rejection_date = models.DateField(default=datetime.date.today(), verbose_name="Rejection Date", null=True, blank=True)
+    rejection_date = models.DateField(default=timezone.now, verbose_name="Rejection Date", null=True, blank=True)
 
     class Meta:
         ordering = ['patient_name']
