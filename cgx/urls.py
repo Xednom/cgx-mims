@@ -15,9 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from . import views
 
 urlpatterns = [
-    path('grappelli/', include('grappelli.urls')),  # grappelli URLS
-    path('admin/', admin.site.urls),
-    path('cgx/', include(('cgx.urls', 'cgx'), namespace='cgx')),
+    path('cgx_upload_data/', views.cgx_excel, name='cgx_excel')
 ]
