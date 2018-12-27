@@ -5,20 +5,6 @@ from django.core.exceptions import ImproperlyConfigured
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# JSON-based secrets module
-with open('secrets.json') as cgx_secret_key:
-    secrets = json.loads(cgx_secret_key.read())
-
-
-def get_secret(setting, secrets=secrets):
-    ''' Get the secret variable or return explicit exception '''
-    try:
-        return secrets[setting]
-    except KeyError:
-        error_msg = 'Set the {0} environment variable'.format(setting)
-        raise ImproperlyConfigured(error_msg)
-
-
 # Application  definition
 
 LOCAL_APPS = (
