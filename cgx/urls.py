@@ -18,5 +18,5 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('cgx_upload_data/', views.index, name='index')
+    # path('cgx_upload_data/', views.index, name='index')
 ]

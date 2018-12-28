@@ -9,7 +9,7 @@ def index(request):
     if request.method == "POST":
         bioconfirm_resource = BioConfirmMasterResource()
         dataset = Dataset()
-        new_data = request.FILES['excel_file']
+        new_data = request.FILES['myfile']
 
         imported_data = dataset.load(new_data.read())
         result = bioconfirm_resource.import_data(dataset, dry_run=True)

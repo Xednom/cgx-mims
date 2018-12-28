@@ -1,4 +1,4 @@
-from import_export.admin import ImportExportActionModelAdmin
+from import_export.admin import ImportExportModelAdmin
 
 from django.contrib import admin
 
@@ -44,8 +44,11 @@ class BioConfirmMasterProfile(admin.ModelAdmin):
 
 
 admin.site.register(BioConfirmMaster, BioConfirmMasterProfile)
+class BioConfirmMasterAdmin(ImportExportModelAdmin):
+    pass
+
+
 admin.site.register(Agent)
 admin.site.register(Manager)
 
-class BioConfirmMasterAdmin(ImportExportActionModelAdmin):
-    pass
+
