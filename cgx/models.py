@@ -69,6 +69,11 @@ class Agent(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Agent id")
     name = models.CharField(max_length=50, verbose_name="Agent name")
 
+    class Meta:
+        verbose_name = 'Agent name'
+        verbose_name_plural = 'Agent names'
+        ordering = ['name']
+
     def __str__(self):
         return self.name
 
@@ -76,6 +81,11 @@ class Agent(models.Model):
 class Manager(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Manager id")
     name = models.CharField(max_length=50, verbose_name="Manager name")
+
+    class Meta:
+        verbose_name = 'Manager name'
+        verbose_name_plural = 'Manager names'
+        ordering = ['name']
 
     def __str__(self):
         return self.name

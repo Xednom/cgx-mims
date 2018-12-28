@@ -20,6 +20,7 @@ LOCAL_APPS = (
     'insurance',
     'users',
     'grappelli',
+    'web',
 )
 
 DJANGO_APPS = (
@@ -84,7 +85,7 @@ STATIC_ROOT = (
 
 LOGIN_REDIRECT_URL = ''
 
-LOGIN_URL = ''
+LOGIN_URL = '/login/'
 
 LOGIN_EXEMPT_URLS = (
     'admin/',

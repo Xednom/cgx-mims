@@ -20,4 +20,5 @@ urlpatterns = [
     path('grappelli/', include('grappelli.urls')),  # grappelli URLS
     path('admin/', admin.site.urls),
     path('cgx/', include(('cgx.urls', 'cgx'), namespace='cgx')),
+    path('', include(('web.urls', 'web'), namespace='web')),
 ]

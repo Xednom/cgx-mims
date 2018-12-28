@@ -9,7 +9,7 @@ from .local import *
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = get_secret('SECRET_KEY')
+SECRET_KEY = env.str('DJANGO_SECRET_KEY')
 
 DEBUG = False
 

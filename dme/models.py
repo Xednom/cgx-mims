@@ -45,6 +45,8 @@ class DME(models.Model):
     who_updated = models.CharField(max_length=150, verbose_name='User who updated these informations')
 
     class Meta:
+        verbose_name = 'DME'
+        verbose_name_plural = 'DME'
         ordering = ['-date']
 
     def __str__(self):
