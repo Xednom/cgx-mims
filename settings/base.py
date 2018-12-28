@@ -34,7 +34,10 @@ DJANGO_APPS = (
 THIRD_PART_APPS = (
     'rest_framework',
     'django_filters',
+    'import_export',
 )
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 INSTALLED_APPS = LOCAL_APPS + DJANGO_APPS + THIRD_PART_APPS
 
@@ -49,6 +52,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+FILE_UPLOAD_HANDLERS = ("django_excel.ExcelMemoryFileUploadHandler",
+                        "django_excel.TemporaryExcelFileUploadHandler")
 
 
 TEMPLATES = [
