@@ -6,6 +6,7 @@ from .models import Agent, Manager, BioConfirmMaster
 
 
 class BioConfirmMasterProfile(admin.ModelAdmin):
+
     list_display = ('patient_name', 'promo_code', 'agent', 'date_app_rec', 'date_sample_rec')
     list_filter = ('status',)
     list_per_page = 30
@@ -43,8 +44,11 @@ class BioConfirmMasterProfile(admin.ModelAdmin):
     )
 
 
-admin.site.register(BioConfirmMaster, BioConfirmMasterProfile)
-class BioConfirmMasterAdmin(ImportExportModelAdmin):
+# admin.site.register(BioConfirmMaster, BioConfirmMasterProfile)
+
+
+@admin.register(BioConfirmMaster)
+class BioConfirmMasterAdmin(ImportExportModelAdmin, BioConfirmMasterProfile):
     pass
 
 
