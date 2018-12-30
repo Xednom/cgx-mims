@@ -57,7 +57,6 @@ MIDDLEWARE = [
 FILE_UPLOAD_HANDLERS = ("django_excel.ExcelMemoryFileUploadHandler",
                         "django_excel.TemporaryExcelFileUploadHandler")
 
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -74,10 +73,10 @@ TEMPLATES = [
     },
 ]
 
-# STATICFILES_DIRS = (
-#     # os.path.join(BASE_DIR, 'static'),
-#     os.path.join(BASE_DIR, 'src')
-# )
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'src')
+)
 
 STATIC_ROOT = (
     os.path.join(BASE_DIR, 'staticfiles')
@@ -103,6 +102,7 @@ def levelname_filter(*args):
     class LevelNameFilter(logging.Filter):
         def filter(self, record):
             return record.levelname.lower() in args
+
     return LevelNameFilter
 
 
