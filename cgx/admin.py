@@ -49,7 +49,8 @@ class BioConfirmMasterProfile(admin.ModelAdmin):
 
 @admin.register(BioConfirmMaster)
 class BioConfirmMasterAdmin(ImportExportModelAdmin, BioConfirmMasterProfile):
-    pass
+    actions = None
+    # inlines = [BioConfirmMasterStatusInline]
 
 
 admin.site.register(Agent)
