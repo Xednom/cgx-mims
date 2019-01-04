@@ -18,5 +18,7 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    # path('cgx_upload_data/', views.index, name='index')
+    path('cgx_upload_data/', views.upload_bcm, name='upload_bcm'),
+    path('cgx_upload_agents/', views.upload_agents, name='upload_agents'),
+    path('cgx_upload_managers/', views.upload_managers, name='upload_managers')
 ]

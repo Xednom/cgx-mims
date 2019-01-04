@@ -67,7 +67,7 @@ REASON_FOR_REJECTIONS_CHOICES = (
 
 class Agent(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Agent id")
-    name = models.CharField(max_length=50, verbose_name="Agent name")
+    name = models.CharField(max_length=50, verbose_name="Agent name", unique=True)
 
     class Meta:
         verbose_name = 'Agent name'
@@ -80,7 +80,7 @@ class Agent(models.Model):
 
 class Manager(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Manager id")
-    name = models.CharField(max_length=50, verbose_name="Manager name")
+    name = models.CharField(max_length=50, verbose_name="Manager name", unique=True)
 
     class Meta:
         verbose_name = 'Manager name'
