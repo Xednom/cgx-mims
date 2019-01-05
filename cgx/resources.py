@@ -6,4 +6,5 @@ class BioConfirmMasterResource(resources.ModelResource):
 
     class Meta:
         model = BioConfirmMaster
-        fields = ('agent__name',)
+        fields = ['agent__name']
+        exclude = ['id', 'agent__name']
