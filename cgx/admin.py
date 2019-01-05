@@ -55,5 +55,3 @@ class BioConfirmMasterAdmin(ImportExportModelAdmin, BioConfirmMasterProfile):
 
 admin.site.register(Agent)
 admin.site.register(Manager)
-
-

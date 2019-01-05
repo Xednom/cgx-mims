@@ -3,5 +3,7 @@ from .models import BioConfirmMaster
 
 
 class BioConfirmMasterResource(resources.ModelResource):
+
     class Meta:
         model = BioConfirmMaster
+        fields = ('agent__name',)
