@@ -77,6 +77,9 @@ class Agent(models.Model):
     def __str__(self):
         return self.name
 
+    def __unicode__(self):
+        return self.name
+
 
 class Manager(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Manager id")
@@ -88,6 +91,9 @@ class Manager(models.Model):
         ordering = ['name']
 
     def __str__(self):
+        return self.name
+
+    def __unicode__(self):
         return self.name
 
 
@@ -116,6 +122,9 @@ class BioConfirmMaster(models.Model):
 
     class Meta:
         ordering = ['patient_name']
+
+    def __unicode__(self):
+        return self.patient_name
 
     def __str__(self):
         return self.patient_name
