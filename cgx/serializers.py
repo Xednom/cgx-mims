@@ -37,7 +37,7 @@ class BioConfirmMasterSerializer(serializers.ModelSerializer):
             'date_telemed_returned',
             'date_bioconfim_rec_app',
             'date_paid',
-            'state'
+            'state',
             'status',
             'month',
             'insurance_company',
