@@ -1,3 +1,5 @@
+from rest_framework import viewsets, filters
+from rest_framework.authentication import SessionAuthentication
 from django.shortcuts import render
 from tablib import Dataset
 import openpyxl, uuid
@@ -5,6 +7,27 @@ import openpyxl, uuid
 from .resources import BioConfirmMasterResource
 from .models import Agent, BioConfirmMaster, Manager
 from .serializers import AgentSerializer, BioConfirmMasterSerializer, ManagerSerializer
+
+from .models import Agent, Manager, BioConfirmMaster
+from .serializers import (AgentSerializer, ManagerSerializer,
+                          BioConfirmMasterSerializer)
+
+
+class AgentViewSet(viewsets.ModelViewSet):
+    queryset = Agent.objects.all()
+    serializer_class = AgentSerializer
+
+
+class ManagerViewSet(viewsets.ModelViewSet):
+    queryset = Manager.objects.all()
+    serializer_class = ManagerSerializer
+
+
+class BioConfirmMasterViewSet(viewsets.ModelViewSet):
+    queryset = BioConfirmMaster.objects.all()
+    serializer_class = BioConfirmMasterSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ('promo_code', 'patient_name')
 
 
 def index(request):
@@ -100,4 +123,3 @@ def upload_agents(request):
         print(excel_data[0])
 
         return render(request, 'cgx/upload_agents.html', {"excel_data": excel_data})
-
