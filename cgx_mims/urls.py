@@ -21,7 +21,7 @@ from .routers import router
 urlpatterns = [
     path('grappelli/', include('grappelli.urls')),  # grappelli URLS
     path('admin/', admin.site.urls),
-    path('cgx/', include(('cgx.urls', 'cgx'), namespace='cgx')),
     path('api/v1/', include(router.urls)),
+    path('cgx/', include(('cgx.urls', 'cgx'), namespace='cgx')),
     path('', include(('web.urls', 'web'), namespace='web')),
 ]
