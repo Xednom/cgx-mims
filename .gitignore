@@ -8,5 +8,7 @@ db.sqlite3
 venv/
 .env
 media/
-*.png
+.png
 *.xlsx
+*.csv
+staticfiles/usr/
