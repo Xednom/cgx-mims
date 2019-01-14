@@ -9,6 +9,7 @@ venv/
 .env
 media/
 .png
+*.pack
 *.xlsx
 *.csv
 staticfiles/usr/
