@@ -37,7 +37,7 @@ class DME(models.Model):
     date = models.DateField(default=timezone.now, verbose_name='Date', null=True, blank=True)
     sent_to_telemed = models.CharField(max_length=250, verbose_name='Sent to Telemed', null=True, blank=True)
     patient_status = models.CharField(max_length=2, choices=PATIENT_STATUS_CHOICES, null=True, blank=True)
-    date_returned_for_refiling_with_remn = models.DateField(timezone.now, null=True, blank=True)
+    date_returned_for_refiling_with_remn = models.DateField(default=timezone.now, null=True, blank=True, verbose_name='Date returned for refiling with Remn')
     eligibility_verified = models.CharField(max_length=250, verbose_name='Eligibility Verified', null=True, blank=True)
     patient_first_name = models.CharField(max_length=250, verbose_name="Patient's First Name", null=True, blank=True)
     patient_last_name = models.CharField(max_length=250, verbose_name="Patient's Last Name", null=True, blank=True)
