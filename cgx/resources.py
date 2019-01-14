@@ -1,6 +1,6 @@
 from import_export import resources
 from import_export.fields import Field
-from .models import BioConfirmMaster
+from .models import Agent, BioConfirmMaster, Manager
 
 
 class BioConfirmMasterResource(resources.ModelResource):
@@ -29,4 +29,12 @@ class BioConfirmMasterResource(resources.ModelResource):
     class Meta:
         model = BioConfirmMaster
         fields = ['agent__name']
-        exclude = ['id', 'agent__name']
+        exclude = ('id',)
+
+
+class AgentResource(resources.ModelResource):
+    name = Field(attribute="name", column_name="AGENT")
+
+    class Meta:
+        model = Agent
+        exclude = ('id',)

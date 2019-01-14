@@ -53,5 +53,7 @@ class BioConfirmMasterAdmin(ImportExportModelAdmin, BioConfirmMasterProfile):
     # inlines = [BioConfirmMasterStatusInline]
 
 
-admin.site.register(Agent)
+@admin.register(Agent)
+class AgentAdmin(ImportExportModelAdmin):
+    acitions = None
 admin.site.register(Manager)
