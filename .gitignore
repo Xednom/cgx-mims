@@ -11,4 +11,4 @@ media/
 .png
 *.xlsx
 *.csv
-staticfiles/usr/
+staticfiles/
