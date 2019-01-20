@@ -15,6 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+
+from .routers import router
 
 from .routers import router
 
@@ -24,4 +28,4 @@ urlpatterns = [
     path('api/v1/', include(router.urls)),
     path('cgx/', include(('cgx.urls', 'cgx'), namespace='cgx')),
     path('', include(('web.urls', 'web'), namespace='web')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

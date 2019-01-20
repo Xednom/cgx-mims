@@ -37,4 +37,4 @@ class AgentResource(resources.ModelResource):
 
     class Meta:
         model = Agent
-        exclude = ('id',)
+        exclude = ['id', 'agent__name']

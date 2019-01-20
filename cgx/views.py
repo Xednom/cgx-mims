@@ -103,7 +103,7 @@ def add_managers(manager):
         new_manager = Manager(name=manager)
         new_manager.save()
 
-        return new_manager
+        return Manager.objects.get(name=new_manager.name)
 
 
 def add_agents(agent):
@@ -114,3 +114,4 @@ def add_agents(agent):
         new_agent.save()
 
         return Agent.objects.get(name=new_agent.name)
+
