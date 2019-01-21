@@ -70,6 +70,8 @@ def upload_bcm(request):
 
 def save_bcm(excel_data):
     for row in excel_data[1:]:
+        print("\n\nRow: ", row)
+        print("\n\n")
         new_bcm = BioConfirmMaster(
             patient_name=row[0],
             patient_phone_number=row[1],
@@ -77,7 +79,7 @@ def save_bcm(excel_data):
             agent=add_agents(row[3]),
             date_app_rec=set_date(row[5]),
             date_sample_rec=set_date(row[6]),
-            type_of_test=row[7],
+            type_of_test=blank_inputs(row[7]),
             date_of_qca=set_date(row[8]),
             submitted_to_tamika_ins_verifier=set_date(row[9]),
             telemed_name=row[10],
@@ -92,6 +94,9 @@ def save_bcm(excel_data):
             notes=row[20],
             rejection_date=set_date(row[21]),
         )
+
+        print("New BCM: ", new_bcm)
+        print("\n\n")
 
         new_bcm.save()
 
@@ -135,6 +140,11 @@ def set_date(date):
 
         return date
 
-    return date
+    return None
 
+
+def blank_inputs(input):
+    if input == 'None':
+        return None
+    return input
 
