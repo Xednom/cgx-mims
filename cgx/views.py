@@ -2,7 +2,7 @@ from rest_framework import viewsets, filters
 from rest_framework.authentication import SessionAuthentication
 from django.shortcuts import render
 from tablib import Dataset
-import openpyxl, uuid
+import openpyxl, datetime
 
 from .resources import BioConfirmMasterResource
 from .models import Agent, BioConfirmMaster, Manager
@@ -69,28 +69,28 @@ def upload_bcm(request):
 
 
 def save_bcm(excel_data):
-    for row in excel_data:
+    for row in excel_data[1:]:
         new_bcm = BioConfirmMaster(
             patient_name=row[0],
             patient_phone_number=row[1],
             promo_code=row[2],
-            agent=add_agents(name=row[3]),
-            date_app_rec=row[5],
-            date_sample_rec=row[6],
-            type_of_test =row[7],
-            date_of_qca=row[8],
-            submitted_to_tamika_ins_verifier=row[9],
+            agent=add_agents(row[3]),
+            date_app_rec=set_date(row[5]),
+            date_sample_rec=set_date(row[6]),
+            type_of_test=row[7],
+            date_of_qca=set_date(row[8]),
+            submitted_to_tamika_ins_verifier=set_date(row[9]),
             telemed_name=row[10],
-            date_submitted_to_telemed=row[11],
-            date_telemed_returned=row[12],
-            date_bioconfim_rec_app=row[13],
-            date_paid=row[15],
+            date_submitted_to_telemed=set_date(row[11]),
+            date_telemed_returned=set_date(row[12]),
+            date_bioconfim_rec_app=set_date(row[13]),
+            date_paid=set_date(row[15]),
             state=row[16],
             status=row[17],
             month=row[18],
             insurance_company=row[19],
             notes=row[20],
-            rejection_date=row[21],
+            rejection_date=set_date(row[21]),
         )
 
         new_bcm.save()
@@ -107,11 +107,34 @@ def add_managers(manager):
 
 
 def add_agents(agent):
+    print("\nAgent: ", agent)
 
     if not Agent.objects.filter(name=agent):
         print("Row:", agent)
-        new_agent = Manager(name=agent)
+        new_agent = Agent(name=agent)
         new_agent.save()
 
         return Agent.objects.get(name=new_agent.name)
+
+    return Agent.objects.get(name=agent.name)
+
+
+def set_date(date):
+    print("Original date: ", date)
+    print("Type: ", type(date))
+    if date != 'None':
+        print("Hello")
+
+        print("Date: ", date.split("-"))
+        split_date = date.split("-")
+        print("Day: ", split_date[2][:2])
+        print("\n\n")
+        date = datetime.date(int(split_date[0]), int(split_date[1]), int(split_date[2][:2]))
+        print("New Date: ", date)
+        print("\n\n")
+
+        return date
+
+    return date
+
 
