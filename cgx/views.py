@@ -127,7 +127,7 @@ def add_agents(agent):
 def set_date(date):
     print("Original date: ", date)
     print("Type: ", type(date))
-    if date != 'None':
+    if date != 'None' or date.strip() != "":
         print("Hello")
 
         print("Date: ", date.split("-"))

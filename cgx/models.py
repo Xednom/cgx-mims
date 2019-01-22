@@ -116,7 +116,7 @@ class BioConfirmMaster(models.Model):
     date_paid = models.DateField(default=timezone.now, verbose_name="Date paid", null=True, blank=True)
     state = models.CharField(max_length=50, verbose_name="State", null=True, blank=True)
     status = models.CharField(choices=STATUS_CHOICES, max_length=50, verbose_name="Status", null=True, blank=True)
-    month = models.DateField(null=True, blank=True)
+    month = models.CharField(max_length=50, null=True, blank=True)
     insurance_company = models.CharField(max_length=50, verbose_name="Insurance company name", null=True, blank=True)
     notes = models.TextField(verbose_name="Notes", null=True, blank=True)
     rejection_date = models.DateField(default=timezone.now, verbose_name="Rejection Date", null=True, blank=True)
