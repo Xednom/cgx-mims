@@ -14,17 +14,38 @@
     {% block page_style %}{% endblock %}
     </style>
 
-    <title>{% block title %}CGX Systems{% endblock %}</title>
+    <title>{% block title %}TSG Systems{% endblock %}</title>
 </head>
 
 <body>
+    {% block navbar %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="{% url 'web:home' %}">TSG System</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+        <ul class="nav navbar-top-links navbar-right">
+          <li class="nav-item dropdown">
+            <span>Hello, {{ request.user }}</span>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Settings</a>
+              <a class="dropdown-item" href="{% url 'web:logout' %}">Logout</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    {% endblock %}
     {% block content %}{% endblock %}
     <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
     <script src="{% static 'js/bootstrap/bootstrap.js' %}"></script>
     <script src="{% static 'js/cgx.js' %}"></script>
-    <script type="text/javascript">
-    {% block page_script %}{% endblock %}
-    </script>
 </body>
 
 </html>

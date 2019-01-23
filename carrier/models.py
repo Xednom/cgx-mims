@@ -40,22 +40,6 @@ TYPE_OF_TEST_CHOICES = (
     (L, 'L')
 )
 
-STATUS_CHOICES = (
-    (CGX_CGD, "CGX/CGD"),
-    (DUPLICATE, "DUPLICATE"),
-    (HOLD, "HOLD"),
-    (MISSING_INFORMATION, "MISSING INFORMATION"),
-    (REJECTED, "REJECTED"),
-    (WRONG_APPLICATION, "WRONG APPLICATION"),
-    (RFE, "Resubmit from Elite"),
-    (RESIGNED, "RESIGNED"),
-    (REJ_HMO, "REJECTED - HMO"),
-    (REJ_NO_ID, "REJECTED - NO ID"),
-    (REJ_INELIGIBLE, "REJECTED - INELIGIBLE"),
-    (REJ_INACTIVE, "REJECTED - INACTIVE"),
-    (REJ_HIGD, "Higd ded 6680.37"),
-    (REJ_CARESOURCE, "REJECTED - CARESOURCE")
-)
 
 REASON_FOR_REJECTIONS_CHOICES = (
     (HD, "HIGH DEDUCTIBLE - 2400.00"),
@@ -65,6 +49,22 @@ REASON_FOR_REJECTIONS_CHOICES = (
 
 
 class Carrier(models.Model):
+    STATUS_CHOICES = (
+        ("CGX/CGD", "CGX/CGD"),
+        ("DUPLICATE", "DUPLICATE"),
+        ("HOLD", "HOLD"),
+        ("MISSING INFORMATION", "MISSING INFORMATION"),
+        ("REJECTED", "REJECTED"),
+        ("WRONG APPLICATION", "WRONG APPLICATION"),
+        ("Resubmit from Elite", "Resubmit from Elite"),
+        ("RESIGNED", "RESIGNED"),
+        ("REJECTED - HMO", "REJECTED - HMO"),
+        ("REJECTED - NO ID", "REJECTED - NO ID"),
+        ("REJECTED - INELIGIBLE", "REJECTED - INELIGIBLE"),
+        ("REJECTED - INACTIVE", "REJECTED - INACTIVE"),
+        ("Higd ded 6680.37", "Higd ded 6680.37"),
+        ("REJECTED - CARESOURCE", "REJECTED - CARESOURCE")
+    )
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     for_carrier = models.BooleanField(default=False, verbose_name='For Carrier?')
     patient_name = models.CharField(max_length=250, verbose_name="Patient Name")
@@ -82,7 +82,7 @@ class Carrier(models.Model):
     date_bioconfim_rec_app = models.DateField(default=timezone.now, verbose_name="Date bioconfirm recorded application", null=True, blank=True)
     date_paid = models.DateField(default=timezone.now, verbose_name="Date paid", null=True, blank=True)
     state = models.CharField(max_length=50, verbose_name="State", null=True, blank=True)
-    status = models.IntegerField(choices=STATUS_CHOICES, verbose_name="Status", null=True, blank=True)
+    status = models.CharField(max_length=100, choices=STATUS_CHOICES, verbose_name="Status", null=True, blank=True)
     month = models.DateField(null=True, blank=True)
     insurance_company = models.CharField(max_length=50, verbose_name="Insurance company name", null=True, blank=True)
     notes = models.TextField(blank=True, null=True, verbose_name="Notes")

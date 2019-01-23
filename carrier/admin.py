@@ -14,6 +14,11 @@ class CarrierProfile(admin.ModelAdmin):
     change_list_template = 'carrier/change_list_graph.html'
     search_fields = ('patient_name', 'promo_code', 'agent')
     fieldsets = (
+        ('Confirmation if this information is for Carrier', {
+            'fields': (
+                'for_carrier',
+            )
+        }),
         ('Patient Informations', {
             'fields': (
                 'patient_name',

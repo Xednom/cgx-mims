@@ -1,3 +1,15 @@
 body {
     background-color: #f1f1f1;
 }
+
+#card-bioconfirm {
+  margin-top: 50px;
+}
+
+.tsg-tabs {
+  margin: 50px 30px;
+}
+
+.add-btn {
+  margin: 15px 10px;
+}
