@@ -3,6 +3,7 @@ import datetime
 from django.db import models
 
 from django.utils import timezone
+from django.contrib import messages
 
 
 # type of test choices
@@ -100,6 +101,7 @@ class Manager(models.Model):
 
 class BioConfirmMaster(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    for_bioconfirm = models.BooleanField(default=False, verbose_name='For Bio Confirm?')
     patient_name = models.CharField(max_length=250, verbose_name="Patient Name")
     patient_phone_number = models.CharField(max_length=250, verbose_name="Patient phone number", null=True, blank=True)
     promo_code = models.CharField(max_length=250, verbose_name="Promo Code")
@@ -129,3 +131,9 @@ class BioConfirmMaster(models.Model):
 
     def __str__(self):
         return self.patient_name
+
+    def save(self):
+        if self.for_bioconfirm is False:
+            return  # don't save if not True
+        else:
+            super(BioConfirmMaster, self).save()  # saves if True

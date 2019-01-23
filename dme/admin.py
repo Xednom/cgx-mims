@@ -1,43 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html, mark_safe
 
-from .models import DME, DME_II
-
-
-class DMEProfile(admin.ModelAdmin):
-    list_display = ('agent_id', 'patient_first_name', 'patient_last_name', 'patient_id', 'patient_status')
-    list_filter = ('patient_status',)
-    list_per_page = 30
-    change_list_template = 'dme/change_list_graph.html'
-    search_filters = ('agent_id', 'patient_id', 'patient_last_name', 'patient_first_name')
-    fieldsets = (
-        ("Patient's Informations", {
-            'fields': (
-                'agent_id',
-                'manager_name',
-                'patient_id',
-                'sent_to_telemed',
-                'patient_status',
-                'eligibility_verified',
-                'patient_first_name',
-                'patient_last_name',
-                'primary_insurance_name',
-                'braces_requested',
-                'braces_s_plus_s_approved',
-                'braces_shipped',
-                'notes'
-            )
-        }),
-        ("Date informations on Patient's", {
-            'fields': (
-                'date',
-                'date_returned_for_refiling_with_remn',
-                'created_at',
-                'updated_at',
-                'who_updated'
-            )
-        })
-    )
+from .models import DME_II
 
 
 class DMEIIProfile(admin.ModelAdmin):
@@ -51,6 +15,11 @@ class DMEIIProfile(admin.ModelAdmin):
                        'insurance_card_photo_back_image',
                        'additional_insurance_cards_image', 'consent_recording_image']
     fieldsets = (
+        ("Confirmation if this information is for DME", {
+            'fields': (
+                'for_dme',
+            )
+        }),
         (None, {
             'fields': (
                 'submission_date',
@@ -165,5 +134,4 @@ class DMEIIProfile(admin.ModelAdmin):
     )
 
 
-admin.site.register(DME, DMEProfile)
 admin.site.register(DME_II, DMEIIProfile)

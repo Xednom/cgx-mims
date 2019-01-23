@@ -29,6 +29,7 @@ class TypeOfInsurance(models.Model):
 
 class Insurance(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    for_insurance = models.BooleanField(default=False, verbose_name='For Insurance?')
     name = models.CharField(max_length=250, verbose_name='Patient Name')
     promo_code = models.CharField(max_length=250, verbose_name='Promo Code', null=True, blank=True)
     agent = models.ForeignKey(Agent, verbose_name='Agent name', on_delete=models.PROTECT, null=True, blank=True)
@@ -51,3 +52,9 @@ class Insurance(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self):
+        if self.for_insurance is False:
+            return  # don't save
+        else:
+            super(Insurance, self).save()
