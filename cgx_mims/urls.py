@@ -20,12 +20,10 @@ from django.conf.urls.static import static
 
 from .routers import router
 
-from .routers import router
-
 urlpatterns = [
     path('grappelli/', include('grappelli.urls')),  # grappelli URLS
     path('admin/', admin.site.urls),
     path('api/v1/', include(router.urls)),
     path('cgx/', include(('cgx.urls', 'cgx'), namespace='cgx')),
-    path('', include(('web.urls', 'web'), namespace='web')),
+    path('', include('web.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

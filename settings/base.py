@@ -217,3 +217,11 @@ LOGGING = {
         },
     }
 }
+
+
+LOGIN_URL = 'web:login'
+
+LOGIN_EXEMPT_URLS = (
+    'admin/'
+    'web:login'
+)
