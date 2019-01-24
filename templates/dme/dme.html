@@ -1,39 +1,41 @@
-<div class="col-md-12">
-  <div class="card" id="card-bioconfirm">
-    <div class="card-header">
-      DME
-    </div>
-    <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-sm">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td colspan="2">Larry the Bird</td>
-              <td>@twitter</td>
-            </tr>
-          </tbody>
-        </table>
+<div id="dme-app">
+  <div class="col-md-12">
+    <div class="card" id="card-table">
+      <div class="card-header">
+        DME
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th scope="col">Submission date</th>
+                <th scope="col">Patient's first name</th>
+                <th scope="col">Patient's last name</th>
+                <th scope="col">Agent's promo code</th>
+                <th scope="col">Insurance type</th>
+                <th scope="col">Policy number(Medicare)</th>
+                <th scope="col">PPO Information(If not straight from Medicare)(Member ID#)</th>
+                <th scope="col">PPO Information(If not straight from Medicare)(PPO Name)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="14" class="text-center bg-warning" v-if="!dmes.length">No records for DME as of now.</td>
+              </tr>
+              <tr v-for="dme in dmes">
+                <td>[[ dme.submission_date ]]</td>
+                <td>[[ dme.patients_first_name ]]</td>
+                <td>[[ dme.patients_last_name ]]</td>
+                <td>[[ dme.agents_promod_code ]]</td>
+                <td>[[ dme.insurance_type ]]</td>
+                <td>[[ dme.policy_number ]]</td>
+                <td>[[ dme.ppo_information_mem_id ]]</td>
+                <td>[[ dme.ppo_information_ppo_name ]]</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

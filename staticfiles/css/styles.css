@@ -1,3 +1,23 @@
 body {
     background-color: #f1f1f1;
 }
+
+#card-table {
+  margin-top: 30px;
+}
+
+#card-carrier {
+  margin-top: 30px !important;
+}
+
+#card-dme {
+  margin-top: 30px;
+}
+
+.tsg-tabs {
+  margin: 50px 30px;
+}
+
+.add-btn {
+  margin: 15px 10px;
+}

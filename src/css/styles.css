@@ -2,7 +2,15 @@ body {
     background-color: #f1f1f1;
 }
 
-#card-bioconfirm {
+#card-table {
+  margin-top: 30px;
+}
+
+#card-carrier {
+  margin-top: 30px !important;
+}
+
+#card-dme {
   margin-top: 30px;
 }
 

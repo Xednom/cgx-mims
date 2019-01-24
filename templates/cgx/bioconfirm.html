@@ -1,39 +1,47 @@
-<div class="col-md-12">
-  <div class="card" id="card-bioconfirm">
-    <div class="card-header">
-      Bio Confirm Master
-    </div>
-    <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-sm">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td colspan="2">Larry the Bird</td>
-              <td>@twitter</td>
-            </tr>
-          </tbody>
-        </table>
+<div id="bioconfirm-app">
+  <div class="col-md-12">
+    <div class="card" id="card-table">
+      <div class="card-header">
+        Bio Confirm Master
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th scope="col">Patient name</th>
+                <th scope="col">Promo code</th>
+                <th scope="col">Agent name</th>
+                <th scope="col">Date submitted to telemed</th>
+                <th scope="col">Date telemed returned</th>
+                <th scope="col">Date application recorded</th>
+                <th scope="col">Date sample recorded</th>
+                <th scope="col">Date paid</th>
+                <th scope="col">Insurance company name</th>
+                <th scope="col">Rejection date</th>
+                <th scope="col">Date Submitted to Tamika ins verifier</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="14" class="text-center bg-warning" v-if="!bioconfirms.length">No records for Bio Confirm as of now.</td>
+              </tr>
+              <tr v-for="bioconfirm in bioconfirms">
+                <td>[[ bioconfirm.patient_name ]]</td>
+                <td>[[ bioconfirm.promo_code ]]</td>
+                <td>[[ bioconfirm.agent ]]</td>
+                <td>[[ bioconfirm.date_submitted_to_telemed ]]</td>
+                <td>[[ bioconfirm.date_telemed_returned ]]</td>
+                <td>[[ bioconfirm.date_app_rec ]]</td>
+                <td>[[ bioconfirm.date_sample_rec ]]</td>
+                <td>[[ bioconfirm.date_paid ]]</td>
+                <td>[[ bioconfirm.insurance_company ]]</td>
+                <td>[[ bioconfirm.rejection_date ]]</td>
+                <td>[[ bioconfirm.submitted_to_tamika_ins_verifier ]]</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
