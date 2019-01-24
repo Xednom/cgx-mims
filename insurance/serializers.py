@@ -15,31 +15,8 @@ class TypeOfInsuranceSerializer(serializers.ModelSerializer):
 class InsuranceSerializer(serializers.ModelSerializer):
     agent = serializers.SlugRelatedField(slug_field='name', queryset=Agent.objects.all())
     manager = serializers.SlugRelatedField(slug_field='name', queryset=Manager.objects.all())
+    type_of_insurance = serializers.SlugRelatedField(slug_field='name', queryset=TypeOfInsurance.objects.all())
 
     class Meta:
         model = Insurance
-        fields = (
-            'id',
-            'name',
-            'promo_code',
-            'agent',
-            'manager',
-            'date_of_birth',
-            'state',
-            'type_of_insurance',
-            'test',
-            'active_inactive',
-            'status',
-            'insurance_status',
-            'policy_number',
-            'verification_date',
-            'deductible_remainding',
-            'notes'
-        )
-
-
-
-
-
-
-
+        fields = '__all__'

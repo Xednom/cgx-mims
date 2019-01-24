@@ -30,9 +30,8 @@
         </ul>
         <ul class="nav navbar-top-links navbar-right">
           <li class="nav-item dropdown">
-            <span>Hello, {{ request.user }}</span>
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            </a>
+            {{ request.user }}</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="#">Settings</a>
               <a class="dropdown-item" href="{% url 'web:logout' %}">Logout</a>

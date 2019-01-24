@@ -1,6 +1,8 @@
 from rest_framework import viewsets, filters
 from rest_framework.authentication import SessionAuthentication
+
 from django.shortcuts import render
+from django.views.generic import TemplateView
 from tablib import Dataset
 import openpyxl, datetime
 
@@ -28,6 +30,10 @@ class BioConfirmMasterViewSet(viewsets.ModelViewSet):
     serializer_class = BioConfirmMasterSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ('promo_code', 'patient_name')
+
+
+class BioConfirmView(TemplateView):
+    template_name = 'cgx/bioconfirm.html'
 
 
 def index(request):
@@ -147,4 +153,3 @@ def blank_inputs(input):
     if input == 'None':
         return None
     return input
-

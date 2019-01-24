@@ -17,6 +17,9 @@ from django.contrib import admin
 from django.urls import path, include
 from . import views
 
+app_name = 'cgx'
+
 urlpatterns = [
+    path('bioconfirm', views.BioConfirmView.as_view(), name='bioconfirm'),
     path('cgx_upload_data/', views.upload_bcm, name='upload_bcm'),
 ]
