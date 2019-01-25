@@ -26,10 +26,15 @@ class ManagerViewSet(viewsets.ModelViewSet):
 
 
 class BioConfirmMasterViewSet(viewsets.ModelViewSet):
-    queryset = BioConfirmMaster.objects.all()
+    # queryset = BioConfirmMaster.objects.all()
     serializer_class = BioConfirmMasterSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ('promo_code', 'patient_name')
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = BioConfirmMaster.objects.filter(agent__name=user)
+        return queryset
 
 
 class BioConfirmView(TemplateView):

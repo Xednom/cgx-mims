@@ -3,6 +3,13 @@ from cgx.models import Agent, Manager
 from .models import Insurance, TypeOfInsurance
 
 
+class AgentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Agent
+        fields = ('name',)
+
+
 class TypeOfInsuranceSerializer(serializers.ModelSerializer):
     class Meta:
         model = TypeOfInsurance

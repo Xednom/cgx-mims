@@ -30,7 +30,7 @@ GENDER_CHOICES = (
 
 
 class DME_II(models.Model):
-    submission_date = models.DateTimeField(default=timezone.now)
+    submission_date = models.DateField(default=timezone.now)
     for_dme = models.BooleanField(default=False, verbose_name='For DME?')
     first_name = models.CharField(max_length=250, null=True, blank=True)
     last_name = models.CharField(max_length=250, null=True, blank=True)

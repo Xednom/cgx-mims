@@ -33,7 +33,6 @@ new Vue({
   },
   mounted: function() {
     this.getBioConfirms();
-    this.getCarriers();
   },
   methods: {
     getBioConfirms: function() {
@@ -52,21 +51,26 @@ new Vue({
                 console.log(err);
               })
         },
-        getCarriers: function() {
-              let api_url = '/api/v1/carrier/';
-              if(this.search_term!==''||this.search_term!==null) {
-                api_url = `/api/v1/carrier/?search=${this.search_term}`
-              }
-              this.loading = false;
-              this.$http.get(api_url)
-                  .then((response) => {
-                    this.carriers = response.data;
-                    this.loading = false;
-                  })
-                  .catch((err) => {
-                    this.loading = false;
-                    console.log(err);
-                  })
-            },
+        addBioConfirm: function() {
+        this.loading = true;
+        this.$http.post('/api/v1/bio-confirm-master/', this.newBioConfirm)
+            .then((response) => {
+              this.loading = true;
+              $("#addItemModal").modal('hide');
+              $(".modal-backdrop").remove();
+              swal({
+                title: "TSG System",
+                text: "Data has been saved successfully",
+                icon: "success",
+                buttons: false,
+                timer: 1500
+              })
+              this.getBioConfirms();
+            })
+            .catch((err) => {
+              this.loading = true;
+              console.log(err);
+            })
+      },
   }
 });
