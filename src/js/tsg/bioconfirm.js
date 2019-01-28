@@ -56,8 +56,6 @@ new Vue({
         this.$http.post('/api/v1/bio-confirm-master/', this.newBioConfirm)
             .then((response) => {
               this.loading = true;
-              $("#addItemModal").modal('hide');
-              $(".modal-backdrop").remove();
               swal({
                 title: "TSG System",
                 text: "Data has been saved successfully",

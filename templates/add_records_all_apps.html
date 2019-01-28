@@ -50,30 +50,12 @@ Add data | TSG System
           </button>
         </h5>
       </div>
-      <div id="collapseCarrier" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-        <!-- patient info -->
-        <div class="card">
-          <div class="card-header" id="card-informations">
-            Patient Informations
-          </div>
-          <div class="card-body">
+      <div id="carrier-app">
+          <div id="collapseCarrier" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
             {% include 'carrier/add_patient_carrier.html' %}
           </div>
         </div>
-        <!-- end patient info -->
-
-        <!-- patient date info -->
-        <div class="card card-date-info">
-          <div class="card-header" id="card-informations">
-            Patient's Date Informations
-          </div>
-          <div class="card-body">
-            {% include 'carrier/add_date_carrier.html' %}
-          </div>
-        </div>
-        <!-- end patient date info -->
       </div>
-    </div>
     <div class="card" id="card-table">
       <div class="card-header" id="headingThree">
         <h5 class="mb-0">

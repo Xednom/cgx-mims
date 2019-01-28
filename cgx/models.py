@@ -69,7 +69,7 @@ REASON_FOR_REJECTIONS_CHOICES = (
 
 class Agent(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Agent id")
-    name = models.CharField(max_length=50, verbose_name="Agent name", unique=True)
+    name = models.CharField(max_length=50, verbose_name="Agent name", null=True, blank=True, unique=True)
 
     class Meta:
         verbose_name = 'Agent name'
@@ -77,15 +77,12 @@ class Agent(models.Model):
         ordering = ['name']
 
     def __str__(self):
-        return self.name
-
-    def __unicode__(self):
-        return self.name
+        return str(self.name)
 
 
 class Manager(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Manager id")
-    name = models.CharField(max_length=50, verbose_name="Manager name", unique=True)
+    name = models.CharField(max_length=50, verbose_name="Manager name", null=True, blank=True, unique=True)
 
     class Meta:
         verbose_name = 'Manager name'
@@ -93,10 +90,7 @@ class Manager(models.Model):
         ordering = ['name']
 
     def __str__(self):
-        return self.name
-
-    def __unicode__(self):
-        return self.name
+        return str(self.name)
 
 
 class BioConfirmMaster(models.Model):
