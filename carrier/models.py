@@ -83,7 +83,7 @@ class Carrier(models.Model):
     date_paid = models.DateField(default=timezone.now, verbose_name="Date paid", null=True, blank=True)
     state = models.CharField(max_length=50, verbose_name="State", null=True, blank=True)
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, verbose_name="Status", null=True, blank=True)
-    month = models.DateField(null=True, blank=True)
+    month = models.CharField(max_length=50, null=True, blank=True)
     insurance_company = models.CharField(max_length=50, verbose_name="Insurance company name", null=True, blank=True)
     notes = models.TextField(blank=True, null=True, verbose_name="Notes")
     rejection_date = models.DateField(default=timezone.now, verbose_name="Rejection Date", null=True, blank=True)
