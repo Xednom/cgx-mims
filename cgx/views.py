@@ -1,5 +1,5 @@
 from rest_framework import viewsets, filters
-from rest_framework.authentication import SessionAuthentication
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
 from django.shortcuts import render
 from django.views.generic import TemplateView
@@ -15,6 +15,12 @@ from .serializers import (AgentSerializer, ManagerSerializer,
                           BioConfirmMasterSerializer)
 
 
+class CsrftExemptSessionAuthentication(SessionAuthentication):
+
+    def enforce_csrf(self, request):
+        return  # will not enforce a csrf check
+
+
 class AgentViewSet(viewsets.ModelViewSet):
     queryset = Agent.objects.all()
     serializer_class = AgentSerializer
@@ -28,6 +34,7 @@ class ManagerViewSet(viewsets.ModelViewSet):
 class BioConfirmMasterViewSet(viewsets.ModelViewSet):
     # queryset = BioConfirmMaster.objects.all()
     serializer_class = BioConfirmMasterSerializer
+    authentication_classes = (CsrftExemptSessionAuthentication, BasicAuthentication)
     filter_backends = [filters.SearchFilter]
     search_fields = ('promo_code', 'patient_name')
 

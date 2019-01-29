@@ -7,14 +7,8 @@ db.sqlite3
 *.log
 venv/
 .env
-<<<<<<< HEAD
-*.xlsx
-*.csv
-staticfiles/usr/
-=======
 media/
 .png
 *.xlsx
 *.csv
 staticfiles/
->>>>>>> 3ed2e72a1de2c67f1af45c71674e50b9da5a35b4

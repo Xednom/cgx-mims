@@ -7,10 +7,10 @@ from django.contrib import messages
 
 
 # type of test choices
-CARRIER = 1
-CGX = 2
-CGX_CARRIER = 3
-L = 4
+CARRIER = "CARRIER"
+CGX = "CGX"
+CGX_CARRIER = "CGX/CARRIER"
+L = "L"
 
 # STATUS_CHOICES
 CGX_CGD = "CGX/CGD"
@@ -95,14 +95,13 @@ class Manager(models.Model):
 
 class BioConfirmMaster(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    for_bioconfirm = models.BooleanField(default=False, verbose_name='For Bio Confirm?')
     patient_name = models.CharField(max_length=250, verbose_name="Patient Name")
     patient_phone_number = models.CharField(max_length=250, verbose_name="Patient phone number", null=True, blank=True)
     promo_code = models.CharField(max_length=250, verbose_name="Promo Code")
     agent = models.ForeignKey(Agent, verbose_name="Agent name", null=True, blank=True, on_delete=models.PROTECT)
     date_app_rec = models.DateField(default=timezone.now, verbose_name="Date application recorded", null=True, blank=True)
     date_sample_rec = models.DateField(default=timezone.now, verbose_name="Date sample recorded", null=True, blank=True)
-    type_of_test = models.IntegerField(choices=TYPE_OF_TEST_CHOICES, verbose_name="Test choices", null=True, blank=True)
+    type_of_test = models.CharField(max_length=50, choices=TYPE_OF_TEST_CHOICES, verbose_name="Test choices", null=True, blank=True)
     date_of_qca = models.DateField(default=timezone.now, verbose_name="Date of QCA", null=True, blank=True)
     submitted_to_tamika_ins_verifier = models.DateField(default=timezone.now, verbose_name="Date submitted to Tamika ins verifier", null=True, blank=True)
     telemed_name = models.CharField(max_length=250, verbose_name="Telemed name", null=True, blank=True)
@@ -120,14 +119,5 @@ class BioConfirmMaster(models.Model):
     class Meta:
         ordering = ['patient_name']
 
-    def __unicode__(self):
-        return self.patient_name
-
     def __str__(self):
-        return self.patient_name
-
-    def save(self):
-        if self.for_bioconfirm is False:
-            return  # don't save if not True
-        else:
-            super(BioConfirmMaster, self).save()  # saves if True
+        return str(self.patient_name)

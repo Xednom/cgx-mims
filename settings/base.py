@@ -36,6 +36,7 @@ THIRD_PART_APPS = (
     'rest_framework',
     'django_filters',
     'import_export',
+    'corsheaders',
 )
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True
@@ -43,6 +44,19 @@ IMPORT_EXPORT_USE_TRANSACTIONS = True
 INSTALLED_APPS = LOCAL_APPS + DJANGO_APPS + THIRD_PART_APPS
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+CORS_ORIGIN_ALLOW_ALL = False
+
+CSRF_USE_SESSIONS = True
+
+CORS_ORIGIN_WHITELIST = (
+    'localhost:8000',
+    '127.0.0.1:8000',
+)
+
+CORS_ALLOW_HEADERS = (
+    'x-csrftoken'
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -61,8 +75,8 @@ FILE_UPLOAD_HANDLERS = ("django_excel.ExcelMemoryFileUploadHandler",
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ),
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',

@@ -15,11 +15,6 @@ class DMEIIProfile(admin.ModelAdmin):
                        'insurance_card_photo_back_image',
                        'additional_insurance_cards_image', 'consent_recording_image']
     fieldsets = (
-        ("Confirmation if this information is for DME", {
-            'fields': (
-                'for_dme',
-            )
-        }),
         (None, {
             'fields': (
                 'submission_date',

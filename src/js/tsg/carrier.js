@@ -7,6 +7,7 @@ new Vue({
     agentNames: [],
     message: null,
     loading: false,
+    csrf_token: ['csrf_token'],
     newCarrier: {
       'patient_name': null,
       'patient_phone_number': null,
@@ -71,7 +72,7 @@ new Vue({
                 text: "Data has been saved successfully for Carrier",
                 icon: "success",
                 buttons: false,
-                timer: 1500
+                timer: 2000
               })
               this.reset();
               this.getCarriers();

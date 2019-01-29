@@ -9,7 +9,7 @@ from cgx.models import Agent
 
 CARRIER = 'CARRIER'
 CGX = 'CGX'
-CGX_CARRIER = 'CGX_CARRIER'
+CGX_CARRIER = 'CGX/CARRIER'
 L = 'L'
 
 CGX_CGD = 1
@@ -66,7 +66,6 @@ class Carrier(models.Model):
         ("REJECTED - CARESOURCE", "REJECTED - CARESOURCE")
     )
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    for_carrier = models.BooleanField(default=False, verbose_name='For Carrier?')
     patient_name = models.CharField(max_length=250, verbose_name="Patient Name")
     patient_phone_number = models.CharField(max_length=250, verbose_name="Patient phone number", null=True, blank=True)
     promo_code = models.CharField(max_length=250, verbose_name="Promo Code", null=True, blank=True)
@@ -93,9 +92,3 @@ class Carrier(models.Model):
 
     def __str__(self):
         return self.patient_name
-
-    def save(self):
-        if self.for_carrier is False:
-            return  # don't save
-        else:
-            super(Carrier, self).save()

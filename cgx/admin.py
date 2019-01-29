@@ -16,11 +16,6 @@ class BioConfirmMasterProfile(admin.ModelAdmin):
     change_list_template = 'cgx/change_list_graph.html'
     search_fields = ('patient_name', 'promo_code', 'agent')
     fieldsets = (
-        ("Confirmation if this information is for Bio Confirm Master", {
-            'fields': (
-                'for_bioconfirm',
-            )
-        }),
         ('Patient Informations', {
             'fields': (
                 'patient_name',

@@ -1,6 +1,7 @@
 <div id="carrier-app">
   <!-- patient info -->
-  <form v-on:submit.prevent="addCarrier()">
+  <form v-on:submit.prevent="addCarrier()" method="POST">
+    {% csrf_token %}
     <div class="card">
       <div class="card-header" id="card-informations">
         Patient Informations
@@ -30,15 +31,15 @@
           <div class="form-group col-md-2">
             <label>Test Choices</label>
             <select id="inputTest" class="form-control form-control-sm" v-model="newCarrier.type_of_test">
-              <option>Carrier</option>
+              <option>CARRIER</option>
               <option>CGX</option>
-              <option>CGX/Carrier</option>
+              <option>CGX/CARRIER</option>
               <option>L</option>
             </select>
           </div>
           <div class="form-group col-md-2">
             <label>Date submitted to Tamika ins verifier</label>
-            <input type="date" class="form-control form-control-sm" id="inputDate" v-model="newCarrier.submitted_to_tamika_ins_verifier">
+            <input type="date" class="form-control form-control-sm" id="inputDate1" v-model="newCarrier.submitted_to_tamika_ins_verifier">
           </div>
           <div class="form-group col-md-3">
             <label for="inputTelemed">Telemed Name</label>
@@ -62,7 +63,7 @@
               <option>WRONG APPLICATION</option>
               <option>Resubmit from Elite</option>
               <option>RESIGNED</option>
-              <option>REJECTED - HMO"</option>
+              <option>REJECTED - HMO</option>
               <option>REJECTED - NO ID</option>
               <option>REJECTED - INELIGIBLE</option>
               <option>REJECTED - INACTIVE</option>
@@ -92,7 +93,7 @@
         <div class="form-row">
           <div class="form-group col-md-2">
             <label>Date application recorded</label>
-            <input type="date" class="form-control form-control-sm" v-model="newCarrier.date_app_rec" id="inputDate">
+            <input type="date" class="form-control form-control-sm" v-model="newCarrier.date_app_rec" id="inputDateAppRec" value="">
           </div>
           <div class="form-group col-md-2">
             <label>Date sample recorded</label>

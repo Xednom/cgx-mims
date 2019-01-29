@@ -13,11 +13,6 @@ class InsuranceProfile(admin.ModelAdmin):
     search_filters = ('name', 'promo_code', 'agent', 'manager', 'policy_number')
     change_list_template = 'insurance/change_list_graph.html'
     fieldsets = (
-        ("Confirmation if this information is for Insurance", {
-            'fields': (
-                'for_insurance',
-            )
-        }),
         ('Insurance Informations', {
             'fields': (
                 'name',

@@ -41,7 +41,7 @@ class LoginView(AuthenticationForm, View):
             else:
                 return redirect(reverse_lazy('web:home'))
         else:
-            messages.warning(request, 'Username or password is incorrect. Or maybe account is inactive')
+            messages.warning(request, 'Incorrect username or password')
         return render(request, self.template_name)
 
 

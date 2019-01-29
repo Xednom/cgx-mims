@@ -4,7 +4,7 @@ new Vue({
   delimiters: ['[[',']]'],
   data: {
     bioconfirms: [],
-    carriers: [],
+    agentNames: [],
     message: null,
     loading: false,
     newBioConfirm: {
@@ -33,6 +33,7 @@ new Vue({
   },
   mounted: function() {
     this.getBioConfirms();
+    this.getAgentNames();
   },
   methods: {
     getBioConfirms: function() {
@@ -51,6 +52,18 @@ new Vue({
                 console.log(err);
               })
         },
+        getAgentNames: function() {
+          this.loading = true;
+          this.$http.get(`/api/v1/agent/`)
+              .then((response) => {
+                this.agentNames = response.data;
+                this.loading = true;
+              })
+              .catch((err) => {
+                this.loading = false;
+                console.log(err);
+              })
+        },
         addBioConfirm: function() {
         this.loading = true;
         this.$http.post('/api/v1/bio-confirm-master/', this.newBioConfirm)
@@ -58,10 +71,10 @@ new Vue({
               this.loading = true;
               swal({
                 title: "TSG System",
-                text: "Data has been saved successfully",
+                text: "Data has been saved successfully for Bio Confirm Master",
                 icon: "success",
                 buttons: false,
-                timer: 1500
+                timer: 2000
               })
               this.getBioConfirms();
             })
