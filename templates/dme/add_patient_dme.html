@@ -1,6 +1,6 @@
 <div id="dme-app">
   <!-- patient info -->
-  <form v-on:submit.prevent="addDme()" method="POST">
+  <form v-on:submit.prevent="addDme()" enctype="multipart/form-data" method="POST">
     {% csrf_token %}
     <div class="card">
       <div class="card-header" id="card-informations">
