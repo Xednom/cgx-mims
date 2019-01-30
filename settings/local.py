@@ -35,6 +35,8 @@ ROOT_URLCONF = 'cgx_mims.urls'
 
 WSGI_APPLICATION = 'cgx_mims.wsgi.application'
 
+CSRF_USE_SESSIONS = True
+
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
@@ -93,5 +95,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
 
 ALLOWED_HOSTS = '*'

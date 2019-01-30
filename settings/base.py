@@ -2,13 +2,25 @@ import json
 import os
 import logging
 from django.core.exceptions import ImproperlyConfigured
+import environ
 
+ROOT_DIR = environ.Path(__file__) - 2
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+env = environ.Env(DEBUG=(bool, False), )  # set default values and casting
+env_file = str(ROOT_DIR.path('.env'))
+env.read_env(env_file)
 
 # Application  definition
 
 LOCAL_APPS = (
+    'carrier',
+    'cgx',
+    'dme',
+    'insurance',
     'users',
+    'grappelli',
+    'web',
 )
 
 DJANGO_APPS = (
@@ -23,11 +35,28 @@ DJANGO_APPS = (
 THIRD_PART_APPS = (
     'rest_framework',
     'django_filters',
+    'import_export',
+    'corsheaders',
 )
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 INSTALLED_APPS = LOCAL_APPS + DJANGO_APPS + THIRD_PART_APPS
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+CORS_ORIGIN_ALLOW_ALL = False
+
+CSRF_USE_SESSIONS = True
+
+CORS_ORIGIN_WHITELIST = (
+    'localhost:8000',
+    '127.0.0.1:8000',
+)
+
+CORS_ALLOW_HEADERS = (
+    'x-csrftoken'
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -39,11 +68,30 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+FILE_UPLOAD_HANDLERS = ("django_excel.ExcelMemoryFileUploadHandler",
+                        "django_excel.TemporaryExcelFileUploadHandler")
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    )
+}
+
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -57,27 +105,39 @@ TEMPLATES = [
 ]
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'src')
+    # os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'src'),
 )
 
 STATIC_ROOT = (
-    os.path.join(BASE_DIR, 'static/web')
+    os.path.join(BASE_DIR, 'staticfiles')
+)
+
+MEDIA_ROOT = (
+    os.path.join(BASE_DIR, 'media')
 )
 
 LOGIN_REDIRECT_URL = ''
 
-LOGIN_URL = ''
+LOGIN_URL = '/login/'
 
 LOGIN_EXEMPT_URLS = (
     'admin/',
 )
+
+# Grappelli customization(s)
+GRAPPELLI_ADMIN_TITLE = 'TSG Administration'
+GRAPPELLI_AUTOCOMPLETE_LIMIT = 7
+GRAPPELLI_SWITCH_USER = True
+GRAPPELLI_CLEAN_INPUT_TYPES = True
+
 
 # Logging
 def levelname_filter(*args):
     class LevelNameFilter(logging.Filter):
         def filter(self, record):
             return record.levelname.lower() in args
+
     return LevelNameFilter
 
 
@@ -188,3 +248,11 @@ LOGGING = {
         },
     }
 }
+
+
+LOGIN_URL = 'web:login'
+
+LOGIN_EXEMPT_URLS = (
+    'admin/'
+    'web:login'
+)

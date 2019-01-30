@@ -12,4 +12,4 @@ class CustomUser(AbstractUser):
     date_of_birth = models.DateField(null=True, blank=True)
 
     def __str__(self):
-        return self.first_name + self.last_name
+        return self.first_name + " " + self.last_name

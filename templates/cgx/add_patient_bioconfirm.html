@@ -1,0 +1,138 @@
+<div id="bioconfirm-app">
+  <!-- patient info -->
+  <form v-on:submit.prevent="addBioConfirm()" method="POST">
+    {% csrf_token %}
+    <div class="card">
+      <div class="card-header" id="card-informations">
+        Patient Informations
+      </div>
+      <div class="card-body">
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="inputPatientName">Patient Name</label>
+            <input type="text" class="form-control form-control-sm" id="inputPatientName" v-model="newBioConfirm.patient_name" placeholder="Patient Name">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputPatientPhone">Patient Phone Number</label>
+            <input type="text" class="form-control form-control-sm" id="inputPatientPhone" v-model="newBioConfirm.patient_phone_number" placeholder="Patient Phone Number">
+          </div>
+          <div class="form-group col-md-3">
+            <label for="inputEmail4">Promo Code</label>
+            <input type="text" class="form-control form-control-sm" id="inputPromo" v-model="newBioConfirm.promo_code" placeholder="Promo Code">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-2">
+            <label>Agent Name</label>
+            <select id="inputAgent" class="form-control form-control-sm" v-model="newBioConfirm.agent">
+              <option v-for="agent in agentNames">[[ agent.name ]]</option>
+            </select>
+          </div>
+          <div class="form-group col-md-2">
+            <label>Test Choices</label>
+            <select id="inputTest" class="form-control form-control-sm" v-model="newBioConfirm.type_of_test">
+              <option>CARRIER</option>
+              <option>CGX</option>
+              <option>CGX/CARRIER</option>
+              <option>L</option>
+            </select>
+          </div>
+          <div class="form-group col-md-2">
+            <label>Date submitted to Tamika ins verifier</label>
+            <input type="date" class="form-control form-control-sm" id="inputDate1" v-model="newBioConfirm.submitted_to_tamika_ins_verifier">
+          </div>
+          <div class="form-group col-md-3">
+            <label for="inputTelemed">Telemed Name</label>
+            <input type="text" class="form-control form-control-sm" id="inputTelemed" v-model="newBioConfirm.telemed_name" placeholder="Telemed Name">
+          </div>
+          <div class="form-group col-md-3">
+            <label for="input">State</label>
+            <input type="text" class="form-control form-control-sm" id="inputState" v-model="newBioConfirm.state" placeholder="State">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-2">
+            <label for="inputState">Status</label>
+            <select id="inputState" class="form-control form-control-sm" v-model="newBioConfirm.status">
+              <option>CGX/CGD</option>
+              <option>DUPLICATE</option>
+              <option>HOLD</option>
+              <option>DUPLICATE</option>
+              <option>MISSING INFORMATION</option>
+              <option>REJECTED</option>
+              <option>WRONG APPLICATION</option>
+              <option>Resubmit from Elite</option>
+              <option>RESIGNED</option>
+              <option>REJECTED - HMO</option>
+              <option>REJECTED - NO ID</option>
+              <option>REJECTED - INELIGIBLE</option>
+              <option>REJECTED - INACTIVE</option>
+              <option>Higd ded 6680.37</option>
+              <option>REJECTED - CARESOURCE</option>
+            </select>
+          </div>
+          <div class="form-group col-md-2">
+            <label for="inputInsurance">Insurance Company Name</label>
+            <input type="text" class="form-control form-control-sm" id="inputInsurance" v-model="newBioConfirm.insurance_company" placeholder="Insurance Company Name">
+          </div>
+          <div class="form-group col-md-8">
+            <label>Notes</label>
+            <textarea class="form-control form-control-sm" name="name" v-model="newBioConfirm.notes" rows="10" cols="80"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end patient info -->
+
+    <!-- patient date info -->
+    <div class="card card-date-info">
+      <div class="card-header" id="card-informations">
+        Patient's Date Informations
+      </div>
+      <div class="card-body">
+        <div class="form-row">
+          <div class="form-group col-md-2">
+            <label>Date application recorded</label>
+            <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_app_rec" id="inputDateAppRec" value="">
+          </div>
+          <div class="form-group col-md-2">
+            <label>Date sample recorded</label>
+            <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_sample_rec" id="inputDate">
+          </div>
+          <div class="form-group col-md-2">
+            <label>Date of QCA</label>
+            <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_of_qca" id="inputDate">
+          </div>
+          <div class="form-group col-md-2">
+            <label>Date submitted to telemed</label>
+            <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_submitted_to_telemed" id="inputDate">
+          </div>
+          <div class="form-group col-md-2">
+            <label>Date telemed returned</label>
+            <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_telemed_returned" id="inputDate">
+          </div>
+          <div class="form-group col-md-2">
+            <label>Date bioconfirm recorded application</label>
+            <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_bioconfim_rec_app" id="inputDate">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-2">
+            <label>Date paid</label>
+            <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_paid" id="inputDate">
+          </div>
+          <div class="form-group col-md-2">
+            <label>Month</label>
+            <input type="text" class="form-control form-control-sm" v-model="newBioConfirm.month" placeholder="Month">
+          </div>
+          <div class="form-group col-md-2">
+            <label>Rejection Date</label>
+            <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.rejection_date" id="inputDate">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end patient date info -->
+    <button type="submit" class="btn btn-success" style="float: right;">Save</button>
+   </div>
+  </form>

@@ -1,0 +1,43 @@
+body {
+    background-color: #f1f1f1;
+}
+
+#card-table {
+  margin-top: 30px;
+}
+
+#card-carrier {
+  margin-top: 30px !important;
+}
+
+#card-dme {
+  margin-top: 30px;
+}
+
+#collapseBio {
+  margin: 25px 25px !important;
+}
+
+#collapseCarrier {
+  margin: 25px 25px !important;
+}
+
+#collapseDME {
+  margin: 25px 25px !important;
+}
+
+#collapseInsurance {
+  margin: 25px 25px !important;
+}
+
+.card-date-info {
+  margin-top: 15px;
+}
+
+.tsg-tabs {
+  margin: 50px 30px;
+}
+
+.add-btn {
+  margin: 15px 10px;
+}

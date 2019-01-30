@@ -1,6 +1,18 @@
 Django==2.1.4
 django-filter==2.0.0
+django-cors-headers==2.1.0
 djangorestframework==3.9.0
 Markdown==3.0.1
 mysqlclient==1.3.14
 pytz==2018.7
+django-grappelli==2.12.1
+Pillow==5.4.1
+
+# Configuration
+django-environ==0.4.4
+
+# Excel uploads
+openpyxl==2.5.12
+django-excel==0.0.10
+xlrd==1.2.0
+django-import-export==1.1.0

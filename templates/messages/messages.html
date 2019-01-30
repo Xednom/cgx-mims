@@ -1,0 +1,40 @@
+{% if messages %}
+    {% for message in messages %}
+    <div class="box {{ message.tags }}" alert="alert">
+      <a class='close'></a>
+      <div class="info">
+      {% if message.tags == "info" %}
+        <div class="alert alert-info" role="alert">
+        <i class="fa fa-info-circle"></i>
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+          {{ message|safe }}
+        </div>
+      </div>
+      <div class="success">
+      {% elif message.tags == "success" %}
+        <div class="alert alert-success" role="alert">
+            <i class="fa fa-check-circle"></i>
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+          {{ message|safe }}
+        </div>
+      </div>
+      <div class="warning">
+      {% elif message.tags == "warning" %}
+        <div class="alert alert-warning" role="alert">
+            <i class="fa fa-warning-circle"></i>
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+          {{ message|safe }}
+        </div>
+      </div>
+      <div class="error">
+        {% elif message.tags == "error" %}
+        <div class="alert alert-danger" role="alert">
+            <i class="fa fa-times-circle"></i>
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+          {{ message|safe }}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+{% endif %}

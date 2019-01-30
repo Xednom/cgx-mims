@@ -1,0 +1,46 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+
+{% block title %}
+Login | TSG Systems
+{% endblock %}
+
+{% block navbar %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="column col-sm-10 offset-sm-1  col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+            <div class="row">
+                <div class="column col-sm-12">
+                    <img class="img-fluid" alt="CGX Systems" src="{% static 'images/logo/CGX_v3.png' %}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="column col-sm-12">
+                    <div class="card">
+                        <form class="card-body" action="{% url 'web:login' %}" role="form" method="post" autocomplete="off">{% csrf_token %}
+                            <div class="form-group">
+                              {% include 'messages/messages.html' %}
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                            </div>
+                            {% if request.GET.next %}
+                              <input type="hidden" name="next" value="{{ request.GET.next }}">
+                            {% endif %}
+                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

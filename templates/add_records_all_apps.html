@@ -1,0 +1,96 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+Add data | TSG System
+{% endblock %}
+
+{% block content %}
+<div class="col-md-12">
+    <div id="accordion">
+    <div class="card" id="card-table">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseBio" aria-expanded="true" aria-controls="collapseOne">
+            Bio Confirm Master
+          </button>
+        </h5>
+      </div>
+      <!-- collapse card -->
+      <div id="collapseBio" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+        <!-- patient info -->
+        <div class="card">
+          <div class="card-header" id="card-informations">
+            Patient Informations
+          </div>
+          <div class="card-body">
+            {% include 'cgx/add_patient_bioconfirm.html' %}
+          </div>
+        </div>
+        <!-- end patient info -->
+      </div>
+      <!-- end collapse card -->
+    </div>
+    <div class="card" id="card-table">
+      <div class="card-header" id="headingTwo">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseCarrier" aria-expanded="false" aria-controls="collapseTwo">
+            Carrier
+          </button>
+        </h5>
+      </div>
+      <div id="carrier-app">
+          <div id="collapseCarrier" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+            {% include 'carrier/add_patient_carrier.html' %}
+          </div>
+        </div>
+      </div>
+    <div class="card" id="card-table">
+      <!-- card header -->
+      <div class="card-header" id="headingThree">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseDME" aria-expanded="false" aria-controls="collapseThree">
+            DME
+          </button>
+        </h5>
+      </div>
+      <!-- end card header -->
+      <div id="collapseDME" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+        {% include 'dme/add_patient_dme.html' %}
+      </div>
+    </div>
+    <div class="card" id="card-table">
+      <div class="card-header" id="headingThree">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseInsurance" aria-expanded="false" aria-controls="collapseFour">
+            Insurance
+          </button>
+        </h5>
+      </div>
+      <div id="collapseInsurance" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+        <!-- agent info -->
+        <div class="card">
+          <div class="card-header" id="card-informations">
+            Insurance Informations
+          </div>
+          <div class="card-body">
+            {% include 'insurance/add_info_insurance.html' %}
+          </div>
+        </div>
+        <!-- end agent info -->
+
+        <!-- patient info -->
+        <div class="card card-date-info">
+          <div class="card-header" id="card-informations">
+            Patient's Personal Informations Header
+          </div>
+          <div class="card-body">
+            {% include 'insurance/add_personal_insurance.html' %}
+          </div>
+        </div>
+        <!-- end patient info -->
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,4 +1,3 @@
-secrets.json
 *.pyc
 *.pyo
 .idea
@@ -6,5 +5,10 @@ secrets.json
 *.vscode
 db.sqlite3
 *.log
+venv/
 .env
+media/
+.png
 *.xlsx
+*.csv
+staticfiles/
