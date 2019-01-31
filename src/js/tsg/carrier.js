@@ -62,25 +62,47 @@ new Vue({
                 console.log(err);
               })
         },
-        addCarrier: function() {
+        // old code using http
+      //   addCarrier: function() {
+      //   this.loading = true;
+      //   this.$http.post('/api/v1/carrier/', this.newCarrier)
+      //       .then((response) => {
+      //         this.loading = true;
+      //         swal({
+      //           title: "TSG System",
+      //           text: "Data has been saved successfully for Carrier",
+      //           icon: "success",
+      //           buttons: false,
+      //           timer: 2000
+      //         })
+      //         this.reset();
+      //         this.getCarriers();
+      //       })
+      //       .catch((err) => {
+      //         this.loading = true;
+      //         console.log(err);
+      //       })
+      // },
+
+      // new code using axios
+      addCarrier: function () {
         this.loading = true;
-        this.$http.post('/api/v1/carrier/', this.newCarrier)
-            .then((response) => {
-              this.loading = true;
-              swal({
-                title: "TSG System",
-                text: "Data has been saved successfully for Carrier",
-                icon: "success",
-                buttons: false,
-                timer: 2000
-              })
-              this.reset();
-              this.getCarriers();
-            })
-            .catch((err) => {
-              this.loading = true;
-              console.log(err);
-            })
+        axios.post('/api/v1/carrier/', this.newCarrier).then((response) => {
+          this.loading = true;
+          swal({
+            title: "TSG System",
+            text: "Data has been saved successfully for Carrier",
+            icon: "success",
+            buttons: false,
+            timer: 2000
+          })
+          this.reset();
+          this.getCarriers();
+        })
+        .catch((err) => {
+          this.loading = false;
+          console.log(err);
+        })
       },
       getAgentNames: function() {
       this.loading = true;

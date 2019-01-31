@@ -30,7 +30,7 @@ GENDER_CHOICES = (
 
 
 class DME_II(models.Model):
-    submission_date = models.DateField(default=timezone.now)
+    submission_date = models.DateField(default=datetime.date.today)
     first_name = models.CharField(max_length=250, null=True, blank=True)
     last_name = models.CharField(max_length=250, null=True, blank=True)
     agents_promod_code = models.CharField(max_length=100, null=True, blank=True, verbose_name="Agent's Promo Code")
@@ -77,7 +77,7 @@ class DME_II(models.Model):
     seen_doctor = models.CharField(max_length=250, null=True, blank=True, verbose_name='Have you seen a doctor in the last year?')
     surgeries = models.CharField(max_length=250, null=True, blank=True, verbose_name='Any Surgeries in the last year?')
     consent_recording = models.ImageField(upload_to='consent_recording/', max_length=100, null=True, blank=True)
-    ip = models.GenericIPAddressField(protocol='both', unpack_ipv4=False, verbose_name='IP Address')
+    ip = models.GenericIPAddressField(protocol='both', unpack_ipv4=False, verbose_name='IP Address', null=True, blank=True)
     submission_id = models.CharField(max_length=350, null=True, blank=True)
     edit_link = models.CharField(max_length=250, null=True, blank=True)
 

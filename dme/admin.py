@@ -42,20 +42,12 @@ class DMEIIProfile(admin.ModelAdmin):
                 'state_province',
                 'postal_zip_code',
                 'country',
-                'patient_id_photo',
-                'patient_id_photo_image',
                 'insurance_type',
                 'policy_number',
                 'ppo_information_mem_id',
                 'ppo_information_ppo_name',
                 'insurance_status',
                 'insurance_notes',
-                'insurance_card_photo_front',
-                'insurance_card_photo_front_image',
-                'insurance_card_photo_back',
-                'insurance_card_photo_back_image',
-                'additional_insurance_cards',
-                'additional_insurance_cards_image',
                 'location_of_back_pain',
                 'location_of_shoulder_pain',
                 'location_of_knee_pain',
@@ -84,6 +76,18 @@ class DMEIIProfile(admin.ModelAdmin):
                 'ip',
                 'submission_id',
                 'edit_link'
+            )
+        }),
+        ("Attachments", {
+            'fields': (
+                'patient_id_photo',
+                'patient_id_photo_image',
+                'insurance_card_photo_front',
+                'insurance_card_photo_front_image',
+                'insurance_card_photo_back',
+                'insurance_card_photo_back_image',
+                'additional_insurance_cards',
+                'additional_insurance_cards_image',
             )
         })
     )

@@ -64,24 +64,45 @@ new Vue({
                 console.log(err);
               })
         },
-        addBioConfirm: function() {
+      // old code using http
+      //   addBioConfirm: function() {
+      //   this.loading = true;
+      //   this.$http.post('/api/v1/bio-confirm-master/', this.newBioConfirm)
+      //       .then((response) => {
+      //         this.loading = true;
+      //         swal({
+      //           title: "TSG System",
+      //           text: "Data has been saved successfully for Bio Confirm Master",
+      //           icon: "success",
+      //           buttons: false,
+      //           timer: 2000
+      //         })
+      //         this.getBioConfirms();
+      //       })
+      //       .catch((err) => {
+      //         this.loading = true;
+      //         console.log(err);
+      //       })
+      // },
+
+      // new code using axios
+      addBioConfirm: function() {
         this.loading = true;
-        this.$http.post('/api/v1/bio-confirm-master/', this.newBioConfirm)
-            .then((response) => {
+        axios.post(`/api/v1/bio-confirm-master/`, this.newBioConfirm).then((response) => {
               this.loading = true;
               swal({
                 title: "TSG System",
-                text: "Data has been saved successfully for Bio Confirm Master",
+                text: "Data has been saved successfully for Bio Confirm",
                 icon: "success",
                 buttons: false,
                 timer: 2000
               })
-              this.getBioConfirms();
-            })
-            .catch((err) => {
-              this.loading = true;
-              console.log(err);
-            })
+            this.getBioConfirms();
+          })
+          .catch((err) => {
+            this.loading = true;
+            console.log(err);
+          })
       },
   }
 });
