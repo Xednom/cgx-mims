@@ -58,12 +58,16 @@ new Vue({
         'submission_id': "",
         'edit_link': "",
     },
-    search_term: ''
+    search_term: '',
+    fileInput: {},
   },
   mounted: function() {
     this.getDmes();
   },
   methods: {
+    onFileChange: function (event) {
+      this.newDme[event.target.name] = event.target.files[0];
+    },
     getDmes: function() {
           let api_url = '/api/v1/dme/';
           // if(this.search_term!==''||this.search_term!==null) {
@@ -81,17 +85,25 @@ new Vue({
               })
         },
         // old code using http
-    addDme: function() {
+    /*addDme: function() {
       const formData = new FormData();
+      Object.keys(this.newDme).forEach((key) => {
+          let obj = this.newDme[key];
+          if (obj instanceof File) {
+            formData.append(key, obj, obj.name)
+          } else {
+            formData.append(key, obj);
+          }
+      });
       this.loading = false;
-      this.$http.post('/api/v1/dme/', this.newDme, {
+      this.$http.post('/api/v1/dme/', formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
             }
           })
           .then((response) => {
             this.loading = false;
-            console.log(this.newDme);
+            console.log(formData);
             swal({
               title: "TSG System",
               text: "Data has been saved successfully for DME",
@@ -106,26 +118,36 @@ new Vue({
             this.loading = false;
             console.log(err);
           })
-    },
+    },*/
 
     // new code using axios
-    // addDme: function () {
-    //   this.loading = false;
-    //   axios.post('/api/v1/dme/', this.newDme).then((response) => {
-    //     this.loading = true;
-    //     swal({
-    //       title: "TSG System",
-    //       text: "Data has been saved successfully for DME",
-    //       icons: "success",
-    //       buttons: false,
-    //       timer: 2000
-    //     })
-    //     this.getDmes();
-    //   })
-    //   .catch((err) => {
-    //     this.loading = true;
-    //     console.log(err);
-    //   })
-    // },
+    addDme: function () {
+      const formData = new FormData();
+      Object.keys(this.newDme).forEach((key) => {
+          let obj = this.newDme[key];
+          if (obj instanceof File) {
+            formData.append(key, obj, obj.name)
+          } else {
+            formData.append(key, obj);
+          }
+      });
+      this.loading = false;
+      axios.post('/api/v1/dme/', formData).then((response) => {
+        console.log(formData);
+        this.loading = true;
+        swal({
+          title: "TSG System",
+          text: "Data has been saved successfully for DME",
+          icons: "success",
+          buttons: false,
+          timer: 2000
+        });
+        this.getDmes();
+      })
+      .catch((err) => {
+        this.loading = true;
+        console.log(err);
+      })
+    },
   }
 });
