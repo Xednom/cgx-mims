@@ -230,26 +230,32 @@
         Attachments
       </div>
       <div class="card-body">
+        <div class="form-group col-md-offset-6">
+          <div class="alert alert-success text-center" role="alert">
+            <h4 class="alert-heading">Attention!</h4>
+            <p>Attachment functions are currently at <strong>Development</strong> phase, it will only be available via admin site.</p>
+          </div>
+        </div>
         <div class="row">
           <div class="form-group col-md-2">
             <label>Patient ID Photo</label>
-            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" v-model="newDme.patient_id_photo" id="inputIDPhoto">
+            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" v-model="newDme.patient_id_photo" id="inputIDPhoto" disabled>
           </div>
           <div class="form-group col-md-2">
             <label>Insurance card photo front</label>
-            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" v-model="newDme.insurance_card_photo_front" id="inputInsuranceFront">
+            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" v-model="newDme.insurance_card_photo_front" id="inputInsuranceFront" disabled>
           </div>
           <div class="form-group col-md-2">
             <label>Insurance card photo back</label>
-            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" v-model="newDme.insurance_card_photo_back" id="inputInsuranceFront">
+            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" v-model="newDme.insurance_card_photo_back" id="inputInsuranceFront" disabled>
           </div>
           <div class="form-group col-md-2">
             <label>Additional Insurance card</label>
-            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" v-model="newDme.additional_insurance_cards" id="inputInsuranceAdditional">
+            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" v-model="newDme.additional_insurance_cards" id="inputInsuranceAdditional" disabled>
           </div>
           <div class="form-group col-md-2">
             <label>Consent Recording</label>
-            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" v-model="newDme.consent_recording" id="inputRecording">
+            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" v-model="newDme.consent_recording" id="inputRecording" disabled>
           </div>
         </div>
       </div>

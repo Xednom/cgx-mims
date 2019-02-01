@@ -85,7 +85,7 @@
     <!-- end patient info -->
 
     <!-- patient date info -->
-    <div class="card card-date-info">
+    <div class="card card-dae-info">
       <div class="card-header" id="card-informations">
         Patient's Date Informations
       </div>
@@ -133,6 +133,42 @@
       </div>
     </div>
     <!-- end patient date info -->
+    <div class="card card-info">
+      <div class="card-header" id="card-informations">
+        Attachments
+      </div>
+      <div class="card-body">
+        <div class="form-group col-md-offset-6">
+          <div class="alert alert-success text-center" role="alert">
+            <h4 class="alert-heading">Attention!</h4>
+            <p>Attachment functions are currently at <strong>Development</strong> phase, it will only be available via admin site.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-2">
+            <label>Patient ID Photo</label>
+            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" id="inputIDPhoto" disabled>
+          </div>
+          <div class="form-group col-md-2">
+            <label>Insurance card photo front</label>
+            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" id="inputInsuranceFront" disabled>
+          </div>
+          <div class="form-group col-md-2">
+            <label>Insurance card photo back</label>
+            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" id="inputInsuranceFront" disabled>
+          </div>
+          <div class="form-group col-md-2">
+            <label>Additional Insurance card</label>
+            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" id="inputInsuranceAdditional" disabled>
+          </div>
+          <div class="form-group col-md-2">
+            <label>Consent Recording</label>
+            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" id="inputRecording" disabled>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end of attachments -->
     <button type="submit" class="btn btn-success" style="float: right;">Save</button>
    </div>
   </form>

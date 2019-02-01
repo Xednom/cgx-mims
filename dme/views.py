@@ -19,7 +19,7 @@ class DMEIIViewSet(viewsets.ModelViewSet):
     queryset = DME_II.objects.all()
     serializer_class = DMEIISerializer
     authentication_classes = (CsrftExemptSessionAuthentication, BasicAuthentication)
-    #  parser_classes = (MultiPartParser, FormParser,)
+    parser_classes = (MultiPartParser,)
     filter_backends = [filters.SearchFilter]
     search_fields = ('first_name', 'last_name', 'agents_promod_code')
 

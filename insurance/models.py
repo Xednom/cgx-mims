@@ -44,6 +44,11 @@ class Insurance(models.Model):
     verification_date = models.DateField(null=True, blank=True)
     deductible_remainding = models.CharField(max_length=250, verbose_name='Deductible Remainding', null=True, blank=True)
     notes = models.TextField(null=True, blank=True)
+    patient_id_photo = models.ImageField(upload_to='insurance/patient-id-photo/', max_length=1000, null=True, blank=True)
+    insurance_card_photo_front = models.ImageField(upload_to='insurance/insurance-card-photo-front/', max_length=1000, null=True, blank=True)
+    insurance_card_photo_back = models.ImageField(upload_to='insurance/insurance-card-photo-back/', max_length=1000, null=True, blank=True)
+    additional_insurance_cards = models.ImageField(upload_to='insurance/additional-insurance-cards/', max_length=1000, null=True, blank=True)
+    consent_recording = models.FileField(upload_to='insurance/consent_recording/', max_length=1000, null=True, blank=True)
 
     class Meta:
         verbose_name_plural = 'Insurance records'

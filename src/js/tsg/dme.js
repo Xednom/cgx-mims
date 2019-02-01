@@ -82,27 +82,16 @@ new Vue({
         },
         // old code using http
     addDme: function() {
-      // const formDme = document.getElementById('formDme');
-      // const formData = new FormData(formDme);
-      // key/value pair
-      // formData.append('submission_date', this.newDme.submission_date)
-      // formData.append('first_name', this.newDme.first_name)
-      // formData.append('last_name', this.newDme.last_name)
-      // formData.append('agetns_promod_code', this.newDme.agents_promod_code)
-      // formData.append('agents_email', this.newDme.agents_email)
-      // formData.append('patient_id_photo', this.newDme.patient_id_photo)
-      // formData.append('insurance_card_photo_front', this.newDme.insurance_card_photo_front)
-      // formData.append('insurance_card_photo_back', this.newDme.insurance_card_photo_back)
-      // formData.append('additional_insurance_cards', this.newDme.additional_insurance_cards)
-      // formData.append('submission_date', this.newDme.submission_date)
+      const formData = new FormData();
       this.loading = false;
-      this.$http.post('/api/v1/dme/', this.newDme)
-          //   headers: {
-          //     'Content-Type': 'multipart/form-data'
-          //   }
-          // })
+      this.$http.post('/api/v1/dme/', this.newDme, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          })
           .then((response) => {
             this.loading = false;
+            console.log(this.newDme);
             swal({
               title: "TSG System",
               text: "Data has been saved successfully for DME",

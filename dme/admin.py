@@ -71,8 +71,6 @@ class DMEIIProfile(admin.ModelAdmin):
                 'treatments_tried',
                 'seen_doctor',
                 'surgeries',
-                'consent_recording',
-                'consent_recording_image',
                 'ip',
                 'submission_id',
                 'edit_link'
@@ -88,6 +86,8 @@ class DMEIIProfile(admin.ModelAdmin):
                 'insurance_card_photo_back_image',
                 'additional_insurance_cards',
                 'additional_insurance_cards_image',
+                'consent_recording',
+                'consent_recording_image',
             )
         })
     )

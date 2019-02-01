@@ -86,6 +86,11 @@ class Carrier(models.Model):
     insurance_company = models.CharField(max_length=50, verbose_name="Insurance company name", null=True, blank=True)
     notes = models.TextField(blank=True, null=True, verbose_name="Notes")
     rejection_date = models.DateField(default=timezone.now, verbose_name="Rejection Date", null=True, blank=True)
+    patient_id_photo = models.ImageField(upload_to='bio-confirm-master/patient-id-photo/', max_length=1000, null=True, blank=True)
+    insurance_card_photo_front = models.ImageField(upload_to='carrier/insurance-card-photo-front/', max_length=1000, null=True, blank=True)
+    insurance_card_photo_back = models.ImageField(upload_to='carrier/insurance-card-photo-back/', max_length=1000, null=True, blank=True)
+    additional_insurance_cards = models.ImageField(upload_to='carrier/additional-insurance-cards/', max_length=1000, null=True, blank=True)
+    consent_recording = models.FileField(upload_to='carrier/consent-recording/', max_length=1000, null=True, blank=True)
 
     class Meta:
         ordering = ['patient_name']
