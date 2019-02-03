@@ -8,34 +8,47 @@ new Vue({
     message: null,
     loading: false,
     newBioConfirm: {
-      'patient_name': null,
-      'patient_phone_number': null,
-      'promo_code': null,
-      'agent': null,
-      'date_app_rec': null,
-      'date_sample_rec': null,
-      'type_of_test': null,
-      'date_of_qca': null,
-      'submitted_to_tamika_ins_verifier': null,
-      'telemed_name': null,
-      'date_submitted_to_telemed': null,
-      'date_telemed_returned': null,
-      'date_bioconfim_rec_app': null,
-      'date_paid': null,
-      'state': null,
-      'status': null,
-      'month': null,
-      'insurance_company': null,
-      'notes': null,
-      'rejection_date': null,
+      'patient_name': "",
+      'patient_phone_number': "",
+      'promo_code': "",
+      'agent': "",
+      'date_app_rec': "",
+      'date_sample_rec': "",
+      'type_of_test': "",
+      'date_of_qca': "",
+      'submitted_to_tamika_ins_verifier': "",
+      'telemed_name': "",
+      'date_submitted_to_telemed': "",
+      'date_telemed_returned': "",
+      'date_bioconfim_rec_app': "",
+      'date_paid': "",
+      'state': "",
+      'status': "",
+      'month': "",
+      'insurance_company': "",
+      'notes': "",
+      'rejection_date': "",
     },
-    search_term: ''
+    search_term: '',
+    fileInput: {},
   },
   mounted: function() {
     this.getBioConfirms();
     this.getAgentNames();
   },
   methods: {
+    onFileChange: function (event) {
+      this.newBioConfirm[event.target.name] = event.target.files[0];
+    },
+    reset: function () {
+      this.newBioConfirm.patient_name = this.newBioConfirm.patient_phone_number = this.newBioConfirm.promo_code = null;
+      this.newBioConfirm.agent = this.newBioConfirm.date_app_rec = this.newBioConfirm.date_sample_rec = null;
+      this.newBioConfirm.type_of_test = this.newBioConfirm.date_of_qca = this.newBioConfirm.submitted_to_tamika_ins_verifier = null;
+      this.newBioConfirm.telemed_name = this.newBioConfirm.date_submitted_to_telemed = this.newBioConfirm.date_telemed_returned = null;
+      this.newBioConfirm.date_bioconfim_rec_app = this.newBioConfirm.date_paid = this.newBioConfirm.state = null;
+      this.newBioConfirm.status = this.newBioConfirm.month = this.newBioConfirm.insurance_company = null;
+      this.newBioConfirm.notes = this.newBioConfirm.rejection_date = null;
+    },
     getBioConfirms: function() {
           let api_url = '/api/v1/bio-confirm-master/';
           if(this.search_term!==''||this.search_term!==null) {
@@ -64,31 +77,21 @@ new Vue({
                 console.log(err);
               })
         },
-      // old code using http
-      //   addBioConfirm: function() {
-      //   this.loading = true;
-      //   this.$http.post('/api/v1/bio-confirm-master/', this.newBioConfirm)
-      //       .then((response) => {
-      //         this.loading = true;
-      //         swal({
-      //           title: "TSG System",
-      //           text: "Data has been saved successfully for Bio Confirm Master",
-      //           icon: "success",
-      //           buttons: false,
-      //           timer: 2000
-      //         })
-      //         this.getBioConfirms();
-      //       })
-      //       .catch((err) => {
-      //         this.loading = true;
-      //         console.log(err);
-      //       })
-      // },
 
       // new code using axios
       addBioConfirm: function() {
+        const formData = new FormData();
+        Object.keys(this.newBioConfirm).forEach((key) => {
+          let obj = this.newBioConfirm[key];
+          if (obj instanceof File) {
+            formData.append(key, obj, obj.name)
+          } else {
+            formData.append(key, obj);
+          }
+        });
         this.loading = true;
-        axios.post(`/api/v1/bio-confirm-master/`, this.newBioConfirm).then((response) => {
+        axios.post(`/api/v1/bio-confirm-master/`, formData).then((response) => {
+              console.log(formData);
               this.loading = true;
               swal({
                 title: "TSG System",
@@ -97,7 +100,8 @@ new Vue({
                 buttons: false,
                 timer: 2000
               })
-            this.getBioConfirms();
+              this.reset();
+              this.getBioConfirms();
           })
           .catch((err) => {
             this.loading = true;

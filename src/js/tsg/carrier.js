@@ -9,28 +9,34 @@ new Vue({
     loading: false,
     csrf_token: ['csrf_token'],
     newCarrier: {
-      'patient_name': null,
-      'patient_phone_number': null,
-      'promo_code': null,
-      'agent': null,
-      'date_app_rec': null,
-      'date_sample_rec': null,
-      'type_of_test': null,
-      'date_of_qca': null,
-      'submitted_to_tamika_ins_verifier': null,
-      'telemed_name': null,
-      'date_submitted_to_telemed': null,
-      'date_telemed_returned': null,
-      'date_bioconfim_rec_app': null,
-      'date_paid': null,
-      'state': null,
-      'status': null,
-      'month': null,
-      'insurance_company': null,
-      'notes': null,
-      'rejection_date': null,
+      'patient_name': "",
+      'patient_phone_number': "",
+      'promo_code': "",
+      'agent': "",
+      'date_app_rec': "",
+      'date_sample_rec': "",
+      'type_of_test': "",
+      'date_of_qca': "",
+      'submitted_to_tamika_ins_verifier': "",
+      'telemed_name': "",
+      'date_submitted_to_telemed': "",
+      'date_telemed_returned': "",
+      'date_bioconfim_rec_app': "",
+      'date_paid': "",
+      'state': "",
+      'status': "",
+      'month': "",
+      'insurance_company': "",
+      'notes': "",
+      'rejection_date': "",
+      'patient_id_photo': "",
+      'insurance_card_photo_front': "",
+      'insurance_card_photo_back': "",
+      'additional_insurance_cards': "",
+      'consent_recording': "",
     },
-    search_term: ''
+    search_term: '',
+    fileInput: {},
   },
   mounted: function() {
     this.getCarriers();
@@ -45,6 +51,9 @@ new Vue({
       this.newCarrier.date_bioconfim_rec_app = this.newCarrier.date_paid = this.newCarrier.state = null;
       this.newCarrier.status = this.newCarrier.month = this.newCarrier.insurance_company = null;
       this.newCarrier.notes = this.newCarrier.rejection_date = null;
+    },
+    onFileChange: function (event) {
+      this.newCarrier[event.target.name] = event.target.files[0];
     },
     getCarriers: function() {
           let api_url = '/api/v1/carrier/';
@@ -62,32 +71,21 @@ new Vue({
                 console.log(err);
               })
         },
-        // old code using http
-      //   addCarrier: function() {
-      //   this.loading = true;
-      //   this.$http.post('/api/v1/carrier/', this.newCarrier)
-      //       .then((response) => {
-      //         this.loading = true;
-      //         swal({
-      //           title: "TSG System",
-      //           text: "Data has been saved successfully for Carrier",
-      //           icon: "success",
-      //           buttons: false,
-      //           timer: 2000
-      //         })
-      //         this.reset();
-      //         this.getCarriers();
-      //       })
-      //       .catch((err) => {
-      //         this.loading = true;
-      //         console.log(err);
-      //       })
-      // },
 
       // new code using axios
       addCarrier: function () {
+        const formData = new FormData();
+        Object.keys(this.newCarrier).forEach((key) => {
+            let obj = this.newCarrier[key];
+            if (obj instanceof File) {
+              formData.append(key, obj, obj.name)
+            } else {
+              formData.append(key, obj);
+            }
+        });
         this.loading = true;
-        axios.post('/api/v1/carrier/', this.newCarrier).then((response) => {
+        this.$http.post('/api/v1/carrier/', formData).then((response) => {
+          console.log(formData);
           this.loading = true;
           swal({
             title: "TSG System",
@@ -95,7 +93,7 @@ new Vue({
             icon: "success",
             buttons: false,
             timer: 2000
-          })
+          });
           this.reset();
           this.getCarriers();
         })
