@@ -63,8 +63,13 @@ new Vue({
   },
   mounted: function() {
     this.getDmes();
+    this.setDefaultDates();
   },
   methods: {
+    setDefaultDates: function() {
+      let currentDate = moment(new Date()).format("YYYY-MM-DD");
+      this.newDme.submission_date = currentDate;
+    },
     onFileChange: function (event) {
       this.newDme[event.target.name] = event.target.files[0];
     },
