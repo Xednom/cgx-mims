@@ -39,8 +39,13 @@ new Vue({
     this.getAgentNames();
     this.getManagerNames();
     this.getTypeOfInsurance();
+    this.setDefaultDates();
   },
   methods: {
+    setDefaultDates: function() {
+      let currentDate = moment(new Date()).format("YYYY-MM-DD");
+      this.newInsurance.verification_date = currentDate;
+    },
     onFileChange: function (event) {
       this.newInsurance[event.target.name] = event.target.files[0];
     },

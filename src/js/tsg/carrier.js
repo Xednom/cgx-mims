@@ -41,8 +41,21 @@ new Vue({
   mounted: function() {
     this.getCarriers();
     this.getAgentNames();
+    this.setDefaultDates();
   },
   methods: {
+    setDefaultDates: function() {
+      let currentDate = moment(new Date()).format("YYYY-MM-DD");
+      this.newCarrier.submitted_to_tamika_ins_verifier = currentDate;
+      this.newCarrier.date_app_rec = currentDate;
+      this.newCarrier.date_sample_rec = currentDate;
+      this.newCarrier.date_of_qca = currentDate;
+      this.newCarrier.date_submitted_to_telemed = currentDate;
+      this.newCarrier.date_telemed_returned = currentDate;
+      this.newCarrier.date_bioconfim_rec_app = currentDate;
+      this.newCarrier.date_paid = currentDate;
+      this.newCarrier.rejection_date = currentDate;
+    },
     onFileChange: function (event) {
       this.newCarrier[event.target.name] = event.target.files[0];
     },

@@ -35,8 +35,21 @@ new Vue({
   mounted: function() {
     this.getBioConfirms();
     this.getAgentNames();
+		this.setDefaultDates();
   },
   methods: {
+    setDefaultDates: function() {
+      let currentDate = moment(new Date()).format("YYYY-MM-DD");
+      this.newBioConfirm.submitted_to_tamika_ins_verifier = currentDate;
+      this.newBioConfirm.date_app_rec = currentDate;
+      this.newBioConfirm.date_sample_rec = currentDate;
+      this.newBioConfirm.date_of_qca = currentDate;
+      this.newBioConfirm.date_submitted_to_telemed = currentDate;
+      this.newBioConfirm.date_telemed_returned = currentDate;
+      this.newBioConfirm.date_bioconfim_rec_app = currentDate;
+      this.newBioConfirm.date_paid = currentDate;
+      this.newBioConfirm.rejection_date = currentDate;
+    },
     onFileChange: function (event) {
       this.newBioConfirm[event.target.name] = event.target.files[0];
     },
