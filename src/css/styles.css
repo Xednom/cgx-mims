@@ -1,5 +1,19 @@
 body {
-    background-color: #f1f1f1;
+  background-color: #f9f9f9;
+}
+
+nav {
+  height: 64px;
+  background-color: #f0f0f0;
+}
+
+nav .navbar-brand img {
+  height: 64px;
+}
+
+nav .navbar-top-links .dropdown .dropdown-menu {
+  left: unset !important;
+  right: 0;
 }
 
 #card-table {
@@ -34,10 +48,26 @@ body {
   margin-top: 15px;
 }
 
-.tsg-tabs {
-  margin: 50px 30px;
+.nav.nav-tabs {
+  padding: 0 20px;
+  background-color: #f9f9f9;
 }
 
-.add-btn {
-  margin: 15px 10px;
+.nav.nav-tabs .nav-item:not(.add-btn) .nav-link {
+  color: #495057 !important;
+}
+
+.nav.nav-tabs .nav-item:not(.add-btn) .nav-link.active {
+  color: #000000 !important;
+  font-weight: bold;
+}
+
+.tsg-tabs {
+  margin: 50px 0;
+  background-color: white;
+}
+
+.add-btn a {
+  background-color: #007bff;
+  color: white !important;
 }
