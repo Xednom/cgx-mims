@@ -44,13 +44,6 @@ new Vue({
     onFileChange: function (event) {
       this.newInsurance[event.target.name] = event.target.files[0];
     },
-    reset: function () {
-      this.newInsurance.name = this.newInsurance.promo_code = this.newInsurance.agent = this.newInsurance.manager = null;
-      this.newInsurance.date_of_birth = this.newInsurance.state = this.newInsurance.type_of_insurance = this.newInsurance.test = null;
-      this.newInsurance.active_inactive = this.newInsurance.status = this.newInsurance.insurance_status = this.newInsurance.policy_number = null;
-      this.newInsurance.verification_date = this.newInsurance.deductible_remainding = this.newInsurance.notes = this.newInsurance.patient_id_photo = null;
-      this.$refs.insurance_card_photo_front.value = this.$refs.insurance_card_photo_back.value = this.$refs.additional_insurance_cards.value = this.$refs.consent_recording.value = '';
-    },
     getInsurances: function() {
           let api_url = '/api/v1/insurance/';
           if(this.search_term!==''||this.search_term!==null) {
@@ -67,7 +60,7 @@ new Vue({
                 console.log(err);
               })
         },
-      addInsurance: function () {
+      addInsurance: function (event) {
         const formData = new FormData();
         Object.keys(this.newInsurance).forEach((key) => {
           let obj = this.newInsurance[key];
@@ -87,7 +80,8 @@ new Vue({
               buttons: false,
               timer: 2000
             });
-            this.reset();
+            // reset form
+            event.target.reset();
           })
           .catch((err) => {
             this.loading = false;

@@ -43,15 +43,6 @@ new Vue({
     this.getAgentNames();
   },
   methods: {
-    reset: function() {
-      this.newCarrier.patient_name = this.newCarrier.patient_phone_number = this.newCarrier.promo_code = null;
-      this.newCarrier.agent = this.newCarrier.date_app_rec = this.newCarrier.date_sample_rec = null;
-      this.newCarrier.type_of_test = this.newCarrier.date_of_qca = this.newCarrier.submitted_to_tamika_ins_verifier = null;
-      this.newCarrier.telemed_name = this.newCarrier.date_submitted_to_telemed = this.newCarrier.date_telemed_returned = null;
-      this.newCarrier.date_bioconfim_rec_app = this.newCarrier.date_paid = this.newCarrier.state = null;
-      this.newCarrier.status = this.newCarrier.month = this.newCarrier.insurance_company = null;
-      this.newCarrier.notes = this.newCarrier.rejection_date = null;
-    },
     onFileChange: function (event) {
       this.newCarrier[event.target.name] = event.target.files[0];
     },
@@ -73,7 +64,7 @@ new Vue({
         },
 
       // new code using axios
-      addCarrier: function () {
+      addCarrier: function (event) {
         const formData = new FormData();
         Object.keys(this.newCarrier).forEach((key) => {
             let obj = this.newCarrier[key];
@@ -94,8 +85,9 @@ new Vue({
             buttons: false,
             timer: 2000
           });
-          this.reset();
           this.getCarriers();
+          // reset form
+          event.target.reset();
         })
         .catch((err) => {
           this.loading = false;
