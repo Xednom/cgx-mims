@@ -1,6 +1,6 @@
 <div id="carrier-app">
   <!-- patient info -->
-  <form v-on:submit.prevent="addCarrier()" method="POST">
+  <form v-on:submit.prevent="addCarrier()" enctype="multipart/form-data" method="POST">
     {% csrf_token %}
     <div class="card">
       <div class="card-header" id="card-informations">
@@ -138,32 +138,26 @@
         Attachments
       </div>
       <div class="card-body">
-        <div class="form-group col-md-offset-6">
-          <div class="alert alert-success text-center" role="alert">
-            <h4 class="alert-heading">Attention!</h4>
-            <p>Attachment functions are currently at <strong>Development</strong> phase, it will only be available via admin site.</p>
-          </div>
-        </div>
         <div class="row">
           <div class="form-group col-md-2">
             <label>Patient ID Photo</label>
-            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" id="inputIDPhoto" disabled>
+            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" name="patient_id_photo" id="inputIDPhoto" v-on:change="onFileChange($event)">
           </div>
           <div class="form-group col-md-2">
             <label>Insurance card photo front</label>
-            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" id="inputInsuranceFront" disabled>
+            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" name="insurance_card_photo_front" id="inputInsuranceFront" v-on:change="onFileChange($event)">
           </div>
           <div class="form-group col-md-2">
             <label>Insurance card photo back</label>
-            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" id="inputInsuranceFront" disabled>
+            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" name="insurance_card_photo_back" id="inputInsuranceFront" v-on:change="onFileChange($event)">
           </div>
           <div class="form-group col-md-2">
             <label>Additional Insurance card</label>
-            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" id="inputInsuranceAdditional" disabled>
+            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" name="additional_insurance_cards" id="inputInsuranceAdditional" v-on:change="onFileChange($event)">
           </div>
           <div class="form-group col-md-2">
             <label>Consent Recording</label>
-            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" id="inputRecording" disabled>
+            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" name="consent_recording" id="inputRecording" v-on:change="onFileChange($event)">
           </div>
         </div>
       </div>

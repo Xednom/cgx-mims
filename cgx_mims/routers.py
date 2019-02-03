@@ -2,7 +2,7 @@ from rest_framework import routers
 from cgx.views import AgentViewSet, ManagerViewSet, BioConfirmMasterViewSet
 from carrier.views import CarrierViewSet
 from dme.views import DMEIIViewSet
-from insurance.views import InsuranceViewSet
+from insurance.views import InsuranceViewSet, TypeOfInsuranceViewSet
 
 
 router = routers.DefaultRouter()
@@ -12,4 +12,5 @@ router.register(r'manager', ManagerViewSet)
 router.register(r'bio-confirm-master', BioConfirmMasterViewSet, base_name="BioConfirmMaster")
 router.register(r'carrier', CarrierViewSet, base_name="Carrier")
 router.register(r'dme', DMEIIViewSet)
+router.register(r'type-of-insurance', TypeOfInsuranceViewSet)
 router.register(r'insurance', InsuranceViewSet, base_name="Insurance")

@@ -1,5 +1,6 @@
 from rest_framework import viewsets, filters
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.parsers import MultiPartParser
 
 from django.shortcuts import render
 from django.views.generic import TemplateView
@@ -30,6 +31,7 @@ class CarrierViewSet(viewsets.ModelViewSet):
     # queryset = Carrier.objects.all()
     serializer_class = CarrierSerializer
     authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
+    parser_classes = (MultiPartParser,)
     filter_backends = [filters.SearchFilter]
     search_fields = ('patient_name', 'promo_code')
 
@@ -37,3 +39,10 @@ class CarrierViewSet(viewsets.ModelViewSet):
         user = self.request.user
         queryset = Carrier.objects.filter(agent__name=user)
         return queryset
+
+    def post(self, request, format=None):
+        #  to access files
+        print (request.FILES)
+        #  to access data
+        print (request.data)
+        return Response({'recieved data': request.data})

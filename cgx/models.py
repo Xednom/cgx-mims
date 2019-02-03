@@ -122,7 +122,7 @@ class BioConfirmMaster(models.Model):
     consent_recording = models.FileField(upload_to='bio-confirm-master/consent-recording/', max_length=1000, null=True, blank=True)
 
     class Meta:
-        ordering = ['-patient_name']
+        ordering = ['patient_name']
 
     def __str__(self):
         return str(self.patient_name)
