@@ -54,6 +54,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/2.1/howto/static-files/
+
+STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+
+ALLOWED_HOSTS = '*'
+
 
 # SSL/TLS SETTINGS FOR DJANGO
 CORS_REPLACE_HTTPS_REFERER = True
