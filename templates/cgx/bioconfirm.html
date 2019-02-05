@@ -5,6 +5,14 @@
         Bio Confirm Master
       </div>
       <div class="card-body">
+        <!-- loading -->
+        <div class="d-flex justify-content-center loading" v-if="loading===true">
+          <div class="spinner-border" role="status">
+            <strong>Fetching data...</strong>
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+        <!-- end loading -->
         <div class="table-responsive-sm">
           <table class="table table-bordered table-sm">
             <thead class="thead-light">

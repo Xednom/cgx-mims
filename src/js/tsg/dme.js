@@ -115,7 +115,7 @@ new Vue({
       this.loading = false;
       axios.post('/api/v1/dme/', formData).then((response) => {
         console.log(formData);
-        this.loading = true;
+        this.loading = false;
         swal({
           title: "TSG System",
           text: "Data has been saved successfully for DME",
@@ -127,7 +127,13 @@ new Vue({
         this.getDmes();
       })
       .catch((err) => {
-        this.loading = true;
+        this.loading = false;
+        swal({
+          title: "TSG System",
+          text: "Something has happened when processing the data, if the error persist. Please contact your Administrator.",
+          icons: "Error",
+          buttons: "Ok",
+        });
         console.log(err);
       })
     },

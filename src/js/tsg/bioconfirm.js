@@ -54,7 +54,7 @@ new Vue({
           if(this.search_term!==''||this.search_term!==null) {
             api_url = `/api/v1/bio-confirm-master/?search=${this.search_term}`
           }
-          this.loading = false;
+          this.loading = true;
           this.$http.get(api_url)
               .then((response) => {
                 this.bioconfirms = response.data;
@@ -70,7 +70,7 @@ new Vue({
           this.$http.get(`/api/v1/agent/`)
               .then((response) => {
                 this.agentNames = response.data;
-                this.loading = true;
+                this.loading = false;
               })
               .catch((err) => {
                 this.loading = false;
@@ -92,7 +92,7 @@ new Vue({
         this.loading = true;
         axios.post(`/api/v1/bio-confirm-master/`, formData).then((response) => {
               console.log(formData);
-              this.loading = true;
+              this.loading = false;
               swal({
                 title: "TSG System",
                 text: "Data has been saved successfully for Bio Confirm",
@@ -104,8 +104,14 @@ new Vue({
               this.getBioConfirms();
           })
           .catch((err) => {
-            this.loading = true;
+            swal({
+              title: "TSG System",
+              text: "Something has happened when processing the data, if the error persist. Please contact your Administrator.",
+              icons: "Error",
+              buttons: "Ok",
+            });
             console.log(err);
+            this.loading = false;
           })
       },
   }

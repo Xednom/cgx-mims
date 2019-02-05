@@ -91,6 +91,12 @@ new Vue({
           })
           .catch((err) => {
             this.loading = false;
+            swal({
+              title: "TSG System",
+              text: "Something has happened when processing the data, if the error persist. Please contact your Administrator.",
+              icons: "Error",
+              buttons: "Ok",
+            });
             console.log(err);
         })
       },
