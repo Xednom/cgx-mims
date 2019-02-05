@@ -35,19 +35,23 @@ new Vue({
   mounted: function() {
     this.getBioConfirms();
     this.getAgentNames();
+		this.setDefaultDates();
   },
   methods: {
+    setDefaultDates: function() {
+      let currentDate = moment(new Date()).format("YYYY-MM-DD");
+      this.newBioConfirm.submitted_to_tamika_ins_verifier = currentDate;
+      this.newBioConfirm.date_app_rec = currentDate;
+      this.newBioConfirm.date_sample_rec = currentDate;
+      this.newBioConfirm.date_of_qca = currentDate;
+      this.newBioConfirm.date_submitted_to_telemed = currentDate;
+      this.newBioConfirm.date_telemed_returned = currentDate;
+      this.newBioConfirm.date_bioconfim_rec_app = currentDate;
+      this.newBioConfirm.date_paid = currentDate;
+      this.newBioConfirm.rejection_date = currentDate;
+    },
     onFileChange: function (event) {
       this.newBioConfirm[event.target.name] = event.target.files[0];
-    },
-    reset: function () {
-      this.newBioConfirm.patient_name = this.newBioConfirm.patient_phone_number = this.newBioConfirm.promo_code = null;
-      this.newBioConfirm.agent = this.newBioConfirm.date_app_rec = this.newBioConfirm.date_sample_rec = null;
-      this.newBioConfirm.type_of_test = this.newBioConfirm.date_of_qca = this.newBioConfirm.submitted_to_tamika_ins_verifier = null;
-      this.newBioConfirm.telemed_name = this.newBioConfirm.date_submitted_to_telemed = this.newBioConfirm.date_telemed_returned = null;
-      this.newBioConfirm.date_bioconfim_rec_app = this.newBioConfirm.date_paid = this.newBioConfirm.state = null;
-      this.newBioConfirm.status = this.newBioConfirm.month = this.newBioConfirm.insurance_company = null;
-      this.newBioConfirm.notes = this.newBioConfirm.rejection_date = null;
     },
     getBioConfirms: function() {
           let api_url = '/api/v1/bio-confirm-master/';
@@ -79,7 +83,7 @@ new Vue({
         },
 
       // new code using axios
-      addBioConfirm: function() {
+      addBioConfirm: function(event) {
         const formData = new FormData();
         Object.keys(this.newBioConfirm).forEach((key) => {
           let obj = this.newBioConfirm[key];
@@ -100,8 +104,9 @@ new Vue({
                 buttons: false,
                 timer: 2000
               })
-              this.reset();
               this.getBioConfirms();
+              // reset form
+              event.target.reset();
           })
           .catch((err) => {
             swal({
