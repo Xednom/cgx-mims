@@ -52,6 +52,7 @@
                 <td>[[ insurance.verification_date ]]</td>
                 <td>[[ insurance.deductible_remainding ]]</td>
                 <td>[[ insurance.notes ]]</td>
+                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewModalInsurance" v-on:click="viewInsurance(insurance.id)">View</button></td>
               </tr>
             </tbody>
           </table>
@@ -59,4 +60,93 @@
       </div>
     </div>
   </div>
+  <!-- data view using modal -->
+  <div class="modal fade" id="viewModalInsurance" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Information on patient</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- loading -->
+          <div class="d-flex justify-content-center loading" v-if="loading===true">
+            <div class="spinner-border" role="status">
+              <strong>Fetching data...</strong>
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+          <!-- end loading -->
+          <div class="row">
+            <div class="col-md-4">
+              <label>Patient name</label>
+              <input type="text" class="form-control form-control-sm" v-model="currentInsurance.name" disabled>
+            </div>
+            <div class="col-md-4">
+              <label>Promo code</label>
+              <input type="text" class="form-control form-control-sm" v-model="currentInsurance.promo_code" disabled>
+            </div>
+            <div class="col-md-4">
+              <label>Agent</label>
+              <input type="text" class="form-control form-control-sm" v-model="currentInsurance.agent" disabled>
+            </div>
+            <div class="col-md-4">
+              <label>Manager</label>
+              <input type="text" class="form-control form-control-sm" v-model="currentInsurance.manager" disabled>
+            </div>
+            <div class="col-md-4">
+              <label>Date of Birth</label>
+              <input type="text" class="form-control form-control-sm" v-model="currentInsurance.date_of_birth" disabled>
+            </div>
+            <div class="col-md-4">
+              <label>state</label>
+              <input type="text" class="form-control form-control-sm" v-model="currentInsurance.state" disabled>
+            </div>
+            <div class="col-md-4">
+              <label>Type of Insurance</label>
+              <input type="text" class="form-control form-control-sm" v-model="currentInsurance.type_of_insurance" disabled>
+            </div>
+            <div class="col-md-4">
+              <label>Test</label>
+              <input type="text" class="form-control form-control-sm" v-model="currentInsurance.test" disabled>
+            </div>
+            <div class="col-md-4">
+              <label>Active/Inactive</label>
+              <input type="text" class="form-control form-control-sm" v-model="currentInsurance.active_inactive" disabled>
+            </div>
+            <div class="col-md-4">
+              <label>Status</label>
+              <input type="text" class="form-control form-control-sm" v-model="currentInsurance.status" disabled>
+            </div>
+            <div class="col-md-4">
+              <label>Insurance Status</label>
+              <input type="text" class="form-control form-control-sm" v-model="currentInsurance.insurance_status" disabled>
+            </div>
+            <div class="col-md-4">
+              <label>Policy Number</label>
+              <input type="text" class="form-control form-control-sm" v-model="currentInsurance.policy_number" disabled>
+            </div>
+            <div class="col-md-4">
+              <label>Verification Date</label>
+              <input type="text" class="form-control form-control-sm" v-model="currentInsurance.verification_date" disabled>
+            </div>
+            <div class="col-md-4">
+              <label>Deductible Remainding</label>
+              <input type="text" class="form-control form-control-sm" v-model="currentInsurance.deductible_remainding" disabled>
+            </div>
+            <div class="col-md-12">
+              <label>Notes</label>
+              <textarea class="form-control form-control-sm" name="name" v-model="currentInsurance.notes" rows="10" cols="80" disabled></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end of view -->
 </div>

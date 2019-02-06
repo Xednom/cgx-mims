@@ -9,6 +9,7 @@ new Vue({
     agentNames: [],
     managerNames: [],
     typeOfInsurance: [],
+    currentInsurance: {},
     newInsurance: {
       'name': "",
       'promo_code': "",
@@ -128,6 +129,18 @@ new Vue({
         this.$http.get(`/api/v1/type-of-insurance/`)
             .then((response) => {
               this.typeOfInsurance = response.data;
+              this.loading = false;
+            })
+            .catch((err) => {
+              this.loading = false;
+              console.log(err);
+            })
+      },
+      viewInsurance: function (id) {
+        this.loading = true;
+        this.$http.get(`/api/v1/insurance/${id}/`)
+            .then((response) => {
+              this.currentInsurance = response.data;
               this.loading = false;
             })
             .catch((err) => {

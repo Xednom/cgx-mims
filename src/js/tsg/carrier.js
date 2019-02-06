@@ -8,6 +8,7 @@ new Vue({
     message: null,
     loading: false,
     csrf_token: ['csrf_token'],
+    currentCarrier: {},
     newCarrier: {
       'patient_name': "",
       'patient_phone_number': "",
@@ -125,5 +126,18 @@ new Vue({
             console.log(err);
           })
     },
+    // viewing of full datas
+    viewCarrier: function(id) {
+    this.loading = true;
+    this.$http.get(`/api/v1/carrier/${id}/`)
+        .then((response) => {
+          this.loading = false;
+          this.currentCarrier = response.data;
+        })
+        .catch((err) => {
+          this.loading = false;
+          console.log(err);
+        })
+  },
   }
 });

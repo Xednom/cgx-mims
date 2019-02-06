@@ -40,6 +40,7 @@
                 <td>[[ dme.policy_number ]]</td>
                 <td>[[ dme.ppo_information_mem_id ]]</td>
                 <td>[[ dme.ppo_information_ppo_name ]]</td>
+                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewModalDme" v-on:click="viewDme(dme.id)">View</button></td>
               </tr>
             </tbody>
           </table>
@@ -47,4 +48,5 @@
       </div>
     </div>
   </div>
+  <!-- To do: view for DME -->
 </div>
