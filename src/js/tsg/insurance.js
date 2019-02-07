@@ -9,6 +9,7 @@ new Vue({
     agentNames: [],
     managerNames: [],
     typeOfInsurance: [],
+    currentInsurance: {},
     newInsurance: {
       'name': "",
       'promo_code': "",
@@ -90,6 +91,12 @@ new Vue({
           })
           .catch((err) => {
             this.loading = false;
+            swal({
+              title: "TSG System",
+              text: "Something has happened when processing the data, if the error persist. Please contact your Administrator.",
+              icons: "Error",
+              buttons: "Ok",
+            });
             console.log(err);
         })
       },
@@ -122,6 +129,18 @@ new Vue({
         this.$http.get(`/api/v1/type-of-insurance/`)
             .then((response) => {
               this.typeOfInsurance = response.data;
+              this.loading = false;
+            })
+            .catch((err) => {
+              this.loading = false;
+              console.log(err);
+            })
+      },
+      viewInsurance: function (id) {
+        this.loading = true;
+        this.$http.get(`/api/v1/insurance/${id}/`)
+            .then((response) => {
+              this.currentInsurance = response.data;
               this.loading = false;
             })
             .catch((err) => {

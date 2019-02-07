@@ -30,6 +30,7 @@ GENDER_CHOICES = (
 
 
 class DME_II(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     submission_date = models.DateField(default=datetime.date.today)
     first_name = models.CharField(max_length=250, null=True, blank=True)
     last_name = models.CharField(max_length=250, null=True, blank=True)

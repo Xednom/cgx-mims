@@ -7,6 +7,7 @@ new Vue({
     agentNames: [],
     message: null,
     loading: false,
+    currentBioConfirm: {},
     newBioConfirm: {
       'patient_name': "",
       'patient_phone_number': "",
@@ -28,6 +29,11 @@ new Vue({
       'insurance_company': "",
       'notes': "",
       'rejection_date': "",
+      'patient_id_photo': "",
+      'insurance_card_photo_front': "",
+      'insurance_card_photo_back': "",
+      'additional_insurance_cards': "",
+      'consent_recording': "",
     },
     search_term: '',
     fileInput: {},
@@ -58,7 +64,7 @@ new Vue({
           if(this.search_term!==''||this.search_term!==null) {
             api_url = `/api/v1/bio-confirm-master/?search=${this.search_term}`
           }
-          this.loading = false;
+          this.loading = true;
           this.$http.get(api_url)
               .then((response) => {
                 this.bioconfirms = response.data;
@@ -74,7 +80,7 @@ new Vue({
           this.$http.get(`/api/v1/agent/`)
               .then((response) => {
                 this.agentNames = response.data;
-                this.loading = true;
+                this.loading = false;
               })
               .catch((err) => {
                 this.loading = false;
@@ -96,7 +102,7 @@ new Vue({
         this.loading = true;
         axios.post(`/api/v1/bio-confirm-master/`, formData).then((response) => {
               console.log(formData);
-              this.loading = true;
+              this.loading = false;
               swal({
                 title: "TSG System",
                 text: "Data has been saved successfully for Bio Confirm",
@@ -109,9 +115,28 @@ new Vue({
               event.target.reset();
           })
           .catch((err) => {
-            this.loading = true;
+            swal({
+              title: "TSG System",
+              text: "Something has happened when processing the data, if the error persist. Please contact your Administrator.",
+              icons: "Error",
+              buttons: "Ok",
+            });
             console.log(err);
+            this.loading = false;
           })
       },
+      // viewing of full datas
+      viewBioConfirm: function(id) {
+      this.loading = true;
+      this.$http.get(`/api/v1/bio-confirm-master/${id}/`)
+          .then((response) => {
+            this.loading = false;
+            this.currentBioConfirm = response.data;
+          })
+          .catch((err) => {
+            this.loading = false;
+            console.log(err);
+          })
+    },
   }
 });

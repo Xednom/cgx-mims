@@ -6,6 +6,7 @@ new Vue({
     dmes: [],
     message: null,
     loading: false,
+    currentDme: {},
     newDme: {
         'submission_date': "",
         'first_name': "",
@@ -75,9 +76,9 @@ new Vue({
     },
     getDmes: function() {
           let api_url = '/api/v1/dme/';
-          // if(this.search_term!==''||this.search_term!==null) {
-          //   api_url = `/api/v1/dme/?search=${this.search_term}`
-          // }
+          if(this.search_term!==''||this.search_term!==null) {
+             api_url = `/api/v1/dme/?search=${this.search_term}`
+           }
           this.loading = false;
           this.$http.get(api_url)
               .then((response) => {
@@ -101,10 +102,10 @@ new Vue({
             formData.append(key, obj);
           }
       });
-      this.loading = false;
+      this.loading = true;
       axios.post('/api/v1/dme/', formData).then((response) => {
         console.log(formData);
-        this.loading = true;
+        this.loading = false;
         swal({
           title: "TSG System",
           text: "Data has been saved successfully for DME",
@@ -117,9 +118,28 @@ new Vue({
         event.target.reset();
       })
       .catch((err) => {
-        this.loading = true;
+        this.loading = false;
+        swal({
+          title: "TSG System",
+          text: "Something has happened when processing the data, if the error persist. Please contact your Administrator.",
+          icons: "Error",
+          buttons: "Ok",
+        });
         console.log(err);
       })
+    },
+    // view data
+    viewDme: function (id) {
+      this.loading = true;
+      this.$http.get(`/api/v1/dme/${id}/`)
+          .then((response) => {
+            this.currentDme = response.data;
+            this.loading = false;
+          })
+          .catch((err) => {
+            this.loading = false;
+            console.log(err);
+          })
     },
   }
 });

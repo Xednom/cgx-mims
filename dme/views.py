@@ -16,6 +16,10 @@ class CsrftExemptSessionAuthentication(SessionAuthentication):
 
 
 class DMEIIViewSet(viewsets.ModelViewSet):
+    """
+    To Do: get_queryset to return only based on the agent's promo code NOT name.
+    """
+
     queryset = DME_II.objects.all()
     serializer_class = DMEIISerializer
     authentication_classes = (CsrftExemptSessionAuthentication, BasicAuthentication)

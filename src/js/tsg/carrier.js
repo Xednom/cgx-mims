@@ -8,6 +8,7 @@ new Vue({
     message: null,
     loading: false,
     csrf_token: ['csrf_token'],
+    currentCarrier: {},
     newCarrier: {
       'patient_name': "",
       'patient_phone_number': "",
@@ -90,7 +91,7 @@ new Vue({
         this.loading = true;
         this.$http.post('/api/v1/carrier/', formData).then((response) => {
           console.log(formData);
-          this.loading = true;
+          this.loading = false;
           swal({
             title: "TSG System",
             text: "Data has been saved successfully for Carrier",
@@ -104,6 +105,12 @@ new Vue({
         })
         .catch((err) => {
           this.loading = false;
+          swal({
+            title: "TSG System",
+            text: "Something has happened when processing the data, if the error persist. Please contact your Administrator.",
+            icons: "Error",
+            buttons: "Ok",
+          });
           console.log(err);
         })
       },
@@ -119,5 +126,18 @@ new Vue({
             console.log(err);
           })
     },
+    // viewing of full datas
+    viewCarrier: function(id) {
+    this.loading = true;
+    this.$http.get(`/api/v1/carrier/${id}/`)
+        .then((response) => {
+          this.loading = false;
+          this.currentCarrier = response.data;
+        })
+        .catch((err) => {
+          this.loading = false;
+          console.log(err);
+        })
+  },
   }
 });
