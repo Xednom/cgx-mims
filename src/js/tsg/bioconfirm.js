@@ -7,6 +7,7 @@ new Vue({
     agentNames: [],
     message: null,
     loading: false,
+    currentBioConfirm: {},
     newBioConfirm: {
       'patient_name': "",
       'patient_phone_number': "",
@@ -28,6 +29,11 @@ new Vue({
       'insurance_company': "",
       'notes': "",
       'rejection_date': "",
+      'patient_id_photo': "",
+      'insurance_card_photo_front': "",
+      'insurance_card_photo_back': "",
+      'additional_insurance_cards': "",
+      'consent_recording': "",
     },
     search_term: '',
     fileInput: {},
@@ -119,5 +125,18 @@ new Vue({
             this.loading = false;
           })
       },
+      // viewing of full datas
+      viewBioConfirm: function(id) {
+      this.loading = true;
+      this.$http.get(`/api/v1/bio-confirm-master/${id}/`)
+          .then((response) => {
+            this.loading = false;
+            this.currentBioConfirm = response.data;
+          })
+          .catch((err) => {
+            this.loading = false;
+            console.log(err);
+          })
+    },
   }
 });

@@ -105,12 +105,12 @@ class BioConfirmMasterProfile(admin.ModelAdmin):
     )
 
 
-# admin.site.register(BioConfirmMaster, BioConfirmMasterProfile)
+admin.site.register(BioConfirmMaster, BioConfirmMasterProfile)
 
 
-@admin.register(BioConfirmMaster)
-class BioConfirmMasterAdmin(ImportExportModelAdmin, BioConfirmMasterProfile):
-    actions = None
+# @admin.register(BioConfirmMaster)
+# class BioConfirmMasterAdmin(ImportExportModelAdmin, BioConfirmMasterProfile):
+#     actions = None
     # inlines = [BioConfirmMasterStatusInline]
 
 

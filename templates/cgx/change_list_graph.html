@@ -48,6 +48,18 @@
                     }]
                 }, options: options
             });
+            ctx = document.getElementById("type-of-test-chart");
+            {% regroup cl.queryset|dictsort:"type_of_test" by get_type_of_test_display as type_of_test_list %}
+            lineChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: [{% for type_of_test in type_of_test_list %}'{{ type_of_test.grouper }}',{% endfor %}],
+                    datasets: [{
+                        data: [{% for type_of_test in type_of_test_list %}'{{ type_of_test.list|length }}',{% endfor %}],
+                        backgroundColor: [{% for type_of_test in type_of_test_list %}randomColorGenerator(),{% endfor %}]
+                    }]
+                }, options: options
+            });
         }
     </script>
 {% endblock %}
@@ -55,12 +67,16 @@
     <hr>
     <div class="row">
         <div class="col-md-4">
-          <label class="col-sm-offset-5">Status information graph</label>
+          <label class="col-sm-offset-6">Status information graph</label>
             <canvas id="status-chart" style="width: 100px !important;"></canvas>
         </div>
-        <div class="col-sm-4">
-          <label class="col-sm-offset-5">State information graph</label>
+        <div class="col-md-4">
+          <label class="col-sm-offset-6">State information graph</label>
             <canvas id="state-chart" style="width: 100px !important;"></canvas>
+        </div>
+        <div class="col-sm-4">
+          <label class="col-sm-offset-6">Type of Test information graph</label>
+            <canvas id="type-of-test-chart" style="width: 100px !important;"></canvas>
         </div>
     </div>
     {{ block.super }}
