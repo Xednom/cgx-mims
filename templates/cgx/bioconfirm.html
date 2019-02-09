@@ -1,58 +1,54 @@
 <div id="bioconfirm-app">
   <div class="col-md-12">
-    <div class="card" id="card-table">
-      <div class="card-header">
-        Bio Confirm Master
+    <h5 class="title1">
+      Bio Confirm Master
+    </h5>
+    <!-- loading -->
+    <div class="d-flex justify-content-center loading" v-if="loading===true">
+      <div class="spinner-border" role="status">
+        <strong>Fetching data...</strong>
+        <span class="sr-only">Loading...</span>
       </div>
-      <div class="card-body">
-        <!-- loading -->
-        <div class="d-flex justify-content-center loading" v-if="loading===true">
-          <div class="spinner-border" role="status">
-            <strong>Fetching data...</strong>
-            <span class="sr-only">Loading...</span>
-          </div>
-        </div>
-        <!-- end loading -->
-        <div class="table-responsive-sm">
-          <table class="table table-bordered table-sm">
-            <thead class="thead-light">
-              <tr>
-                <th scope="col">Patient name</th>
-                <th scope="col">Promo code</th>
-                <th scope="col">Agent name</th>
-                <th scope="col">Date submitted to telemed</th>
-                <th scope="col">Date telemed returned</th>
-                <th scope="col">Date application recorded</th>
-                <th scope="col">Date sample recorded</th>
-                <th scope="col">Date paid</th>
-                <th scope="col">Insurance company name</th>
-                <th scope="col">Rejection date</th>
-                <th scope="col">Date Submitted to Tamika ins verifier</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td colspan="14" class="text-center" v-if="!bioconfirms.length">No records for <strong>Bio Confirm</strong> as of now.</td>
-              </tr>
-              <tr v-for="bioconfirm in bioconfirms">
-                <td>[[ bioconfirm.patient_name ]]</td>
-                <td>[[ bioconfirm.promo_code ]]</td>
-                <td>[[ bioconfirm.agent ]]</td>
-                <td>[[ bioconfirm.date_submitted_to_telemed ]]</td>
-                <td>[[ bioconfirm.date_telemed_returned ]]</td>
-                <td>[[ bioconfirm.date_app_rec ]]</td>
-                <td>[[ bioconfirm.date_sample_rec ]]</td>
-                <td>[[ bioconfirm.date_paid ]]</td>
-                <td>[[ bioconfirm.insurance_company ]]</td>
-                <td>[[ bioconfirm.rejection_date ]]</td>
-                <td>[[ bioconfirm.submitted_to_tamika_ins_verifier ]]</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewModalBioConfirm" v-on:click="viewBioConfirm(bioconfirm.id)">View</button></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+    </div>
+    <!-- end loading -->
+    <div class="table-responsive-sm">
+      <table class="table table-bordered table-sm">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Patient name</th>
+            <th scope="col">Promo code</th>
+            <th scope="col">Agent name</th>
+            <th scope="col">Date submitted to telemed</th>
+            <th scope="col">Date telemed returned</th>
+            <th scope="col">Date application recorded</th>
+            <th scope="col">Date sample recorded</th>
+            <th scope="col">Date paid</th>
+            <th scope="col">Insurance company name</th>
+            <th scope="col">Rejection date</th>
+            <th scope="col">Date Submitted to Tamika ins verifier</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="14" class="text-center" v-if="!bioconfirms.length">No records for <strong>Bio Confirm</strong> as of now.</td>
+          </tr>
+          <tr v-for="bioconfirm in bioconfirms">
+            <td>[[ bioconfirm.patient_name ]]</td>
+            <td>[[ bioconfirm.promo_code ]]</td>
+            <td>[[ bioconfirm.agent ]]</td>
+            <td>[[ bioconfirm.date_submitted_to_telemed ]]</td>
+            <td>[[ bioconfirm.date_telemed_returned ]]</td>
+            <td>[[ bioconfirm.date_app_rec ]]</td>
+            <td>[[ bioconfirm.date_sample_rec ]]</td>
+            <td>[[ bioconfirm.date_paid ]]</td>
+            <td>[[ bioconfirm.insurance_company ]]</td>
+            <td>[[ bioconfirm.rejection_date ]]</td>
+            <td>[[ bioconfirm.submitted_to_tamika_ins_verifier ]]</td>
+            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewModalBioConfirm" v-on:click="viewBioConfirm(bioconfirm.id)">View</button></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
