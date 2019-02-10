@@ -1,3 +1,11 @@
+html, body {
+  height: 100%;
+}
+
+main {
+  height: calc(100% - 64px);
+}
+
 body {
   background-color: #f9f9f9;
 }
@@ -5,6 +13,16 @@ body {
 nav {
   height: 64px;
   background-color: #f0f0f0;
+<<<<<<< HEAD
+=======
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+nav .container {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+>>>>>>> 733ef9e145849828be2b720ee52f444e589c8cf1
 }
 
 nav .navbar-brand img {
@@ -48,6 +66,7 @@ nav .navbar-top-links .dropdown .dropdown-menu {
   margin-top: 15px;
 }
 
+<<<<<<< HEAD
 .nav.nav-tabs {
   padding: 0 20px;
   background-color: #f9f9f9;
@@ -65,9 +84,58 @@ nav .navbar-top-links .dropdown .dropdown-menu {
 .tsg-tabs {
   margin: 50px 0;
   background-color: white;
+=======
+.nav-tabs-container {
+  padding: 50px 20px 0;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.nav-tabs-container .nav.nav-tabs {
+  border-bottom: 0 !important;
+}
+
+.nav.nav-tabs .nav-item:not(.add-btn) .nav-link {
+  color: #757575 !important;
+}
+
+.nav.nav-tabs .nav-item:not(.add-btn) .nav-link.active {
+  font-weight: bold;
+  position: relative;
+}
+
+.nav.nav-tabs .nav-item:not(.add-btn) .nav-link.active::after {
+  content: '';
+  height: 10px;
+  background-color: white;
+  position: absolute;
+  bottom: -5px;
+  right: 0;
+}
+
+.tab-pane {
+  padding: 40px 0;
+}
+
+.title1 {
+  margin-bottom: 15px;
+}
+
+.tsg-tabs {
+  background-color: white;
+  height: 100%;
+>>>>>>> 733ef9e145849828be2b720ee52f444e589c8cf1
 }
 
 .add-btn a {
   background-color: #007bff;
   color: white !important;
+}
+
+
+/** Bootstrap customizations **/
+@media (min-width: 1300px) {
+  .container {
+    max-width: 1290px;
+  }
 }

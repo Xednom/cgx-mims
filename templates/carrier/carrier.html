@@ -1,58 +1,54 @@
 <div id="carrier-app">
   <div class="col-md-12">
-    <div class="card" id="card-table">
-      <div class="card-header">
-        Carrier
+    <h5 class="title1">
+      Carrier
+    </h5>
+    <!-- loading -->
+    <div class="d-flex justify-content-center loading" v-if="loading===true">
+      <div class="spinner-border" role="status">
+        <strong>Fetching data...</strong>
+        <span class="sr-only">Loading...</span>
       </div>
-      <div class="card-body">
-        <!-- loading -->
-        <div class="d-flex justify-content-center loading" v-if="loading===true">
-          <div class="spinner-border" role="status">
-            <strong>Fetching data...</strong>
-            <span class="sr-only">Loading...</span>
-          </div>
-        </div>
-        <!-- end loading -->
-        <div class="table-responsive">
-          <table class="table table-bordered table-sm">
-            <thead class="thead-light">
-              <tr>
-                <th scope="col">Patient name</th>
-                <th scope="col">Promo code</th>
-                <th scope="col">Agent name</th>
-                <th scope="col">Date submitted to telemed</th>
-                <th scope="col">Date telemed returned</th>
-                <th scope="col">Date application recorded</th>
-                <th scope="col">Date sample recorded</th>
-                <th scope="col">Date paid</th>
-                <th scope="col">Insurance company name</th>
-                <th scope="col">Rejection date</th>
-                <th scope="col">Date Submitted to Tamika ins verifier</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td colspan="14" class="text-center" v-if="!carriers.length">No records for <strong>Carrier</strong> as of now.</td>
-              </tr>
-              <tr v-for="carrier in carriers">
-                <td>[[ carrier.patient_name ]]</td>
-                <td>[[ carrier.promo_code ]]</td>
-                <td>[[ carrier.agent ]]</td>
-                <td>[[ carrier.date_submitted_to_telemed ]]</td>
-                <td>[[ carrier.date_telemed_returned ]]</td>
-                <td>[[ carrier.date_app_rec ]]</td>
-                <td>[[ carrier.date_sample_rec ]]</td>
-                <td>[[ carrier.date_paid ]]</td>
-                <td>[[ carrier.insurance_company ]]</td>
-                <td>[[ carrier.rejection_date ]]</td>
-                <td>[[ carrier.submitted_to_tamika_ins_verifier ]]</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewModalCarrier" v-on:click="viewCarrier(carrier.id)">View</button></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+    </div>
+    <!-- end loading -->
+    <div class="table-responsive">
+      <table class="table table-bordered table-sm">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Patient name</th>
+            <th scope="col">Promo code</th>
+            <th scope="col">Agent name</th>
+            <th scope="col">Date submitted to telemed</th>
+            <th scope="col">Date telemed returned</th>
+            <th scope="col">Date application recorded</th>
+            <th scope="col">Date sample recorded</th>
+            <th scope="col">Date paid</th>
+            <th scope="col">Insurance company name</th>
+            <th scope="col">Rejection date</th>
+            <th scope="col">Date Submitted to Tamika ins verifier</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="14" class="text-center" v-if="!carriers.length">No records for <strong>Carrier</strong> as of now.</td>
+          </tr>
+          <tr v-for="carrier in carriers">
+            <td>[[ carrier.patient_name ]]</td>
+            <td>[[ carrier.promo_code ]]</td>
+            <td>[[ carrier.agent ]]</td>
+            <td>[[ carrier.date_submitted_to_telemed ]]</td>
+            <td>[[ carrier.date_telemed_returned ]]</td>
+            <td>[[ carrier.date_app_rec ]]</td>
+            <td>[[ carrier.date_sample_rec ]]</td>
+            <td>[[ carrier.date_paid ]]</td>
+            <td>[[ carrier.insurance_company ]]</td>
+            <td>[[ carrier.rejection_date ]]</td>
+            <td>[[ carrier.submitted_to_tamika_ins_verifier ]]</td>
+            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewModalCarrier" v-on:click="viewCarrier(carrier.id)">View</button></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
   <!-- data view using modal -->
