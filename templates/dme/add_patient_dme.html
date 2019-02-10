@@ -1,4 +1,4 @@
-<div id="dme-app">
+<div id="dme-app" v-cloak>
   <!-- patient info -->
   <form v-on:submit.prevent="addDme" enctype="multipart/form-data" method="POST" id="formDme">
     {% csrf_token %}
