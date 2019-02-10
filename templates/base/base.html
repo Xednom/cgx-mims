@@ -18,32 +18,38 @@
 </head>
 
 <body>
-    {% block navbar %}
-    <nav class="navbar navbar-expand-lg navbar-light">
-      <a class="navbar-brand" href="{% url 'web:home' %}">
-          <img class="img-fluid" alt="TSG Systems" src="{% static 'images/logo/TSG3.png' %}">
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <header>
+      {% block navbar %}
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <a class="navbar-brand" href="{% url 'web:home' %}">
+              <img class="img-fluid" alt="TSG Systems" src="{% static 'images/logo/TSG3.png' %}">
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-        </ul>
-        <ul class="nav navbar-top-links navbar-right">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ request.user }}</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Settings</a>
-              <a class="dropdown-item" href="{% url 'web:logout' %}">Logout</a>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    {% endblock %}
-    {% block content %}{% endblock %}
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+            <ul class="nav navbar-top-links navbar-right">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ request.user }}</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Settings</a>
+                  <a class="dropdown-item" href="{% url 'web:logout' %}">Logout</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      {% endblock %}
+    </header>
+    <main>
+      {% block content %}{% endblock %}
+    </main>
     <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
     <script src="{% static 'js/bootstrap/bootstrap.js' %}"></script>
     <script src="{% static 'js/moment.min.js' %}"></script>

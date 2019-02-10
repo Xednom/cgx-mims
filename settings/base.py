@@ -58,6 +58,11 @@ CORS_ALLOW_HEADERS = (
     'x-csrftoken'
 )
 
+# To do: will add sending of email later on
+# ANYMAIL = {
+#     "SENDGRID_API_KEY": env.str("SENDGRID_API_KEY")
+# }
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
