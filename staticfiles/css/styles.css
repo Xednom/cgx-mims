@@ -31,10 +31,6 @@ nav .navbar-top-links .dropdown .dropdown-menu {
   right: 0;
 }
 
-[v-cloak]: {
-  display: none;
-}
-
 #card-table {
   margin-top: 30px;
 }

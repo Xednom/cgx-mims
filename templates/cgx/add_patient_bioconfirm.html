@@ -2,58 +2,33 @@
   <!-- patient info -->
   <form v-on:submit.prevent="addBioConfirm" enctype="multipart/form-data" method="POST">
     {% csrf_token %}
-    <div class="card card-info">
-      <div class="card-header" id="card-informations">
+    <div>
+      <h5 class="title1">
         Patient Informations
-      </div>
-      <div class="card-body">
+      </h5>
+      <div>
         <div class="form-row">
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-8 col-sm-12">
             <label for="inputPatientName">Patient Name</label>
-            <input type="text" class="form-control form-control-sm" id="inputPatientName" v-model="newBioConfirm.patient_name" :disabled="loading == true" placeholder="Patient Name">
+            <input type="text" class="form-control form-control-sm" id="inputPatientName" v-model="newBioConfirm.patient_name" :disabled="loading == true">
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-4 col-sm-12">
             <label for="inputPatientPhone">Patient Phone Number</label>
-            <input type="text" class="form-control form-control-sm" id="inputPatientPhone" v-model="newBioConfirm.patient_phone_number" placeholder="Patient Phone Number">
-          </div>
-          <div class="form-group col-md-3">
-            <label for="inputEmail4">Promo Code</label>
-            <input type="text" class="form-control form-control-sm" id="inputPromo" v-model="newBioConfirm.promo_code" placeholder="Promo Code">
+            <input type="text" class="form-control form-control-sm" id="inputPatientPhone" v-model="newBioConfirm.patient_phone_number">
           </div>
         </div>
         <div class="form-row">
-          <div class="form-group col-md-2">
-            <label>Agent Name</label>
-            <select id="inputAgent" class="form-control form-control-sm" v-model="newBioConfirm.agent">
-              <option v-for="agent in agentNames">[[ agent.name ]]</option>
-            </select>
-          </div>
-          <div class="form-group col-md-2">
-            <label>Test Choices</label>
-            <select id="inputTest" class="form-control form-control-sm" v-model="newBioConfirm.type_of_test">
-              <option>CARRIER</option>
-              <option>CGX</option>
-              <option>CGX/CARRIER</option>
-              <option>L</option>
-            </select>
-          </div>
-          <div class="form-group col-md-2">
+          <div class="form-group col-md-3 col-sm-12">
             <label>Date submitted to Tamika ins verifier</label>
             <input type="date" class="form-control form-control-sm" id="inputDate1" v-model="newBioConfirm.submitted_to_tamika_ins_verifier">
           </div>
-          <div class="form-group col-md-3">
-            <label for="inputTelemed">Telemed Name</label>
-            <input type="text" class="form-control form-control-sm" id="inputTelemed" v-model="newBioConfirm.telemed_name" placeholder="Telemed Name">
+          <div class="form-group col-md-2 col-sm-12">
+            <label for="inputEmail4">Promo Code</label>
+            <input type="text" class="form-control form-control-sm" id="inputPromo" v-model="newBioConfirm.promo_code">
           </div>
-          <div class="form-group col-md-3">
-            <label for="input">State</label>
-            <input type="text" class="form-control form-control-sm" id="inputState" v-model="newBioConfirm.state" placeholder="State">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-2">
-            <label for="inputState">Status</label>
-            <select id="inputState" class="form-control form-control-sm" v-model="newBioConfirm.status">
+          <div class="form-group col-md-2  col-sm-12">
+            <label for="inputStatus">Status</label>
+            <select id="inputStatus" class="form-control form-control-sm" v-model="newBioConfirm.status">
               <option>CGX/CGD</option>
               <option>DUPLICATE</option>
               <option>HOLD</option>
@@ -71,11 +46,42 @@
               <option>REJECTED - CARESOURCE</option>
             </select>
           </div>
-          <div class="form-group col-md-2">
-            <label for="inputInsurance">Insurance Company Name</label>
-            <input type="text" class="form-control form-control-sm" id="inputInsurance" v-model="newBioConfirm.insurance_company" placeholder="Insurance Company Name">
+          <div class="form-group col-md-2 col-md-offset-2 col-sm-12">
+            <label for="input">State</label>
+            <input type="text" class="form-control form-control-sm" id="inputState" v-model="newBioConfirm.state">
           </div>
+          <div class="form-group col-md-3 col-sm-12">
+            <label>Test Choices</label>
+            <select id="inputTest" class="form-control form-control-sm" v-model="newBioConfirm.type_of_test">
+              <option>CARRIER</option>
+              <option>CGX</option>
+              <option>CGX/CARRIER</option>
+              <option>L</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-8 col-sm-12">
+            <label>Agent Name</label>
+            <select id="inputAgent" class="form-control form-control-sm" v-model="newBioConfirm.agent">
+              <option v-for="agent in agentNames">[[ agent.name ]]</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-8 col-sm-12">
+            <label for="inputTelemed">Telemed Name</label>
+            <input type="text" class="form-control form-control-sm" id="inputTelemed" v-model="newBioConfirm.telemed_name">
+          </div>
+        </div>
+        <div class="form-row">
           <div class="form-group col-md-8">
+            <label for="inputInsurance">Insurance Company Name</label>
+            <input type="text" class="form-control form-control-sm" id="inputInsurance" v-model="newBioConfirm.insurance_company">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
             <label>Notes</label>
             <textarea class="form-control form-control-sm" name="name" v-model="newBioConfirm.notes" rows="10" cols="80"></textarea>
           </div>
@@ -83,49 +89,51 @@
       </div>
     </div>
     <!-- end patient info -->
-
+    <hr />
     <!-- patient date info -->
-    <div class="card card-info">
-      <div class="card-header" id="card-informations">
+    <div>
+      <h5 class="title1">
         Patient's Date Informations
-      </div>
-      <div class="card-body">
+      </h5>
+      <div>
         <div class="form-row">
-          <div class="form-group col-md-2">
+          <div class="form-group col-md-3">
             <label>Date application recorded</label>
             <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_app_rec" id="inputDateAppRec" value="">
           </div>
-          <div class="form-group col-md-2">
+          <div class="form-group col-md-3">
             <label>Date sample recorded</label>
             <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_sample_rec" id="inputDate">
           </div>
-          <div class="form-group col-md-2">
+          <div class="form-group col-md-3 offset-2">
             <label>Date of QCA</label>
             <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_of_qca" id="inputDate">
           </div>
-          <div class="form-group col-md-2">
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-3">
             <label>Date submitted to telemed</label>
             <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_submitted_to_telemed" id="inputDate">
           </div>
-          <div class="form-group col-md-2">
+          <div class="form-group col-md-3">
             <label>Date telemed returned</label>
             <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_telemed_returned" id="inputDate">
           </div>
-          <div class="form-group col-md-2">
+          <div class="form-group col-md-3 offset-2">
             <label>Date bioconfirm recorded application</label>
             <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_bioconfim_rec_app" id="inputDate">
           </div>
         </div>
         <div class="form-row">
-          <div class="form-group col-md-2">
+          <div class="form-group col-md-3">
             <label>Date paid</label>
             <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_paid" id="inputDate">
           </div>
-          <div class="form-group col-md-2">
+          <div class="form-group col-md-3">
             <label>Month</label>
-            <input type="text" class="form-control form-control-sm" v-model="newBioConfirm.month" placeholder="Month">
+            <input type="text" class="form-control form-control-sm" v-model="newBioConfirm.month">
           </div>
-          <div class="form-group col-md-2">
+          <div class="form-group col-md-3 offset-2">
             <label>Rejection Date</label>
             <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.rejection_date" id="inputDate">
           </div>
@@ -133,36 +141,124 @@
       </div>
     </div>
     <!-- end patient date info -->
-    <div class="card card-info">
-      <div class="card-header" id="card-informations">
+    <hr />
+    <div>
+      <h5 class="title1">
         Attachments
-      </div>
-      <div class="card-body">
+      </h5>
+      <div>
         <div class="row">
-          <div class="form-group col-md-2">
+          <div class="form-group col-sm-12">
             <label>Patient ID Photo</label>
-            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" name="patient_id_photo" id="inputIDPhoto" v-on:change="onFileChange($event)">
+            <div class="custom-file" v-on:click="$refs.patient_id_photo_ref.click()">
+              <input
+                  type="file" accept="image/*" class="form-control form-control-file form-control-sm"
+                  name="patient_id_photo" id="inputIDPhoto"
+                  v-on:change="onFileChange($event)"
+                  ref="patient_id_photo_ref"
+              >
+              <label class="custom-file-label" for="customFile" >
+                <template v-if="!newBioConfirm.patient_id_photo.name">
+                  Choose file
+                </template>
+                <template v-else>
+                  [[ newBioConfirm.patient_id_photo.name ]]
+                </template>
+              </label>
+            </div>
           </div>
-          <div class="form-group col-md-2">
-            <label>Insurance card photo front</label>
-            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" name="insurance_card_photo_front" id="inputInsuranceFront" v-on:change="onFileChange($event)">
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
           </div>
-          <div class="form-group col-md-2">
-            <label>Insurance card photo back</label>
-            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" name="insurance_card_photo_back" id="inputInsuranceFront" v-on:change="onFileChange($event)">
+        </div>
+        <div class="row">
+          <div class="form-group col-sm-12 col-md-6">
+            <label>Insurance card photo</label>
+            <div class="custom-file" v-on:click="$refs.insurance_card_photo_front_ref.click()">
+              <input
+                  type="file" accept="image/*" class="form-control form-control-file form-control-sm"
+                  name="insurance_card_photo_front" id="inputInsuranceFront"
+                  v-on:change="onFileChange($event)"
+                  ref="insurance_card_photo_front_ref"
+              >
+              <label class="custom-file-label" for="customFile" >
+                <template v-if="!newBioConfirm.insurance_card_photo_front.name">
+                  Choose file
+                </template>
+                <template v-else>
+                  [[ newBioConfirm.insurance_card_photo_front.name ]]
+                </template>
+              </label>
+            </div>
+            <small class="text-muted">Insurance card photo front</small>
           </div>
-          <div class="form-group col-md-2">
+          <div class="form-group col-sm-12 col-md-6">
+            <label>&nbsp;</label>
+            <div class="custom-file" v-on:click="$refs.insurance_card_photo_back_ref.click()">
+              <input
+                  type="file" accept="image/*" class="form-control form-control-file form-control-sm"
+                  name="insurance_card_photo_back" id="inputInsuranceFront"
+                  v-on:change="onFileChange($event)"
+                  ref="insurance_card_photo_back_ref"
+              >
+              <label class="custom-file-label" for="customFile" >
+                <template v-if="!newBioConfirm.insurance_card_photo_back.name">
+                  Choose file
+                </template>
+                <template v-else>
+                  [[ newBioConfirm.insurance_card_photo_back.name ]]
+                </template>
+              </label>
+            </div>
+            <small class="text-muted">Insurance card photo back</small>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-sm-12">
             <label>Additional Insurance card</label>
-            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" name="additional_insurance_cards" id="inputInsuranceAdditional" v-on:change="onFileChange($event)">
+            <div class="custom-file" v-on:click="$refs.additional_insurance_cards_ref.click()">
+              <input
+                  type="file" accept="image/*" class="form-control form-control-file form-control-sm"
+                  name="additional_insurance_cards" id="inputInsuranceAdditional"
+                  v-on:change="onFileChange($event)"
+                  ref="additional_insurance_cards_ref"
+              >
+              <label class="custom-file-label" for="customFile" >
+                <template v-if="!newBioConfirm.additional_insurance_cards.name">
+                  Choose file
+                </template>
+                <template v-else>
+                  [[ newBioConfirm.additional_insurance_cards.name ]]
+                </template>
+              </label>
+            </div>
           </div>
-          <div class="form-group col-md-2">
+        </div>
+        <div class="row">
+          <div class="form-group col-sm-12">
             <label>Consent Recording</label>
-            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" name="consent_recording" id="inputRecording" v-on:change="onFileChange($event)">
+            <div class="custom-file" v-on:click="$refs.consent_recording_ref.click()">
+              <input
+                  type="file" accept="image/*" class="form-control form-control-file form-control-sm"
+                  name="consent_recording" id="inputRecording"
+                  v-on:change="onFileChange($event)"
+                  ref="consent_recording_ref"
+              >
+              <label class="custom-file-label" for="customFile" >
+                <template v-if="!newBioConfirm.consent_recording.name">
+                  Choose file
+                </template>
+                <template v-else>
+                  [[ newBioConfirm.consent_recording.name ]]
+                </template>
+              </label>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <!-- end of attachments -->
-    <button type="submit" class="btn btn-success" style="float: right;">Save</button>
-   </div>
+    <button type="submit" class="btn btn-success mt-4" style="float: right;">Save</button>
   </form>
+</div>

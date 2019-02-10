@@ -113,6 +113,11 @@ nav .navbar-top-links .dropdown .dropdown-menu {
   color: white !important;
 }
 
+label {
+  font-size: 14px;
+  color: #777777;
+}
+
 
 /** Bootstrap customizations **/
 @media (min-width: 1300px) {
