@@ -1,13 +1,63 @@
 <div id="insurance-app">
   <div class="col-md-12">
-    <h5 class="title1">
-      Insurance
-    </h5>
-    <!-- loading -->
-    <div class="d-flex justify-content-center loading" v-if="loading===true">
-      <div class="spinner-border" role="status">
-        <strong>Fetching data...</strong>
-        <span class="sr-only">Loading...</span>
+    <div class="card" id="card-table">
+      <div class="card-header">
+        Insurance
+      </div>
+      <div class="card-body">
+        <!-- loading -->
+        <div class="d-flex justify-content-center loading" v-if="loading===true">
+          <div class="spinner-border" role="status">
+            <strong>Fetching data...</strong>
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+        <!-- end loading -->
+        <div class="table-responsive">
+          <table class="table table-bordered table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Patient name</th>
+                <th scope="col">Promo code</th>
+                <th scope="col">Agent name</th>
+                <th scope="col">Manager name</th>
+                <th scope="col">State</th>
+                <th scope="col">Type of Insurance</th>
+                <th scope="col">Test</th>
+                <th scope="col">Active/Inactive</th>
+                <th scope="col">Status</th>
+                <th scope="col">Insurance Status</th>
+                <th scope="col">Policy number</th>
+                <th scope="col">Verification date</th>
+                <th scope="col">Deductible remainding</th>
+                <th scope="col">Notes</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="14" class="text-center" v-if="!insurances.length">No records for <strong>Insurance</strong> as of now.</td>
+              </tr>
+              <tr v-for="insurance in insurances">
+                <td>[[ insurance.name ]]</td>
+                <td>[[ insurance.promo_code ]]</td>
+                <td>[[ insurance.agent ]]</td>
+                <td>[[ insurance.manager ]]</td>
+                <td>[[ insurance.state ]]</td>
+                <td>[[ insurance.type_of_insurance ]]</td>
+                <td>[[ insurance.test ]]</td>
+                <td>[[ insurance.active_inactive ]]</td>
+                <td>[[ insurance.status ]]</td>
+                <td>[[ insurance.insurance_status ]]</td>
+                <td>[[ insurance.policy_number ]]</td>
+                <td>[[ insurance.verification_date ]]</td>
+                <td>[[ insurance.deductible_remainding ]]</td>
+                <td>[[ insurance.notes ]]</td>
+                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewModalInsurance" v-on:click="viewInsurance(insurance.id)">View</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
     <!-- end loading -->
