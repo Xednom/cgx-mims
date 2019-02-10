@@ -1,5 +1,38 @@
+html, body {
+  height: 100%;
+}
+
+main {
+  height: calc(100% - 64px);
+}
+
 body {
-    background-color: #f1f1f1;
+  background-color: #f9f9f9;
+}
+
+nav {
+  height: 64px;
+  background-color: #f0f0f0;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+nav .container {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+nav .navbar-brand img {
+  height: 64px;
+}
+
+nav .navbar-top-links .dropdown .dropdown-menu {
+  left: unset !important;
+  right: 0;
+}
+
+[v-cloak]: {
+  display: none;
 }
 
 #card-table {
@@ -30,14 +63,60 @@ body {
   margin: 25px 25px !important;
 }
 
-.card-date-info {
+.card-info {
   margin-top: 15px;
 }
 
-.tsg-tabs {
-  margin: 50px 30px;
+.nav-tabs-container {
+  padding: 50px 20px 0;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #dee2e6;
 }
 
-.add-btn {
-  margin: 15px 10px;
+.nav-tabs-container .nav.nav-tabs {
+  border-bottom: 0 !important;
+}
+
+.nav.nav-tabs .nav-item:not(.add-btn) .nav-link {
+  color: #757575 !important;
+}
+
+.nav.nav-tabs .nav-item:not(.add-btn) .nav-link.active {
+  font-weight: bold;
+  position: relative;
+}
+
+.nav.nav-tabs .nav-item:not(.add-btn) .nav-link.active::after {
+  content: '';
+  height: 10px;
+  background-color: white;
+  position: absolute;
+  bottom: -5px;
+  right: 0;
+}
+
+.tab-pane {
+  padding: 40px 0;
+}
+
+.title1 {
+  margin-bottom: 15px;
+}
+
+.tsg-tabs {
+  background-color: white;
+  height: 100%;
+}
+
+.add-btn a {
+  background-color: #007bff;
+  color: white !important;
+}
+
+
+/** Bootstrap customizations **/
+@media (min-width: 1300px) {
+  .container {
+    max-width: 1290px;
+  }
 }

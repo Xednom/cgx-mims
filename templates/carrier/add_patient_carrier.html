@@ -1,4 +1,4 @@
-<div id="carrier-app">
+<div id="carrier-app" v-cloak>
   <!-- patient info -->
   <form v-on:submit.prevent="addCarrier" enctype="multipart/form-data" method="POST">
     {% csrf_token %}
