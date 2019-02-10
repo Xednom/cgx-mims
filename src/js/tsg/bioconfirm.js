@@ -100,7 +100,7 @@ new Vue({
           }
         });
         this.loading = true;
-        axios.post(`/api/v1/bio-confirm-master/`, formData).then((response) => {
+        this.$http.post(`/api/v1/bio-confirm-master/`, formData).then((response) => {
               console.log(formData);
               this.loading = false;
               swal({
