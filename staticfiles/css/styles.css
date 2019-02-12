@@ -37,7 +37,6 @@ nav .navbar-top-links .dropdown .dropdown-menu {
 
 [v-cloak] {
   display: none;
->>>>>>> fe771b2d0a4a9a6cbd770bea204aaba2d0f17063
 }
 
 #card-table {
@@ -72,6 +71,7 @@ nav .navbar-top-links .dropdown .dropdown-menu {
   margin-top: 15px;
 }
 
+<<<<<<< HEAD
 .nav.nav-tabs {
   padding: 0 20px;
   background-color: #f9f9f9;
@@ -89,12 +89,6 @@ nav .navbar-top-links .dropdown .dropdown-menu {
 .tsg-tabs {
   margin: 50px 0;
   background-color: white;
-}
-
-.add-btn a {
-  background-color: #007bff;
-  color: white !important;
-
 .nav-tabs-container {
   padding: 50px 20px 0;
   background-color: #f9f9f9;
