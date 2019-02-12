@@ -110,7 +110,6 @@ new Vue({
       this.loading = true;
       axios.post('/api/v1/dme/', formData).then((response) => {
         console.log(formData);
-        this.loading = false;
         swal({
           title: "TSG System",
           text: "Data has been saved successfully for DME",
@@ -118,6 +117,7 @@ new Vue({
           buttons: false,
           timer: 2000
         });
+        this.loading = false;
         this.getDmes();
         // reset form
         this.resetFields();

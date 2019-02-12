@@ -107,7 +107,6 @@ new Vue({
         this.loading = true;
         axios.post(`/api/v1/bio-confirm-master/`, formData).then((response) => {
               console.log(formData);
-              this.loading = false;
               swal({
                 title: "TSG System",
                 text: "Data has been saved successfully for Bio Confirm",
@@ -115,6 +114,7 @@ new Vue({
                 buttons: false,
                 timer: 2000
               })
+              this.loading = false;
               this.getBioConfirms();
               // reset form
               this.resetFields();

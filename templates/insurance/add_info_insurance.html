@@ -87,12 +87,13 @@
         <div class="row">
           <div class="form-group col-sm-12">
             <label>Patient ID Photo</label>
-            <div class="custom-file" v-on:click="$refs.patient_id_photo_ref.click()" :disabled="loading == true">
+            <div class="custom-file" v-on:click="$refs.patient_id_photo_ref.click()" >
               <input
                   type="file" accept="image/*" class="form-control form-control-file form-control-sm"
                   name="patient_id_photo" id="inputIDPhoto"
                   v-on:change="onFileChange($event)"
                   ref="patient_id_photo_ref"
+                  :disabled="loading == true"
               >
               <label class="custom-file-label" for="customFile">
                 <template v-if="!newInsurance.patient_id_photo.name">
@@ -112,12 +113,13 @@
         <div class="row">
           <div class="form-group col-sm-12 col-md-6">
             <label>Insurance card photo</label>
-            <div class="custom-file" v-on:click="$refs.insurance_card_photo_front_ref.click()" :dsiabled="loading == true">
+            <div class="custom-file" v-on:click="$refs.insurance_card_photo_front_ref.click()" >
               <input
                   type="file" accept="image/*" class="form-control form-control-file form-control-sm"
                   name="insurance_card_photo_front" id="inputInsuranceFront"
                   v-on:change="onFileChange($event)"
                   ref="insurance_card_photo_front_ref"
+                  :dsiabled="loading == true"
               >
               <label class="custom-file-label" for="customFile">
                 <template v-if="!newInsurance.insurance_card_photo_front.name">
@@ -132,12 +134,13 @@
           </div>
           <div class="form-group col-sm-12 col-md-6">
             <label>&nbsp;</label>
-            <div class="custom-file" v-on:click="$refs.insurance_card_photo_back_ref.click()" :disabled="loading == true">
+            <div class="custom-file" v-on:click="$refs.insurance_card_photo_back_ref.click()" >
               <input
                   type="file" accept="image/*" class="form-control form-control-file form-control-sm"
                   name="insurance_card_photo_back" id="inputInsuranceFront"
                   v-on:change="onFileChange($event)"
                   ref="insurance_card_photo_back_ref"
+                  :disabled="loading == true"
               >
               <label class="custom-file-label" for="customFile">
                 <template v-if="!newInsurance.insurance_card_photo_back.name">
@@ -160,8 +163,9 @@
                   name="additional_insurance_cards" id="inputInsuranceAdditional"
                   v-on:change="onFileChange($event)"
                   ref="additional_insurance_cards_ref"
+                  :disabled="loading == true"
               >
-              <label class="custom-file-label" for="customFile" :disabled="loading == true">
+              <label class="custom-file-label" for="customFile">
                 <template v-if="!newInsurance.additional_insurance_cards.name">
                   Choose file
                 </template>
@@ -175,12 +179,13 @@
         <div class="row">
           <div class="form-group col-sm-12">
             <label>Consent Recording</label>
-            <div class="custom-file" v-on:click="$refs.consent_recording_ref.click()" :disabled="loading == true">
+            <div class="custom-file" v-on:click="$refs.consent_recording_ref.click()">
               <input
                   type="file" accept="image/*" class="form-control form-control-file form-control-sm"
                   name="consent_recording" id="inputRecording"
                   v-on:change="onFileChange($event)"
                   ref="consent_recording_ref"
+                  :disabled="loading == true"
               >
               <label class="custom-file-label" for="customFile" >
                 <template v-if="!newInsurance.consent_recording.name">
@@ -196,7 +201,15 @@
       </div>
     </div>
     <!-- end of attachments -->
-    <button type="submit" class="btn btn-success save-btn-insurance" style="float: right;">Save</button>
+    <template v-if="loading == true">
+      <button class="btn btn-success save-btn-insurance" type="button" disabled style="float: right;">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Saving...
+      </button>
+    </template>
+    <template v-else-if="loading == false">
+      <button type="submit" class="btn btn-success save-btn-insurance" style="float: right;">Save</button>
+    </template>
   </form>
 </div>
 <!-- end of insurance app -->

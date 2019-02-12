@@ -81,9 +81,9 @@ new Vue({
             formData.append(key, obj);
           }
         });
-        this.loading = false;
+        this.loading = true;
         this.$http.post('/api/v1/insurance/', formData).then((response) => {
-            this.loading = true;
+            this.loading = false;
             swal({
               title: "TSG System",
               text: "Data has been saved successfully for Insurance",
