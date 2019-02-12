@@ -259,6 +259,14 @@
       </div>
     </div>
     <!-- end of attachments -->
-    <button type="submit" class="btn btn-success save-btn mt-4" style="float: right;">Save</button>
+    <template v-if="loading == true">
+      <button class="btn btn-success save-btn-insurance" type="button" disabled style="float: right;">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Saving...
+      </button>
+    </template>
+    <template v-else-if="loading == false">
+      <button type="submit" class="btn btn-success save-btn-insurance" style="float: right;">Save</button>
+    </template>
   </form>
 </div>
