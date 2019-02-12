@@ -74,6 +74,11 @@ new Vue({
     onFileChange: function (event) {
       this.newDme[event.target.name] = event.target.files[0];
     },
+    resetFields: function() {
+        Object.keys(this.newDme).forEach(key => {
+        this.newDme[key] = ''
+      })
+    },
     getDmes: function() {
           let api_url = '/api/v1/dme/';
           if(this.search_term!==''||this.search_term!==null) {
@@ -109,11 +114,15 @@ new Vue({
         swal({
           title: "TSG System",
           text: "Data has been saved successfully for DME",
-          icons: "success",
+          icon: "success",
           buttons: false,
           timer: 2000
         });
         this.getDmes();
+        // reset form
+        this.resetFields();
+        // return the current date after resetting the form
+        this.setDefaultDates();
         // reset form
         event.target.reset();
       })
@@ -122,7 +131,7 @@ new Vue({
         swal({
           title: "TSG System",
           text: "Something has happened when processing the data, if the error persist. Please contact your Administrator.",
-          icons: "Error",
+          icon: "error",
           buttons: "Ok",
         });
         console.log(err);

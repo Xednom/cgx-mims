@@ -59,6 +59,11 @@ new Vue({
     onFileChange: function (event) {
       this.newBioConfirm[event.target.name] = event.target.files[0];
     },
+    resetFields: function() {
+        Object.keys(this.newBioConfirm).forEach(key => {
+        this.newBioConfirm[key] = ''
+      })
+    },
     getBioConfirms: function() {
           let api_url = '/api/v1/bio-confirm-master/';
           if(this.search_term!==''||this.search_term!==null) {
@@ -112,13 +117,17 @@ new Vue({
               })
               this.getBioConfirms();
               // reset form
+              this.resetFields();
+              // return the current date after resetting the form
+              this.setDefaultDates();
+              // reset form
               event.target.reset();
           })
           .catch((err) => {
             swal({
               title: "TSG System",
-              text: "Something has happened when processing the data, if the error persist. Please contact your Administrator.",
-              icons: "Error",
+              text: "Please check if the Patient name is already in the database. And if yes, and the error still persist please contact your site administrator.",
+              icon: "error",
               buttons: "Ok",
             });
             console.log(err);

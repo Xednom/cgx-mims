@@ -64,7 +64,7 @@
           <div class="form-group col-md-8 col-sm-12">
             <label>Agent Name</label>
             <select id="inputAgent" class="form-control form-control-sm" v-model="newBioConfirm.agent">
-              <option v-for="agent in agentNames">[[ agent.name ]]</option>
+              <option v-for="agent in agentNames" selected="selected">[[ agent.name ]]</option>
             </select>
           </div>
         </div>
@@ -259,6 +259,6 @@
       </div>
     </div>
     <!-- end of attachments -->
-    <button type="submit" class="btn btn-success mt-4" style="float: right;">Save</button>
+    <button type="submit" class="btn btn-success save-btn mt-4" style="float: right;">Save</button>
   </form>
 </div>
