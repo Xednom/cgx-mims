@@ -13,8 +13,6 @@ body {
 nav {
   height: 64px;
   background-color: #f0f0f0;
-<<<<<<< HEAD
-=======
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
@@ -22,7 +20,6 @@ nav {
 nav .container {
   padding-left: 0 !important;
   padding-right: 0 !important;
->>>>>>> d558982cd0e31d0aa62c7f18766b712ad05c7cd8
 }
 
 nav .navbar-brand img {
@@ -32,13 +29,15 @@ nav .navbar-brand img {
 nav .navbar-top-links .dropdown .dropdown-menu {
   left: unset !important;
   right: 0;
-<<<<<<< HEAD
-=======
 }
 
 [v-cloak]: {
   display: none;
->>>>>>> d558982cd0e31d0aa62c7f18766b712ad05c7cd8
+}
+
+[v-cloak] {
+  display: none;
+>>>>>>> fe771b2d0a4a9a6cbd770bea204aaba2d0f17063
 }
 
 #card-table {
@@ -73,7 +72,6 @@ nav .navbar-top-links .dropdown .dropdown-menu {
   margin-top: 15px;
 }
 
-<<<<<<< HEAD
 .nav.nav-tabs {
   padding: 0 20px;
   background-color: #f9f9f9;
@@ -91,7 +89,12 @@ nav .navbar-top-links .dropdown .dropdown-menu {
 .tsg-tabs {
   margin: 50px 0;
   background-color: white;
-=======
+}
+
+.add-btn a {
+  background-color: #007bff;
+  color: white !important;
+
 .nav-tabs-container {
   padding: 50px 20px 0;
   background-color: #f9f9f9;
@@ -131,14 +134,39 @@ nav .navbar-top-links .dropdown .dropdown-menu {
 .tsg-tabs {
   background-color: white;
   height: 100%;
->>>>>>> d558982cd0e31d0aa62c7f18766b712ad05c7cd8
 }
 
 .add-btn a {
   background-color: #007bff;
   color: white !important;
-<<<<<<< HEAD
-=======
+}
+
+.save-btn {
+  border-radius: 0 !important;
+  padding: 10px 40px 10px 40px;
+}
+
+.save-btn-carrier {
+  border-radius: 0 !important;
+  padding: 10px 40px 10px 40px;
+  margin-bottom: 25px !important;
+}
+
+.save-btn-dme {
+  border-radius: 0 !important;
+  padding: 10px 40px 10px 40px !important;
+  margin-top: 25px !important;
+}
+
+.save-btn-insurance {
+  border-radius: 0 !important;
+  padding: 10px 40px 10px 40px !important;
+  margin-top: 25px !important;
+}
+
+label {
+  font-size: 14px;
+  color: #777777;
 }
 
 
@@ -147,5 +175,4 @@ nav .navbar-top-links .dropdown .dropdown-menu {
   .container {
     max-width: 1290px;
   }
->>>>>>> d558982cd0e31d0aa62c7f18766b712ad05c7cd8
 }

@@ -50,6 +50,11 @@ new Vue({
     onFileChange: function (event) {
       this.newInsurance[event.target.name] = event.target.files[0];
     },
+    resetFields: function() {
+        Object.keys(this.newInsurance).forEach(key => {
+        this.newInsurance[key] = ''
+      })
+    },
     getInsurances: function() {
           let api_url = '/api/v1/insurance/';
           if(this.search_term!==''||this.search_term!==null) {
@@ -86,15 +91,19 @@ new Vue({
               buttons: false,
               timer: 2000
             });
-            // reset form
+            // reset form for all input types
+            this.resetFields();
+            // return the current date after resetting the form
+            this.setDefaultDates();
+            // reset form for attachments
             event.target.reset();
           })
           .catch((err) => {
             this.loading = false;
             swal({
               title: "TSG System",
-              text: "Something has happened when processing the data, if the error persist. Please contact your Administrator.",
-              icons: "Error",
+              text: err,
+              icon: "error",
               buttons: "Ok",
             });
             console.log(err);
