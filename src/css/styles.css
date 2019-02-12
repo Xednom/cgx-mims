@@ -124,6 +124,18 @@ nav .navbar-top-links .dropdown .dropdown-menu {
   margin-bottom: 25px !important;
 }
 
+.save-btn-dme {
+  border-radius: 0 !important;
+  padding: 10px 40px 10px 40px !important;
+  margin-top: 25px !important;
+}
+
+.save-btn-insurance {
+  border-radius: 0 !important;
+  padding: 10px 40px 10px 40px !important;
+  margin-top: 25px !important;
+}
+
 label {
   font-size: 14px;
   color: #777777;

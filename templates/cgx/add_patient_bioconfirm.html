@@ -14,21 +14,21 @@
           </div>
           <div class="form-group col-md-4 col-sm-12">
             <label for="inputPatientPhone">Patient Phone Number</label>
-            <input type="text" class="form-control form-control-sm" id="inputPatientPhone" v-model="newBioConfirm.patient_phone_number">
+            <input type="text" class="form-control form-control-sm" id="inputPatientPhone" v-model="newBioConfirm.patient_phone_number" :disabled="loading == true">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-3 col-sm-12">
             <label>Date submitted to Tamika ins verifier</label>
-            <input type="date" class="form-control form-control-sm" id="inputDate1" v-model="newBioConfirm.submitted_to_tamika_ins_verifier">
+            <input type="date" class="form-control form-control-sm" id="inputDate1" v-model="newBioConfirm.submitted_to_tamika_ins_verifier" :disabled="loading == true">
           </div>
           <div class="form-group col-md-2 col-sm-12">
             <label for="inputEmail4">Promo Code</label>
-            <input type="text" class="form-control form-control-sm" id="inputPromo" v-model="newBioConfirm.promo_code">
+            <input type="text" class="form-control form-control-sm" id="inputPromo" v-model="newBioConfirm.promo_code" :disabled="loading == true">
           </div>
           <div class="form-group col-md-2  col-sm-12">
             <label for="inputStatus">Status</label>
-            <select id="inputStatus" class="form-control form-control-sm" v-model="newBioConfirm.status">
+            <select id="inputStatus" class="form-control form-control-sm" v-model="newBioConfirm.status" :disabled="loading == true">
               <option>CGX/CGD</option>
               <option>DUPLICATE</option>
               <option>HOLD</option>
@@ -48,11 +48,11 @@
           </div>
           <div class="form-group col-md-2 col-md-offset-2 col-sm-12">
             <label for="input">State</label>
-            <input type="text" class="form-control form-control-sm" id="inputState" v-model="newBioConfirm.state">
+            <input type="text" class="form-control form-control-sm" id="inputState" v-model="newBioConfirm.state" :disabled="loading == true">
           </div>
           <div class="form-group col-md-3 col-sm-12">
             <label>Test Choices</label>
-            <select id="inputTest" class="form-control form-control-sm" v-model="newBioConfirm.type_of_test">
+            <select id="inputTest" class="form-control form-control-sm" v-model="newBioConfirm.type_of_test" :disabled="loading == true">
               <option>CARRIER</option>
               <option>CGX</option>
               <option>CGX/CARRIER</option>
@@ -63,7 +63,7 @@
         <div class="form-row">
           <div class="form-group col-md-8 col-sm-12">
             <label>Agent Name</label>
-            <select id="inputAgent" class="form-control form-control-sm" v-model="newBioConfirm.agent">
+            <select id="inputAgent" class="form-control form-control-sm" v-model="newBioConfirm.agent" :disabled="loading == true">
               <option v-for="agent in agentNames" selected="selected">[[ agent.name ]]</option>
             </select>
           </div>
@@ -71,19 +71,19 @@
         <div class="form-row">
           <div class="form-group col-md-8 col-sm-12">
             <label for="inputTelemed">Telemed Name</label>
-            <input type="text" class="form-control form-control-sm" id="inputTelemed" v-model="newBioConfirm.telemed_name">
+            <input type="text" class="form-control form-control-sm" id="inputTelemed" v-model="newBioConfirm.telemed_name" :disabled="loading == true">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-8">
             <label for="inputInsurance">Insurance Company Name</label>
-            <input type="text" class="form-control form-control-sm" id="inputInsurance" v-model="newBioConfirm.insurance_company">
+            <input type="text" class="form-control form-control-sm" id="inputInsurance" v-model="newBioConfirm.insurance_company" :disabled="loading == true">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-12">
             <label>Notes</label>
-            <textarea class="form-control form-control-sm" name="name" v-model="newBioConfirm.notes" rows="10" cols="80"></textarea>
+            <textarea class="form-control form-control-sm" name="name" v-model="newBioConfirm.notes" :disabled="loading == true" rows="10" cols="80"></textarea>
           </div>
         </div>
       </div>
@@ -99,43 +99,43 @@
         <div class="form-row">
           <div class="form-group col-md-3">
             <label>Date application recorded</label>
-            <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_app_rec" id="inputDateAppRec" value="">
+            <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_app_rec" id="inputDateAppRec" value="" :disabled="loading == true">
           </div>
           <div class="form-group col-md-3">
             <label>Date sample recorded</label>
-            <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_sample_rec" id="inputDate">
+            <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_sample_rec" id="inputDate" :disabled="loading == true">
           </div>
           <div class="form-group col-md-3 offset-1">
             <label>Date of QCA</label>
-            <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_of_qca" id="inputDate">
+            <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_of_qca" id="inputDate" :disabled="loading == true">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-3">
             <label>Date submitted to telemed</label>
-            <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_submitted_to_telemed" id="inputDate">
+            <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_submitted_to_telemed" id="inputDate" :disabled="loading == true">
           </div>
           <div class="form-group col-md-3">
             <label>Date telemed returned</label>
-            <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_telemed_returned" id="inputDate">
+            <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_telemed_returned" id="inputDate" :disabled="loading == true">
           </div>
           <div class="form-group col-md-3 offset-1">
             <label>Date bioconfirm recorded application</label>
-            <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_bioconfim_rec_app" id="inputDate">
+            <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_bioconfim_rec_app" id="inputDate" :disabled="loading == true">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-3">
             <label>Date paid</label>
-            <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_paid" id="inputDate">
+            <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_paid" id="inputDate" :disabled="loading == true">
           </div>
           <div class="form-group col-md-3">
             <label>Month</label>
-            <input type="text" class="form-control form-control-sm" v-model="newBioConfirm.month">
+            <input type="text" class="form-control form-control-sm" v-model="newBioConfirm.month" :disabled="loading == true">
           </div>
           <div class="form-group col-md-3 offset-1">
             <label>Rejection Date</label>
-            <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.rejection_date" id="inputDate">
+            <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.rejection_date" id="inputDate" :disabled="loading == true">
           </div>
         </div>
       </div>
@@ -150,14 +150,14 @@
         <div class="row">
           <div class="form-group col-sm-12">
             <label>Patient ID Photo</label>
-            <div class="custom-file" v-on:click="$refs.patient_id_photo_ref.click()">
+            <div class="custom-file" v-on:click="$refs.patient_id_photo_ref.click()" :disabled="loading == true">
               <input
                   type="file" accept="image/*" class="form-control form-control-file form-control-sm"
                   name="patient_id_photo" id="inputIDPhoto"
                   v-on:change="onFileChange($event)"
                   ref="patient_id_photo_ref"
               >
-              <label class="custom-file-label" for="customFile" >
+              <label class="custom-file-label" for="customFile">
                 <template v-if="!newBioConfirm.patient_id_photo.name">
                   Choose file
                 </template>
@@ -175,14 +175,14 @@
         <div class="row">
           <div class="form-group col-sm-12 col-md-6">
             <label>Insurance card photo</label>
-            <div class="custom-file" v-on:click="$refs.insurance_card_photo_front_ref.click()">
+            <div class="custom-file" v-on:click="$refs.insurance_card_photo_front_ref.click()" :dsiabled="loading == true">
               <input
                   type="file" accept="image/*" class="form-control form-control-file form-control-sm"
                   name="insurance_card_photo_front" id="inputInsuranceFront"
                   v-on:change="onFileChange($event)"
                   ref="insurance_card_photo_front_ref"
               >
-              <label class="custom-file-label" for="customFile" >
+              <label class="custom-file-label" for="customFile">
                 <template v-if="!newBioConfirm.insurance_card_photo_front.name">
                   Choose file
                 </template>
@@ -195,14 +195,14 @@
           </div>
           <div class="form-group col-sm-12 col-md-6">
             <label>&nbsp;</label>
-            <div class="custom-file" v-on:click="$refs.insurance_card_photo_back_ref.click()">
+            <div class="custom-file" v-on:click="$refs.insurance_card_photo_back_ref.click()" :disabled="loading == true">
               <input
                   type="file" accept="image/*" class="form-control form-control-file form-control-sm"
                   name="insurance_card_photo_back" id="inputInsuranceFront"
                   v-on:change="onFileChange($event)"
                   ref="insurance_card_photo_back_ref"
               >
-              <label class="custom-file-label" for="customFile" >
+              <label class="custom-file-label" for="customFile">
                 <template v-if="!newBioConfirm.insurance_card_photo_back.name">
                   Choose file
                 </template>
@@ -224,7 +224,7 @@
                   v-on:change="onFileChange($event)"
                   ref="additional_insurance_cards_ref"
               >
-              <label class="custom-file-label" for="customFile" >
+              <label class="custom-file-label" for="customFile" :disabled="loading == true">
                 <template v-if="!newBioConfirm.additional_insurance_cards.name">
                   Choose file
                 </template>
@@ -238,7 +238,7 @@
         <div class="row">
           <div class="form-group col-sm-12">
             <label>Consent Recording</label>
-            <div class="custom-file" v-on:click="$refs.consent_recording_ref.click()">
+            <div class="custom-file" v-on:click="$refs.consent_recording_ref.click()" :disabled="loading == true">
               <input
                   type="file" accept="image/*" class="form-control form-control-file form-control-sm"
                   name="consent_recording" id="inputRecording"

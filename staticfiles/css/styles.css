@@ -110,8 +110,30 @@ nav .navbar-top-links .dropdown .dropdown-menu {
 
 .add-btn a {
   background-color: #007bff;
-  border-radius: 0 !important;
   color: white !important;
+}
+
+.save-btn {
+  border-radius: 0 !important;
+  padding: 10px 40px 10px 40px;
+}
+
+.save-btn-carrier {
+  border-radius: 0 !important;
+  padding: 10px 40px 10px 40px;
+  margin-bottom: 25px !important;
+}
+
+.save-btn-dme {
+  border-radius: 0 !important;
+  padding: 10px 40px 10px 40px !important;
+  margin-top: 25px !important;
+}
+
+.save-btn-insurance {
+  border-radius: 0 !important;
+  padding: 10px 40px 10px 40px !important;
+  margin-top: 25px !important;
 }
 
 label {
