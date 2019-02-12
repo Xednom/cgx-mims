@@ -130,7 +130,7 @@ new Vue({
         this.loading = false;
         swal({
           title: "TSG System",
-          text: "Something has happened when processing the data, if the error persist. Please contact your Administrator.",
+          text: "Please check if the Patient name is already in the database. And if yes, and the error still persist please contact your site administrator.",
           icon: "error",
           buttons: "Ok",
         });
