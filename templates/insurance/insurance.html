@@ -5,9 +5,14 @@
     </h5>
     <!-- loading -->
     <div class="d-flex justify-content-center loading" v-if="loading===true">
-      <div class="spinner-border" role="status">
-        <strong>Fetching data...</strong>
-        <span class="sr-only">Loading...</span>
+      <div class="col-md-12 col-sm-12">
+        <div class="alert alert-primary" role="alert">
+          <div class=" d-flex justify-content-center">
+            <div class="spinner-border" role="status"></div>
+            &nbsp;
+            <strong>Fetching data...</strong>
+          </div>
+        </div>
       </div>
     </div>
     <!-- end loading -->
