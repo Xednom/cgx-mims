@@ -1,5 +1,6 @@
 from rest_framework import viewsets, filters
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.parsers import MultiPartParser
 
 from django.shortcuts import render
@@ -36,6 +37,7 @@ class BioConfirmMasterViewSet(viewsets.ModelViewSet):
     # queryset = BioConfirmMaster.objects.all()
     serializer_class = BioConfirmMasterSerializer
     authentication_classes = (CsrftExemptSessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticatedOrReadOnly,)
     parser_classes = (MultiPartParser,)
     filter_backends = [filters.SearchFilter]
     search_fields = ('promo_code', 'patient_name')

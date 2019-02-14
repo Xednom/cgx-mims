@@ -93,7 +93,7 @@
         <div class="form-row">
           <div class="form-group col-md-3">
             <label>Date application recorded</label>
-            <input type="date" class="form-control form-control-sm" v-model="newCarrier.date_app_rec" id="inputDateAppRec" value="" :disalbed="loading == true">
+            <input type="date" class="form-control form-control-sm" v-model="newCarrier.date_app_rec" id="inputDateAppRec" value="" :disabled="loading == true">
           </div>
           <div class="form-group col-md-3">
             <label>Date sample recorded</label>
@@ -255,6 +255,8 @@
         </div>
       </div>
       <!-- end of attachments -->
+
+      <!-- loading -->
       <template v-if="loading == true">
         <button class="btn btn-success save-btn-carrier" type="button" disabled style="float: right;">
           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -264,6 +266,6 @@
       <template v-else-if="loading == false">
         <button type="submit" class="btn btn-success save-btn-carrier" style="float: right;">Save</button>
       </template>
-
+      <!-- end of loading -->
     </form>
   </div>
