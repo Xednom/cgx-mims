@@ -1,5 +1,6 @@
 from rest_framework import viewsets, filters
 from rest_framework.parsers import FormParser, MultiPartParser, FileUploadParser
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
 from django.shortcuts import render
@@ -23,6 +24,7 @@ class DMEIIViewSet(viewsets.ModelViewSet):
     queryset = DME_II.objects.all()
     serializer_class = DMEIISerializer
     authentication_classes = (CsrftExemptSessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticatedOrReadOnly,)
     parser_classes = (MultiPartParser,)
     filter_backends = [filters.SearchFilter]
     search_fields = ('first_name', 'last_name', 'agents_promod_code')
