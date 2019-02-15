@@ -1,4 +1,10 @@
 <div id="search-app" v-cloak>
+  <div class="alert alert-info text-center" role="alert">
+    <h4 class="alert-heading">Attention!</h4>
+    <p>This feature is on <strong>early stage(s)</strong>. Searching all data across the database is not possible, because you can only search data that are assigned to you <strong>ONLY</strong>.</p>
+    <hr>
+    <p class="mb-0">This feature is only temporal as it can/will change in the future for beneficial purposes.</p>
+  </div>
   <div class="form-inline my-2 my-sm-0 pull-right" style="margin: 10px;">
     <input class="form-control mr-sm-2" type="text" placeholder="Search here.." v-model="search_term" aria-label="Search" required :disabled="loading == true"/>
     <template v-if="loading == true">
