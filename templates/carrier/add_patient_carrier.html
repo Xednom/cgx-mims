@@ -61,7 +61,7 @@
           </div>
           <div class="form-group col-md-2">
             <label>Agent Name</label>
-            <select id="inputAgent" class="form-control form-control-sm" v-model="newCarrier.agent" :disabled="loading == true">
+            <select id="inputAgent" class="form-control form-control-sm" v-model="newCarrier.agent" :disabled="loading == true" required>
               <option v-for="agent in agentNames">[[ agent.name ]]</option>
             </select>
           </div>

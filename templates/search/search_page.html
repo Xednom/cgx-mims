@@ -1,4 +1,10 @@
 <div id="search-app" v-cloak>
+  <div class="alert alert-info text-center" role="alert">
+    <h4 class="alert-heading">Attention!</h4>
+    <p>This feature is on <strong>early stage(s)</strong>. Searching all data across the database is not possible, because you can only search data that are assigned to you <strong>ONLY</strong>.</p>
+    <hr>
+    <p class="mb-0">This feature is only temporal as it can/will change in the future for beneficial purposes.</p>
+  </div>
   <div class="form-inline my-2 my-sm-0 pull-right" style="margin: 10px;">
     <input class="form-control mr-sm-2" type="text" placeholder="Search here.." v-model="search_term" aria-label="Search" required :disabled="loading == true"/>
     <template v-if="loading == true">
@@ -20,7 +26,7 @@
       <h5 class="card-title title1">Table Informations</h5>
         <div class="table table-sm table-responsive-sm">
           <table class="table">
-            <thead>
+            <thead class="thead-light">
               <th scope="col">Patient name</th>
               <th scope="col">Promo code</th>
               <th scope="col">Agent name</th>
@@ -38,7 +44,7 @@
                 <td colspan="14" class="text-center"
                 v-if="!bioConfirms.length">Try searching for a data, if no records returned for <strong>Bio Confirm Master</strong> then most likely it does not exist in the database.</td>
               </tr>
-              <tr v-for="bioconfirm in bioConfirms">
+              <tr v-for="bioconfirm in bioConfirms" class="table-info">
                 <td>[[ bioconfirm.patient_name ]]</td>
                 <td>[[ bioconfirm.promo_code ]]</td>
                 <td>[[ bioconfirm.agent ]]</td>
@@ -64,7 +70,7 @@
       <h5 class="card-title title1">Table Informations</h5>
         <div class="table table-sm table-responsive-sm">
           <table class="table">
-            <thead>
+            <thead class="thead-light">
               <th scope="col">Patient name</th>
               <th scope="col">Promo code</th>
               <th scope="col">Agent name</th>
@@ -80,7 +86,7 @@
               <tr>
                 <td colspan="14" class="text-center" v-if="!carriers.length">Try searching for a data, if no records returned for <strong>Carrier</strong> then most likely it does not exist in the database.</td>
               </tr>
-              <tr v-for="carrier in carriers">
+              <tr v-for="carrier in carriers" class="table-info">
                 <td>[[ carrier.patient_name ]]</td>
                 <td>[[ carrier.promo_code ]]</td>
                 <td>[[ carrier.agent ]]</td>
@@ -107,7 +113,7 @@
       <h5 class="card-title title1">Table Informations</h5>
         <div class="table table-sm table-responsive-sm">
           <table class="table">
-            <thead>
+            <thead class="thead-light">
               <th scope="col">Submission date</th>
               <th scope="col">Patient's first name</th>
               <th scope="col">Patient's last name</th>
@@ -121,7 +127,7 @@
               <tr>
                 <td colspan="14" class="text-center" v-if="!dmes.length">Try searching for a data, if no records returned for <strong>DME</strong> then most likely it does not exist in the database.</td>
               </tr>
-              <tr v-for="dme in dmes">
+              <tr v-for="dme in dmes" class="table-info">
                 <td>[[ dme.submission_date ]]</td>
                 <td>[[ dme.patients_first_name ]]</td>
                 <td>[[ dme.patients_last_name ]]</td>
@@ -145,7 +151,7 @@
       <h5 class="card-title title1">Table Informations</h5>
         <div class="table table-sm table-responsive-sm">
           <table class="table">
-            <thead>
+            <thead class="thead-light">
               <th scope="col">Patient name</th>
               <th scope="col">Promo code</th>
               <th scope="col">Agent name</th>
@@ -166,7 +172,7 @@
               <tr>
                 <td colspan="14" class="text-center" v-if="!insurances.length">Try searching for a data, if no records returned for <strong>Insurance</strong> then most likely it does not exist in the database.</td>
               </tr>
-              <tr v-for="insurance in insurances">
+              <tr v-for="insurance in insurances" class="table-info">
                 <td>[[ insurance.name ]]</td>
                 <td>[[ insurance.promo_code ]]</td>
                 <td>[[ insurance.agent ]]</td>
