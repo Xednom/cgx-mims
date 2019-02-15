@@ -63,7 +63,7 @@
         <div class="form-row">
           <div class="form-group col-md-8 col-sm-12">
             <label>Agent Name</label>
-            <select id="inputAgent" class="form-control form-control-sm" v-model="newBioConfirm.agent" :disabled="loading == true">
+            <select id="inputAgent" class="form-control form-control-sm" v-model="newBioConfirm.agent" :disabled="loading == true" required>
               <option v-for="agent in agentNames" selected="selected">[[ agent.name ]]</option>
             </select>
           </div>
