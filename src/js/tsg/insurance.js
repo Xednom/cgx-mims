@@ -56,60 +56,60 @@ new Vue({
       })
     },
     getInsurances: function() {
-          let api_url = '/api/v1/insurance/';
-          if(this.search_term!==''||this.search_term!==null) {
-            api_url = `/api/v1/insurance/?search=${this.search_term}`
-          }
-          this.loading = false;
-          this.$http.get(api_url)
-              .then((response) => {
-                this.insurances = response.data;
-                this.loading = false;
-              })
-              .catch((err) => {
-                this.loading = false;
-                console.log(err);
-              })
-        },
-      addInsurance: function (event) {
-        const formData = new FormData();
-        Object.keys(this.newInsurance).forEach((key) => {
-          let obj = this.newInsurance[key];
-          if (obj instanceof File) {
-            formData.append(key, obj, obj.name)
-          } else {
-            formData.append(key, obj);
-          }
-        });
-        this.loading = true;
-        this.$http.post('/api/v1/insurance/', formData).then((response) => {
+      let api_url = '/api/v1/insurance/';
+      if(this.search_term!==''||this.search_term!==null) {
+        api_url = `/api/v1/insurance/?search=${this.search_term}`
+      }
+      this.loading = false;
+      this.$http.get(api_url)
+          .then((response) => {
+            this.insurances = response.data;
             this.loading = false;
-            swal({
-              title: "TSG System",
-              text: "Data has been saved successfully for Insurance",
-              icon: "success",
-              buttons: false,
-              timer: 2000
-            });
-            // reset form for all input types
-            this.resetFields();
-            // return the current date after resetting the form
-            this.setDefaultDates();
-            // reset form for attachments
-            event.target.reset();
           })
           .catch((err) => {
             this.loading = false;
-            swal({
-              title: "TSG System",
-              text: err,
-              icon: "error",
-              buttons: "Ok",
-            });
             console.log(err);
+          })
+    },
+    addInsurance: function (event) {
+      const formData = new FormData();
+      Object.keys(this.newInsurance).forEach((key) => {
+        let obj = this.newInsurance[key];
+        if (obj instanceof File) {
+          formData.append(key, obj, obj.name)
+        } else {
+          formData.append(key, obj);
+        }
+      });
+      this.loading = true;
+      this.$http.post('/api/v1/insurance/', formData).then((response) => {
+          this.loading = false;
+          swal({
+            title: "TSG System",
+            text: "Data has been saved successfully for Insurance",
+            icon: "success",
+            buttons: false,
+            timer: 2000
+          });
+          // reset form for all input types
+          this.resetFields();
+          // return the current date after resetting the form
+          this.setDefaultDates();
+          // reset form for attachments
+          event.target.reset();
         })
-      },
-      getAgentNames: function() {
+        .catch((err) => {
+          this.loading = false;
+          swal({
+            title: "TSG System",
+            text: err,
+            icon: "error",
+            buttons: "Ok",
+          });
+          console.log(err);
+      })
+    },
+    getAgentNames: function() {
       this.loading = true;
       this.$http.get(`/api/v1/agent/`)
           .then((response) => {
@@ -121,7 +121,7 @@ new Vue({
             console.log(err);
           })
     },
-      getManagerNames: function() {
+    getManagerNames: function() {
       this.loading = true;
       this.$http.get(`/api/v1/manager/`)
           .then((response) => {
@@ -133,29 +133,29 @@ new Vue({
             console.log(err);
           })
     },
-      getTypeOfInsurance: function() {
-        this.loading = true;
-        this.$http.get(`/api/v1/type-of-insurance/`)
-            .then((response) => {
-              this.typeOfInsurance = response.data;
-              this.loading = false;
-            })
-            .catch((err) => {
-              this.loading = false;
-              console.log(err);
-            })
-      },
-      viewInsurance: function (id) {
-        this.loading = true;
-        this.$http.get(`/api/v1/insurance/${id}/`)
-            .then((response) => {
-              this.currentInsurance = response.data;
-              this.loading = false;
-            })
-            .catch((err) => {
-              this.loading = false;
-              console.log(err);
-            })
-      },
+    getTypeOfInsurance: function() {
+      this.loading = true;
+      this.$http.get(`/api/v1/type-of-insurance/`)
+          .then((response) => {
+            this.typeOfInsurance = response.data;
+            this.loading = false;
+          })
+          .catch((err) => {
+            this.loading = false;
+            console.log(err);
+          })
+    },
+    viewInsurance: function (id) {
+      this.loading = true;
+      this.$http.get(`/api/v1/insurance/${id}/`)
+          .then((response) => {
+            this.currentInsurance = response.data;
+            this.loading = false;
+          })
+          .catch((err) => {
+            this.loading = false;
+            console.log(err);
+          })
+    },
   }
 });

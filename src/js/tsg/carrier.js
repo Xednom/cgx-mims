@@ -66,64 +66,63 @@ new Vue({
       })
     },
     getCarriers: function() {
-          let api_url = '/api/v1/carrier/';
-          if(this.search_term!==''||this.search_term!==null) {
-            api_url = `/api/v1/carrier/?search=${this.search_term}`
+      let api_url = '/api/v1/carrier/';
+      if(this.search_term!==''||this.search_term!==null) {
+        api_url = `/api/v1/carrier/?search=${this.search_term}`
+      }
+      this.loading = false;
+      this.$http.get(api_url)
+          .then((response) => {
+            this.carriers = response.data;
+            this.loading = false;
+          })
+          .catch((err) => {
+            this.loading = false;
+            console.log(err);
+          })
+    },
+    // new code using axios
+    addCarrier: function (event) {
+      const formData = new FormData();
+      Object.keys(this.newCarrier).forEach((key) => {
+          let obj = this.newCarrier[key];
+          if (obj instanceof File) {
+            formData.append(key, obj, obj.name)
+          } else {
+            formData.append(key, obj);
           }
-          this.loading = false;
-          this.$http.get(api_url)
-              .then((response) => {
-                this.carriers = response.data;
-                this.loading = false;
-              })
-              .catch((err) => {
-                this.loading = false;
-                console.log(err);
-              })
-        },
-
-      // new code using axios
-      addCarrier: function (event) {
-        const formData = new FormData();
-        Object.keys(this.newCarrier).forEach((key) => {
-            let obj = this.newCarrier[key];
-            if (obj instanceof File) {
-              formData.append(key, obj, obj.name)
-            } else {
-              formData.append(key, obj);
-            }
+      });
+      this.loading = true;
+      this.$http.post('/api/v1/carrier/', formData).then((response) => {
+        console.log(formData);
+        swal({
+          title: "TSG System",
+          text: "Data has been saved successfully for Carrier",
+          icon: "success",
+          buttons: false,
+          timer: 2000
         });
-        this.loading = true;
-        this.$http.post('/api/v1/carrier/', formData).then((response) => {
-          console.log(formData);
-          swal({
-            title: "TSG System",
-            text: "Data has been saved successfully for Carrier",
-            icon: "success",
-            buttons: false,
-            timer: 2000
-          });
-          this.loading = false;
-          this.getCarriers();
-          // reset form
-          this.resetFields();
-          // return the current date after resetting the form
-          this.setDefaultDates();
-          // reset form
-          event.target.reset();
-        })
-        .catch((err) => {
-          this.loading = false;
-          swal({
-            title: "TSG System",
-            text: "Something has happened when processing the data, if the error persist. Please contact your Administrator.",
-            icon: "error",
-            buttons: "Ok",
-          });
-          console.log(err);
-        })
-      },
-      getAgentNames: function() {
+        this.loading = false;
+        this.getCarriers();
+        // reset form
+        this.resetFields();
+        // return the current date after resetting the form
+        this.setDefaultDates();
+        // reset form
+        event.target.reset();
+      })
+      .catch((err) => {
+        this.loading = false;
+        swal({
+          title: "TSG System",
+          text: "Something has happened when processing the data, if the error persist. Please contact your Administrator.",
+          icon: "error",
+          buttons: "Ok",
+        });
+        console.log(err);
+      })
+    },
+    getAgentNames: function() {
       this.loading = true;
       this.$http.get(`/api/v1/agent/`)
           .then((response) => {
@@ -137,16 +136,16 @@ new Vue({
     },
     // viewing of full datas
     viewCarrier: function(id) {
-    this.loading = true;
-    this.$http.get(`/api/v1/carrier/${id}/`)
-        .then((response) => {
-          this.loading = false;
-          this.currentCarrier = response.data;
-        })
-        .catch((err) => {
-          this.loading = false;
-          console.log(err);
-        })
-  },
+      this.loading = true;
+      this.$http.get(`/api/v1/carrier/${id}/`)
+          .then((response) => {
+            this.loading = false;
+            this.currentCarrier = response.data;
+          })
+          .catch((err) => {
+            this.loading = false;
+            console.log(err);
+          })
+    },
   }
 });

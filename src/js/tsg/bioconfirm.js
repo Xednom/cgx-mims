@@ -65,87 +65,86 @@ new Vue({
       })
     },
     getBioConfirms: function() {
-          let api_url = '/api/v1/bio-confirm-master/';
-          if(this.search_term!==''||this.search_term!==null) {
-            api_url = `/api/v1/bio-confirm-master/?search=${this.search_term}`
-          }
-          this.loading = true;
-          this.$http.get(api_url)
-              .then((response) => {
-                this.bioconfirms = response.data;
-                this.loading = false;
-              })
-              .catch((err) => {
-                this.loading = false;
-                console.log(err);
-              })
-        },
-        getAgentNames: function() {
-          this.loading = true;
-          this.$http.get(`/api/v1/agent/`)
-              .then((response) => {
-                this.agentNames = response.data;
-                this.loading = false;
-              })
-              .catch((err) => {
-                this.loading = false;
-                console.log(err);
-              })
-        },
-
-      // new code using axios
-      addBioConfirm: function(event) {
-        const formData = new FormData();
-        Object.keys(this.newBioConfirm).forEach((key) => {
-          let obj = this.newBioConfirm[key];
-          if (obj instanceof File) {
-            formData.append(key, obj, obj.name)
-          } else {
-            formData.append(key, obj);
-          }
-        });
-        this.loading = true;
-        axios.post(`/api/v1/bio-confirm-master/`, formData).then((response) => {
-              console.log(formData);
-              swal({
-                title: "TSG System",
-                text: "Data has been saved successfully for Bio Confirm",
-                icon: "success",
-                buttons: false,
-                timer: 2000
-              })
-              this.loading = false;
-              this.getBioConfirms();
-              // reset form
-              this.resetFields();
-              // return the current date after resetting the form
-              this.setDefaultDates();
-              // reset form
-              event.target.reset();
-          })
-          .catch((err) => {
-            swal({
-              title: "TSG System",
-              text: "Please check if the Patient name is already in the database. And if yes, and the error still persist please contact your site administrator.",
-              icon: "error",
-              buttons: "Ok",
-            });
-            console.log(err);
-            this.loading = false;
-          })
-      },
-      // viewing of full datas
-      viewBioConfirm: function(id) {
+      let api_url = '/api/v1/bio-confirm-master/';
+      if(this.search_term!==''||this.search_term!==null) {
+        api_url = `/api/v1/bio-confirm-master/?search=${this.search_term}`
+      }
       this.loading = true;
-      this.$http.get(`/api/v1/bio-confirm-master/${id}/`)
+      this.$http.get(api_url)
           .then((response) => {
+            this.bioconfirms = response.data;
             this.loading = false;
-            this.currentBioConfirm = response.data;
           })
           .catch((err) => {
             this.loading = false;
             console.log(err);
           })
+    },
+    getAgentNames: function() {
+      this.loading = true;
+      this.$http.get(`/api/v1/agent/`)
+          .then((response) => {
+            this.agentNames = response.data;
+            this.loading = false;
+          })
+          .catch((err) => {
+            this.loading = false;
+            console.log(err);
+          })
+    },
+
+    // new code using axios
+    addBioConfirm: function(event) {
+      const formData = new FormData();
+      Object.keys(this.newBioConfirm).forEach((key) => {
+        let obj = this.newBioConfirm[key];
+        if (obj instanceof File) {
+          formData.append(key, obj, obj.name)
+        } else {
+          formData.append(key, obj);
+        }
+      });
+      this.loading = true;
+      axios.post(`/api/v1/bio-confirm-master/`, formData).then((response) => {
+          swal({
+            title: "TSG System",
+            text: "Data has been saved successfully for Bio Confirm",
+            icon: "success",
+            buttons: false,
+            timer: 2000
+          })
+          this.loading = false;
+          this.getBioConfirms();
+          // reset form
+          this.resetFields();
+          // return the current date after resetting the form
+          this.setDefaultDates();
+          // reset form
+          event.target.reset();
+      })
+      .catch((err) => {
+        swal({
+          title: "TSG System",
+          text: "Please check if the Patient name is already in the database. And if yes, and the error still persist please contact your site administrator.",
+          icon: "error",
+          buttons: "Ok",
+        });
+        console.log(err);
+        this.loading = false;
+      })
+    },
+    // viewing of full datas
+    viewBioConfirm: function(id) {
+    this.loading = true;
+    this.$http.get(`/api/v1/bio-confirm-master/${id}/`)
+        .then((response) => {
+          this.loading = false;
+          this.currentBioConfirm = response.data;
+        })
+        .catch((err) => {
+          this.loading = false;
+          console.log(err);
+        })
     },
   }
 });

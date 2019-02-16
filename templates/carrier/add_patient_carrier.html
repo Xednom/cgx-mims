@@ -138,118 +138,116 @@
       <h5 class="title1">
         Attachments
       </h5>
-      <div class="card-body">
+      <div class="row">
+        <div class="form-group col-md-12">
+          <label>Patient ID Photo</label>
+            <div class="custom-file" v-on:click="$refs.patient_id_photo_ref.click()">
+              <input type="file" accept="image/*" class="form-control form-control-file form-control-sm"
+              name="patient_id_photo" id="inputIDPhoto"
+              v-on:change="onFileChange($event)"
+              ref="patient_id_photo_ref"
+              :disabled="loading == true"
+            >
+            <label class="custom-file-label" for="customFile">
+              <template v-if="!newCarrier.patient_id_photo.name">
+                Choose file
+              </template>
+              <template v-else>
+                [[ newCarrier.patient_id_photo.name ]]
+              </template>
+            </label>
+            </div>
+          </div>
+        </div>
         <div class="row">
-          <div class="form-group col-md-12">
-            <label>Patient ID Photo</label>
-              <div class="custom-file" v-on:click="$refs.patient_id_photo_ref.click()">
-                <input type="file" accept="image/*" class="form-control form-control-file form-control-sm"
-                name="patient_id_photo" id="inputIDPhoto"
-                v-on:change="onFileChange($event)"
-                ref="patient_id_photo_ref"
-                :disabled="loading == true"
+          <div class="col-sm-12">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-sm-12 col-md-6">
+            <label>Insurance card photo</label>
+            <div class="custom-file" v-on:click="$refs.insurance_card_photo_front_ref.click()">
+              <input
+                  type="file" accept="image/*" class="form-control form-control-file form-control-sm"
+                  name="insurance_card_photo_front" id="inputInsuranceFront"
+                  v-on:change="onFileChange($event)"
+                  ref="insurance_card_photo_front_ref"
+                  :disabled="loading == true"
               >
-              <label class="custom-file-label" for="customFile">
-                <template v-if="!newCarrier.patient_id_photo.name">
+              <label class="custom-file-label" for="customFile" >
+                <template v-if="!newCarrier.insurance_card_photo_front.name">
                   Choose file
                 </template>
                 <template v-else>
-                  [[ newCarrier.patient_id_photo.name ]]
+                  [[ newCarrier.insurance_card_photo_front.name ]]
                 </template>
               </label>
-              </div>
             </div>
+            <small class="text-muted">Insurance card photo front</small>
           </div>
-          <div class="row">
-            <div class="col-sm-12">
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group col-sm-12 col-md-6">
-              <label>Insurance card photo</label>
-              <div class="custom-file" v-on:click="$refs.insurance_card_photo_front_ref.click()">
-                <input
-                    type="file" accept="image/*" class="form-control form-control-file form-control-sm"
-                    name="insurance_card_photo_front" id="inputInsuranceFront"
-                    v-on:change="onFileChange($event)"
-                    ref="insurance_card_photo_front_ref"
-                    :disabled="loading == true"
-                >
-                <label class="custom-file-label" for="customFile" >
-                  <template v-if="!newCarrier.insurance_card_photo_front.name">
-                    Choose file
-                  </template>
-                  <template v-else>
-                    [[ newCarrier.insurance_card_photo_front.name ]]
-                  </template>
-                </label>
-              </div>
-              <small class="text-muted">Insurance card photo front</small>
-            </div>
-            <div class="form-group col-sm-12 col-md-6">
-              <label>&nbsp;</label>
-              <div class="custom-file" v-on:click="$refs.insurance_card_photo_back_ref.click()">
-                <input
-                    type="file" accept="image/*" class="form-control form-control-file form-control-sm"
-                    name="insurance_card_photo_back" id="inputInsuranceFront"
-                    v-on:change="onFileChange($event)"
-                    ref="insurance_card_photo_back_ref"
-                    :disabled="loading == true"
-                >
-                <label class="custom-file-label" for="customFile" >
-                  <template v-if="!newCarrier.insurance_card_photo_back.name">
-                    Choose file
-                  </template>
-                  <template v-else>
-                    [[ newCarrier.insurance_card_photo_back.name ]]
-                  </template>
-                </label>
-              </div>
-              <small class="text-muted">Insurance card photo back</small>
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group col-sm-12">
-              <label>Additional Insurance card</label>
-                <div class="custom-file" v-on:click="$refs.additional_insurance_cards_ref.click()">
-                  <input
+          <div class="form-group col-sm-12 col-md-6">
+            <label>&nbsp;</label>
+            <div class="custom-file" v-on:click="$refs.insurance_card_photo_back_ref.click()">
+              <input
                   type="file" accept="image/*" class="form-control form-control-file form-control-sm"
-                  name="additional_insurance_cards" id="inputInsuranceAdditional"
+                  name="insurance_card_photo_back" id="inputInsuranceFront"
                   v-on:change="onFileChange($event)"
-                  ref="additional_insurance_cards_ref"
+                  ref="insurance_card_photo_back_ref"
                   :disabled="loading == true"
-                  >
-                  <label class="custom-file-label" for="customFile">
-                    <template v-if="!newCarrier.additional_insurance_cards.name">
-                      Choose file
-                    </template>
-                    <template v-else>
-                      [[ newCarrier.additional_insurance_cards.name ]]
-                    </template>
-                  </label>
-                </div>
-              </div>
+              >
+              <label class="custom-file-label" for="customFile" >
+                <template v-if="!newCarrier.insurance_card_photo_back.name">
+                  Choose file
+                </template>
+                <template v-else>
+                  [[ newCarrier.insurance_card_photo_back.name ]]
+                </template>
+              </label>
             </div>
-            <div class="row">
-            <div class="form-group col-md-12">
-              <label>Consent Recording</label>
-              <div class="custom-file" v-on:click="$refs.consent_recording_ref.click()">
+            <small class="text-muted">Insurance card photo back</small>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-sm-12">
+            <label>Additional Insurance card</label>
+              <div class="custom-file" v-on:click="$refs.additional_insurance_cards_ref.click()">
                 <input
                 type="file" accept="image/*" class="form-control form-control-file form-control-sm"
-                name="consent_recording" id="inputRecording"
+                name="additional_insurance_cards" id="inputInsuranceAdditional"
                 v-on:change="onFileChange($event)"
-                ref="consent_recording_ref"
+                ref="additional_insurance_cards_ref"
                 :disabled="loading == true"
                 >
                 <label class="custom-file-label" for="customFile">
-                  <template v-if="!newCarrier.consent_recording.name">
+                  <template v-if="!newCarrier.additional_insurance_cards.name">
                     Choose file
                   </template>
                   <template v-else>
-                    [[ newCarrier.consent_recording.name ]]
+                    [[ newCarrier.additional_insurance_cards.name ]]
                   </template>
                 </label>
               </div>
+            </div>
+          </div>
+          <div class="row">
+          <div class="form-group col-md-12">
+            <label>Consent Recording</label>
+            <div class="custom-file" v-on:click="$refs.consent_recording_ref.click()">
+              <input
+              type="file" accept="image/*" class="form-control form-control-file form-control-sm"
+              name="consent_recording" id="inputRecording"
+              v-on:change="onFileChange($event)"
+              ref="consent_recording_ref"
+              :disabled="loading == true"
+              >
+              <label class="custom-file-label" for="customFile">
+                <template v-if="!newCarrier.consent_recording.name">
+                  Choose file
+                </template>
+                <template v-else>
+                  [[ newCarrier.consent_recording.name ]]
+                </template>
+              </label>
             </div>
           </div>
         </div>
