@@ -80,24 +80,23 @@ new Vue({
       })
     },
     getDmes: function() {
-          let api_url = '/api/v1/dme/';
-          if(this.search_term!==''||this.search_term!==null) {
-             api_url = `/api/v1/dme/?search=${this.search_term}`
-           }
-          this.loading = false;
-          this.$http.get(api_url)
-              .then((response) => {
-                this.dmes = response.data;
-                this.loading = false;
-              })
-              .catch((err) => {
-                this.loading = false;
-                console.log(err);
-              })
-        },
-
+      let api_url = '/api/v1/dme/';
+      if(this.search_term!==''||this.search_term!==null) {
+         api_url = `/api/v1/dme/?search=${this.search_term}`
+       }
+      this.loading = false;
+      this.$http.get(api_url)
+          .then((response) => {
+            this.dmes = response.data;
+            this.loading = false;
+          })
+          .catch((err) => {
+            this.loading = false;
+            console.log(err);
+          })
+    },
     // new code using axios
-   addDme: function (event) {
+    addDme: function (event) {
       const formData = new FormData();
       Object.keys(this.newDme).forEach((key) => {
           let obj = this.newDme[key];
@@ -109,7 +108,6 @@ new Vue({
       });
       this.loading = true;
       axios.post('/api/v1/dme/', formData).then((response) => {
-        console.log(formData);
         swal({
           title: "TSG System",
           text: "Data has been saved successfully for DME",

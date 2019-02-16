@@ -105,6 +105,10 @@ nav .navbar-top-links .dropdown .dropdown-menu {
   border-bottom: 0 !important;
 }
 
+.nav.nav-tabs .nav-item {
+  margin-right: 5px;
+}
+
 .nav.nav-tabs .nav-item:not(.add-btn) .nav-link {
   color: #757575 !important;
 }
@@ -171,6 +175,10 @@ nav .navbar-top-links .dropdown .dropdown-menu {
 
 label {
   font-size: 14px;
+  color: #777777;
+}
+
+.custom-loader {
   color: #777777;
 }
 

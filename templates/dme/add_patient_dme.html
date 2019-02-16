@@ -156,7 +156,6 @@
         </div>
         <!-- end of form-row -->
       </div>
-      <!-- end of card-body -->
     </div>
     <!-- end of patient info -->
       <hr />
@@ -165,65 +164,62 @@
       <h5 class="title1">
         Medical Informations
       </h5>
-      <div class="card-body">
-        <!-- form-row -->
-        <div class="form-row">
-          <div class="form-group col-md-6 col-sm-12">
-            <label>Major Medical Conditions</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.major_medical_conditions" id="inputMajorMedical" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-2 col-sm-12">
-            <label>Level of Pain</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.level_of_pain" id="inputCausePain" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-4 col-sm-12">
-            <label>How long have you been experiencing discomfort?</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.experiencing_discomfort" id="inputExpDiscomfort" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-4 col-sm-12">
-            <label>Frequency of Pain</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.frequency_of_pain" id="inputFeqPain" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-4 col-sm-12">
-            <label>Describe Pain</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.describe_pain" id="inputDescPain" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-4 col-sm-12">
-            <label>Pain Symtoms</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.pain_symtoms" id="inputPainSymtoms" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-6 col-sm-12">
-            <label>What makes the Pain Worse</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.pain_worse" id="inputPainWorse" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-6 col-sm-12">
-            <label>Treatments Tried</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.treatments_tried" id="inputTreatTried" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-6 col-sm-12">
-            <label>Have you seen a doctor in the last year?</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.seen_doctor" id="inputExpDiscomfort" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-6 col-sm-12">
-            <label>Surgeries</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.surgeries" id="inputSurgeries" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-2 col-sm-12">
-            <label>IP</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.ip" id="inputIP" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-4 col-sm-12">
-            <label>Submission ID</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.submission_id" id="inputSubID" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-6 col-sm-12">
-            <label>Edit Link</label>
-            <input type="url" class="form-control form-control-sm" v-model="newDme.edit_link" id="inputEditLink" :disabled="loading == true">
-          </div>
+      <!-- form-row -->
+      <div class="form-row">
+        <div class="form-group col-md-6 col-sm-12">
+          <label>Major Medical Conditions</label>
+          <input type="text" class="form-control form-control-sm" v-model="newDme.major_medical_conditions" id="inputMajorMedical" :disabled="loading == true">
         </div>
-        <!-- end of form-row -->
+        <div class="form-group col-md-2 col-sm-12">
+          <label>Level of Pain</label>
+          <input type="text" class="form-control form-control-sm" v-model="newDme.level_of_pain" id="inputCausePain" :disabled="loading == true">
+        </div>
+        <div class="form-group col-md-4 col-sm-12">
+          <label>How long have you been experiencing discomfort?</label>
+          <input type="text" class="form-control form-control-sm" v-model="newDme.experiencing_discomfort" id="inputExpDiscomfort" :disabled="loading == true">
+        </div>
+        <div class="form-group col-md-4 col-sm-12">
+          <label>Frequency of Pain</label>
+          <input type="text" class="form-control form-control-sm" v-model="newDme.frequency_of_pain" id="inputFeqPain" :disabled="loading == true">
+        </div>
+        <div class="form-group col-md-4 col-sm-12">
+          <label>Describe Pain</label>
+          <input type="text" class="form-control form-control-sm" v-model="newDme.describe_pain" id="inputDescPain" :disabled="loading == true">
+        </div>
+        <div class="form-group col-md-4 col-sm-12">
+          <label>Pain Symtoms</label>
+          <input type="text" class="form-control form-control-sm" v-model="newDme.pain_symtoms" id="inputPainSymtoms" :disabled="loading == true">
+        </div>
+        <div class="form-group col-md-6 col-sm-12">
+          <label>What makes the Pain Worse</label>
+          <input type="text" class="form-control form-control-sm" v-model="newDme.pain_worse" id="inputPainWorse" :disabled="loading == true">
+        </div>
+        <div class="form-group col-md-6 col-sm-12">
+          <label>Treatments Tried</label>
+          <input type="text" class="form-control form-control-sm" v-model="newDme.treatments_tried" id="inputTreatTried" :disabled="loading == true">
+        </div>
+        <div class="form-group col-md-6 col-sm-12">
+          <label>Have you seen a doctor in the last year?</label>
+          <input type="text" class="form-control form-control-sm" v-model="newDme.seen_doctor" id="inputExpDiscomfort" :disabled="loading == true">
+        </div>
+        <div class="form-group col-md-6 col-sm-12">
+          <label>Surgeries</label>
+          <input type="text" class="form-control form-control-sm" v-model="newDme.surgeries" id="inputSurgeries" :disabled="loading == true">
+        </div>
+        <div class="form-group col-md-2 col-sm-12">
+          <label>IP</label>
+          <input type="text" class="form-control form-control-sm" v-model="newDme.ip" id="inputIP" :disabled="loading == true">
+        </div>
+        <div class="form-group col-md-4 col-sm-12">
+          <label>Submission ID</label>
+          <input type="text" class="form-control form-control-sm" v-model="newDme.submission_id" id="inputSubID" :disabled="loading == true">
+        </div>
+        <div class="form-group col-md-6 col-sm-12">
+          <label>Edit Link</label>
+          <input type="url" class="form-control form-control-sm" v-model="newDme.edit_link" id="inputEditLink" :disabled="loading == true">
+        </div>
       </div>
-      <!-- end of card-body -->
+      <!-- end of form-row -->
     </div>
     <!-- end medical info -->
     <hr />

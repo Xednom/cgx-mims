@@ -3,8 +3,19 @@
     <h5 class="title1">
       DME
     </h5>
-    <div class="table-responsive">
-      <table class="table table-hover table-sm">
+    <!-- loading -->
+    <div class="custom-loader" v-if="loading">
+      <div class="col-md-12 col-sm-12">
+        <div class="d-flex flex-column align-items-center">
+          <div class="spinner-border" role="status"></div>
+          <br/>
+          <strong>Fetching data...</strong>
+        </div>
+      </div>
+    </div>
+    <!-- end loading -->
+    <div class="table-responsive" v-if="!loading">
+      <table class="table table-hover table-bordered table-sm">
         <thead class="thead-light">
           <tr>
             <th scope="col">Submission date</th>
