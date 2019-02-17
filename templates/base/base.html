@@ -52,6 +52,11 @@
     <main>
       {% block content %}{% endblock %}
     </main>
+    <script>
+      // constants
+      const RECORDS_PER_PAGE = 10;
+    </script>
+
     <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
     <script src="{% static 'js/bootstrap/bootstrap.js' %}"></script>
     <script src="{% static 'js/moment.min.js' %}"></script>

@@ -10,23 +10,23 @@ body {
   background-color: #f9f9f9;
 }
 
-nav {
+nav.navbar {
   height: 64px;
   background-color: #f0f0f0;
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
 
-nav .container {
+nav.navbar .container {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
 
-nav .navbar-brand img {
+nav.navbar .navbar-brand img {
   height: 64px;
 }
 
-nav .navbar-top-links .dropdown .dropdown-menu {
+nav.navbar .navbar-top-links .dropdown .dropdown-menu {
   left: unset !important;
   right: 0;
 }
