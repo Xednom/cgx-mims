@@ -54,7 +54,7 @@
         </tbody>
       </table>
     </div>
-    <nav v-if="endPage > 1">
+    <nav class="pagination-wrapper" v-if="endPage > 1">
       <ul class="pagination justify-content-end">
         <li v-bind:class="[{disabled: currentPage === 1}, 'page-item']">
           <a

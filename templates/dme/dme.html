@@ -47,6 +47,37 @@
         </tbody>
       </table>
     </div>
+    <nav class="pagination-wrapper" v-if="endPage > 1">
+      <ul class="pagination justify-content-end">
+        <li v-bind:class="[{disabled: currentPage === 1}, 'page-item']">
+          <a
+            class="page-link" tabindex="-1"
+            v-on:click="goToPage(currentPage - 1)"
+          >
+            Previous
+          </a>
+        </li>
+        <li
+          v-for="pageNumber in pages"
+          v-bind:class="[{active: pageNumber === currentPage}, 'page-item']"
+        >
+          <a
+            class="page-link"
+            v-on:click="goToPage(pageNumber)"
+          >
+            [[ pageNumber ]]
+          </a>
+        </li>
+        <li v-bind:class="[{disabled: (currentPage + 1) === totalPages}, 'page-item']">
+          <a
+            class="page-link"
+            v-on:click="goToPage(currentPage + 1)"
+          >
+            Next
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
   <!-- To do: view for DME -->
 </div>

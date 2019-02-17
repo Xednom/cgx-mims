@@ -155,7 +155,6 @@ new Vue({
     },
     getPaginatedRecords: function() {
       const startIndex = this.startIndex;
-      const endIndex = this.endIndex;
       this.paginatedRecords = this.bioconfirms.slice().splice(startIndex, this.pageSize);
     },
     goToPage: function(page) {
@@ -197,7 +196,7 @@ new Vue({
     },
     currentPage: function(newCurrentPage, oldCurrentPage) {
       this.setPageGroup();
-      this.getPaginatedRecords();
+      this.getPaginatedRecords()
     },
   },
   computed: {
