@@ -37,8 +37,7 @@
             <td colspan="14" class="text-center" v-if="!bioconfirms.length">No records for <strong>Bio Confirm</strong> as of now.</td>
           </tr>
           <tr v-for="(bioconfirm, i) in paginatedRecords">
-            <td>[[ bioconfirm ]]</td>
-            <!--td>[[ bioconfirm.patient_name ]]</td>
+            <td>[[ bioconfirm.patient_name ]]</td>
             <td>[[ bioconfirm.promo_code ]]</td>
             <td>[[ bioconfirm.agent ]]</td>
             <td>[[ bioconfirm.date_submitted_to_telemed ]]</td>
@@ -49,7 +48,7 @@
             <td>[[ bioconfirm.insurance_company ]]</td>
             <td>[[ bioconfirm.rejection_date ]]</td>
             <td>[[ bioconfirm.submitted_to_tamika_ins_verifier ]]</td>
-            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewModalBioConfirm" v-on:click="viewBioConfirm(bioconfirm.id)">View</button></td-->
+            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewModalBioConfirm" v-on:click="viewBioConfirm(bioconfirm.id)">View</button></td
           </tr>
         </tbody>
       </table>

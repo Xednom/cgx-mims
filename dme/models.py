@@ -81,6 +81,10 @@ class DME_II(models.Model):
     ip = models.GenericIPAddressField(protocol='both', unpack_ipv4=False, verbose_name='IP Address', null=True, blank=True)
     submission_id = models.CharField(max_length=350, null=True, blank=True)
     edit_link = models.CharField(max_length=250, null=True, blank=True)
+    date_created = models.DateTimeField(default=datetime.datetime.today, null=True, blank=True)
+    created_by = models.CharField(max_length=100, null=True, blank=True)
+    updated_by = models.CharField(max_length=100, null=True, blank=True)
+    user_promo_code = models.CharField(max_length=100, verbose_name="Promo code of the agent who created this record.", null=True, blank=True)
 
     class Meta:
         verbose_name = 'DME II'

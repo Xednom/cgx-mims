@@ -155,6 +155,10 @@ label {
   color: #777777;
 }
 
+.promo-code {
+  margin: 0px 10px 0px 10px;
+}
+
 .custom-loader {
   color: #777777;
 }

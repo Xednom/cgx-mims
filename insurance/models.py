@@ -49,6 +49,10 @@ class Insurance(models.Model):
     insurance_card_photo_back = models.ImageField(upload_to='insurance/insurance-card-photo-back/', max_length=1000, null=True, blank=True)
     additional_insurance_cards = models.ImageField(upload_to='insurance/additional-insurance-cards/', max_length=1000, null=True, blank=True)
     consent_recording = models.FileField(upload_to='insurance/consent_recording/', max_length=1000, null=True, blank=True)
+    date_created = models.DateTimeField(default=datetime.datetime.today, null=True, blank=True)
+    created_by = models.CharField(max_length=100, null=True, blank=True)
+    updated_by = models.CharField(max_length=100, null=True, blank=True)
+    user_promo_code = models.CharField(max_length=100, verbose_name="Promo code of the agent who created this record.", null=True, blank=True)
 
     class Meta:
         verbose_name_plural = 'Insurance records'

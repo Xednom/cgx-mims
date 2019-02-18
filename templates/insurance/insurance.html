@@ -39,7 +39,7 @@
           <tr>
             <td colspan="14" class="text-center" v-if="!insurances.length">No records for <strong>Insurance</strong> as of now.</td>
           </tr>
-          <tr v-for="insurance in insurances">
+          <tr v-for="(insurance, i) in paginatedRecords">
             <td>[[ insurance.name ]]</td>
             <td>[[ insurance.promo_code ]]</td>
             <td>[[ insurance.agent ]]</td>

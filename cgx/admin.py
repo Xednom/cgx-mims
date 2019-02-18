@@ -16,9 +16,12 @@ class BioConfirmMasterProfile(admin.ModelAdmin):
     list_per_page = 30
     change_list_template = 'cgx/change_list_graph.html'
     search_fields = ('patient_name', 'promo_code', 'agent')
-    readonly_fields = ['patient_id_photo_image', 'insurance_card_photo_front_image',
-                       'insurance_card_photo_back_image',
-                       'additional_insurance_cards_image', 'consent_recording_image']
+    readonly_fields = [
+                       'date_created', 'created_by', 'updated_by',
+                       'user_promo_code', 'patient_id_photo_image',
+                       'insurance_card_photo_front_image', 'insurance_card_photo_back_image',
+                       'additional_insurance_cards_image', 'consent_recording_image'
+                       ]
     fieldsets = (
         ('Patient Informations', {
             'fields': (
@@ -62,7 +65,24 @@ class BioConfirmMasterProfile(admin.ModelAdmin):
                 'consent_recording_image',
             )
         }),
+        ("Important Informations", {
+            'fields': (
+                'date_created',
+                'created_by',
+                'updated_by',
+                'user_promo_code',
+            )
+        })
     )
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            # the object is being created, save the user who will add this
+            obj.created_by = request.user.first_name + " " + request.user.last_name
+            obj.user_promo_code = request.user.agent_promo_code
+        elif change:
+            obj.updated_by = request.user.first_name + " " + request.user.last_name
+        obj.save()
 
     def patient_id_photo_image(self, obj):
         return mark_safe('<img src="{url}" width="145px" height="145px" />'.format(

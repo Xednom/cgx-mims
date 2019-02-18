@@ -64,9 +64,9 @@ new Vue({
     },
     getInsurances: function() {
       let api_url = '/api/v1/insurance/';
-      if(this.search_term!==''||this.search_term!==null) {
+      /* if(this.search_term!==''||this.search_term!==null) {
         api_url = `/api/v1/insurance/?search=${this.search_term}`
-      }
+      } */
       this.loading = false;
       this.$http.get(api_url)
           .then((response) => {

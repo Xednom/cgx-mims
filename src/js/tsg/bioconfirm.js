@@ -34,6 +34,9 @@ new Vue({
       'insurance_card_photo_back': "",
       'additional_insurance_cards': "",
       'consent_recording': "",
+      'date_created': "",
+      'created_by': "",
+      'user_promo_code': "",
     },
     search_term: '',
 
@@ -62,6 +65,7 @@ new Vue({
       this.newBioConfirm.date_bioconfim_rec_app = currentDate;
       this.newBioConfirm.date_paid = currentDate;
       this.newBioConfirm.rejection_date = currentDate;
+      this.newBioConfirm.date_created = currentDate;
     },
     onFileChange: function (event) {
       this.newBioConfirm[event.target.name] = event.target.files[0];
@@ -73,9 +77,9 @@ new Vue({
     },
     getBioConfirms: function() {
       let api_url = '/api/v1/bio-confirm-master/';
-      if(this.search_term!==''||this.search_term!==null) {
+      /*if(this.search_term!==''||this.search_term!==null) {
         api_url = `/api/v1/bio-confirm-master/?search=${this.search_term}`
-      }
+      }*/
       this.loading = true;
       this.$http.get(api_url)
           .then((response) => {
@@ -112,7 +116,7 @@ new Vue({
         }
       });
       this.loading = true;
-      axios.post(`/api/v1/bio-confirm-master/`, formData).then((response) => {
+      this.$http.post(`/api/v1/bio-confirm-master/`, formData).then((response) => {
           swal({
             title: "TSG System",
             text: "Data has been saved successfully for Bio Confirm",

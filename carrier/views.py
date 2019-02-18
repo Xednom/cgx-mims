@@ -1,6 +1,6 @@
 from rest_framework import viewsets, filters
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser
 
 from django.shortcuts import render
@@ -32,7 +32,7 @@ class CarrierViewSet(viewsets.ModelViewSet):
     # queryset = Carrier.objects.all()
     serializer_class = CarrierSerializer
     authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsAuthenticated,)
     parser_classes = (MultiPartParser,)
     filter_backends = [filters.SearchFilter]
     search_fields = ('patient_name', 'promo_code')

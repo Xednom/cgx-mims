@@ -120,6 +120,10 @@ class BioConfirmMaster(models.Model):
     insurance_card_photo_back = models.ImageField(upload_to='bio-confirm-master/insurance-card-photo-back/', max_length=1000, null=True, blank=True)
     additional_insurance_cards = models.ImageField(upload_to='bio-confirm-master/additional-insurance-cards/', max_length=1000, null=True, blank=True)
     consent_recording = models.FileField(upload_to='bio-confirm-master/consent-recording/', max_length=1000, null=True, blank=True)
+    date_created = models.DateField(default=timezone.now, null=True, blank=True)
+    created_by = models.CharField(max_length=100, null=True, blank=True)
+    updated_by = models.CharField(max_length=100, null=True, blank=True)
+    user_promo_code = models.CharField(max_length=100, verbose_name="Promo code of the agent who created this record.", null=True, blank=True)
 
     class Meta:
         ordering = ['patient_name']
