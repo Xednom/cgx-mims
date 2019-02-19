@@ -3,6 +3,7 @@ from cgx.views import AgentViewSet, ManagerViewSet, BioConfirmMasterViewSet
 from carrier.views import CarrierViewSet
 from dme.views import DMEIIViewSet
 from insurance.views import InsuranceViewSet, TypeOfInsuranceViewSet
+from paincreamandfootbath.views import PainCreamAndFootBathViewSet
 
 
 router = routers.DefaultRouter()
@@ -14,3 +15,4 @@ router.register(r'carrier', CarrierViewSet, base_name="Carrier")
 router.register(r'dme', DMEIIViewSet, base_name="DME_II")
 router.register(r'type-of-insurance', TypeOfInsuranceViewSet)
 router.register(r'insurance', InsuranceViewSet, base_name="Insurance")
+router.register(r'pain-cream-and-foot-bath', PainCreamAndFootBathViewSet, base_name="PainCreamAndFootBath")
