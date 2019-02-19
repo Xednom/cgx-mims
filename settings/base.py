@@ -18,6 +18,7 @@ LOCAL_APPS = (
     'cgx',
     'dme',
     'insurance',
+    'paincreamandfootbath',
     'users',
     'grappelli',
     'web',
