@@ -70,6 +70,7 @@ REASON_FOR_REJECTIONS_CHOICES = (
 class Agent(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Agent id")
     name = models.CharField(max_length=50, verbose_name="Agent name", null=True, blank=True, unique=True)
+    promo_code = models.CharField(max_length=50, null=True, blank=True)
 
     class Meta:
         verbose_name = 'Agent name'

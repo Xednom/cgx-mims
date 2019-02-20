@@ -7,11 +7,12 @@ new Vue({
     message: null,
     loading: false,
     currentPcFb: {},
+    agentNames: [],
     newPcFb: {
         'submission_date': "",
         'promo_code': "",
         'agent_name': "",
-        'agents_email': "",
+        'agent_email': "",
         'patient_first_name': "",
         'patient_last_name': "",
         'birth_date': "",
@@ -62,6 +63,7 @@ new Vue({
   },
   mounted: function() {
     this.getPcFbs();
+    this.getAgentNames();
     this.setDefaultDates();
   },
   methods: {
@@ -93,6 +95,18 @@ new Vue({
             console.log(err);
           })
     },
+    getAgentNames: function() {
+      this.loading = true;
+      this.$http.get(`/api/v1/agent/`)
+          .then((response) => {
+            this.agentNames = response.data;
+            this.loading = false;
+          })
+          .catch((err) => {
+            this.loading = false;
+            console.log(err);
+          })
+    },
     // new code using axios
     addPcFb: function (event) {
       const formData = new FormData();
@@ -114,7 +128,7 @@ new Vue({
           timer: 2000
         });
         this.loading = false;
-        this.getpcfbs();
+        this.getPcFbs();
         // reset form
         this.resetFields();
         // return the current date after resetting the form

@@ -83,7 +83,7 @@
           </div>
           <div class="form-group col-md-2 col-sm-12">
             <label>State/Province</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.state_provincce" id="inputState" :disabled="loading == true">
+            <input type="text" class="form-control form-control-sm" v-model="newDme.state_province" id="inputState" :disabled="loading == true">
           </div>
           <div class="form-group col-md-2 col-sm-12">
             <label>Postal/Zip code</label>
@@ -257,7 +257,7 @@
         <div class="row">
           <div class="form-group col-sm-12 col-md-6">
             <label>Insurance card photo</label>
-            <div class="custom-file" v-on:click="$refs.insurance_card_photo_front_ref.click()" :dsiabled="loading == true">
+            <div class="custom-file" v-on:click="$refs.insurance_card_photo_front_ref.click()" :disabled="loading == true">
               <input
                   type="file" accept="image/*" class="form-control form-control-file form-control-sm"
                   name="insurance_card_photo_front" id="inputInsuranceFront"

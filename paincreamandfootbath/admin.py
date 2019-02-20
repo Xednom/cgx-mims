@@ -97,25 +97,25 @@ class PainCreamAndFootBathProfile(admin.ModelAdmin):
 
     def insurance_card_photo_image(self, obj):
         return mark_safe('<img src="{url}" width="145px" height="145px" />'.format(
-            url = obj.insurance_card_photo_front.url,
-            width=obj.insurance_card_photo_front.width,
-            height=obj.insurance_card_photo_front.height,
+            url = obj.insurance_card_photo.url,
+            width=obj.insurance_card_photo.width,
+            height=obj.insurance_card_photo.height,
             )
     )
 
     def ppo_card_photo_image(self, obj):
         return mark_safe('<img src="{url}" width="145px" height="145px" />'.format(
-            url = obj.insurance_card_photo_back.url,
-            width=obj.insurance_card_photo_back.width,
-            height=obj.insurance_card_photo_back.height,
+            url = obj.ppo_card_photo.url,
+            width=obj.ppo_card_photo.width,
+            height=obj.ppo_card_photo.height,
             )
     )
 
     def consent_recording_image(self, obj):
         return mark_safe('<img src="{url}" width="145px" height="145px" />'.format(
-            url = obj.insurance_card_photo_back.url,
-            width=obj.insurance_card_photo_back.width,
-            height=obj.insurance_card_photo_back.height,
+            url = obj.consent_recording.url,
+            width=obj.consent_recording.width,
+            height=obj.consent_recording.height,
             )
     )
 

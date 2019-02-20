@@ -57,16 +57,30 @@ Add data | TSG System
           </div>
         </div>
         <div class="card" id="card-table">
-          <div class="card-header" id="headingThree">
+          <div class="card-header" id="headingFour">
             <h5 class="mb-0">
               <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseInsurance" aria-expanded="false" aria-controls="collapseInsurance">
                 Insurance
               </button>
             </h5>
           </div>
-          <div id="collapseInsurance" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+          <div id="collapseInsurance" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
             <!-- insurance info -->
             {% include 'insurance/add_info_insurance.html' %}
+            <!-- end insurance info -->
+          </div>
+        </div>
+        <div class="card" id="card-table">
+          <div class="card-header" id="headingFive">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapsePainCreamAndFootBath" aria-expanded="false" aria-controls="collapsePainCreamAndFootBath">
+                Pain Cream and Foot Bath
+              </button>
+            </h5>
+          </div>
+          <div id="collapsePainCreamAndFootBath" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+            <!-- insurance info -->
+            {% include 'paincreamandfootbath/add_patient_pc_and_fb.html' %}
             <!-- end insurance info -->
           </div>
         </div>
