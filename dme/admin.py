@@ -55,7 +55,7 @@ class DMEIIProfile(admin.ModelAdmin):
                 'location_of_shoulder_pain',
                 'location_of_knee_pain',
                 'location_of_elbow_pain',
-                'localtion_of_wrist_pain',
+                'location_of_wrist_pain',
                 'height',
                 'weight',
                 'size_of_brace',

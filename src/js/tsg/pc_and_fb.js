@@ -148,7 +148,7 @@ new Vue({
       })
     },
     // view data
-    viewDme: function (id) {
+    viewPcFb: function (id) {
       this.loading = true;
       this.$http.get(`/api/v1/pain-cream-and-foot-bath/${id}/`)
           .then((response) => {
