@@ -91,16 +91,16 @@ nav.navbar .navbar-top-links .dropdown .dropdown-menu {
   margin-right: 5px;
 }
 
-.nav.nav-tabs .nav-item:not(.add-btn) .nav-link {
+.nav.nav-tabs .nav-item:not(.add-btn, .supply-btn) .nav-link {
   color: #757575 !important;
 }
 
-.nav.nav-tabs .nav-item:not(.add-btn) .nav-link.active {
+.nav.nav-tabs .nav-item:not(.add-btn, .supply-btn) .nav-link.active {
   font-weight: bold;
   position: relative;
 }
 
-.nav.nav-tabs .nav-item:not(.add-btn) .nav-link.active::after {
+.nav.nav-tabs .nav-item:not(.add-btn, .supply-btn) .nav-link.active::after {
   content: '';
   height: 10px;
   background-color: white;
@@ -129,6 +129,11 @@ nav.navbar .navbar-top-links .dropdown .dropdown-menu {
 
 .add-btn a {
   background-color: #007bff;
+  color: white !important;
+}
+
+.supply-btn a {
+  background-color: #04cc64;
   color: white !important;
 }
 

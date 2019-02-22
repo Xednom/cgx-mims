@@ -19,6 +19,7 @@ LOCAL_APPS = (
     'dme',
     'insurance',
     'paincreamandfootbath',
+    'supplies',
     'users',
     'grappelli',
     'web',

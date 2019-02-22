@@ -1,0 +1,535 @@
+<div id="supplies-app" v-cloak>
+    <form v-on:submit.prevent="addSupplies" method="POST" id="formSupplies">
+        {% csrf_token %}
+        <div>
+            <h5 class="title1">
+                Supply Form
+            </h5>
+            <div>
+                <div class="form-row">
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Sale Rep Name</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.sale_rep_name" 
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Sale Rep Number</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.sale_rep_number" 
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Email</label>
+                        <input type="email" class="form-control form-control-sm" 
+                        v-model="newSupplies.email" 
+                        :disabled="loading">
+                    </div>
+                </div>        
+            </div>
+
+            <hr>
+            <h5 class="title1">
+                Shipping
+            </h5>
+            <div>
+                <div class="form-row">
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Shipping Labels Qty Req.</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.shipping_labels_qty_req" 
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Shipping Labels Qty Auth.</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.shipping_labels_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Shipping Boxes Qty Req.</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.shipping_boxes_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Shipping Boxes Qty Auth.</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.shipping_boxes_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Shipping bags Qty Req.</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.shipping_bags_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Shipping bags Qty Auth.</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.shipping_bags_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Specimen Bags Qty Req.</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.specimen_bags_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Specimen Bags Qty Auth.</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.specimen_bags_qty_auth"
+                        :disabled="loading">
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <h5 class="title1">
+                TOX
+            </h5>
+            <div>
+                <div class="form-row">
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Cups Qty Req.</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.tox_cups_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Cups Qty Auth.</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.tox_cups_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Req. Forms Qty Req</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.tox_req_forms_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Req. Forms Qty Auth</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.tox_req_forms_qty_auth"
+                        :disabled="loading">
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <h5 class="title1">
+                PGX
+            </h5>
+            <div>
+                <div class="form-row">
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Swabs Qty Req.</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.pgx_swabs_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Swabs Qty Auth.</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.pgx_swabs_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Req. Forms Qty Req</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.pgx_swabs_req_forms_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Req. Forms Qty Auth</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.pgx_swabs_req_forms_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Medical necessity Forms Qty Req.</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.pgx_medical_necessity_forms_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Medical necessity Forms Qty Auth</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.pgx_medical_necessity_forms_qty_auth"
+                        :disabled="loading">
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <h5 class="title1">
+                CGX
+            </h5>
+            <div>
+                <div class="form-row">
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Swabs Qty Req.</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.cgx_swabs_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Swabs Qty Auth.</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.cgx_swabs_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Req. Forms Qty Req</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.cgx_req_forms_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Req. Forms Qty Auth</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.cgx_req_forms_qty_auth"
+                        :disabled="loading">
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <h5 class="title1">
+                Tubes
+            </h5>
+            <div>
+                <div class="form-row">
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Tiger Qty Req</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.tubes_tiger_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Tiger Qty Auth</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.tubes_tiger_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Lavender Qty Req</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.tubes_lavender_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Lavender Qty Auth</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.tubes_lavender_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Red Top Qty Req</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.tubes_red_top_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label> Red Top Qty Auth</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.tubes_red_top_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Blue Qty Req</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.tubes_blue_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Blue Qty Auth</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.tubes_blue_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Dark Blue Qty Req</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.tubes_dark_blue_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Dark Blue Qty Auth</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.tubes_dark_blue_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Violet Qty Req</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.tubes_violet_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Violet Qty Auth</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.tubes_violet_qty_auth"
+                        :disabled="loading">
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <h5 class="title1">
+                Needles
+            </h5>
+            <div>
+                <div class="form-row">
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Straight Needle(18 Gauge) Qty Req</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.straight_needle_18_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Straight Needle(18 Gauge) Qty Auth</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.straight_needle_18_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Straight Needle(20 Gauge) Qty Req.</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.straight_needle_20_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Straight Needle(20 Gauge) Qty Auth</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.straight_needle_20_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Straight Needle(21 Gauge) Qty Req.</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.straight_needle_21_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Straight Needle(21 Gauge) Qty Auth</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.straight_needle_21_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Straight Needle(22 Gauge) Qty Req</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.straight_needle_22_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Straight Needle(22 Gauge) Qty Auth</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.straight_needle_22_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Straight Needle(23 Gauge) Qty Req</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.straight_needle_23_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Straight Needle(23 Gauge) Qty Auth</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.straight_needle_23_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Butterfly Needle(18 Gauge) Qty Req</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.butterfly_needle_18_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Butterfly Needle(18 Gauge) Qty Auth</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.butterfly_needle_18_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Butterfly Needle(20 Gauge) Qty Req</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.butterfly_needle_20_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Butterfly Needle(20 Gauge) Qty Auth</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.butterfly_needle_20_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Butterfly Needle(21 Gauge) Qty Req</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.butterfly_needle_21_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Butterfly Needle(21 Gauge) Qty Auth</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.butterfly_needle_21_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Butterfly Needle(22 Gauge) Qty Auth</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.butterfly_needle_22_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Butterfly Needle(22 Gauge) Qty Req</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.butterfly_needle_22_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Butterfly Needle(23 Gauge) Qty Req</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.butterfly_needle_23_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Butterfly Needle(23 Gauge) Qty Auth</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.butterfly_needle_23_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Needle Vacuum Tubes Qty Req</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.needle_vacuum_tubes_18_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label>Needle Vacuum Tubes Qty Auth</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.needle_vacuum_tubes_18_qty_auth"
+                        :disabled="loading">
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <h5 class="title1">
+                UTI
+            </h5>
+            <div>
+                <div class="form-row">
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Cups Qty Req.</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.uti_cups_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Cups Qty Auth.</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.uti_cups_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Urine Tubes Qty Req</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.uti_urine_tubes_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Urine Tubes Qty Auth</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.uti_urine_tubes_qty_auth"
+                        :disabled="loading">
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <h5 class="title1">
+                Misc.
+            </h5>
+            <div>
+                <div class="form-row">
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Culture Swabs Qty Req.</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.culture_swabs_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Culter Swabs Qty Auth.</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.culture_swabs_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Tourniquets Qty Req</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.tourniquets_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Tourniquets Qty Auth</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.tourniquets_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Gauze Qty Req.</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.gauze_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Gauze Swabs Qty Auth.</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.gauze_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Bandages Qty Req</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.bandages_qty_req"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Bandages Qty Auth</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.bandages_qty_auth"
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Gel Pack Qty Req</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.gel_pack_qty_req" 
+                        :disabled="loading">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-12">
+                        <label>Gel Pack Qty Auth</label>
+                        <input type="text" class="form-control form-control-sm" 
+                        v-model="newSupplies.gel_pack_qty_auth"
+                        :disabled="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- loading -->
+        <template v-if="loading == true">
+            <button class="btn btn-success save-btn-carrier" type="button" disabled style="float: right;">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Processing...
+            </button>
+        </template>
+        <template v-else-if="loading == false">
+            <button type="submit" class="btn btn-success save-btn-carrier" style="float: right;">Request</button>
+        </template>
+        <!-- end of loading -->
+    </form>
+</div>
