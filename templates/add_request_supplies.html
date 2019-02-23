@@ -12,25 +12,17 @@ Request Supplies | TSG System
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div id="accordion">
                 <div class="card" id="card-table">
-                    <div class="card-header" id="headingOne">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseBio"
-                                aria-expanded="true" aria-controls="collapseBio">
-                                Request Supplies
-                            </button>
-                        </h5>
+                    <div class="card-header">
+                        Request Supplies
                     </div>
-                    <!-- collapse card -->
-                    <div id="collapseBio" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
                         <!-- patient info -->
                         {% include 'supplies/add_supplies.html' %}
                         <!-- end patient info -->
                     </div>
                     <!-- end collapse card -->
                 </div>
-            </div>
         </div>
     </div>
 </div>

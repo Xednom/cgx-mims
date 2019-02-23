@@ -132,10 +132,9 @@ new Vue({
             this.$http.post('/api/v1/supplies/', formData).then((response) => {
                 swal({
                     title: "TSG System",
-                    text: "Request Successful",
+                    text: "Request Successful, in the mean time we'll process your request as soon as we can. You'll receive an email regarding it. Thank you",
                     icon: "success",
-                    buttons: false,
-                    timer: 2000
+                    buttons: "Ok",
                 });
                 this.loading = false;
                 this.getSupplies();
