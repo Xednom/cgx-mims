@@ -96,7 +96,7 @@ class Manager(models.Model):
 
 class BioConfirmMaster(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    patient_name = models.CharField(max_length=250, verbose_name="Patient Name")
+    patient_name = models.CharField(max_length=250, verbose_name="Patient Name", unique=True)
     patient_phone_number = models.CharField(max_length=250, verbose_name="Patient phone number", null=True, blank=True)
     promo_code = models.CharField(max_length=250, verbose_name="Promo Code", null=True, blank=True)
     agent = models.ForeignKey(Agent, verbose_name="Agent name", null=True, blank=True, on_delete=models.PROTECT)
