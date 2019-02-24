@@ -31,6 +31,10 @@ nav.navbar .navbar-top-links .dropdown .dropdown-menu {
   right: 0;
 }
 
+[v-cloak]: {
+  display: none;
+}
+
 [v-cloak] {
   display: none;
 }
@@ -75,6 +79,25 @@ nav.navbar .navbar-top-links .dropdown .dropdown-menu {
 
 .card-info {
   margin-top: 15px;
+}
+
+.nav.nav-tabs {
+  padding: 0 20px;
+  background-color: #f9f9f9;
+}
+
+.nav.nav-tabs .nav-item:not(.add-btn) .nav-link {
+  color: #495057 !important;
+}
+
+.nav.nav-tabs .nav-item:not(.add-btn) .nav-link.active {
+  color: #000000 !important;
+  font-weight: bold;
+}
+
+.tsg-tabs {
+  margin: 50px 0;
+  background-color: white;
 }
 
 .nav-tabs-container {
@@ -125,7 +148,6 @@ nav.navbar .navbar-top-links .dropdown .dropdown-menu {
 
 .card-header {
   padding: 5px 5px 5px 5px;
->>>>>>> 3e8cc2c1a82216a1157ef8272190481ccbb04cb5
 }
 
 .add-btn a {
