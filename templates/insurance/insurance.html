@@ -80,7 +80,7 @@
             [[ pageNumber ]]
           </a>
         </li>
-        <li v-bind:class="[{disabled: (currentPage + 1) === totalPages}, 'page-item']">
+        <li v-bind:class="[{disabled: (currentPage * 1) === totalPages}, 'page-item']">
           <a
             class="page-link"
             v-on:click="goToPage(currentPage + 1)"

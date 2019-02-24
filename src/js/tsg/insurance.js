@@ -225,7 +225,7 @@ new Vue({
     },
     pages: function() {
       let pages = [];
-      for (let i = this.startPage; i < this.endPage; i++) pages.push(i);
+      for (let i = this.startPage; i <= this.endPage; i++) pages.push(i);
       return pages;
     },
   },
