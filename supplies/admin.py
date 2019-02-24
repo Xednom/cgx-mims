@@ -7,6 +7,13 @@ class SuppliesProfile(admin.ModelAdmin):
     list_display = ('sale_rep_name', 'sale_rep_number', 'email')
     search_fields = ('sale_rep_name', 'sale_rep_number', 'email')
     fieldsets = (
+        ("Supply Form", {
+            'fields': (
+                'sale_rep_name',
+                'sale_rep_number',
+                'email',
+            )
+        }),
         ("Shipping", {
             'fields': (
                 'shipping_labels_qty_req',
