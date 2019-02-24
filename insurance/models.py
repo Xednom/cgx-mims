@@ -29,7 +29,7 @@ class TypeOfInsurance(models.Model):
 
 class Insurance(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=250, verbose_name='Patient Name', unique=True)
+    name = models.CharField(max_length=250, verbose_name='Patient Name', null=True, blank=True, unique=True)
     promo_code = models.CharField(max_length=250, verbose_name='Promo Code', null=True, blank=True)
     agent = models.ForeignKey(Agent, verbose_name='Agent name', on_delete=models.PROTECT, null=True, blank=True)
     manager = models.ForeignKey(Manager, verbose_name='Manager Name', on_delete=models.PROTECT, null=True, blank=True)
