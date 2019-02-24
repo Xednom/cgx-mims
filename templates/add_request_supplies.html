@@ -1,0 +1,29 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+Request Supplies | TSG System
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div>
+        <a class="btn btn-outline-primary" href="{% url 'web:home' %}" style="margin-top: 20px;">&laquo; Back to
+            Overview</a>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+                <div class="card" id="card-table">
+                    <div class="card-header">
+                        Request Supplies
+                    </div>
+                    <div class="card-body">
+                        <!-- patient info -->
+                        {% include 'supplies/add_supplies.html' %}
+                        <!-- end patient info -->
+                    </div>
+                    <!-- end collapse card -->
+                </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

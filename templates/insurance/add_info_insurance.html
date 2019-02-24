@@ -1,110 +1,215 @@
-<div id="insurance-app">
+<div id="insurance-app" v-cloak>
   <form v-on:submit.prevent="addInsurance" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h5 class="title1">
+      Patient Informations
+    </h5>
     <!-- form row -->
     <div class="form-row">
-      <div class="form-group col-md-4">
+      <div class="form-group col-md-4 col-sm-12">
         <label for="inputEmail4">Patient Name</label>
-        <input type="text" class="form-control form-control-sm" id="inputPatientName" v-model="newInsurance.name" placeholder="Patient Name">
+        <input type="text" class="form-control form-control-sm" id="inputPatientName" v-model="newInsurance.name" :disabled="loading == true">
       </div>
-      <div class="form-group col-md-2">
+      <div class="form-group col-md-2 col-sm-12">
         <label for="inputEmail4">Promo Code</label>
-        <input type="text" class="form-control form-control-sm" id="inputPromo" v-model="newInsurance.promo_code" placeholder="Promo Code">
+        <input type="text" class="form-control form-control-sm" id="inputPromo" v-model="newInsurance.promo_code" :disabled="loading == true">
       </div>
-      <div class="form-group col-md-2">
+      <div class="form-group col-md-2 col-sm-12">
         <label>Agent Name</label>
-        <select id="inputAgent" class="form-control form-control-sm" v-model="newInsurance.agent">
+        <select id="inputAgent" class="form-control form-control-sm" v-model="newInsurance.agent" :disabled="loading == true" required>
           <option v-for="agent in agentNames">[[agent.name]]</option>
         </select>
       </div>
-      <div class="form-group col-md-2">
+      <div class="form-group col-md-2 col-sm-12">
         <label>Manager Name</label>
-        <select id="inputTest" class="form-control form-control-sm" v-model="newInsurance.manager">
+        <select id="inputTest" class="form-control form-control-sm" v-model="newInsurance.manager" :disabled="loading == true">
           <option v-for="manager in managerNames">[[manager.name]]</option>
         </select>
       </div>
-      <div class="form-group col-md-2">
+      <div class="form-group col-md-2 col-sm-12">
         <label>Type of Insurance</label>
-        <select id="inputTest" class="form-control form-control-sm" v-model="newInsurance.type_of_insurance">
+        <select id="inputTest" class="form-control form-control-sm" v-model="newInsurance.type_of_insurance" :disabled="loading == true">
           <option v-for="insuranceType in typeOfInsurance">[[ insuranceType.name ]]</option>
         </select>
       </div>
     </div>
     <div class="form-row">
-      <div class="form-group col-md-2">
+      <div class="form-group col-md-3 col-sm-12 ">
         <label for="input">State</label>
         <input type="text" class="form-control form-control-sm" id="inputState" v-model="newInsurance.state" placeholder="State">
       </div>
-      <div class="form-group col-md-2">
+      <div class="form-group col-md-2 col-sm-12">
         <label for="inputState">Status</label>
-        <input type="text" class="form-control form-control-sm" v-model="newInsurance.status" placeholder="Status of the Insurance">
+        <input type="text" class="form-control form-control-sm" v-model="newInsurance.status" :disabled="loading == true">
       </div>
-      <div class="form-group col-md-2">
+      <div class="form-group col-md-4 col-sm-12">
         <label for="inputState">Test</label>
-        <input type="text" class="form-control form-control-sm" v-model="newInsurance.test" placeholder="Test">
+        <input type="text" class="form-control form-control-sm" v-model="newInsurance.test" :disabled="loading == true">
       </div>
-      <div class="form-group col-md-2">
+      <div class="form-group col-md-3 col-sm-12">
         <label for="inputState">Active/Inactive</label>
-        <input type="text" class="form-control form-control-sm" v-model="newInsurance.active_inactive" placeholder="Active/Inactive of the Insurance">
+        <input type="text" class="form-control form-control-sm" v-model="newInsurance.active_inactive" :disabled="loading == true">
       </div>
-      <div class="form-group col-md-2">
+      <div class="form-group col-md-2 col-sm-12">
         <label for="inputState">Insurance Status</label>
-        <input type="text" class="form-control form-control-sm" v-model="newInsurance.insurance_status" placeholder="Status of the Insurance">
+        <input type="text" class="form-control form-control-sm" v-model="newInsurance.insurance_status" :disabled="loading == true">
       </div>
-      <div class="form-group col-md-2">
+      <div class="form-group col-md-2 col-sm-12">
         <label>Policy Number</label>
-        <input type="text" class="form-control form-control-sm" v-model="newInsurance.policy_number" placeholder="Policy Number">
+        <input type="text" class="form-control form-control-sm" v-model="newInsurance.policy_number" :disabled="loading == true">
       </div>
-      <div class="form-group col-md-2">
+      <div class="form-group col-md-4 col-sm-12">
         <label>Deductible remainding</label>
-        <input type="text" class="form-control form-control-sm" v-model="newInsurance.deductible_remainding" placeholder="Deductible remainding">
+        <input type="text" class="form-control form-control-sm" v-model="newInsurance.deductible_remainding" :disabled="loading == true">
       </div>
-      <div class="form-group col-md-2">
+      <div class="form-group col-md-2 col-sm-12">
         <label for="inputEmail4">Date of birth</label>
-        <input type="date" class="form-control form-control-sm" id="inputDate" v-model="newInsurance.date_of_birth">
+        <input type="date" class="form-control form-control-sm" id="inputDate" v-model="newInsurance.date_of_birth" :disabled="loading == true">
       </div>
-      <div class="form-group col-md-2">
+      <div class="form-group col-md-2 col-sm-12">
         <label for="inputEmail4">Verification Date</label>
-        <input type="date" class="form-control form-control-sm" id="inputDate" v-model="newInsurance.verification_date">
+        <input type="date" class="form-control form-control-sm" id="inputDate" v-model="newInsurance.verification_date" :disabled="loading == true">
       </div>
     </div>
     <div class="form-row">
-      <div class="form-group col-md-8">
+      <div class="form-group col-md-12 col-sm-12">
         <label>Notes</label>
         <textarea class="form-control" name="name" rows="10" cols="80" v-model="newInsurance.notes"></textarea>
       </div>
     </div>
     <!-- end form-row -->
-    <div class="card card-info">
-      <div class="card-header" id="card-informations">
+    <hr />
+    <div>
+      <h5 class="title1">
         Attachments
-      </div>
-      <div class="card-body">
+      </h5>
+      <div>
         <div class="row">
-          <div class="form-group col-md-2">
+          <div class="form-group col-sm-12">
             <label>Patient ID Photo</label>
-            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" name="patient_id_photo" id="inputIDPhoto" refs="patient_id_photo" v-on:change="onFileChange($event)">
+            <div class="custom-file" v-on:click="$refs.patient_id_photo_ref.click()" >
+              <input
+                  type="file" accept="image/*" class="form-control form-control-file form-control-sm"
+                  name="patient_id_photo" id="inputIDPhoto"
+                  v-on:change="onFileChange($event)"
+                  ref="patient_id_photo_ref"
+                  :disabled="loading == true"
+              >
+              <label class="custom-file-label" for="customFile">
+                <template v-if="!newInsurance.patient_id_photo.name">
+                  Choose file
+                </template>
+                <template v-else>
+                  [[ newInsurance.patient_id_photo.name ]]
+                </template>
+              </label>
+            </div>
           </div>
-          <div class="form-group col-md-2">
-            <label>Insurance card photo front</label>
-            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" name="insurance_card_photo_front" id="inputInsuranceFront" refs="insurance_card_photo_front" v-on:change="onFileChange($event)">
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
           </div>
-          <div class="form-group col-md-2">
-            <label>Insurance card photo back</label>
-            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" name="insurance_card_photo_back" id="inputInsuranceFront" refs="insurance_card_photo_back" v-on:change="onFileChange($event)">
+        </div>
+        <div class="row">
+          <div class="form-group col-sm-12 col-md-6">
+            <label>Insurance card photo</label>
+            <div class="custom-file" v-on:click="$refs.insurance_card_photo_front_ref.click()" >
+              <input
+                  type="file" accept="image/*" class="form-control form-control-file form-control-sm"
+                  name="insurance_card_photo_front" id="inputInsuranceFront"
+                  v-on:change="onFileChange($event)"
+                  ref="insurance_card_photo_front_ref"
+                  :dsiabled="loading == true"
+              >
+              <label class="custom-file-label" for="customFile">
+                <template v-if="!newInsurance.insurance_card_photo_front.name">
+                  Choose file
+                </template>
+                <template v-else>
+                  [[ newInsurance.insurance_card_photo_front.name ]]
+                </template>
+              </label>
+            </div>
+            <small class="text-muted">Insurance card photo front</small>
           </div>
-          <div class="form-group col-md-2">
+          <div class="form-group col-sm-12 col-md-6">
+            <label>&nbsp;</label>
+            <div class="custom-file" v-on:click="$refs.insurance_card_photo_back_ref.click()" >
+              <input
+                  type="file" accept="image/*" class="form-control form-control-file form-control-sm"
+                  name="insurance_card_photo_back" id="inputInsuranceFront"
+                  v-on:change="onFileChange($event)"
+                  ref="insurance_card_photo_back_ref"
+                  :disabled="loading == true"
+              >
+              <label class="custom-file-label" for="customFile">
+                <template v-if="!newInsurance.insurance_card_photo_back.name">
+                  Choose file
+                </template>
+                <template v-else>
+                  [[ newInsurance.insurance_card_photo_back.name ]]
+                </template>
+              </label>
+            </div>
+            <small class="text-muted">Insurance card photo back</small>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-sm-12">
             <label>Additional Insurance card</label>
-            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" name="additional_insurance_cards" id="inputInsuranceAdditional" refs="additional_insurance_cards" v-on:change="onFileChange($event)">
+            <div class="custom-file" v-on:click="$refs.additional_insurance_cards_ref.click()">
+              <input
+                  type="file" accept="image/*" class="form-control form-control-file form-control-sm"
+                  name="additional_insurance_cards" id="inputInsuranceAdditional"
+                  v-on:change="onFileChange($event)"
+                  ref="additional_insurance_cards_ref"
+                  :disabled="loading == true"
+              >
+              <label class="custom-file-label" for="customFile">
+                <template v-if="!newInsurance.additional_insurance_cards.name">
+                  Choose file
+                </template>
+                <template v-else>
+                  [[ newInsurance.additional_insurance_cards.name ]]
+                </template>
+              </label>
+            </div>
           </div>
-          <div class="form-group col-md-2">
+        </div>
+        <div class="row">
+          <div class="form-group col-sm-12">
             <label>Consent Recording</label>
-            <input type="file" accept="image/*" class="form-control form-control-file form-control-sm" name="consent_recording" id="inputRecording" refs="consent_recording" v-on:change="onFileChange($event)">
+            <div class="custom-file" v-on:click="$refs.consent_recording_ref.click()">
+              <input
+                  type="file" accept="image/*" class="form-control form-control-file form-control-sm"
+                  name="consent_recording" id="inputRecording"
+                  v-on:change="onFileChange($event)"
+                  ref="consent_recording_ref"
+                  :disabled="loading == true"
+              >
+              <label class="custom-file-label" for="customFile" >
+                <template v-if="!newInsurance.consent_recording.name">
+                  Choose file
+                </template>
+                <template v-else>
+                  [[ newInsurance.consent_recording.name ]]
+                </template>
+              </label>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <!-- end of attachments -->
-    <button type="submit" class="btn btn-success" style="float: right;">Save</button>
+    <template v-if="loading == true">
+      <button class="btn btn-success save-btn-insurance" type="button" disabled style="float: right;">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Saving...
+      </button>
+    </template>
+    <template v-else-if="loading == false">
+      <button type="submit" class="btn btn-success save-btn-insurance" style="float: right;">Save</button>
+    </template>
   </form>
 </div>
 <!-- end of insurance app -->

@@ -10,32 +10,34 @@ body {
   background-color: #f9f9f9;
 }
 
-nav {
+nav.navbar {
   height: 64px;
   background-color: #f0f0f0;
-<<<<<<< HEAD
-=======
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
 
-nav .container {
+nav.navbar .container {
   padding-left: 0 !important;
   padding-right: 0 !important;
->>>>>>> 733ef9e145849828be2b720ee52f444e589c8cf1
 }
 
-nav .navbar-brand img {
+nav.navbar .navbar-brand img {
   height: 64px;
 }
 
-nav .navbar-top-links .dropdown .dropdown-menu {
+nav.navbar .navbar-top-links .dropdown .dropdown-menu {
   left: unset !important;
   right: 0;
 }
 
+[v-cloak] {
+  display: none;
+}
+
 #card-table {
-  margin-top: 30px;
+  border-radius: 0px;
+  margin: 30px 0px 30px 0px;
 }
 
 #card-carrier {
@@ -62,29 +64,19 @@ nav .navbar-top-links .dropdown .dropdown-menu {
   margin: 25px 25px !important;
 }
 
+#collapsePainCreamAndFootBath {
+  margin: 25px 25px !important;
+}
+
+
+#myTabContent {
+  margin: 0px 40px 0px 40px;
+}
+
 .card-info {
   margin-top: 15px;
 }
 
-<<<<<<< HEAD
-.nav.nav-tabs {
-  padding: 0 20px;
-  background-color: #f9f9f9;
-}
-
-.nav.nav-tabs .nav-item:not(.add-btn) .nav-link {
-  color: #495057 !important;
-}
-
-.nav.nav-tabs .nav-item:not(.add-btn) .nav-link.active {
-  color: #000000 !important;
-  font-weight: bold;
-}
-
-.tsg-tabs {
-  margin: 50px 0;
-  background-color: white;
-=======
 .nav-tabs-container {
   padding: 50px 20px 0;
   background-color: #f9f9f9;
@@ -95,16 +87,20 @@ nav .navbar-top-links .dropdown .dropdown-menu {
   border-bottom: 0 !important;
 }
 
-.nav.nav-tabs .nav-item:not(.add-btn) .nav-link {
+.nav.nav-tabs .nav-item {
+  margin-right: 5px;
+}
+
+.nav.nav-tabs .nav-item:not(.add-btn, .supply-btn) .nav-link {
   color: #757575 !important;
 }
 
-.nav.nav-tabs .nav-item:not(.add-btn) .nav-link.active {
+.nav.nav-tabs .nav-item:not(.add-btn, .supply-btn) .nav-link.active {
   font-weight: bold;
   position: relative;
 }
 
-.nav.nav-tabs .nav-item:not(.add-btn) .nav-link.active::after {
+.nav.nav-tabs .nav-item:not(.add-btn, .supply-btn) .nav-link.active::after {
   content: '';
   height: 10px;
   background-color: white;
@@ -124,12 +120,58 @@ nav .navbar-top-links .dropdown .dropdown-menu {
 .tsg-tabs {
   background-color: white;
   height: 100%;
->>>>>>> 733ef9e145849828be2b720ee52f444e589c8cf1
+  font-size: 14px;
+}
+
+.card-header {
+  padding: 5px 5px 5px 5px;
+>>>>>>> 3e8cc2c1a82216a1157ef8272190481ccbb04cb5
 }
 
 .add-btn a {
   background-color: #007bff;
   color: white !important;
+}
+
+.supply-btn a {
+  background-color: #04cc64;
+  color: white !important;
+}
+
+.save-btn {
+  border-radius: 0 !important;
+  padding: 10px 40px 10px 40px;
+}
+
+.save-btn-carrier {
+  border-radius: 0 !important;
+  padding: 10px 40px 10px 40px;
+  margin-bottom: 25px !important;
+}
+
+.save-btn-dme {
+  border-radius: 0 !important;
+  padding: 10px 40px 10px 40px !important;
+  margin-top: 25px !important;
+}
+
+.save-btn-insurance {
+  border-radius: 0 !important;
+  padding: 10px 40px 10px 40px !important;
+  margin-top: 25px !important;
+}
+
+label {
+  font-size: 14px;
+  color: #777777;
+}
+
+.promo-code {
+  margin: 0px 10px 0px 10px;
+}
+
+.custom-loader {
+  color: #777777;
 }
 
 

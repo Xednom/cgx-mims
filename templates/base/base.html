@@ -9,6 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.css' %}">
+    <!-- bootstrap ver 4.2.1 for spinner -->
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <style>
     {% block page_style %}{% endblock %}
@@ -35,10 +37,13 @@
             <ul class="nav navbar-top-links navbar-right">
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ request.user }}</a>
+                {{ request.user }}
+              </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="#">Settings</a>
                   <a class="dropdown-item" href="{% url 'web:logout' %}">Logout</a>
+                  <hr />
+                  <label class="promo-code">Your promo code: {{ request.user.agent_promo_code }}</label>
                 </div>
               </li>
             </ul>
@@ -50,6 +55,11 @@
     <main>
       {% block content %}{% endblock %}
     </main>
+    <script>
+      // constants
+      const RECORDS_PER_PAGE = 10;
+    </script>
+
     <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
     <script src="{% static 'js/bootstrap/bootstrap.js' %}"></script>
     <script src="{% static 'js/moment.min.js' %}"></script>
@@ -60,10 +70,17 @@
     <script src="https://cdn.jsdelivr.net/npm/vue-router@3.0.2/dist/vue-router.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+
+    <!-- don't load the APIs on the login screen -->
+    {% block api_load %}
     <script src="{% static 'js/tsg/bioconfirm.js' %}"></script>
     <script src="{% static 'js/tsg/insurance.js' %}"></script>
     <script src="{% static 'js/tsg/carrier.js' %}"></script>
     <script src="{% static 'js/tsg/dme.js' %}"></script>
+    <script src="{% static 'js/tsg/pc_and_fb.js' %}"></script>
+    <script src="{% static 'js/tsg/supplies.js' %}"></script>
+    <script src="{% static 'js/tsg/search.js' %}"></script>
+    {% endblock %}
 </body>
 
 </html>

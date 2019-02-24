@@ -24,13 +24,22 @@ Home | TSG Systems
         <li class="nav-item">
           <a class="nav-link" id="insurance-tab" data-toggle="tab" href="#insurance" role="tab" aria-controls="contact" aria-selected="false">Insurance</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" id="pc-and-fb-tab" data-toggle="tab" href="#pc-and-fb" role="tab" aria-controls="contact" aria-selected="false">Pain Cream and Foot Bath</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="search-tab" data-toggle="tab" href="#search" role="tab" aria-controls="insurance" aria-selected="false">Search</a>
+        </li>
         <li class="nav-item add-btn">
           <a class="nav-link" id="add-tab" href="{% url 'web:add_record' %}">Add</a>
+        </li>
+        <li class="nav-item supply-btn">
+          <a class="nav-link" id="supply-tab" href="{% url 'supplies:add_supplies' %}">Request Supplies</a>
         </li>
       </ul>
     </div>
   </div>
-  <div class="tab-content container" id="myTabContent">
+  <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="bioconfirm" role="tabpanel" aria-labelledby="bioconfirm-tab">
       {% include 'cgx/bioconfirm.html' %}
     </div>
@@ -42,6 +51,12 @@ Home | TSG Systems
     </div>
     <div class="tab-pane fade" id="insurance" role="tabpanel" aria-labelledby="insurance-tab">
       {% include 'insurance/insurance.html' %}
+    </div>
+    <div class="tab-pane fade" id="pc-and-fb" role="tabpanel" aria-labelledby="pc-and-fb-tab">
+      {% include 'paincreamandfootbath/pc_and_fb.html' %}
+    </div>
+    <div class="tab-pane fade" id="search" role="tabpanel" aria-labelledby="search-tab">
+      {% include 'search/search_page.html' %}
     </div>
   </div>
 </div>

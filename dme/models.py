@@ -62,7 +62,7 @@ class DME_II(models.Model):
     location_of_shoulder_pain = models.CharField(max_length=250, null=True, blank=True)
     location_of_knee_pain = models.CharField(max_length=250, null=True, blank=True)
     location_of_elbow_pain = models.CharField(max_length=250, null=True, blank=True)
-    localtion_of_wrist_pain = models.CharField(max_length=250, null=True, blank=True)
+    location_of_wrist_pain = models.CharField(max_length=250, null=True, blank=True)
     height = models.CharField(max_length=250, null=True, blank=True)
     weight = models.CharField(max_length=250, null=True, blank=True)
     size_of_brace = models.CharField(max_length=250, null=True, blank=True)
@@ -81,6 +81,10 @@ class DME_II(models.Model):
     ip = models.GenericIPAddressField(protocol='both', unpack_ipv4=False, verbose_name='IP Address', null=True, blank=True)
     submission_id = models.CharField(max_length=350, null=True, blank=True)
     edit_link = models.CharField(max_length=250, null=True, blank=True)
+    date_created = models.DateTimeField(default=datetime.datetime.today, null=True, blank=True)
+    created_by = models.CharField(max_length=100, null=True, blank=True)
+    updated_by = models.CharField(max_length=100, null=True, blank=True)
+    user_promo_code = models.CharField(max_length=100, verbose_name="Promo code of the agent who created this record.", null=True, blank=True)
 
     class Meta:
         verbose_name = 'DME II'

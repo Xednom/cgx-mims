@@ -28,6 +28,7 @@ class BioConfirmMasterSerializer(serializers.ModelSerializer):
     date_bioconfim_rec_app = serializers.DateField(default=datetime.date.today)
     date_submitted_to_telemed = serializers.DateField(default=datetime.date.today)
     rejection_date = serializers.DateField(default=datetime.date.today)
+    date_created = serializers.DateField(default=datetime.date.today)
 
     class Meta:
         model = BioConfirmMaster

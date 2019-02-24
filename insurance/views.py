@@ -1,5 +1,6 @@
 from rest_framework import viewsets, filters
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 from django.shortcuts import render
 from django.views.generic import TemplateView
@@ -19,22 +20,26 @@ class CsrftExemptSessionAuthentication(SessionAuthentication):
 
 class AgentViewSet(viewsets.ModelViewSet):
     queryset = Agent.objects.all()
+    permission_classes = (IsAuthenticated,)
     serializer_class = AgentSerializer
 
 
 class ManagerViewSet(viewsets.ModelViewSet):
     queryset = Manager.objects.all()
+    permission_classes = (IsAuthenticated,)
     serializer_class = ManagerSerializer
 
 
 class TypeOfInsuranceViewSet(viewsets.ModelViewSet):
     queryset = TypeOfInsurance.objects.all()
+    permission_classes = (IsAuthenticated,)
     serializer_class = TypeOfInsuranceSerializer
 
 class InsuranceViewSet(viewsets.ModelViewSet):
     # queryset = Insurance.objects.all()
     serializer_class = InsuranceSerializer
     authentication_classes = (CsrftExemptSessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
     filter_backends = [filters.SearchFilter]
     search_fields = ('name', 'promo_code')
 

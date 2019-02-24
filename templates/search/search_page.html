@@ -1,0 +1,196 @@
+<div id="search-app" v-cloak>
+  <div class="alert alert-info text-center" role="alert">
+    <h4 class="alert-heading">Attention!</h4>
+    <p>This feature is on <strong>early stage(s)</strong>. Searching all data across the database is not possible, because you can only search data that are assigned to you <strong>ONLY</strong>.</p>
+    <hr>
+    <p class="mb-0">This feature is only temporal as it can/will change in the future for beneficial purposes.</p>
+  </div>
+  <div class="form-inline my-2 my-sm-0 pull-right" style="margin: 10px;">
+    <input class="form-control mr-sm-2" type="text" placeholder="Search here.." v-model="search_term" aria-label="Search" required :disabled="loading == true"/>
+    <template v-if="loading == true">
+      <button class="btn btn-primary" type="button" disabled style="float: right;">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Searching...
+      </button>
+    </template>
+    <template v-else>
+      <button class="btn btn-primary my-2 my-sm-0" v-on:click.prevent="getAllSearch">Search</button>
+    </template>
+  </div>
+
+  <div class="card" id="card-table">
+    <div class="card-header">
+      Bio Confirm Master
+    </div>
+    <div class="card-body">
+      <h5 class="card-title title1">Table Informations</h5>
+        <div class="table table-sm table-responsive-sm">
+          <table class="table">
+            <thead class="thead-light">
+              <th scope="col">Patient name</th>
+              <th scope="col">Promo code</th>
+              <th scope="col">Agent name</th>
+              <th scope="col">Date Submitted to telemed</th>
+              <th scope="col">Date Telemed returned</th>
+              <th scope="col">Date Application recorded</th>
+              <th scope="col">Date Paid</th>
+              <th scope="col">Insurance company name</th>
+              <th scope="col">Rejection Date</th>
+              <th scope="col">Date submitted to Tamika ins verifier</th>
+              <th scope="col">Action</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="14" class="text-center"
+                v-if="!bioConfirms.length">Try searching for a data, if no records returned for <strong>Bio Confirm Master</strong> then most likely it does not exist in the database.</td>
+              </tr>
+              <tr v-for="bioconfirm in bioConfirms" class="table-info">
+                <td>[[ bioconfirm.patient_name ]]</td>
+                <td>[[ bioconfirm.promo_code ]]</td>
+                <td>[[ bioconfirm.agent ]]</td>
+                <td>[[ bioconfirm.date_submitted_to_telemed ]]</td>
+                <td>[[ bioconfirm.date_telemed_returned ]]</td>
+                <td>[[ bioconfirm.date_app_rec ]]</td>
+                <td>[[ bioconfirm.date_paid ]]</td>
+                <td>[[ bioconfirm.insurance_company ]]</td>
+                <td>[[ bioconfirm.rejection_date ]]</td>
+                <td>[[ bioconfirm.submitted_to_tamika_ins_verifier ]]</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+  </div>
+
+  <div class="card" id="card-table">
+    <div class="card-header">
+      Carrier
+    </div>
+    <div class="card-body">
+      <h5 class="card-title title1">Table Informations</h5>
+        <div class="table table-sm table-responsive-sm">
+          <table class="table">
+            <thead class="thead-light">
+              <th scope="col">Patient name</th>
+              <th scope="col">Promo code</th>
+              <th scope="col">Agent name</th>
+              <th scope="col">Date submitted to telemed</th>
+              <th scope="col">Date telemed returned</th>
+              <th scope="col">Date application recorded</th>
+              <th scope="col">Date paid</th>
+              <th scope="col">Insurance company name</th>
+              <th scope="col">Rejection date</th>
+              <th scope="col">Date Submitted to Tamika ins verifier</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="14" class="text-center" v-if="!carriers.length">Try searching for a data, if no records returned for <strong>Carrier</strong> then most likely it does not exist in the database.</td>
+              </tr>
+              <tr v-for="carrier in carriers" class="table-info">
+                <td>[[ carrier.patient_name ]]</td>
+                <td>[[ carrier.promo_code ]]</td>
+                <td>[[ carrier.agent ]]</td>
+                <td>[[ carrier.date_submitted_to_telemed ]]</td>
+                <td>[[ carrier.date_telemed_returned ]]</td>
+                <td>[[ carrier.date_app_rec ]]</td>
+                <td>[[ carrier.date_sample_rec ]]</td>
+                <td>[[ carrier.date_paid ]]</td>
+                <td>[[ carrier.insurance_company ]]</td>
+                <td>[[ carrier.rejection_date ]]</td>
+                <td>[[ carrier.date_submitted_to_tamika_ins_verifier ]]</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+  </div>
+
+  <div class="card" id="card-table">
+    <div class="card-header">
+      DME
+    </div>
+    <div class="card-body">
+      <h5 class="card-title title1">Table Informations</h5>
+        <div class="table table-sm table-responsive-sm">
+          <table class="table">
+            <thead class="thead-light">
+              <th scope="col">Submission date</th>
+              <th scope="col">Patient's first name</th>
+              <th scope="col">Patient's last name</th>
+              <th scope="col">Agent's promo code</th>
+              <th scope="col">Insurance type</th>
+              <th scope="col">Policy number(Medicare)</th>
+              <th scope="col">PPO Information(If not straight from Medicare)(Member ID#)</th>
+              <th scope="col">PPO Information(If not straight from Medicare)(PPO Name)</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="14" class="text-center" v-if="!dmes.length">Try searching for a data, if no records returned for <strong>DME</strong> then most likely it does not exist in the database.</td>
+              </tr>
+              <tr v-for="dme in dmes" class="table-info">
+                <td>[[ dme.submission_date ]]</td>
+                <td>[[ dme.patients_first_name ]]</td>
+                <td>[[ dme.patients_last_name ]]</td>
+                <td>[[ dme.agents_promod_code ]]</td>
+                <td>[[ dme.insurance_type ]]</td>
+                <td>[[ dme.policy_number ]]</td>
+                <td>[[ dme.ppo_information_mem_id ]]</td>
+                <td>[[ dme.ppo_information_ppo_name ]]</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+  </div>
+
+  <div class="card" id="card-table">
+    <div class="card-header">
+      Insurance
+    </div>
+    <div class="card-body">
+      <h5 class="card-title title1">Table Informations</h5>
+        <div class="table table-sm table-responsive-sm">
+          <table class="table">
+            <thead class="thead-light">
+              <th scope="col">Patient name</th>
+              <th scope="col">Promo code</th>
+              <th scope="col">Agent name</th>
+              <th scope="col">Manager name</th>
+              <th scope="col">State</th>
+              <th scope="col">Type of Insurance</th>
+              <th scope="col">Test</th>
+              <th scope="col">Active/Inactive</th>
+              <th scope="col">Status</th>
+              <th scope="col">Insurance Status</th>
+              <th scope="col">Policy number</th>
+              <th scope="col">Verfication date</th>
+              <th scope="col">Deductible remainding</th>
+              <th scope="col">Notes</th>
+              <th scope="col">Action</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="14" class="text-center" v-if="!insurances.length">Try searching for a data, if no records returned for <strong>Insurance</strong> then most likely it does not exist in the database.</td>
+              </tr>
+              <tr v-for="insurance in insurances" class="table-info">
+                <td>[[ insurance.name ]]</td>
+                <td>[[ insurance.promo_code ]]</td>
+                <td>[[ insurance.agent ]]</td>
+                <td>[[ insurance.manager ]]</td>
+                <td>[[ insurance.state ]]</td>
+                <td>[[ insurance.type_of_insurance ]]</td>
+                <td>[[ insurance.test ]]</td>
+                <td>[[ insurance.active_inactive ]]</td>
+                <td>[[ insurance.status ]]</td>
+                <td>[[ insurance.insurance_status ]]</td>
+                <td>[[ insurance.policy_number ]]</td>
+                <td>[[ insurance.verification_date ]]</td>
+                <td>[[ insurance.deductible_remainding ]]</td>
+                <td>[[ insurance.notes ]]</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+  </div>
+</div>

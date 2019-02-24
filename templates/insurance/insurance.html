@@ -1,18 +1,21 @@
-<div id="insurance-app">
+<div id="insurance-app" v-cloak>
   <div class="col-md-12">
     <h5 class="title1">
       Insurance
     </h5>
     <!-- loading -->
-    <div class="d-flex justify-content-center loading" v-if="loading===true">
-      <div class="spinner-border" role="status">
-        <strong>Fetching data...</strong>
-        <span class="sr-only">Loading...</span>
+    <div class="custom-loader" v-if="loading">
+      <div class="col-md-12 col-sm-12">
+        <div class="d-flex flex-column align-items-center">
+          <div class="spinner-border" role="status"></div>
+          <br/>
+          <strong>Fetching data...</strong>
+        </div>
       </div>
     </div>
     <!-- end loading -->
-    <div class="table-responsive">
-      <table class="table table-bordered table-sm">
+    <div class="table-responsive" v-if="!loading">
+      <table class="table table-hover table-bordered table-sm">
         <thead class="thead-light">
           <tr>
             <th scope="col">Patient name</th>
@@ -36,7 +39,7 @@
           <tr>
             <td colspan="14" class="text-center" v-if="!insurances.length">No records for <strong>Insurance</strong> as of now.</td>
           </tr>
-          <tr v-for="insurance in insurances">
+          <tr v-for="(insurance, i) in paginatedRecords">
             <td>[[ insurance.name ]]</td>
             <td>[[ insurance.promo_code ]]</td>
             <td>[[ insurance.agent ]]</td>
@@ -56,84 +59,118 @@
         </tbody>
       </table>
     </div>
+    <nav class="pagination-wrapper" v-if="endPage > 1">
+      <ul class="pagination justify-content-end">
+        <li v-bind:class="[{disabled: currentPage === 1}, 'page-item']">
+          <a
+            class="page-link" tabindex="-1"
+            v-on:click="goToPage(currentPage - 1)"
+          >
+            Previous
+          </a>
+        </li>
+        <li
+          v-for="pageNumber in pages"
+          v-bind:class="[{active: pageNumber === currentPage}, 'page-item']"
+        >
+          <a
+            class="page-link"
+            v-on:click="goToPage(pageNumber)"
+          >
+            [[ pageNumber ]]
+          </a>
+        </li>
+        <li v-bind:class="[{disabled: (currentPage * 1) === totalPages}, 'page-item']">
+          <a
+            class="page-link"
+            v-on:click="goToPage(currentPage + 1)"
+          >
+            Next
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
   <!-- data view using modal -->
   <div class="modal fade" id="viewModalInsurance" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Information on patient</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Information on patient [[ currentInsurance.name ]]</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <!-- loading -->
-          <div class="d-flex justify-content-center loading" v-if="loading===true">
+          <div class="d-flex justify-content-center loading" v-if="loading">
             <div class="spinner-border" role="status">
               <strong>Fetching data...</strong>
               <span class="sr-only">Loading...</span>
             </div>
           </div>
           <!-- end loading -->
-          <div class="row">
-            <div class="col-md-4">
+          <h5 class="title1">
+            Patient Informations
+          </h5>
+          <div class="row" v-if="!loading">
+            <div class="form-group col-md-4 col-sm-12">
               <label>Patient name</label>
               <input type="text" class="form-control form-control-sm" v-model="currentInsurance.name" disabled>
             </div>
-            <div class="col-md-4">
+            <div class="form-group col-md-4 col-sm-12">
               <label>Promo code</label>
               <input type="text" class="form-control form-control-sm" v-model="currentInsurance.promo_code" disabled>
             </div>
-            <div class="col-md-4">
+            <div class="form-group col-md-4 col-sm-12">
               <label>Agent</label>
               <input type="text" class="form-control form-control-sm" v-model="currentInsurance.agent" disabled>
             </div>
-            <div class="col-md-4">
+            <div class="form-group col-md-4 col-sm-12">
               <label>Manager</label>
               <input type="text" class="form-control form-control-sm" v-model="currentInsurance.manager" disabled>
             </div>
-            <div class="col-md-4">
+            <div class="form-group col-md-4 col-sm-12">
               <label>Date of Birth</label>
               <input type="text" class="form-control form-control-sm" v-model="currentInsurance.date_of_birth" disabled>
             </div>
-            <div class="col-md-4">
+            <div class="form-group col-md-4 col-sm-12">
               <label>state</label>
               <input type="text" class="form-control form-control-sm" v-model="currentInsurance.state" disabled>
             </div>
-            <div class="col-md-4">
+            <div class="form-group col-md-4 col-sm-12">
               <label>Type of Insurance</label>
               <input type="text" class="form-control form-control-sm" v-model="currentInsurance.type_of_insurance" disabled>
             </div>
-            <div class="col-md-4">
+            <div class="form-group col-md-4 col-sm-12">
               <label>Test</label>
               <input type="text" class="form-control form-control-sm" v-model="currentInsurance.test" disabled>
             </div>
-            <div class="col-md-4">
+            <div class="form-group col-md-4 col-sm-12">
               <label>Active/Inactive</label>
               <input type="text" class="form-control form-control-sm" v-model="currentInsurance.active_inactive" disabled>
             </div>
-            <div class="col-md-4">
+            <div class="form-group col-md-4 col-sm-12">
               <label>Status</label>
               <input type="text" class="form-control form-control-sm" v-model="currentInsurance.status" disabled>
             </div>
-            <div class="col-md-4">
+            <div class="form-group col-md-4 col-sm-12">
               <label>Insurance Status</label>
               <input type="text" class="form-control form-control-sm" v-model="currentInsurance.insurance_status" disabled>
             </div>
-            <div class="col-md-4">
+            <div class="form-group col-md-4 col-sm-12">
               <label>Policy Number</label>
               <input type="text" class="form-control form-control-sm" v-model="currentInsurance.policy_number" disabled>
             </div>
-            <div class="col-md-4">
+            <div class="form-group col-md-4 col-sm-12">
               <label>Verification Date</label>
               <input type="text" class="form-control form-control-sm" v-model="currentInsurance.verification_date" disabled>
             </div>
-            <div class="col-md-4">
+            <div class="form-group col-md-4 col-sm-12">
               <label>Deductible Remainding</label>
               <input type="text" class="form-control form-control-sm" v-model="currentInsurance.deductible_remainding" disabled>
             </div>
-            <div class="col-md-12">
+            <div class="form-group col-sm-12">
               <label>Notes</label>
               <textarea class="form-control form-control-sm" name="name" v-model="currentInsurance.notes" rows="10" cols="80" disabled></textarea>
             </div>

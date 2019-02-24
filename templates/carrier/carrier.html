@@ -1,18 +1,21 @@
-<div id="carrier-app">
+<div id="carrier-app" v-cloak>
   <div class="col-md-12">
     <h5 class="title1">
       Carrier
     </h5>
     <!-- loading -->
-    <div class="d-flex justify-content-center loading" v-if="loading===true">
-      <div class="spinner-border" role="status">
-        <strong>Fetching data...</strong>
-        <span class="sr-only">Loading...</span>
+    <div class="custom-loader" v-if="loading">
+      <div class="col-md-12 col-sm-12">
+        <div class="d-flex flex-column align-items-center">
+          <div class="spinner-border" role="status"></div>
+          <br/>
+          <strong>Fetching data...</strong>
+        </div>
       </div>
     </div>
     <!-- end loading -->
-    <div class="table-responsive">
-      <table class="table table-bordered table-sm">
+    <div class="table-responsive"  v-if="!loading">
+      <table class="table table-hover table-bordered table-sm">
         <thead class="thead-light">
           <tr>
             <th scope="col">Patient name</th>
@@ -50,102 +53,150 @@
         </tbody>
       </table>
     </div>
+    <nav class="pagination-wrapper" v-if="endPage > 1">
+      <ul class="pagination justify-content-end">
+        <li v-bind:class="[{disabled: currentPage === 1}, 'page-item']">
+          <a
+            class="page-link" tabindex="-1"
+            v-on:click="goToPage(currentPage - 1)"
+          >
+            Previous
+          </a>
+        </li>
+        <li
+          v-for="pageNumber in pages"
+          v-bind:class="[{active: pageNumber === currentPage}, 'page-item']"
+        >
+          <a
+            class="page-link"
+            v-on:click="goToPage(pageNumber)"
+          >
+            [[ pageNumber ]]
+          </a>
+        </li>
+        <li v-bind:class="[{disabled: (currentPage * 1) === totalPages}, 'page-item']">
+          <a
+            class="page-link"
+            v-on:click="goToPage(currentPage + 1)"
+          >
+            Next
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
   <!-- data view using modal -->
   <div class="modal fade" id="viewModalCarrier" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Information on patient</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Carrier Information on [[currentCarrier.patient_name]]</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <!-- loading -->
-        <div class="d-flex justify-content-center loading" v-if="loading===true">
+        <div class="d-flex justify-content-center loading" v-if="loading">
           <div class="spinner-border" role="status">
             <strong>Fetching data...</strong>
             <span class="sr-only">Loading...</span>
           </div>
         </div>
         <!-- end loading -->
-        <div class="row">
-          <div class="col-md-4">
-            <label>Patient name</label>
-            <input type="text" class="form-control form-control-sm" v-model="currentCarrier.patient_name" disabled>
+        <h5 class="title1">
+          Patient Informations
+        </h5>
+        <div>
+          <div class="form-row" v-if="!loading">
+            <div class="form-group col-md-4 col-sm-12">
+              <label>Patient name</label>
+              <input type="text" class="form-control form-control-sm" v-model="currentCarrier.patient_name" disabled>
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+              <label>Patient phone number</label>
+              <input type="text" class="form-control form-control-sm" v-model="currentCarrier.patient_phone_number" disabled>
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+              <label>Submitted to Tamika ins verifier</label>
+              <input type="text" class="form-control form-control-sm" v-model="currentCarrier.submitted_to_tamika_ins_verifier" disabled>
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+              <label>Promo code</label>
+              <input type="text" class="form-control form-control-sm" v-model="currentCarrier.promo_code" disabled>
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+              <label>Status</label>
+              <input type="text" class="form-control form-control-sm" v-model="currentCarrier.status" disabled>
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+              <label>State</label>
+              <input type="text" class="form-control form-control-sm" v-model="currentCarrier.state" disabled>
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+              <label>Test choice</label>
+              <input type="text" class="form-control form-control-sm" v-model="currentCarrier.type_of_test" disabled>
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+              <label>Agent</label>
+              <input type="text" class="form-control form-control-sm" v-model="currentCarrier.agent" disabled>
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+              <label>Telemed name</label>
+              <input type="text" class="form-control form-control-sm" v-model="currentCarrier.telemed_name" disabled>
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+              <label>Insurance Company</label>
+              <input type="text" class="form-control form-control-sm" v-model="currentCarrier.insurance_company" disabled>
+            </div>
+            <div class="form-group col-md-12">
+              <label>Notes</label>
+              <textarea class="form-control form-control-sm" name="name" v-model="currentCarrier.notes" rows="10" cols="80" disabled></textarea>
+            </div>
           </div>
-          <div class="col-md-4">
-            <label>Promo code</label>
-            <input type="text" class="form-control form-control-sm" v-model="currentCarrier.promo_code" disabled>
-          </div>
-          <div class="col-md-4">
-            <label>Agent</label>
-            <input type="text" class="form-control form-control-sm" v-model="currentCarrier.agent" disabled>
-          </div>
-          <div class="col-md-4">
-            <label>Date application recorded</label>
-            <input type="text" class="form-control form-control-sm" v-model="currentCarrier.date_app_rec" disabled>
-          </div>
-          <div class="col-md-4">
-            <label>Date sample recorded</label>
-            <input type="text" class="form-control form-control-sm" v-model="currentCarrier.date_sample_rec" disabled>
-          </div>
-          <div class="col-md-4">
-            <label>Test choice</label>
-            <input type="text" class="form-control form-control-sm" v-model="currentCarrier.type_of_test" disabled>
-          </div>
-          <div class="col-md-4">
-            <label>Date of QCA</label>
-            <input type="text" class="form-control form-control-sm" v-model="currentCarrier.date_of_qca" disabled>
-          </div>
-          <div class="col-md-4">
-            <label>Submitted to Tamika ins verifier</label>
-            <input type="text" class="form-control form-control-sm" v-model="currentCarrier.submitted_to_tamika_ins_verifier" disabled>
-          </div>
-          <div class="col-md-4">
-            <label>Telemed name</label>
-            <input type="text" class="form-control form-control-sm" v-model="currentCarrier.telemed_name" disabled>
-          </div>
-          <div class="col-md-4">
-            <label>Date submitted to Telemed</label>
-            <input type="text" class="form-control form-control-sm" v-model="currentCarrier.date_submitted_to_telemed" disabled>
-          </div>
-          <div class="col-md-4">
-            <label>Date Telemed returned</label>
-            <input type="text" class="form-control form-control-sm" v-model="currentCarrier.date_submitted_to_telemed" disabled>
-          </div>
-          <div class="col-md-4">
-            <label>Date bioconfirm recorded application</label>
-            <input type="text" class="form-control form-control-sm" v-model="currentCarrier.date_bioconfim_rec_app" disabled>
-          </div>
-          <div class="col-md-4">
-            <label>Date paid</label>
-            <input type="text" class="form-control form-control-sm" v-model="currentCarrier.date_paid" disabled>
-          </div>
-          <div class="col-md-4">
-            <label>State</label>
-            <input type="text" class="form-control form-control-sm" v-model="currentCarrier.state" disabled>
-          </div>
-          <div class="col-md-4">
-            <label>Status</label>
-            <input type="text" class="form-control form-control-sm" v-model="currentCarrier.status" disabled>
-          </div>
-          <div class="col-md-4">
-            <label>month</label>
-            <input type="text" class="form-control form-control-sm" v-model="currentCarrier.month" disabled>
-          </div>
-          <div class="col-md-4">
-            <label>Insurance Company</label>
-            <input type="text" class="form-control form-control-sm" v-model="currentCarrier.insurance_company" disabled>
-          </div>
-          <div class="col-md-4">
-            <label>Rejection Date</label>
-            <input type="text" class="form-control form-control-sm" v-model="currentCarrier.rejection_date" disabled>
-          </div>
-          <div class="col-md-12">
-            <label>Notes</label>
-            <textarea class="form-control form-control-sm" name="name" v-model="currentCarrier.notes" rows="10" cols="80" disabled></textarea>
+          <hr />
+          <div>
+            <h5 class="title1">
+              Patient Date Informations
+            </h5>
+            <div class="form-row">
+              <div class="form-group col-md-4 col-sm-12">
+                <label>Date application recorded</label>
+                <input type="text" class="form-control form-control-sm" v-model="currentCarrier.date_app_rec" disabled>
+              </div>
+              <div class="form-group col-md-4 col-sm-12">
+                <label>Date sample recorded</label>
+                <input type="text" class="form-control form-control-sm" v-model="currentCarrier.date_sample_rec" disabled>
+              </div>
+              <div class="form-group col-md-4 col-sm-12">
+                <label>Date of QCA</label>
+                <input type="text" class="form-control form-control-sm" v-model="currentCarrier.date_of_qca" disabled>
+              </div>
+              <div class="form-group col-md-4 col-sm-12">
+                <label>Date submitted to Telemed</label>
+                <input type="text" class="form-control form-control-sm" v-model="currentCarrier.date_submitted_to_telemed" disabled>
+              </div>
+              <div class="form-group col-md-4 col-sm-12">
+                <label>Date Telemed returned</label>
+                <input type="text" class="form-control form-control-sm" v-model="currentCarrier.date_submitted_to_telemed" disabled>
+              </div>
+              <div class="form-group col-md-4 col-sm-12">
+                <label>Date bioconfirm recorded application</label>
+                <input type="text" class="form-control form-control-sm" v-model="currentCarrier.date_bioconfim_rec_app" disabled>
+              </div>
+              <div class="form-group col-md-4 col-sm-12">
+                <label>Date paid</label>
+                <input type="text" class="form-control form-control-sm" v-model="currentCarrier.date_paid" disabled>
+              </div>
+              <div class="form-group col-md-4 col-sm-12">
+                <label>month</label>
+                <input type="text" class="form-control form-control-sm" v-model="currentCarrier.month" disabled>
+              </div>
+              <div class="form-group col-md-4 col-sm-12">
+                <label>Rejection Date</label>
+                <input type="text" class="form-control form-control-sm" v-model="currentCarrier.rejection_date" disabled>
+              </div>
+            </div>
           </div>
         </div>
       </div>
