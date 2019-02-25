@@ -27,7 +27,44 @@ SECRET_KEY = env.str('DJANGO_SECRET_KEY')
 # False if not in os.environ
 DEBUG = env('DEBUG')
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL CONFIGURATION
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host
+# EMAIL_HOST = environ.get('EMAIL_HOST', 'in-v3.mailjet.com')
+# EMAIL_HOST = 'localhost'
+EMAIL_HOST = env.str('EMAIL_HOST', default='localhost')
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-password
+# EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD', default='')
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-user
+# EMAIL_HOST_USER = env.str('EMAIL_HOST_USER', default='')
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-port
+# EMAIL_PORT = environ.get('EMAIL_PORT', 587)
+# EMAIL_PORT = 1025
+EMAIL_PORT = env.int('EMAIL_PORT', default=1025)
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-use-tls
+# EMAIL_USE_TLS = False
+EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS', default=False)
+
+# Email's "from" field
+# EMAIL_SENDER = 'TEST <support@dynameyes.com>'
+EMAIL_SENDER = env.str('EMAIL_SENDER', default='TEST <support@tgx.com>')  # change to correct value
+
+# Email receiver when EMAIL_TO_TEST is True
+EMAIL_TEST_RECEIVER = 'support@tgx.com'  # change to correct value
+
+# When set to true, all emails will be sent to EMAIL_TEST_RECEIVER instead of the user's email
+EMAIL_TO_TEST = False
+
+EMAIL_ENABLED = True
+
+# SERVER_EMAIL = EMAIL_HOST_USER
+# END EMAIL CONFIGURATION
 
 ALLOWED_HOSTS = []
 

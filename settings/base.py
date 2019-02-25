@@ -23,6 +23,7 @@ LOCAL_APPS = (
     'users',
     'grappelli',
     'web',
+    'notification',
 )
 
 DJANGO_APPS = (
@@ -60,10 +61,15 @@ CORS_ALLOW_HEADERS = (
     'x-csrftoken'
 )
 
-# To do: will add sending of email later on
-# ANYMAIL = {
-#     "SENDGRID_API_KEY": env.str("SENDGRID_API_KEY")
-# }
+# ANYMAIL CONFIGURATION
+ANYMAIL = {
+    # (exact settings here depend on your ESP...)
+    "MAILGUN_API_KEY": "key-6e093d8bd184ccb2173875fa2f72ba07",
+    "MAILGUN_SENDER_DOMAIN": 'veezzo.cz',  # your Mailgun domain, if needed
+}
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
+DEFAULT_FROM_EMAIL = "sender@tgx.com"  # if you don't already have this in settings
+# END ANYMAIL CONFIGURATION
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
