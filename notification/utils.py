@@ -2,6 +2,8 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 from django.conf import settings
 
+import logging
+
 sender = getattr(settings, "EMAIL_SENDER", "support@tgx.com")
 
 
@@ -14,7 +16,16 @@ def send_email(subject, receiver, html_content):
         [receiver]
     )
     email.attach_alternative(html_content, "text/html")
-    email.send()
+    try:
+        email.send()
+    except Exception as e:
+        logging.error('Email to {} failed due to {}'.format(
+            receiver, e,
+        ))
+    else:
+        logging.info('Email to {} successful'.format(
+            receiver,
+        ))
 
 
 def send_sample_email():
