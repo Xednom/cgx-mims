@@ -40,6 +40,7 @@ THIRD_PART_APPS = (
     'django_filters',
     'import_export',
     'corsheaders',
+    'storages',
 )
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True
@@ -70,6 +71,7 @@ ANYMAIL = {
 EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
 DEFAULT_FROM_EMAIL = "sender@tgx.com"  # if you don't already have this in settings
 # END ANYMAIL CONFIGURATION
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -125,6 +127,30 @@ TEMPLATES = [
         },
     },
 ]
+
+# Amazon S3 configs
+AWS_ACCESS_KEY_ID = env.str('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env.str('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = 'tsg-media'
+AWS_AUTO_CREATE_BUCKET = env('AWS_AUTO_CREATE_BUCKET')
+AWS_S3_ENCRYPTION = env('AWS_S3_ENCRYPTION')
+AWS_S3_FILE_OVERWRITE = env('AWS_S3_FILE_OVERWRITE')
+AWS_S3_USE_SSL = env('AWS_S3_USE_SSL')
+AWS_DEFAULT_ACL = env('AWS_DEFAULT_ACL')
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = 'media'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'media'),
+]
+MEDIA_ROOT = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage' # Don't use this, we only use static in the project folder
+# STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 STATICFILES_DIRS = (
     # os.path.join(BASE_DIR, 'static'),

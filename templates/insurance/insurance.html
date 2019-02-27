@@ -103,10 +103,13 @@
         </div>
         <div class="modal-body">
           <!-- loading -->
-          <div class="d-flex justify-content-center loading" v-if="loading">
-            <div class="spinner-border" role="status">
-              <strong>Fetching data...</strong>
-              <span class="sr-only">Loading...</span>
+          <div class="custom-loader" v-if="loading">
+            <div class="col-md-12 col-sm-12">
+              <div class="d-flex flex-column align-items-center">
+                <div class="spinner-border" role="status"></div>
+                <br />
+                <strong>Fetching data...</strong>
+              </div>
             </div>
           </div>
           <!-- end loading -->
