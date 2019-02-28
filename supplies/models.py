@@ -3,10 +3,16 @@ from django.db import models
 
 
 class Supply(models.Model):
+    STATUS_CHOICES = (
+        ('ACCCEPTED', 'Accepted'),
+        ('NOT ACCEPTED', 'Not Accepted'),
+    )
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     sale_rep_name = models.CharField(max_length=250, default='n/a', null=True, blank=True)
     sale_rep_number = models.CharField(max_length=250, default='n/a', null=True, blank=True)
     email = models.EmailField(max_length=100, null=True, blank=True)
+    status = models.CharField(max_length=100, choices=STATUS_CHOICES, null=True, blank=True)
+    company_name = models.CharField(max_length=250, default='n/a', null=True, blank=True)
     shipping_labels_qty_req = models.CharField(max_length=250, default='n/a', null=True, blank=True)
     shipping_labels_qty_auth = models.CharField(max_length=250, default='n/a', null=True, blank=True)
     shipping_boxes_qty_req = models.CharField(max_length=250, default='n/a',

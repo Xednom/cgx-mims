@@ -12,6 +12,8 @@ class SuppliesProfile(admin.ModelAdmin):
                 'sale_rep_name',
                 'sale_rep_number',
                 'email',
+                'status',
+                'company_name',
             )
         }),
         ("Shipping", {

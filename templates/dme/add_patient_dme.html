@@ -109,27 +109,32 @@
             <label>PPO Information(If not straight from Medicare)(PPO Name)</label>
             <input type="text" class="form-control form-control-sm" v-model="newDme.ppo_information_ppo_name" id="inputPPOName" :disabled="loading == true">
           </div>
-          <div class="form-group col-md-3 col-sm-12">
+          <div class="form-group col-md-6 col-sm-12">
             <label>Insurance Status</label>
             <input type="text" class="form-control form-control-sm" v-model="newDme.insurance_status" id="inputInsuranceStat" :disabled="loading == true">
           </div>
-          <div class="form-group col-md-3 col-sm-12">
+          <div class="form-group col-md-4 col-sm-12">
             <label>Location of Back pain</label>
             <input type="text" class="form-control form-control-sm" v-model="newDme.location_of_back_pain" id="inputBackPain" :disabled="loading == true">
           </div>
-          <div class="form-group col-md-3 col-sm-12">
+          <div class="form-group col-md-4 col-sm-12">
             <label>Location of Shoulder pain</label>
             <input type="text" class="form-control form-control-sm" v-model="newDme.location_of_shoulder_pain" id="inputShoulderPain" :disabled="loading == true">
           </div>
-          <div class="form-group col-md-3 col-sm-12">
+          <div class="form-group col-md-4 col-sm-12">
             <label>Location of Knee pain</label>
             <input type="text" class="form-control form-control-sm" v-model="newDme.location_of_knee_pain" id="inputKneePain" :disabled="loading == true">
           </div>
-          <div class="form-group col-md-3 col-sm-12">
+          <div class="form-group col-md-4 col-sm-12">
+            <label>Location of Ankle pain</label>
+            <input type="text" class="form-control form-control-sm" v-model="newDme.location_of_ankle_pain" id="inputAnklePain"
+              :disabled="loading == true">
+          </div>
+          <div class="form-group col-md-4 col-sm-12">
             <label>Location of Elbow pain</label>
             <input type="text" class="form-control form-control-sm" v-model="newDme.location_of_elbow_pain" id="inputElbowPain" :disabled="loading == true">
           </div>
-          <div class="form-group col-md-3 col-sm-12">
+          <div class="form-group col-md-4 col-sm-12">
             <label>Location of Wrist pain</label>
             <input type="text" class="form-control form-control-sm" v-model="newDme.location_of_wrist_pain" id="inputWristPain" :disabled="loading == true">
           </div>
@@ -322,7 +327,7 @@
             <label>Consent Recording</label>
             <div class="custom-file" v-on:click="$refs.consent_recording_ref.click()" :disabled="loading == true">
               <input
-                  type="file" accept="image/*" class="form-control form-control-file form-control-sm"
+                  type="file" accept="video/*" class="form-control form-control-file form-control-sm"
                   name="consent_recording" id="inputRecording"
                   v-on:change="onFileChange($event)"
                   ref="consent_recording_ref"
