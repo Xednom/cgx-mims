@@ -3,6 +3,7 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser
 
+from django import template
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from tablib import Dataset
@@ -15,6 +16,14 @@ from .serializers import AgentSerializer, BioConfirmMasterSerializer, ManagerSer
 from .models import Agent, Manager, BioConfirmMaster
 from .serializers import (AgentSerializer, ManagerSerializer,
                           BioConfirmMasterSerializer)
+
+
+register = template.Library()
+
+
+@register.filter(name='GPG - TSG')
+def has_group(user, group_name):
+    return user.groups.filter(name=group_name).exists()
 
 
 class CsrftExemptSessionAuthentication(SessionAuthentication):

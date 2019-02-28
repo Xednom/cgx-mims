@@ -1,3 +1,4 @@
+{% load templatetagname %}
 <div id="carrier-app" v-cloak>
   <!-- patient info -->
   <form v-on:submit.prevent="addCarrier" enctype="multipart/form-data" method="POST">
@@ -18,14 +19,17 @@
           </div>
         </div>
         <div class="form-row">
+          {% if request.user|has_group:"GPG - TSG" %}
           <div class="form-group col-md-3 col-sm-12">
             <label>Date submitted to Tamika ins verifier</label>
             <input type="date" class="form-control form-control-sm" id="inputDate1" v-model="newCarrier.submitted_to_tamika_ins_verifier" :disabled="loading == true">
           </div>
+          {% endif %}
           <div class="form-group col-md-2 col-sm-12">
             <label for="inputEmail4">Promo Code</label>
             <input type="text" class="form-control form-control-sm" id="inputPromo" v-model="newCarrier.promo_code" :disabled="loading == true">
           </div>
+          {% if request.user|has_group:"GPG - TSG" %}
           <div class="form-group col-md-2 col-sm-12">
             <label for="inputState">Status</label>
             <select id="inputState" class="form-control form-control-sm" v-model="newCarrier.status" :disabled="loading == true">
@@ -46,10 +50,12 @@
               <option>REJECTED - CARESOURCE</option>
             </select>
           </div>
+          {% endif %}
           <div class="form-group col-md-2 col-md-offset-2 col-sm-12">
             <label for="input">State</label>
             <input type="text" class="form-control form-control-sm" id="inputState" v-model="newCarrier.state" :disabled="loading == true">
           </div>
+          {% if request.user|has_group:"GPG - TSG" %}
           <div class="form-group col-md-3 col-sm-12">
             <label>Test Choices</label>
             <select id="inputTest" class="form-control form-control-sm" v-model="newCarrier.type_of_test" :disabled="loading == true">
@@ -59,16 +65,19 @@
               <option>L</option>
             </select>
           </div>
+          {% endif %}
           <div class="form-group col-md-2">
             <label>Agent Name</label>
             <select id="inputAgent" class="form-control form-control-sm" v-model="newCarrier.agent" :disabled="loading == true" required>
               <option v-for="agent in agentNames">[[ agent.name ]]</option>
             </select>
           </div>
+          {% if request.user|has_group:"GPG - TSG" %}
           <div class="form-group col-md-3 col-sm-12">
             <label for="inputTelemed">Telemed Name</label>
             <input type="text" class="form-control form-control-sm" id="inputTelemed" v-model="newCarrier.telemed_name" :dsiabled="loading == true">
           </div>
+          {% endif %}
         </div>
         <div class="form-row">
           <div class="form-group col-md-8">
@@ -95,6 +104,7 @@
             <label>Date application recorded</label>
             <input type="date" class="form-control form-control-sm" v-model="newCarrier.date_app_rec" id="inputDateAppRec" value="" :disabled="loading == true">
           </div>
+          {% if request.user|has_group:"GPG - TSG" %}
           <div class="form-group col-md-3">
             <label>Date sample recorded</label>
             <input type="date" class="form-control form-control-sm" v-model="newCarrier.date_sample_rec" id="inputDate" :disabled="loading == true">
@@ -115,7 +125,9 @@
             <label>Date Carrier recorded application</label>
             <input type="date" class="form-control form-control-sm" v-model="newCarrier.date_bioconfim_rec_app" id="inputDate" :disabled="loading == true">
           </div>
+          {% endif %}
         </div>
+        {% if request.user|has_group:"GPG - TSG" %}
         <div class="form-row">
           <div class="form-group col-md-3">
             <label>Date paid</label>
@@ -129,6 +141,7 @@
             <label>Rejection Date</label>
             <input type="date" class="form-control form-control-sm" v-model="newCarrier.rejection_date" id="inputDate" :disabled="loading == true">
           </div>
+          {% endif %}
         </div>
       </div>
     </div>
