@@ -1,5 +1,6 @@
 from import_export.admin import ImportExportModelAdmin
 from django.utils.html import format_html, mark_safe
+from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 
 from django.contrib import admin
 
@@ -12,7 +13,15 @@ class BioConfirmMasterProfile(admin.ModelAdmin):
                     'date_app_rec', 'date_sample_rec', 'date_paid',
                     'insurance_company', 'rejection_date',
                     'submitted_to_tamika_ins_verifier')
-    list_filter = ('month', 'state', 'type_of_test')
+    list_filter = (
+        'month', 
+        'state',
+        'type_of_test',
+        ('date_created', DateRangeFilter),
+        ('date_app_rec', DateRangeFilter),
+        ('date_sample_rec', DateRangeFilter),
+        ('date_of_qca', DateRangeFilter),
+        )
     list_per_page = 30
     change_list_template = 'cgx/change_list_graph.html'
     search_fields = ('patient_name', 'promo_code', 'agent')
@@ -123,6 +132,11 @@ class BioConfirmMasterProfile(admin.ModelAdmin):
             height=obj.consent_recording.height,
             )
     )
+
+    class Media:
+        css = {
+            'all': ('css/admin/widgets.css',)
+        }
 
 
 admin.site.register(BioConfirmMaster, BioConfirmMasterProfile)
