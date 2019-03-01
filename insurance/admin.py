@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html, mark_safe
+from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 
 from .models import Insurance, TypeOfInsurance
 
@@ -9,7 +10,12 @@ class InsuranceProfile(admin.ModelAdmin):
                     'type_of_insurance', 'test', 'active_inactive', 'status',
                     'insurance_status', 'policy_number', 'verification_date',
                     'deductible_remainding', 'notes')
-    list_filter = ('status', 'active_inactive', 'state')
+    list_filter = (
+        'status', 
+        'active_inactive', 
+        'state',
+        ('date_created', DateRangeFilter),
+        )
     list_per_page = 30
     search_filters = ('name', 'promo_code', 'agent', 'manager', 'policy_number')
     change_list_template = 'insurance/change_list_graph.html'
@@ -114,6 +120,11 @@ class InsuranceProfile(admin.ModelAdmin):
             height=obj.consent_recording.height,
             )
     )
+
+    class Media:
+        css = {
+            'all': ('css/admin/widgets.css',)
+        }
 
 
 admin.site.register(Insurance, InsuranceProfile)
