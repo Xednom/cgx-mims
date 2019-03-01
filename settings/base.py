@@ -41,6 +41,7 @@ THIRD_PART_APPS = (
     'import_export',
     'corsheaders',
     'storages',
+    'rangefilter',
 )
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True

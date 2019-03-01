@@ -1,0 +1,7 @@
+/*
+    Extends the widget.css of admin.css in Django admin
+*/
+
+.grp-module h3 {
+    font-size: inherit !important;
+}
