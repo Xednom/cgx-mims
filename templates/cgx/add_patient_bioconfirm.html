@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="form-row">
-          {% if request.user|has_group:"GPG - TSG" %}
+          {% if request.user|has_group:"GPG and TSG" %}
           <div class="form-group col-md-3 col-sm-12">
             <label>Date submitted to Tamika ins verifier</label>
             <input type="date" class="form-control form-control-sm" id="inputDate1" v-model="newBioConfirm.submitted_to_tamika_ins_verifier"
