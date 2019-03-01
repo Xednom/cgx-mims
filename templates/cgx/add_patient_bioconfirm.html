@@ -22,14 +22,9 @@
           {% if request.user|has_group:"GPG - TSG" %}
           <div class="form-group col-md-3 col-sm-12">
             <label>Date submitted to Tamika ins verifier</label>
-            <input type="date" class="form-control form-control-sm" id="inputDate1" v-model="newBioConfirm.submitted_to_tamika_ins_verifier" :disabled="loading == true">
+            <input type="date" class="form-control form-control-sm" id="inputDate1" v-model="newBioConfirm.submitted_to_tamika_ins_verifier"
+              :disabled="loading == true">
           </div>
-          {% endif %}
-          <div class="form-group col-md-2 col-sm-12">
-            <label for="inputEmail4">Promo Code</label>
-            <input type="text" class="form-control form-control-sm" id="inputPromo" v-model="newBioConfirm.promo_code" :disabled="loading == true">
-          </div>
-          {% if request.user|has_group:"GPG - TSG" %}
           <div class="form-group col-md-2  col-sm-12">
             <label for="inputStatus">Status</label>
             <select id="inputStatus" class="form-control form-control-sm" v-model="newBioConfirm.status" :disabled="loading == true">
@@ -50,12 +45,6 @@
               <option>REJECTED - CARESOURCE</option>
             </select>
           </div>
-          {% endif %}
-          <div class="form-group col-md-2 col-md-offset-2 col-sm-12">
-            <label for="input">State</label>
-            <input type="text" class="form-control form-control-sm" id="inputState" v-model="newBioConfirm.state" :disabled="loading == true">
-          </div>
-          {% if request.user|has_group:"GPG - TSG" %}
           <div class="form-group col-md-3 col-sm-12">
             <label>Test Choices</label>
             <select id="inputTest" class="form-control form-control-sm" v-model="newBioConfirm.type_of_test" :disabled="loading == true">
@@ -65,28 +54,31 @@
               <option>L</option>
             </select>
           </div>
+          <div class="form-group col-md-4 col-sm-12">
+            <label for="inputTelemed">Telemed Name</label>
+            <input type="text" class="form-control form-control-sm" id="inputTelemed" v-model="newBioConfirm.telemed_name"
+              :disabled="loading == true">
+          </div>
           {% endif %}
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-8 col-sm-12">
+          <div class="form-group col-md-2 col-sm-12">
+            <label for="inputEmail4">Promo Code</label>
+            <input type="text" class="form-control form-control-sm" id="inputPromo" v-model="newBioConfirm.promo_code" :disabled="loading == true">
+          </div>
+          <div class="form-group col-md-2 col-md-offset-2 col-sm-12">
+            <label for="input">State</label>
+            <input type="text" class="form-control form-control-sm" id="inputState" v-model="newBioConfirm.state" :disabled="loading == true">
+          </div>
+          <div class="form-group col-md-4 col-sm-12">
             <label>Agent Name</label>
-            <select id="inputAgent" class="form-control form-control-sm" v-model="newBioConfirm.agent" :disabled="loading == true" required>
+            <select id="inputAgent" class="form-control form-control-sm" v-model="newBioConfirm.agent" :disabled="loading == true"
+              required>
               <option v-for="agent in agentNames" selected="selected">[[ agent.name ]]</option>
             </select>
           </div>
-        </div>
-        <div class="form-row">
-          {% if request.user|has_group:"GPG - TSG" %}
-          <div class="form-group col-md-8 col-sm-12">
-            <label for="inputTelemed">Telemed Name</label>
-            <input type="text" class="form-control form-control-sm" id="inputTelemed" v-model="newBioConfirm.telemed_name" :disabled="loading == true">
-          </div>
-          {% endif %}
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-8">
+          <div class="form-group col-md-4 col-sm-12">
             <label for="inputInsurance">Insurance Company Name</label>
-            <input type="text" class="form-control form-control-sm" id="inputInsurance" v-model="newBioConfirm.insurance_company" :disabled="loading == true">
+            <input type="text" class="form-control form-control-sm" id="inputInsurance" v-model="newBioConfirm.insurance_company"
+              :disabled="loading == true">
           </div>
         </div>
         <div class="form-row">
