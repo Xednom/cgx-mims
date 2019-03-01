@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html, mark_safe
+from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 
 from .models import PainCreamAndFootBath
 
@@ -8,7 +9,13 @@ class PainCreamAndFootBathProfile(admin.ModelAdmin):
     list_display = ('submission_date', 'patient_first_name', 'patient_last_name',
                     'promo_code', 'insurance_type', 'ppo_hmo_information_mem_id',
                     'ppo_hmo_information_ppo_name')
-    list_filter = ('state_province', 'insurance_status')
+    list_filter = (
+        'state_province', 
+        'insurance_status',
+        ('submission_date', DateRangeFilter),
+        ('date_faxed_to_pharmacy', DateRangeFilter),
+        ('date_created', DateRangeFilter),
+        )
     search_fields = ['patient_first_name', 'patient_last_name', 'promo_code']
     readonly_fields = ['date_created', 'created_by', 'updated_by', 'user_promo_code',
                        'patient_id_photo_image', 'insurance_card_photo_image', 'ppo_card_photo_image',
@@ -118,6 +125,11 @@ class PainCreamAndFootBathProfile(admin.ModelAdmin):
             height=obj.consent_recording.height,
             )
     )
+
+    class Media:
+        css = {
+            'all': ('css/admin/widgets.css',)
+        }
 
 
 admin.site.register(PainCreamAndFootBath, PainCreamAndFootBathProfile)
