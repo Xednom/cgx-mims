@@ -102,7 +102,7 @@
             <label>Date application recorded</label>
             <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_app_rec" id="inputDateAppRec" value="" :disabled="loading == true">
           </div>
-          {% if request.user|has_group:"GPG - TSG" %}
+          {% if request.user|has_group:"GPG and TSG" %}
           <div class="form-group col-md-3">
             <label>Date sample recorded</label>
             <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_sample_rec" id="inputDate" :disabled="loading == true">
@@ -113,7 +113,7 @@
           </div>
           {% endif %}
         </div>
-        {% if request.user|has_group:"GPG - TSG" %}
+        {% if request.user|has_group:"GPG and TSG" %}
         <div class="form-row">
           <div class="form-group col-md-3">
             <label>Date submitted to telemed</label>
@@ -129,7 +129,7 @@
           </div>
         </div>
         {% endif %}
-        {% if request.user|has_group:"GPG - TSG" %}
+        {% if request.user|has_group:"GPG and TSG" %}
         <div class="form-row">
           <div class="form-group col-md-3">
             <label>Date paid</label>
