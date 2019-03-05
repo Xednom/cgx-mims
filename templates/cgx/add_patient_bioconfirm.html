@@ -21,37 +21,22 @@
         <div class="form-row">
           {% if request.user|has_group:"GPG and TSG" %}
           <div class="form-group col-md-3 col-sm-12">
-            <label>Date submitted to Tamika ins verifier</label>
-            <input type="date" class="form-control form-control-sm" id="inputDate1" v-model="newBioConfirm.submitted_to_tamika_ins_verifier"
+            <label>Insurance verified/TSG verification</label>
+            <input type="date" class="form-control form-control-sm" id="inputDate1" v-model="newBioConfirm.insurance_verified_tsg_verification"
               :disabled="loading == true">
           </div>
-          <div class="form-group col-md-2  col-sm-12">
-            <label for="inputStatus">Status</label>
-            <select id="inputStatus" class="form-control form-control-sm" v-model="newBioConfirm.status" :disabled="loading == true">
-              <option>CGX/CGD</option>
-              <option>DUPLICATE</option>
-              <option>HOLD</option>
-              <option>DUPLICATE</option>
-              <option>MISSING INFORMATION</option>
-              <option>REJECTED</option>
-              <option>WRONG APPLICATION</option>
-              <option>Resubmit from Elite</option>
-              <option>RESIGNED</option>
-              <option>REJECTED HMO</option>
-              <option>REJECTED NO ID</option>
-              <option>REJECTED INELIGIBLE</option>
-              <option>REJECTED INACTIVE</option>
-              <option>REJECTED - Higd ded 6880.37</option>
-              <option>REJECTED - CARESOURCE</option>
+          <div class="form-group col-md-2">
+            <label>Status</label>
+            <select id="inputStatus" class="form-control form-control-sm" v-model="newBioConfirm.status" :disabled="loading == true"
+              required>
+              <option v-for="status in statuses">[[ status.name ]]</option>
             </select>
           </div>
-          <div class="form-group col-md-3 col-sm-12">
+          <div class="form-group col-md-2">
             <label>Test Choices</label>
-            <select id="inputTest" class="form-control form-control-sm" v-model="newBioConfirm.type_of_test" :disabled="loading == true">
-              <option>CARRIER</option>
-              <option>CGX</option>
-              <option>CGX/CARRIER</option>
-              <option>L</option>
+            <select id="inputTestChoices" class="form-control form-control-sm" v-model="newBioConfirm.type_of_test" :disabled="loading == true"
+              required>
+              <option v-for="test in testChoices">[[ test.name ]]</option>
             </select>
           </div>
           <div class="form-group col-md-4 col-sm-12">

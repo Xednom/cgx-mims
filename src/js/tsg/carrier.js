@@ -5,6 +5,8 @@ new Vue({
   data: {
     carriers: [],
     agentNames: [],
+    testChoices: [],
+    statuses: [],
     message: null,
     loading: false,
     csrf_token: ['csrf_token'],
@@ -18,7 +20,7 @@ new Vue({
       'date_sample_rec': "",
       'type_of_test': "",
       'date_of_qca': "",
-      'submitted_to_tamika_ins_verifier': "",
+      'insurance_verified_tsg_verification': "",
       'telemed_name': "",
       'date_submitted_to_telemed': "",
       'date_telemed_returned': "",
@@ -49,20 +51,14 @@ new Vue({
   mounted: function() {
     this.getCarriers();
     this.getAgentNames();
+    this.getStatuses();
+    this.getTestChoices();
     this.setDefaultDates();
   },
   methods: {
     setDefaultDates: function() {
       let currentDate = moment(new Date()).format("YYYY-MM-DD");
-      this.newCarrier.submitted_to_tamika_ins_verifier = currentDate;
       this.newCarrier.date_app_rec = currentDate;
-      this.newCarrier.date_sample_rec = currentDate;
-      this.newCarrier.date_of_qca = currentDate;
-      this.newCarrier.date_submitted_to_telemed = currentDate;
-      this.newCarrier.date_telemed_returned = currentDate;
-      this.newCarrier.date_bioconfim_rec_app = currentDate;
-      this.newCarrier.date_paid = currentDate;
-      this.newCarrier.rejection_date = currentDate;
     },
     onFileChange: function (event) {
       this.newCarrier[event.target.name] = event.target.files[0];
@@ -140,6 +136,30 @@ new Vue({
             this.loading = false;
             console.log(err);
           })
+    },
+    getTestChoices: function () {
+      this.loading = true;
+      this.$http.get(`/api/v1/test-choices/`)
+        .then((response) => {
+          this.testChoices = response.data;
+          this.loading = false;
+        })
+        .catch((err) => {
+          this.loading = false;
+          console.log(err);
+        })
+    },
+    getStatuses: function () {
+      this.loading = true;
+      this.$http.get(`/api/v1/status/`)
+        .then((response) => {
+          this.statuses = response.data;
+          this.loading = false;
+        })
+        .catch((err) => {
+          this.loading = false;
+          console.log(err);
+        })
     },
     // viewing of full datas
     viewCarrier: function(id) {
