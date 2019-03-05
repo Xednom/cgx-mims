@@ -3,5 +3,6 @@
 */
 
 .grp-module h3 {
-    font-size: inherit !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
 }
