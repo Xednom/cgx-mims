@@ -10,12 +10,13 @@ from tablib import Dataset
 import openpyxl, datetime
 
 from .resources import BioConfirmMasterResource
-from .models import Agent, BioConfirmMaster, Manager
+from .models import Agent, BioConfirmMaster, Manager, Status, Test_choices
 from .serializers import AgentSerializer, BioConfirmMasterSerializer, ManagerSerializer
 
 from .models import Agent, Manager, BioConfirmMaster
 from .serializers import (AgentSerializer, ManagerSerializer,
-                          BioConfirmMasterSerializer)
+                          BioConfirmMasterSerializer, TestChoicesSerializer,
+                          StatusSerializer)
 
 
 register = template.Library()
@@ -40,6 +41,16 @@ class AgentViewSet(viewsets.ModelViewSet):
 class ManagerViewSet(viewsets.ModelViewSet):
     queryset = Manager.objects.all()
     serializer_class = ManagerSerializer
+
+
+class StatusViewSet(viewsets.ModelViewSet):
+    queryset = Status.objects.all()
+    serializer_class = StatusSerializer
+
+
+class TestChoicesViewSet(viewsets.ModelViewSet):
+    queryset = Test_choices.objects.all()
+    serializer_class = TestChoicesSerializer
 
 
 class BioConfirmMasterViewSet(viewsets.ModelViewSet):
