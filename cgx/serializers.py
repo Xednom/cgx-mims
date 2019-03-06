@@ -34,8 +34,8 @@ class StatusSerializer(serializers.ModelSerializer):
 
 class BioConfirmMasterSerializer(serializers.ModelSerializer):
     agent = serializers.SlugRelatedField(slug_field='name', queryset=Agent.objects.all())
-    type_of_test = serializers.SlugRelatedField(slug_field='name', queryset=Test_choices.objects.all())
-    status = serializers.SlugRelatedField(slug_field='name', queryset=Status.objects.all())
+    type_of_test = serializers.SlugRelatedField(slug_field='name', queryset=Test_choices.objects.all(), required=False)
+    status = serializers.SlugRelatedField(slug_field='name', queryset=Status.objects.all(), required=False)
     date_app_rec = serializers.DateField(default=datetime.date.today)
 
     class Meta:

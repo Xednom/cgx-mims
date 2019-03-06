@@ -105,7 +105,7 @@ class BioConfirmMaster(models.Model):
     date_sample_rec = models.DateField(verbose_name="Date sample recorded", null=True, blank=True)
     type_of_test = models.ForeignKey(Test_choices, max_length=250, verbose_name="Test choices", null=True, blank=True, on_delete=models.PROTECT)
     date_of_qca = models.DateField(verbose_name="Date of QCA", null=True, blank=True)
-    insurance_verified_tsg_verification = models.DateField(verbose_name="INSURANCE VERIFIED/TSG VERIFICATION", null=True, blank=True)
+    insurance_verified_tsg_verification = models.DateField(verbose_name="Insurance Verified/TSG Verification", null=True, blank=True)
     telemed_name = models.CharField(max_length=250, verbose_name="Telemed name", null=True, blank=True)
     date_submitted_to_telemed = models.DateField(verbose_name="Date submitted to telemed", null=True, blank=True)
     date_telemed_returned = models.DateField(verbose_name="Date telemed returned", null=True, blank=True)
