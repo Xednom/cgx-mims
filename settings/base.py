@@ -1,6 +1,7 @@
 import json
 import os
 import logging
+from django.conf import global_settings
 from django.core.exceptions import ImproperlyConfigured
 import environ
 
@@ -21,7 +22,9 @@ LOCAL_APPS = (
     'paincreamandfootbath',
     'supplies',
     'users',
-    'grappelli',
+    'jet.dashboard',
+    'jet',
+    #'grappelli',
     'web',
     'notification',
 )
@@ -112,7 +115,6 @@ REST_FRAMEWORK = {
     ),
 }
 
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -121,7 +123,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',
+                'django.template.context_processors.request',  # commented this one out for Django jet admin theme
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -175,11 +177,15 @@ LOGIN_EXEMPT_URLS = (
 )
 
 # Grappelli customization(s)
-GRAPPELLI_ADMIN_TITLE = 'TSG Administration'
-GRAPPELLI_AUTOCOMPLETE_LIMIT = 7
-GRAPPELLI_SWITCH_USER = True
-GRAPPELLI_CLEAN_INPUT_TYPES = True
+# GRAPPELLI_ADMIN_TITLE = 'TSG Administration'
+# GRAPPELLI_AUTOCOMPLETE_LIMIT = 7
+# GRAPPELLI_SWITCH_USER = True
+# GRAPPELLI_CLEAN_INPUT_TYPES = True
 
+# Django Jet Customization(s)
+JET_CHANGE_FORM_SIBLING_LINKS = True
+JET_INDEX_DASHBOARD = 'jet.dashboard.dashboard.DefaultIndexDashboard'
+JET_APP_INDEX_DASHBOARD = 'jet.dashboard.dashboard.DefaultAppIndexDashboard'
 
 # Logging
 def levelname_filter(*args):

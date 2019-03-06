@@ -18,7 +18,7 @@ class InsuranceProfile(admin.ModelAdmin):
         )
     list_per_page = 30
     search_filters = ('name', 'promo_code', 'agent', 'manager', 'policy_number')
-    change_list_template = 'insurance/change_list_graph.html'
+    # change_list_template = 'insurance/change_list_graph.html'
     readonly_fields = [
                        'date_created', 'created_by', 'updated_by', 'user_promo_code',
                        'patient_id_photo_image', 'insurance_card_photo_front_image',

@@ -1,6 +1,7 @@
 from import_export.admin import ImportExportModelAdmin
 from django.utils.html import format_html, mark_safe
-from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
+#from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
+from jet.filters import DateRangeFilter
 
 from django.contrib import admin
 
@@ -23,7 +24,7 @@ class BioConfirmMasterProfile(admin.ModelAdmin):
         ('date_of_qca', DateRangeFilter),
         )
     list_per_page = 30
-    change_list_template = 'cgx/change_list_graph.html'
+    # change_list_template = 'cgx/change_list_graph.html'
     search_fields = ('patient_name', 'promo_code', 'agent')
     readonly_fields = [
                        'date_created', 'created_by', 'updated_by',

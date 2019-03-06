@@ -7,8 +7,14 @@ django-storages==1.7.1
 Markdown==3.0.1
 mysqlclient==1.3.14
 pytz==2018.7
-django-grappelli==2.12.1
 Pillow==5.4.1
+
+# Django admin theme
+django-grappelli==2.12.1
+django-jet==1.0.8
+
+# Django-jet google analytics api
+google-api-python-client==1.4.1
 
 # S3 file storage
 boto3==1.9.103
