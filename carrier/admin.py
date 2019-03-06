@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html, mark_safe
-from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
+# from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
+from jet.filters import DateRangeFilter
 
 from .models import Carrier
 
@@ -22,7 +23,7 @@ class CarrierProfile(admin.ModelAdmin):
         ('date_of_qca', DateRangeFilter),
         )
     list_per_page = 30
-    change_list_template = 'carrier/change_list_graph.html'
+    #change_list_template = 'carrier/change_list_graph.html'
     search_fields = ('patient_name', 'promo_code', 'agent')
     readonly_fields = ('date_created', 'created_by', 'updated_by', 'user_promo_code', 'patient_id_photo_image',
                         'insurance_card_photo_front_image', 'insurance_card_photo_back_image',
