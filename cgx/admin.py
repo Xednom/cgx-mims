@@ -1,18 +1,27 @@
 from import_export.admin import ImportExportModelAdmin
 from django.utils.html import format_html, mark_safe
+from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 
 from django.contrib import admin
 
-from .models import Agent, Manager, BioConfirmMaster
+from .models import Agent, Manager, Status, Test_choices, BioConfirmMaster
 
 
 class BioConfirmMasterProfile(admin.ModelAdmin):
-    list_display = ('patient_name', 'promo_code', 'agent',
+    list_display = ('patient_name', 'promo_code', 'agent', 'manager',
                     'date_submitted_to_telemed', 'date_telemed_returned',
-                    'date_app_rec', 'date_sample_rec', 'date_paid',
+                    'date_app_rec', 'date_sample_rec', 'date_of_qca', 'date_paid',
                     'insurance_company', 'rejection_date',
-                    'submitted_to_tamika_ins_verifier')
-    list_filter = ('month', 'state', 'type_of_test')
+                    'insurance_verified_tsg_verification',)
+    list_filter = (
+        'month', 
+        'state',
+        'type_of_test',
+        ('date_created', DateRangeFilter),
+        ('date_app_rec', DateRangeFilter),
+        ('date_sample_rec', DateRangeFilter),
+        ('date_of_qca', DateRangeFilter),
+        )
     list_per_page = 30
     change_list_template = 'cgx/change_list_graph.html'
     search_fields = ('patient_name', 'promo_code', 'agent')
@@ -29,8 +38,9 @@ class BioConfirmMasterProfile(admin.ModelAdmin):
                 'patient_phone_number',
                 'promo_code',
                 'agent',
+                'manager',
                 'type_of_test',
-                'submitted_to_tamika_ins_verifier',
+                'insurance_verified_tsg_verification',
                 'telemed_name',
                 'state',
                 'status',
@@ -124,6 +134,11 @@ class BioConfirmMasterProfile(admin.ModelAdmin):
             )
     )
 
+    class Media:
+        css = {
+            'all': ('css/admin/widgets.css',)
+        }
+
 
 admin.site.register(BioConfirmMaster, BioConfirmMasterProfile)
 
@@ -136,3 +151,5 @@ admin.site.register(BioConfirmMaster, BioConfirmMasterProfile)
 
 admin.site.register(Agent)
 admin.site.register(Manager)
+admin.site.register(Status)
+admin.site.register(Test_choices)

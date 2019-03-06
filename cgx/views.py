@@ -3,18 +3,28 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser
 
+from django import template
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from tablib import Dataset
 import openpyxl, datetime
 
 from .resources import BioConfirmMasterResource
-from .models import Agent, BioConfirmMaster, Manager
+from .models import Agent, BioConfirmMaster, Manager, Status, Test_choices
 from .serializers import AgentSerializer, BioConfirmMasterSerializer, ManagerSerializer
 
 from .models import Agent, Manager, BioConfirmMaster
 from .serializers import (AgentSerializer, ManagerSerializer,
-                          BioConfirmMasterSerializer)
+                          BioConfirmMasterSerializer, TestChoicesSerializer,
+                          StatusSerializer)
+
+
+register = template.Library()
+
+
+@register.filter(name='GPG - TSG')
+def has_group(user, group_name):
+    return user.groups.filter(name=group_name).exists()
 
 
 class CsrftExemptSessionAuthentication(SessionAuthentication):
@@ -31,6 +41,16 @@ class AgentViewSet(viewsets.ModelViewSet):
 class ManagerViewSet(viewsets.ModelViewSet):
     queryset = Manager.objects.all()
     serializer_class = ManagerSerializer
+
+
+class StatusViewSet(viewsets.ModelViewSet):
+    queryset = Status.objects.all()
+    serializer_class = StatusSerializer
+
+
+class TestChoicesViewSet(viewsets.ModelViewSet):
+    queryset = Test_choices.objects.all()
+    serializer_class = TestChoicesSerializer
 
 
 class BioConfirmMasterViewSet(viewsets.ModelViewSet):

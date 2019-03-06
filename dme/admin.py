@@ -1,15 +1,22 @@
 from django.contrib import admin
 from django.utils.html import format_html, mark_safe
+from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 
 from .models import DME_II
 
 
 class DMEIIProfile(admin.ModelAdmin):
     list_display = ['submission_date', 'patients_first_name',
-                    'patients_last_name', 'agents_promod_code', 'insurance_type',
-                    'policy_number', 'ppo_information_mem_id',
+                    'patients_last_name', 'agents_promod_code', 'first_name', 'last_name', 
+                    'insurance_type', 'policy_number', 'ppo_information_mem_id',
                     'ppo_information_ppo_name']
-    list_filter = ['state_province', 'insurance_status', 'insurance_notes']
+    list_filter = (
+        'state_province',
+         'insurance_status', 
+         'insurance_notes',
+         ('date_created', DateRangeFilter),
+         ('submission_date', DateRangeFilter),
+         )
     search_filters = ['first_name', 'last_name', 'agents_promod_code']
     readonly_fields = [
                        'date_created', 'created_by', 'updated_by', 'user_promo_code',
@@ -54,6 +61,7 @@ class DMEIIProfile(admin.ModelAdmin):
                 'location_of_back_pain',
                 'location_of_shoulder_pain',
                 'location_of_knee_pain',
+                'location_of_ankle_pain',
                 'location_of_elbow_pain',
                 'location_of_wrist_pain',
                 'height',

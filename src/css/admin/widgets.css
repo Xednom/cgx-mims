@@ -1,0 +1,8 @@
+/*
+    Extends the widget.css of admin.css in Django admin
+*/
+
+.grp-module h3 {
+    font-size: 12px !important;
+    font-weight: bold !important;
+}

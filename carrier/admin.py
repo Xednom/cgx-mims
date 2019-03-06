@@ -1,16 +1,26 @@
 from django.contrib import admin
 from django.utils.html import format_html, mark_safe
+from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 
 from .models import Carrier
 
 
 class CarrierProfile(admin.ModelAdmin):
-    list_display = ('patient_name', 'promo_code', 'agent',
+    list_display = ('patient_name', 'promo_code', 'agent', 'manager',
                     'date_submitted_to_telemed', 'date_telemed_returned',
-                    'date_app_rec', 'date_sample_rec', 'date_paid',
+                    'date_app_rec', 'date_sample_rec', 'date_of_qca', 'date_paid',
                     'insurance_company', 'rejection_date',
-                    'submitted_to_tamika_ins_verifier')
-    list_filter = ('status', 'month', 'state', 'type_of_test')
+                    'insurance_verified_tsg_verification',)
+    list_filter = (
+        'status', 
+        'month', 
+        'state', 
+        'type_of_test',
+        ('date_created', DateRangeFilter),
+        ('date_app_rec', DateRangeFilter),
+        ('date_sample_rec', DateRangeFilter),
+        ('date_of_qca', DateRangeFilter),
+        )
     list_per_page = 30
     change_list_template = 'carrier/change_list_graph.html'
     search_fields = ('patient_name', 'promo_code', 'agent')
@@ -25,11 +35,13 @@ class CarrierProfile(admin.ModelAdmin):
                 'patient_phone_number',
                 'promo_code',
                 'agent',
+                'manager',
                 'type_of_test',
-                'submitted_to_tamika_ins_verifier',
+                'insurance_verified_tsg_verification',
                 'telemed_name',
                 'state',
                 'status',
+                'lab_type',
                 'insurance_company',
                 'notes'
             )
@@ -43,6 +55,7 @@ class CarrierProfile(admin.ModelAdmin):
                 'date_telemed_returned',
                 'date_bioconfim_rec_app',
                 'date_paid',
+                'date_lab_recorded_app',
                 'month',
                 'rejection_date',
             )
@@ -119,6 +132,11 @@ class CarrierProfile(admin.ModelAdmin):
             height=obj.consent_recording.height,
             )
     )
+
+    class Media:
+        css = {
+            'all': ('css/admin/widgets.css',)
+        }
 
 
 

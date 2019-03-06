@@ -5,6 +5,8 @@ new Vue({
   data: {
     bioconfirms: [],
     agentNames: [],
+    testChoices: [],
+    statuses: [],
     message: null,
     loading: false,
     currentBioConfirm: {},
@@ -17,7 +19,7 @@ new Vue({
       'date_sample_rec': "",
       'type_of_test': "",
       'date_of_qca': "",
-      'submitted_to_tamika_ins_verifier': "",
+      'insurance_verified_tsg_verification': "",
       'telemed_name': "",
       'date_submitted_to_telemed': "",
       'date_telemed_returned': "",
@@ -51,21 +53,14 @@ new Vue({
   mounted: function() {
     this.getBioConfirms();
     this.getAgentNames();
+    this.getTestChoices();
+    this.getStatuses();
 		this.setDefaultDates();
   },
   methods: {
     setDefaultDates: function() {
       let currentDate = moment(new Date()).format("YYYY-MM-DD");
-      this.newBioConfirm.submitted_to_tamika_ins_verifier = currentDate;
       this.newBioConfirm.date_app_rec = currentDate;
-      this.newBioConfirm.date_sample_rec = currentDate;
-      this.newBioConfirm.date_of_qca = currentDate;
-      this.newBioConfirm.date_submitted_to_telemed = currentDate;
-      this.newBioConfirm.date_telemed_returned = currentDate;
-      this.newBioConfirm.date_bioconfim_rec_app = currentDate;
-      this.newBioConfirm.date_paid = currentDate;
-      this.newBioConfirm.rejection_date = currentDate;
-      this.newBioConfirm.date_created = currentDate;
     },
     onFileChange: function (event) {
       this.newBioConfirm[event.target.name] = event.target.files[0];
@@ -103,6 +98,30 @@ new Vue({
             console.log(err);
           })
     },
+    getTestChoices: function () {
+        this.loading = true;
+        this.$http.get(`/api/v1/test-choices/`)
+          .then((response) => {
+            this.testChoices = response.data;
+            this.loading = false;
+          })
+          .catch((err) => {
+            this.loading = false;
+            console.log(err);
+          })
+      },
+      getStatuses: function () {
+        this.loading = true;
+        this.$http.get(`/api/v1/status/`)
+          .then((response) => {
+            this.statuses = response.data;
+            this.loading = false;
+          })
+          .catch((err) => {
+            this.loading = false;
+            console.log(err);
+          })
+      },
 
     // new code using axios
     addBioConfirm: function(event) {

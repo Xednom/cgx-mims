@@ -1,3 +1,4 @@
+{% load templatetagname %}
 <div id="bioconfirm-app" v-cloak>
   <!-- patient info -->
   <form v-on:submit.prevent="addBioConfirm" enctype="multipart/form-data" method="POST">
@@ -18,66 +19,51 @@
           </div>
         </div>
         <div class="form-row">
+          {% if request.user|has_group:"GPG and TSG" %}
           <div class="form-group col-md-3 col-sm-12">
-            <label>Date submitted to Tamika ins verifier</label>
-            <input type="date" class="form-control form-control-sm" id="inputDate1" v-model="newBioConfirm.submitted_to_tamika_ins_verifier" :disabled="loading == true">
+            <label>Insurance verified/TSG verification</label>
+            <input type="date" class="form-control form-control-sm" id="inputDate1" v-model="newBioConfirm.insurance_verified_tsg_verification"
+              :disabled="loading == true">
           </div>
+          <div class="form-group col-md-2">
+            <label>Status</label>
+            <select id="inputStatus" class="form-control form-control-sm" v-model="newBioConfirm.status" :disabled="loading == true"
+              required>
+              <option v-for="status in statuses">[[ status.name ]]</option>
+            </select>
+          </div>
+          <div class="form-group col-md-2">
+            <label>Test Choices</label>
+            <select id="inputTestChoices" class="form-control form-control-sm" v-model="newBioConfirm.type_of_test" :disabled="loading == true"
+              required>
+              <option v-for="test in testChoices">[[ test.name ]]</option>
+            </select>
+          </div>
+          <div class="form-group col-md-5 col-sm-12">
+            <label for="inputTelemed">Telemed Name</label>
+            <input type="text" class="form-control form-control-sm" id="inputTelemed" v-model="newBioConfirm.telemed_name"
+              :disabled="loading == true">
+          </div>
+          {% endif %}
           <div class="form-group col-md-2 col-sm-12">
             <label for="inputEmail4">Promo Code</label>
             <input type="text" class="form-control form-control-sm" id="inputPromo" v-model="newBioConfirm.promo_code" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-2  col-sm-12">
-            <label for="inputStatus">Status</label>
-            <select id="inputStatus" class="form-control form-control-sm" v-model="newBioConfirm.status" :disabled="loading == true">
-              <option>CGX/CGD</option>
-              <option>DUPLICATE</option>
-              <option>HOLD</option>
-              <option>DUPLICATE</option>
-              <option>MISSING INFORMATION</option>
-              <option>REJECTED</option>
-              <option>WRONG APPLICATION</option>
-              <option>Resubmit from Elite</option>
-              <option>RESIGNED</option>
-              <option>REJECTED HMO</option>
-              <option>REJECTED NO ID</option>
-              <option>REJECTED INELIGIBLE</option>
-              <option>REJECTED INACTIVE</option>
-              <option>REJECTED - Higd ded 6880.37</option>
-              <option>REJECTED - CARESOURCE</option>
-            </select>
           </div>
           <div class="form-group col-md-2 col-md-offset-2 col-sm-12">
             <label for="input">State</label>
             <input type="text" class="form-control form-control-sm" id="inputState" v-model="newBioConfirm.state" :disabled="loading == true">
           </div>
-          <div class="form-group col-md-3 col-sm-12">
-            <label>Test Choices</label>
-            <select id="inputTest" class="form-control form-control-sm" v-model="newBioConfirm.type_of_test" :disabled="loading == true">
-              <option>CARRIER</option>
-              <option>CGX</option>
-              <option>CGX/CARRIER</option>
-              <option>L</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-8 col-sm-12">
+          <div class="form-group col-md-4 col-sm-12">
             <label>Agent Name</label>
-            <select id="inputAgent" class="form-control form-control-sm" v-model="newBioConfirm.agent" :disabled="loading == true" required>
+            <select id="inputAgent" class="form-control form-control-sm" v-model="newBioConfirm.agent" :disabled="loading == true"
+              required>
               <option v-for="agent in agentNames" selected="selected">[[ agent.name ]]</option>
             </select>
           </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-8 col-sm-12">
-            <label for="inputTelemed">Telemed Name</label>
-            <input type="text" class="form-control form-control-sm" id="inputTelemed" v-model="newBioConfirm.telemed_name" :disabled="loading == true">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-8">
+          <div class="form-group col-md-4 col-sm-12">
             <label for="inputInsurance">Insurance Company Name</label>
-            <input type="text" class="form-control form-control-sm" id="inputInsurance" v-model="newBioConfirm.insurance_company" :disabled="loading == true">
+            <input type="text" class="form-control form-control-sm" id="inputInsurance" v-model="newBioConfirm.insurance_company"
+              :disabled="loading == true">
           </div>
         </div>
         <div class="form-row">
@@ -101,7 +87,8 @@
             <label>Date application recorded</label>
             <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_app_rec" id="inputDateAppRec" value="" :disabled="loading == true">
           </div>
-          <div class="form-group col-md-3">
+          {% if request.user|has_group:"GPG and TSG" %}
+          <div class="form-group col-md-3 offset-1">
             <label>Date sample recorded</label>
             <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_sample_rec" id="inputDate" :disabled="loading == true">
           </div>
@@ -109,13 +96,15 @@
             <label>Date of QCA</label>
             <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_of_qca" id="inputDate" :disabled="loading == true">
           </div>
+          {% endif %}
         </div>
+        {% if request.user|has_group:"GPG and TSG" %}
         <div class="form-row">
           <div class="form-group col-md-3">
             <label>Date submitted to telemed</label>
             <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_submitted_to_telemed" id="inputDate" :disabled="loading == true">
           </div>
-          <div class="form-group col-md-3">
+          <div class="form-group col-md-3 offset-1">
             <label>Date telemed returned</label>
             <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_telemed_returned" id="inputDate" :disabled="loading == true">
           </div>
@@ -124,12 +113,14 @@
             <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_bioconfim_rec_app" id="inputDate" :disabled="loading == true">
           </div>
         </div>
+        {% endif %}
+        {% if request.user|has_group:"GPG and TSG" %}
         <div class="form-row">
           <div class="form-group col-md-3">
             <label>Date paid</label>
             <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_paid" id="inputDate" :disabled="loading == true">
           </div>
-          <div class="form-group col-md-3">
+          <div class="form-group col-md-3 offset-1">
             <label>Month</label>
             <input type="text" class="form-control form-control-sm" v-model="newBioConfirm.month" :disabled="loading == true">
           </div>
@@ -138,6 +129,7 @@
             <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.rejection_date" id="inputDate" :disabled="loading == true">
           </div>
         </div>
+        {% endif %}
       </div>
     </div>
     <!-- end patient date info -->
@@ -240,7 +232,7 @@
             <label>Consent Recording</label>
             <div class="custom-file" v-on:click="$refs.consent_recording_ref.click()" :disabled="loading == true">
               <input
-                  type="file" accept="image/*" class="form-control form-control-file form-control-sm"
+                  type="file" accept="video/*" class="form-control form-control-file form-control-sm"
                   name="consent_recording" id="inputRecording"
                   v-on:change="onFileChange($event)"
                   ref="consent_recording_ref"
