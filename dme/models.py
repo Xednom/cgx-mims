@@ -78,7 +78,7 @@ class DME_II(models.Model):
     treatments_tried = models.CharField(max_length=250, null=True, blank=True)
     seen_doctor = models.CharField(max_length=250, null=True, blank=True, verbose_name='Have you seen a doctor in the last year?')
     surgeries = models.CharField(max_length=250, null=True, blank=True, verbose_name='Any Surgeries in the last year?')
-    consent_recording = models.ImageField(upload_to='dme/consent-recording/', max_length=1000, null=True, blank=True)
+    consent_recording = models.FileField(upload_to='dme/consent-recording/', max_length=1000, null=True, blank=True)
     ip = models.GenericIPAddressField(protocol='both', unpack_ipv4=False, verbose_name='IP Address', null=True, blank=True)
     submission_id = models.CharField(max_length=350, null=True, blank=True)
     edit_link = models.CharField(max_length=250, null=True, blank=True)

@@ -39,7 +39,7 @@
               <option v-for="test in testChoices">[[ test.name ]]</option>
             </select>
           </div>
-          <div class="form-group col-md-4 col-sm-12">
+          <div class="form-group col-md-5 col-sm-12">
             <label for="inputTelemed">Telemed Name</label>
             <input type="text" class="form-control form-control-sm" id="inputTelemed" v-model="newBioConfirm.telemed_name"
               :disabled="loading == true">
@@ -88,7 +88,7 @@
             <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_app_rec" id="inputDateAppRec" value="" :disabled="loading == true">
           </div>
           {% if request.user|has_group:"GPG and TSG" %}
-          <div class="form-group col-md-3">
+          <div class="form-group col-md-3 offset-1">
             <label>Date sample recorded</label>
             <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_sample_rec" id="inputDate" :disabled="loading == true">
           </div>
@@ -104,7 +104,7 @@
             <label>Date submitted to telemed</label>
             <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_submitted_to_telemed" id="inputDate" :disabled="loading == true">
           </div>
-          <div class="form-group col-md-3">
+          <div class="form-group col-md-3 offset-1">
             <label>Date telemed returned</label>
             <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_telemed_returned" id="inputDate" :disabled="loading == true">
           </div>
@@ -120,7 +120,7 @@
             <label>Date paid</label>
             <input type="date" class="form-control form-control-sm" v-model="newBioConfirm.date_paid" id="inputDate" :disabled="loading == true">
           </div>
-          <div class="form-group col-md-3">
+          <div class="form-group col-md-3 offset-1">
             <label>Month</label>
             <input type="text" class="form-control form-control-sm" v-model="newBioConfirm.month" :disabled="loading == true">
           </div>

@@ -29,8 +29,12 @@ class PainCreamAndFootBath(models.Model):
     country = models.CharField(max_length=250, default="n/a", null=True, blank=True)
     insurance_type = models.CharField(max_length=250, default="n/a", null=True, blank=True)
     medicare_medicaid_policy = models.CharField(max_length=250, default="n/a", null=True, blank=True)
-    ppo_hmo_information_mem_id = models.CharField(max_length=250, default="n/a", verbose_name='PPO/HMO Information (If not straight Medicare)(Medicare ID#)')
-    ppo_hmo_information_ppo_name = models.CharField(max_length=250, default="n/a", verbose_name='PPO/HMO Information(If not straight Medicare)(PPO Name)', null=True, blank=True)
+    ppo_hmo_information_mem_id = models.CharField(max_length=250, default="n/a", 
+                                                   verbose_name='PPO/HMO Information (If not straight Medicare)(Medicare ID#)', 
+                                                   null=True, blank=True)
+    ppo_hmo_information_ppo_name = models.CharField(max_length=250, default="n/a",
+                                                     verbose_name='PPO/HMO Information(If not straight Medicare)(PPO Name)', 
+                                                     null=True, blank=True)
     insurance_status = models.CharField(max_length=250, default="n/a", null=True, blank=True)
     location_of_pain = models.CharField(max_length=250, default="n/a", null=True, blank=True)
     level_of_pain = models.CharField(max_length=100, default="n/a", null=True, blank=True)

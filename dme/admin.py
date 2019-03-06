@@ -7,8 +7,8 @@ from .models import DME_II
 
 class DMEIIProfile(admin.ModelAdmin):
     list_display = ['submission_date', 'patients_first_name',
-                    'patients_last_name', 'agents_promod_code', 'insurance_type',
-                    'policy_number', 'ppo_information_mem_id',
+                    'patients_last_name', 'agents_promod_code', 'first_name', 'last_name', 
+                    'insurance_type', 'policy_number', 'ppo_information_mem_id',
                     'ppo_information_ppo_name']
     list_filter = (
         'state_province',
