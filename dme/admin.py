@@ -17,6 +17,7 @@ class DMEIIProfile(admin.ModelAdmin):
          'insurance_notes',
          ('date_created', DateRangeFilter),
          ('submission_date', DateRangeFilter),
+         ('date_created', DateRangeFilter),
          )
     search_filters = ['first_name', 'last_name', 'agents_promod_code']
     readonly_fields = [
@@ -120,6 +121,12 @@ class DMEIIProfile(admin.ModelAdmin):
         elif change:
             obj.updated_by = request.user.first_name + " " + request.user.last_name
         obj.save()
+
+    def get_queryset(self, request):
+        queryset = super(DMEIIProfile, self).get_queryset(request)
+        if request.user.is_superuser:
+            return queryset
+        return queryset.filter(agents_promod_code=request.user.agent_promo_code)
 
     def patient_id_photo_image(self, obj):
         return mark_safe('<img src="{url}" width="145px" height="145px" />'.format(

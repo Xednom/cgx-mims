@@ -17,14 +17,18 @@ class CarrierProfile(admin.ModelAdmin):
         'month', 
         'state', 
         'type_of_test',
+        'lab_type',
+        'date_created',
+        'insurance_verified_tsg_verification',
         ('date_created', DateRangeFilter),
         ('date_app_rec', DateRangeFilter),
         ('date_sample_rec', DateRangeFilter),
         ('date_of_qca', DateRangeFilter),
+        ('insurance_verified_tsg_verification', DateRangeFilter),
         )
     list_per_page = 30
     #change_list_template = 'carrier/change_list_graph.html'
-    search_fields = ('patient_name', 'promo_code', 'agent')
+    search_fields = ('patient_name', 'promo_code', 'agent__name')
     readonly_fields = ('date_created', 'created_by', 'updated_by', 'user_promo_code', 'patient_id_photo_image',
                         'insurance_card_photo_front_image', 'insurance_card_photo_back_image',
                        'additional_insurance_cards_image', 'consent_recording_image'
@@ -93,6 +97,12 @@ class CarrierProfile(admin.ModelAdmin):
         elif change:
             obj.updated_by = request.user.first_name + " " + request.user.last_name
         obj.save()
+
+    def get_queryset(self, request):
+        queryset = super(CarrierProfile, self).get_queryset(request)
+        if request.user.is_superuser:
+            return queryset
+        return queryset.filter(manager__name=request.user)
 
     def patient_id_photo_image(self, obj):
         return mark_safe('<img src="{url}" width="145px" height="145px" />'.format(

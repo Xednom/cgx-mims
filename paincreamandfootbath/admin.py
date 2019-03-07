@@ -13,6 +13,7 @@ class PainCreamAndFootBathProfile(admin.ModelAdmin):
     list_filter = (
         'state_province', 
         'insurance_status',
+        'submission_date',
         ('submission_date', DateRangeFilter),
         ('date_faxed_to_pharmacy', DateRangeFilter),
         ('date_created', DateRangeFilter),

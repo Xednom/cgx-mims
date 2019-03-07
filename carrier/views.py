@@ -2,9 +2,11 @@ from rest_framework import viewsets, filters
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser
+from django_filters.rest_framework import DjangoFilterBackend
 
 from django.shortcuts import render
 from django.views.generic import TemplateView
+
 
 from cgx.models import Agent, Manager
 from .models import Carrier
@@ -35,7 +37,7 @@ class CarrierViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     parser_classes = (MultiPartParser,)
     filter_backends = [filters.SearchFilter]
-    search_fields = ('patient_name', 'promo_code')
+    search_fields = ('patient_name', 'promo_code', 'insurance_verified_tsg_verification')
 
     def get_queryset(self):
         user = self.request.user
