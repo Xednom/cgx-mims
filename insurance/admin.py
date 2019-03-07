@@ -15,9 +15,10 @@ class InsuranceProfile(admin.ModelAdmin):
         'active_inactive', 
         'state',
         ('date_created', DateRangeFilter),
+        ('verification_date', DateRangeFilter),
         )
     list_per_page = 30
-    search_filters = ('name', 'promo_code', 'agent', 'manager', 'policy_number')
+    search_filters = ('name', 'promo_code', 'agent__name', 'manager__name', 'policy_number')
     # change_list_template = 'insurance/change_list_graph.html'
     readonly_fields = [
                        'date_created', 'created_by', 'updated_by', 'user_promo_code',
@@ -80,6 +81,12 @@ class InsuranceProfile(admin.ModelAdmin):
         elif change:
             obj.updated_by = request.user.first_name + " " + request.user.last_name
         obj.save()
+
+    def get_queryset(self, request):
+        queryset = super(InsuranceProfile, self).get_queryset(request)
+        if request.user.is_superuser:
+            return queryset
+        return queryset.filter(agent__name=request.user)
 
     def patient_id_photo_image(self, obj):
         return mark_safe('<img src="{url}" width="145px" height="145px" />'.format(
