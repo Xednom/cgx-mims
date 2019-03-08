@@ -36,7 +36,7 @@
           <tr>
             <td colspan="14" class="text-center" v-if="!carriers.length">No records for <strong>Carrier</strong> as of now.</td>
           </tr>
-          <tr v-for="carrier in carriers">
+          <tr v-for="(carrier, i) in paginatedRecords">
             <td>[[ carrier.patient_name ]]</td>
             <td>[[ carrier.promo_code ]]</td>
             <td>[[ carrier.agent ]]</td>
