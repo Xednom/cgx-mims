@@ -86,7 +86,11 @@ class BioConfirmMasterViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        queryset = BioConfirmMaster.objects.filter(agent__name=user)
+        position = self.request.user.position
+        if position == 'Manager':
+            queryset = BioConfirmMaster.objects.filter(manager__name=user)
+        else:
+            queryset = BioConfirmMaster.objects.filter(agent__name=user)
         return queryset
 
 

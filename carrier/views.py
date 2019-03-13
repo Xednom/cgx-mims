@@ -72,5 +72,9 @@ class CarrierViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        queryset = Carrier.objects.filter(agent__name=user)
+        position = self.request.user.position
+        if position == 'Manager':
+            queryset = Carrier.objects.filter(manager__name=user)
+        else:
+            queryset = Carrier.objects.filter(agent__name=user)
         return queryset

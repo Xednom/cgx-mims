@@ -61,5 +61,9 @@ class InsuranceViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        queryset = Insurance.objects.filter(agent__name=user)
+        position = self.request.user.position
+        if position == 'Manager':
+            queryset = Insurance.objects.filter(manager__name=user)
+        else:
+            queryset = Insurance.objects.filter(agent__name=user)
         return queryset
