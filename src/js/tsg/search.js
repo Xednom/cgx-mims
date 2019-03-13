@@ -16,15 +16,15 @@ new Vue({
     currentInsurance: {},
 
     // queries for from date and to date
-    from_date_app_rec: '',
-    from_date_sample_rec: '',
-    from_date_of_qca: '',
-    from_date_created: '',
-    to_date_app_rec: '',
-    to_date_sample_rec: '',
-    to_date_of_qca: '',
-    to_date_created: '',
-    search_patient_name: '',
+    carrier_from_date_app_rec: '',
+    carrier_from_date_sample_rec: '',
+    carrier_from_date_of_qca: '',
+    carrier_from_date_created: '',
+    carrier_to_date_app_rec: '',
+    carrier_to_date_sample_rec: '',
+    carrier_to_date_of_qca: '',
+    carrier_to_date_created: '',
+    carrier_search_patient_name: '',
   },
   mounted: function() {
     // no functions to be mounted cause this is search, nothing loaded automatically
@@ -60,7 +60,7 @@ new Vue({
         },
     getCarriers: function() {
         // Search function
-        api_url = `/api/v1/carrier/?date_app_rec__gte=${this.from_date_app_rec}&date_app_rec__lte=${this.to_date_app_rec}&date_sample_rec__gte=${this.from_date_app_rec}&date_sample_rec__lte=${this.to_date_app_rec}&date_of_qca__gte=${this.from_date_of_qca}&date_of_qca__lte=${this.to_date_of_qca}&date_created__gte=${this.from_date_created}&date_created__lte=${this.to_date_created}&patient_name=${this.search_patient_name}`
+      api_url = `/api/v1/carrier/?date_app_rec__gte=${this.carrier_from_date_app_rec}&date_app_rec__lte=${this.carrier_to_date_app_rec}&date_sample_rec__gte=${this.carrier_from_date_sample_rec}&date_sample_rec__lte=${this.carrier_to_date_sample_rec}&date_of_qca__gte=${this.carrier_from_date_of_qca}&date_of_qca__lte=${this.carrier_to_date_of_qca}&date_created__gte=${this.carrier_from_date_created}&date_created__lte=${this.carrier_to_date_created}&patient_name=${this.carrier_search_patient_name}`
         this.loading = true;
         this.$http.get(api_url)
             .then((response) => {
