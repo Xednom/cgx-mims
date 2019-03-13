@@ -81,11 +81,22 @@ nav.navbar .navbar-top-links .dropdown .dropdown-menu {
 }
 
 .search-carrier {
+  border-radius: 0 !important;
   margin-right: 10px !important;
 }
 
 .search-bio-confirm {
+  border-radius: 0 !important;
   margin-right: 10px !important;
+}
+
+.search-dme {
+  border-radius: 0 !important;
+  margin-right: 10px !important;
+}
+
+.search-insurance {
+  border-radius: 0 !important;
 }
 
 .card-info {
