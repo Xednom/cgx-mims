@@ -1,3 +1,6 @@
+import django_filters
+from django_filters import DateRangeFilter, DateFilter, CharFilter
+
 from rest_framework import viewsets, filters
 from rest_framework.parsers import FormParser, MultiPartParser, FileUploadParser
 from rest_framework.permissions import IsAuthenticated
@@ -16,13 +19,25 @@ class CsrftExemptSessionAuthentication(SessionAuthentication):
         return  # will not enforce a csrf check
 
 
+class DMEFilter(django_filters.FilterSet):
+    submission_date__gte = DateFilter(field_name='submission_date', lookup_expr='gte')
+    submission_date__lte = DateFilter(field_name='submission_date', lookup_expr='lte')
+    patients_first_name = CharFilter(field_name='patients_first_name', lookup_expr='icontains')
+    patients_last_name = CharFilter(field_name='patients_last_name', lookup_expr='icontains')
+
+    class Meta:
+        model = DME_II
+        fields = ('submission_date__gte', 'submission_date__lte', 
+                  'patients_first_name', 'patients_last_name')
+
+
 class DMEIIViewSet(viewsets.ModelViewSet):
     # queryset = DME_II.objects.all()
     serializer_class = DMEIISerializer
     authentication_classes = (CsrftExemptSessionAuthentication, BasicAuthentication)
     permission_classes = (IsAuthenticated,)
     parser_classes = (MultiPartParser,)
-    filter_backends = [filters.SearchFilter]
+    filter_class = (DMEFilter)
     search_fields = ('first_name', 'last_name', 'agents_promod_code')
 
     def get_queryset(self):

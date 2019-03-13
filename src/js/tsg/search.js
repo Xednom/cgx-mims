@@ -15,49 +15,63 @@ new Vue({
     currentDme: {},
     currentInsurance: {},
 
-    // queries for from date and to date
+    // queries for Carrier app from date and to date
+    // From dates
     carrier_from_date_app_rec: '',
     carrier_from_date_sample_rec: '',
     carrier_from_date_of_qca: '',
     carrier_from_date_created: '',
+    // To dates
     carrier_to_date_app_rec: '',
     carrier_to_date_sample_rec: '',
     carrier_to_date_of_qca: '',
     carrier_to_date_created: '',
     carrier_search_patient_name: '',
+
+    // queries for Bio Confirm Master app from date and to date
+    // From dates
+    bioconfirm_from_date_app_rec: '',
+    bioconfirm_from_date_sample_rec: '',
+    bioconfirm_from_date_of_qca: '',
+    bioconfirm_from_date_created: '',
+    // To dates
+    bioconfirm_to_date_app_rec: '',
+    bioconfirm_to_date_sample_rec: '',
+    bioconfirm_to_date_of_qca: '',
+    bioconfirm_to_date_created: '',
+    bioconfirm_search_patient_name: '',
+
+    // queries for DME app from date and to date
+    dme_form_submission_date: '',
+    dme_to_submission_date: '',
+    dme_patients_first_name: '',
+    dme_patients_last_name: '',
+
+    // queries from Insurance app from date and to date
+    insurance_from_date_created: '',
+    insurance_to_date_created: '',
+    insurance_name: '',
+    insurance_promo_code: '',
   },
   mounted: function() {
     // no functions to be mounted cause this is search, nothing loaded automatically
   },
   methods: {
-    getbioConfirms: function() {
-        // Search function
-          let api_url = '/api/v1/bio-confirm-master/';
-          if(this.search_term==''||this.search_term==null) {
-            swal({
-              title: "TSG System",
-              text: "Please fill up the search box",
-              icon: "warning",
-              buttons: false,
-              timer: 2000
-            });
-            this.bioConfirms = null;
-          }
-          else {
-            api_url = `/api/v1/bio-confirm-master/?search=${this.search_term}`
-            this.loading = true;
-            this.$http.get(api_url)
-                .then((response) => {
-                  this.bioConfirms = response.data;
-                  this.loading = false;
-                })
-                .catch((err) => {
-                  this.loading = false;
-                  console.log(err);
-                })
-          }
-
-        },
+    getBioConfirms: function() {
+      // Search function
+      let api_url = `/api/v1/bio-confirm-master/?date_app_rec__gte=${this.bioconfirm_from_date_app_rec}&date_app_rec__lte=${this.bioconfirm_to_date_app_rec}&date_sample_rec__gte=${this.bioconfirm_from_date_sample_rec}&date_sample_rec__lte=${this.bioconfirm_to_date_sample_rec}&date_of_qca__gte=${this.bioconfirm_from_date_of_qca}&date_of_qca__lte=${this.bioconfirm_to_date_of_qca}&date_created__gte=${this.bioconfirm_from_date_created}&date_created__lte=${this.bioconfirm_to_date_created}&patient_name=${this.bioconfirm_search_patient_name}`
+        this.bioConfirms = null;
+        this.loading = true;
+        this.$http.get(api_url)
+            .then((response) => {
+              this.bioConfirms = response.data;
+              this.loading = false;
+            })
+            .catch((err) => {
+              this.loading = false;
+              console.log(err);
+            })
+    },
     getCarriers: function() {
         // Search function
       api_url = `/api/v1/carrier/?date_app_rec__gte=${this.carrier_from_date_app_rec}&date_app_rec__lte=${this.carrier_to_date_app_rec}&date_sample_rec__gte=${this.carrier_from_date_sample_rec}&date_sample_rec__lte=${this.carrier_to_date_sample_rec}&date_of_qca__gte=${this.carrier_from_date_of_qca}&date_of_qca__lte=${this.carrier_to_date_of_qca}&date_created__gte=${this.carrier_from_date_created}&date_created__lte=${this.carrier_to_date_created}&patient_name=${this.carrier_search_patient_name}`
@@ -74,10 +88,7 @@ new Vue({
         },
     getDmes: function() {
         // Search function
-          let api_url = '/api/v1/dme/';
-          if(this.search_term!==''||this.search_term!==null) {
-            api_url = `/api/v1/dme/?search=${this.search_term}`
-          }
+      api_url = `/api/v1/dme/?submission_date__gte=${this.dme_form_submission_date}&submission_date__lte=${this.dme_to_submission_date}&patients_first_name${this.dme_patients_first_name}&patients_last_name=${this.dme_patients_last_name}`
           this.loading = true;
           this.$http.get(api_url)
               .then((response) => {
@@ -91,10 +102,7 @@ new Vue({
         },
     getInsurances: function() {
         // Search function
-          let api_url = '/api/v1/insurance/';
-          if(this.search_term!==''||this.search_term!==null) {
-            api_url = `/api/v1/insurance/?search=${this.search_term}`
-          }
+        api_url = `/api/v1/insurance/?date_created__gte=${this.insurance_from_date_created}&date_created__lte=${this.insurance_to_date_created}&name=${this.insurance_name}&promo_code=${this.insurance_promo_code}`
           this.loading = true;
           this.$http.get(api_url)
               .then((response) => {

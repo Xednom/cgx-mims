@@ -72,8 +72,20 @@ nav.navbar .navbar-top-links .dropdown .dropdown-menu {
   margin: 0px 40px 0px 40px;
 }
 
+.card-body {
+  margin-bottom: 15px !important;
+}
+
 .search-app {
   margin-top: 10px !important;
+}
+
+.search-carrier {
+  margin-right: 10px !important;
+}
+
+.search-bio-confirm {
+  margin-right: 10px !important;
 }
 
 .card-info {
