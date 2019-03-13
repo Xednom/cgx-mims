@@ -1,23 +1,65 @@
 <div id="search-app" v-cloak>
-  <div class="alert alert-info text-center" role="alert">
-    <h4 class="alert-heading">Attention!</h4>
-    <p>This feature is on <strong>early stage(s)</strong>. Searching all data across the database is not possible, because you can only search data that are assigned to you <strong>ONLY</strong>.</p>
-    <hr>
-    <p class="mb-0">This feature is only temporal as it can/will change in the future for beneficial purposes.</p>
+  <hr>
+  <h5 class="title1">
+    Search information: 
+    <div class="form-row search-app">
+      <a class="btn btn-primary search-carrier" data-toggle="collapse" href="#CollapseSearchCarrier" role="button" aria-expanded="false"
+        aria-controls="CollapseSearchCarrier">Carrier Search Information</a>
+    </div>
+  </h5>
+  <!-- from and to date search for Carrier App -->
+  <div class="collapse multi-collapse" id="CollapseSearchCarrier">
+    <div class="card card-body">
+      <div class="form-row">
+        <div class=form-group col-md-2 col-sm-12>
+          <h5 class="title1">
+            Carrier Search Information
+          </h5>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-2 col-sm-12">
+          <label for="inputDateApp">From date application recorded:</label>
+          <input class="form-control form-control-sm" type="date" v-model="from_date_app_rec">
+          <label>To date application recorded:</label>
+          <input class="form-control form-control-sm" type="date" v-model="to_date_app_rec">
+        </div>
+        <div class="form-group col-md-2 col-sm-12 offset-1">
+          <label>From date sample recorded:</label>
+          <input class="form-control form-control-sm" type="date" v-model="from_date_sample_rec">
+          <label>To date sample recorded:</label>
+          <input class="form-control form-control-sm" type="date" v-model="to_date_sample_rec">
+        </div>
+        <div class="form-group col-md-2 col-sm-12 offset-1">
+          <label>From date of QCA:</label>
+          <input class="form-control form-control-sm" type="date" v-model="from_date_of_qca">
+          <label>To date of QCA:</label>
+          <input class="form-control form-control-sm" type="date" v-model="to_date_of_qca">
+        </div>
+        <div class="form-group col-md-2 col-sm-12 offset-1">
+          <label>From date created:</label>
+          <input class="form-control form-control-sm" type="date" v-model="from_date_created">
+          <label>To date created:</label>
+          <input class="form-control form-control-sm" type="date" v-model="to_date_created">
+        </div>
+        <div class="form-group col-md-2 col-sm-12">
+          <label>Search Patient Name:</label>
+          <input class="form-control form-control-sm" type="text" v-model="search_patient_name">
+        </div>
+      </div>
+      <template v-if="loading == true">
+        <button class="btn btn-primary btn-search" type="button" disabled style="float: right;">
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Searching...
+        </button>
+      </template>
+      <template v-else>
+      <button class="btn btn-primary btn-search" type="button" v-on:click.prevent="getCarriers">Search</button>
+      </template>
+    </div>
   </div>
-  <div class="form-inline my-2 my-sm-0 pull-right" style="margin: 10px;">
-    <input class="form-control mr-sm-2" type="text" placeholder="Search here.." v-model="search_term" aria-label="Search" required :disabled="loading == true"/>
-    <template v-if="loading == true">
-      <button class="btn btn-primary" type="button" disabled style="float: right;">
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Searching...
-      </button>
-    </template>
-    <template v-else>
-      <button class="btn btn-primary my-2 my-sm-0" v-on:click.prevent="getAllSearch">Search</button>
-    </template>
-  </div>
-
+  
+<hr>
   <div class="card" id="card-table">
     <div class="card-header">
       Bio Confirm Master

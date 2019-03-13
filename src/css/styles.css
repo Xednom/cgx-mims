@@ -68,9 +68,12 @@ nav.navbar .navbar-top-links .dropdown .dropdown-menu {
   margin: 25px 25px !important;
 }
 
-
 #myTabContent {
   margin: 0px 40px 0px 40px;
+}
+
+.search-app {
+  margin-top: 10px !important;
 }
 
 .card-info {
@@ -140,6 +143,11 @@ nav.navbar .navbar-top-links .dropdown .dropdown-menu {
 .save-btn {
   border-radius: 0 !important;
   padding: 10px 40px 10px 40px;
+}
+
+.btn-search {
+  border-radius: 0 !important;
+  margin-left: 10px;
 }
 
 .save-btn-carrier {
