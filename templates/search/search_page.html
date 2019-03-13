@@ -222,7 +222,7 @@
             <tbody>
               <tr>
                 <td colspan="14" class="text-center"
-                v-if="!bioConfirms.length">Try searching for a data, if no records returned for <strong>Bio Confirm Master</strong> then most likely it does not exist in the database.</td>
+                v-if="!bioConfirms.length">Try searching for a data, if no records returned for <strong>Bio Confirm Master</strong> then most likely it does not exist in the database or it wasn't assigned to you.</td>
               </tr>
               <tr v-for="bioconfirm in bioConfirms" class="table-info">
                 <td>[[ bioconfirm.patient_name ]]</td>
@@ -264,7 +264,7 @@
             </thead>
             <tbody>
               <tr>
-                <td colspan="14" class="text-center" v-if="!carriers.length">Try searching for a data, if no records returned for <strong>Carrier</strong> then most likely it does not exist in the database.</td>
+                <td colspan="14" class="text-center" v-if="!carriers.length">Try searching for a data, if no records returned for <strong>Carrier</strong> then most likely it does not exist in the database or it wasn't assigned to you.</td>
               </tr>
               <tr v-for="carrier in carriers" class="table-info">
                 <td>[[ carrier.patient_name ]]</td>
@@ -305,7 +305,7 @@
             </thead>
             <tbody>
               <tr>
-                <td colspan="14" class="text-center" v-if="!dmes.length">Try searching for a data, if no records returned for <strong>DME</strong> then most likely it does not exist in the database.</td>
+                <td colspan="14" class="text-center" v-if="!dmes.length">Try searching for a data, if no records returned for <strong>DME</strong> then most likely it does not exist in the database or it wasn't assigned to you.</td>
               </tr>
               <tr v-for="dme in dmes" class="table-info">
                 <td>[[ dme.submission_date ]]</td>
@@ -349,7 +349,7 @@
             </thead>
             <tbody>
               <tr>
-                <td colspan="14" class="text-center" v-if="!insurances.length">Try searching for a data, if no records returned for <strong>Insurance</strong> then most likely it does not exist in the database.</td>
+                <td colspan="14" class="text-center" v-if="!insurances.length">Try searching for a data, if no records returned for <strong>Insurance</strong> then most likely it does not exist in the database or it wasn't assigned to you.</td>
               </tr>
               <tr v-for="insurance in insurances" class="table-info">
                 <td>[[ insurance.name ]]</td>
