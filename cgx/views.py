@@ -1,3 +1,6 @@
+import django_filters
+from django_filters import DateRangeFilter, DateFilter, CharFilter
+
 from rest_framework import viewsets, filters
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -53,13 +56,32 @@ class TestChoicesViewSet(viewsets.ModelViewSet):
     serializer_class = TestChoicesSerializer
 
 
+class BioConfirmMasterFilter(django_filters.FilterSet):
+    date_app_rec__gte = DateFilter(field_name='date_app_rec', lookup_expr='gte')
+    date_app_rec__lte = DateFilter(field_name='date_app_rec', lookup_expr='lte')
+    date_sample_rec__gte = DateFilter(field_name='date_sample_rec', lookup_expr='gte')
+    date_sample_rec__lte = DateFilter(field_name='date_sample_rec', lookup_expr='lte')
+    date_of_qca__gte = DateFilter(field_name='date_of_qca', lookup_expr='gte')
+    date_of_qca__lte = DateFilter(field_name='date_of_qca', lookup_expr='lte')
+    date_created__gte = DateFilter(field_name='date_created', lookup_expr='gte')
+    date_created__lte = DateFilter(field_name='date_created', lookup_expr='lte')
+    patient_name = CharFilter(field_name='patient_name', lookup_expr='icontains')
+
+    class Meta:
+        model = BioConfirmMaster
+        fields = ('date_app_rec__gte', 'date_app_rec__lte',
+                  'date_sample_rec__gte', 'date_sample_rec__lte',
+                  'date_of_qca__gte', 'date_of_qca__lte',
+                  'date_created__gte', 'date_created__lte',
+                  'patient_name',)
+
+
 class BioConfirmMasterViewSet(viewsets.ModelViewSet):
-    # queryset = BioConfirmMaster.objects.all()
     serializer_class = BioConfirmMasterSerializer
     authentication_classes = (CsrftExemptSessionAuthentication, BasicAuthentication)
     permission_classes = (IsAuthenticated,)
     parser_classes = (MultiPartParser,)
-    filter_backends = [filters.SearchFilter]
+    filter_class = (BioConfirmMasterFilter)
     search_fields = ('promo_code', 'patient_name')
 
     def get_queryset(self):

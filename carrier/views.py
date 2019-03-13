@@ -62,7 +62,6 @@ class CarrierFilter(django_filters.FilterSet):
 
 
 class CarrierViewSet(viewsets.ModelViewSet):
-    # queryset = Carrier.objects.all()
     serializer_class = CarrierSerializer
     authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
     permission_classes = (IsAuthenticated,)
