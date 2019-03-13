@@ -14,7 +14,17 @@ new Vue({
     currentCarrier: {},
     currentDme: {},
     currentInsurance: {},
-    search_term: '',
+
+    // queries for from date and to date
+    from_date_app_rec: '',
+    from_date_sample_rec: '',
+    from_date_of_qca: '',
+    from_date_created: '',
+    to_date_app_rec: '',
+    to_date_sample_rec: '',
+    to_date_of_qca: '',
+    to_date_created: '',
+    search_patient_name: '',
   },
   mounted: function() {
     // no functions to be mounted cause this is search, nothing loaded automatically
@@ -50,30 +60,17 @@ new Vue({
         },
     getCarriers: function() {
         // Search function
-          let api_url = '/api/v1/carrier/';
-          if(this.search_term==''||this.search_term==null) {
-            swal({
-              title: "TSG System",
-              text: "Please fill up the search box",
-              icon: "warning",
-              buttons: false,
-              timer: 2000
-            });
-            this.carriers = null;
-          }
-          else {
-            api_url = `/api/v1/carrier/?search=${this.search_term}`
-            this.loading = true;
-            this.$http.get(api_url)
-                .then((response) => {
-                  this.carriers = response.data;
-                  this.loading = false;
-                })
-                .catch((err) => {
-                  this.loading = false;
-                  console.log(err);
-                })
-          }
+        api_url = `/api/v1/carrier/?date_app_rec__gte=${this.from_date_app_rec}&date_app_rec__lte=${this.to_date_app_rec}&date_sample_rec__gte=${this.from_date_app_rec}&date_sample_rec__lte=${this.to_date_app_rec}&date_of_qca__gte=${this.from_date_of_qca}&date_of_qca__lte=${this.to_date_of_qca}&date_created__gte=${this.from_date_created}&date_created__lte=${this.to_date_created}&patient_name=${this.search_patient_name}`
+        this.loading = true;
+        this.$http.get(api_url)
+            .then((response) => {
+              this.carriers = response.data;
+              this.loading = false;
+            })
+            .catch((err) => {
+              this.loading = false;
+              console.log(err);
+            })
         },
     getDmes: function() {
         // Search function
