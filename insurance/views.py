@@ -4,7 +4,8 @@ from django_filters import DateFilter, CharFilter
 from rest_framework import viewsets, filters
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
-from rest_pandas import PandasView, PandasCSVRenderer, PandasExcelRenderer
+from drf_renderer_xlsx.mixins import XLSXFileMixin
+from drf_renderer_xlsx.renderers import XLSXRenderer
 
 from django.shortcuts import render
 from django.views.generic import TemplateView
@@ -52,30 +53,16 @@ class InsuranceFilter(django_filters.FilterSet):
                   'name', 'promo_code',)
 
 
-class InsuranceViewSet(viewsets.ModelViewSet):
+class InsuranceViewSet(XLSXFileMixin, viewsets.ModelViewSet):
     # queryset = Insurance.objects.all()
     serializer_class = InsuranceSerializer
     authentication_classes = (CsrftExemptSessionAuthentication, BasicAuthentication)
     permission_classes = (IsAuthenticated,)
     filter_class = (InsuranceFilter)
     search_fields = ('name', 'promo_code')
+    filename = 'insurance-reports.xlsx'
 
     def get_queryset(self):
-        user = self.request.user
-        position = self.request.user.position
-        if position == 'Manager':
-            queryset = Insurance.objects.filter(manager__name=user)
-        else:
-            queryset = Insurance.objects.filter(agent__name=user)
-        return queryset
-
-
-class InsuranceExcelExtract(PandasView):
-    queryset = Insurance.objects.all()
-    serializer_class = InsuranceSerializer
-    renderer_classes = [PandasCSVRenderer, PandasExcelRenderer]
-
-    def filter_queryset(self):
         user = self.request.user
         position = self.request.user.position
         if position == 'Manager':

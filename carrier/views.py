@@ -2,10 +2,12 @@ import django_filters
 from django_filters import DateRangeFilter, DateFilter, CharFilter
 
 from rest_framework import viewsets, filters
+from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser
-from rest_pandas import PandasView, PandasCSVRenderer, PandasExcelRenderer
+from drf_renderer_xlsx.mixins import XLSXFileMixin
+from drf_renderer_xlsx.renderers import XLSXRenderer
 from django_filters.rest_framework import DjangoFilterBackend
 
 from django.shortcuts import render
@@ -62,32 +64,18 @@ class CarrierFilter(django_filters.FilterSet):
                   'patient_name',)
 
 
-class CarrierViewSet(viewsets.ModelViewSet):
+class CarrierViewSet(XLSXFileMixin, ModelViewSet):
     serializer_class = CarrierSerializer
     authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
     permission_classes = (IsAuthenticated,)
+    # renderer_classes = (XLSXRenderer,) # commented this to be able to view the ModelViewSet in the API
     parser_classes = (MultiPartParser,) #  for uploading of attachments
+    filename = 'carrier-reports.xlsx'
     filter_class = (CarrierFilter) #  filtering From date and To date
     filterset_fields = ('patient_name', 'promo_code')
     search_fields = ('patient_name', 'promo_code', 'insurance_verified_tsg_verification')
-    file_name = 'report_carrier.xlsx'
 
     def get_queryset(self):
-        user = self.request.user
-        position = self.request.user.position
-        if position == 'Manager':
-            queryset = Carrier.objects.filter(manager__name=user)
-        else:
-            queryset = Carrier.objects.filter(agent__name=user)
-        return queryset
-
-
-class CarrierExcelExtract(PandasView):
-    queryset = Carrier.objects.all()
-    serializer_class = CarrierSerializer
-    renderer_classes = [PandasCSVRenderer, PandasExcelRenderer]
-
-    def filter_queryset(self):
         user = self.request.user
         position = self.request.user.position
         if position == 'Manager':

@@ -5,7 +5,8 @@ from rest_framework import viewsets, filters
 from rest_framework.parsers import FormParser, MultiPartParser, FileUploadParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from rest_pandas import PandasView, PandasCSVRenderer, PandasExcelRenderer
+from drf_renderer_xlsx.mixins import XLSXFileMixin
+from drf_renderer_xlsx.renderers import XLSXRenderer
 
 from django.shortcuts import render
 from django.views.generic import TemplateView
@@ -32,7 +33,7 @@ class DMEFilter(django_filters.FilterSet):
                   'patients_first_name', 'patients_last_name')
 
 
-class DMEIIViewSet(viewsets.ModelViewSet):
+class DMEIIViewSet(XLSXFileMixin, viewsets.ModelViewSet):
     # queryset = DME_II.objects.all()
     serializer_class = DMEIISerializer
     authentication_classes = (CsrftExemptSessionAuthentication, BasicAuthentication)
@@ -40,6 +41,7 @@ class DMEIIViewSet(viewsets.ModelViewSet):
     parser_classes = (MultiPartParser,)
     filter_class = (DMEFilter)
     search_fields = ('first_name', 'last_name', 'agents_promod_code')
+    filename = 'dme-reports.xlsx'
 
     def get_queryset(self):
         agent_promo_code = self.request.user.agent_promo_code
@@ -51,13 +53,3 @@ class DMEIIViewSet(viewsets.ModelViewSet):
         #  to access data
         print (request.data)
         return Response({'recieved data': request.data})
-
-
-class DMEExcelExtract(PandasView):
-    queryset = DME_II.objects.all()
-    serializer_class = DMEIISerializer
-    renderer_classes = [PandasCSVRenderer, PandasExcelRenderer]
-
-    def filter_queryset(self):
-        agent_promo_code = self.request.user.agent_promo_code
-        return DME_II.objects.filter(agents_promod_code=agent_promo_code)

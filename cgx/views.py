@@ -5,7 +5,8 @@ from rest_framework import viewsets, filters
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser
-from rest_pandas import PandasView, PandasCSVRenderer, PandasExcelRenderer
+from drf_renderer_xlsx.mixins import XLSXFileMixin
+from drf_renderer_xlsx.renderers import XLSXRenderer
 
 from django import template
 from django.shortcuts import render
@@ -77,13 +78,14 @@ class BioConfirmMasterFilter(django_filters.FilterSet):
                   'patient_name',)
 
 
-class BioConfirmMasterViewSet(viewsets.ModelViewSet):
+class BioConfirmMasterViewSet(XLSXFileMixin, viewsets.ModelViewSet):
     serializer_class = BioConfirmMasterSerializer
     authentication_classes = (CsrftExemptSessionAuthentication, BasicAuthentication)
     permission_classes = (IsAuthenticated,)
     parser_classes = (MultiPartParser,)
     filter_class = (BioConfirmMasterFilter)
     search_fields = ('promo_code', 'patient_name')
+    filename = 'bio-confirm-master-reports.xlsx'
 
     def get_queryset(self):
         user = self.request.user
@@ -97,21 +99,6 @@ class BioConfirmMasterViewSet(viewsets.ModelViewSet):
 
 class BioConfirmView(TemplateView):
     template_name = 'cgx/bioconfirm.html'
-
-
-class BioConfirmExcelExtract(PandasView):
-    queryset = BioConfirmMaster.objects.all()
-    serializer_class = BioConfirmMasterSerializer
-    renderer_classes = [PandasCSVRenderer, PandasExcelRenderer]
-
-    def filter_queryset(self):
-        user = self.request.user
-        position = self.request.user.position
-        if position == 'Manager':
-            queryset = BioConfirmMaster.objects.filter(manager__name=user)
-        else:
-            queryset = BioConfirmMaster.objects.filter(agent__name=user)
-        return queryset
 
 
 def index(request):

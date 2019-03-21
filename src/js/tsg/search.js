@@ -86,6 +86,19 @@ new Vue({
               console.log(err);
             })
         },
+    extractCarrier: function () {
+      api_url = `/api/v1/carrier/?format=xlsx`
+      this.loading = true;
+      this.$http.get(api_url)
+          .then((response) => {
+            this.loading = false;
+            this.carriers = response.data;
+          })
+          .catch((err) => {
+            this.loading = false;
+            console.log(err);
+          })
+    },
     getDmes: function() {
         // Search function
       api_url = `/api/v1/dme/?submission_date__gte=${this.dme_form_submission_date}&submission_date__lte=${this.dme_to_submission_date}&patients_first_name${this.dme_patients_first_name}&patients_last_name=${this.dme_patients_last_name}`
