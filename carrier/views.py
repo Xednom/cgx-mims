@@ -5,6 +5,7 @@ from rest_framework import viewsets, filters
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser
+from rest_pandas import PandasView, PandasCSVRenderer, PandasExcelRenderer
 from django_filters.rest_framework import DjangoFilterBackend
 
 from django.shortcuts import render
@@ -69,8 +70,24 @@ class CarrierViewSet(viewsets.ModelViewSet):
     filter_class = (CarrierFilter) #  filtering From date and To date
     filterset_fields = ('patient_name', 'promo_code')
     search_fields = ('patient_name', 'promo_code', 'insurance_verified_tsg_verification')
+    file_name = 'report_carrier.xlsx'
 
     def get_queryset(self):
+        user = self.request.user
+        position = self.request.user.position
+        if position == 'Manager':
+            queryset = Carrier.objects.filter(manager__name=user)
+        else:
+            queryset = Carrier.objects.filter(agent__name=user)
+        return queryset
+
+
+class CarrierExcelExtract(PandasView):
+    queryset = Carrier.objects.all()
+    serializer_class = CarrierSerializer
+    renderer_classes = [PandasCSVRenderer, PandasExcelRenderer]
+
+    def filter_queryset(self):
         user = self.request.user
         position = self.request.user.position
         if position == 'Manager':

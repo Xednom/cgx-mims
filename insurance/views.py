@@ -4,6 +4,7 @@ from django_filters import DateFilter, CharFilter
 from rest_framework import viewsets, filters
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_pandas import PandasView, PandasCSVRenderer, PandasExcelRenderer
 
 from django.shortcuts import render
 from django.views.generic import TemplateView
@@ -60,6 +61,21 @@ class InsuranceViewSet(viewsets.ModelViewSet):
     search_fields = ('name', 'promo_code')
 
     def get_queryset(self):
+        user = self.request.user
+        position = self.request.user.position
+        if position == 'Manager':
+            queryset = Insurance.objects.filter(manager__name=user)
+        else:
+            queryset = Insurance.objects.filter(agent__name=user)
+        return queryset
+
+
+class InsuranceExcelExtract(PandasView):
+    queryset = Insurance.objects.all()
+    serializer_class = InsuranceSerializer
+    renderer_classes = [PandasCSVRenderer, PandasExcelRenderer]
+
+    def filter_queryset(self):
         user = self.request.user
         position = self.request.user.position
         if position == 'Manager':

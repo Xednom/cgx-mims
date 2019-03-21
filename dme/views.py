@@ -5,6 +5,7 @@ from rest_framework import viewsets, filters
 from rest_framework.parsers import FormParser, MultiPartParser, FileUploadParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_pandas import PandasView, PandasCSVRenderer, PandasExcelRenderer
 
 from django.shortcuts import render
 from django.views.generic import TemplateView
@@ -50,3 +51,13 @@ class DMEIIViewSet(viewsets.ModelViewSet):
         #  to access data
         print (request.data)
         return Response({'recieved data': request.data})
+
+
+class DMEExcelExtract(PandasView):
+    queryset = DME_II.objects.all()
+    serializer_class = DMEIISerializer
+    renderer_classes = [PandasCSVRenderer, PandasExcelRenderer]
+
+    def filter_queryset(self):
+        agent_promo_code = self.request.user.agent_promo_code
+        return DME_II.objects.filter(agents_promod_code=agent_promo_code)

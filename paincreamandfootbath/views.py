@@ -1,6 +1,7 @@
 from rest_framework import viewsets, filters
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_pandas import PandasView, PandasCSVRenderer, PandasExcelRenderer
 
 from django.shortcuts import render
 
@@ -26,3 +27,14 @@ class PainCreamAndFootBathViewSet(viewsets.ModelViewSet):
         user = self.request.user
         queryset = PainCreamAndFootBath.objects.filter(agent_name__name=user)
         return queryset
+
+
+class ExcelExtract(PandasView):
+    queryset = PainCreamAndFootBath.objects.all()
+    serializer_class = PainCreamAndFootBathSerializer
+    renderer_classes = [PandasCSVRenderer, PandasExcelRenderer]
+
+    def filter_queryset(self):
+        user = self.request.user
+        qs = PainCreamAndFootBath.objects.filter(agent__name=user)
+        return qs

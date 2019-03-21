@@ -5,6 +5,7 @@ from rest_framework import viewsets, filters
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser
+from rest_pandas import PandasView, PandasCSVRenderer, PandasExcelRenderer
 
 from django import template
 from django.shortcuts import render
@@ -96,6 +97,21 @@ class BioConfirmMasterViewSet(viewsets.ModelViewSet):
 
 class BioConfirmView(TemplateView):
     template_name = 'cgx/bioconfirm.html'
+
+
+class BioConfirmExcelExtract(PandasView):
+    queryset = BioConfirmMaster.objects.all()
+    serializer_class = BioConfirmMasterSerializer
+    renderer_classes = [PandasCSVRenderer, PandasExcelRenderer]
+
+    def filter_queryset(self):
+        user = self.request.user
+        position = self.request.user.position
+        if position == 'Manager':
+            queryset = BioConfirmMaster.objects.filter(manager__name=user)
+        else:
+            queryset = BioConfirmMaster.objects.filter(agent__name=user)
+        return queryset
 
 
 def index(request):
