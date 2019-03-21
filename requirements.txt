@@ -33,5 +33,5 @@ django-excel==0.0.10
 xlrd==1.2.0
 django-import-export==1.1.0
 
-# Excel, CSV, XLSX, XLS, PNG Extract
-rest-pandas==1.0.0
+# Excel, CSV, XLSX, XLS Extract
+drf-renderer-xlsx==0.3.2
