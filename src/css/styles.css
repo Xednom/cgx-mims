@@ -32,6 +32,11 @@ nav.navbar .navbar-top-links .dropdown .dropdown-menu {
   right: 0;
 }
 
+nav .dropdown-menu.mobile {
+  right: 0;
+  left: unset;
+}
+
 [v-cloak] {
   display: none;
 }

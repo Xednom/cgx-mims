@@ -30,8 +30,14 @@
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
+          <div class="dropdown-menu mobile" id="navbarSupportedContent">
+            <a class="dropdown-item" href="#">Settings</a>
+            <a class="dropdown-item" href="{% url 'web:logout' %}">Logout</a>
+            <hr />
+            <label class="promo-code">Your promo code: {{ request.user.agent_promo_code }}</label>
+          </div>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
             </ul>
             <ul class="nav navbar-top-links navbar-right">
