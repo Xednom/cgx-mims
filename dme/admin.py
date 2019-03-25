@@ -1,3 +1,5 @@
+from import_export.admin import ImportExportModelAdmin
+
 from django.contrib import admin
 from django.utils.html import format_html, mark_safe
 # from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
@@ -6,7 +8,7 @@ from jet.filters import DateRangeFilter
 from .models import DME_II
 
 
-class DMEIIProfile(admin.ModelAdmin):
+class DMEIIProfile(ImportExportModelAdmin):
     list_display = ['submission_date', 'patients_first_name',
                     'patients_last_name', 'agents_promod_code', 'first_name', 'last_name', 
                     'insurance_type', 'policy_number', 'ppo_information_mem_id',

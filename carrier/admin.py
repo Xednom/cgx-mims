@@ -1,12 +1,15 @@
+from import_export.admin import ImportExportModelAdmin
+
 from django.contrib import admin
 from django.utils.html import format_html, mark_safe
 # from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 from jet.filters import DateRangeFilter
 
 from .models import Carrier
+from .resources import CarrierResource
 
 
-class CarrierProfile(admin.ModelAdmin):
+class CarrierProfile(ImportExportModelAdmin):
     list_display = ('patient_name', 'promo_code', 'agent', 'manager',
                     'date_submitted_to_telemed', 'date_telemed_returned',
                     'date_app_rec', 'date_sample_rec', 'date_of_qca', 'date_paid',
@@ -27,6 +30,7 @@ class CarrierProfile(admin.ModelAdmin):
         ('insurance_verified_tsg_verification', DateRangeFilter),
         )
     list_per_page = 30
+    resource_class = CarrierResource
     #change_list_template = 'carrier/change_list_graph.html'
     search_fields = ('patient_name', 'promo_code', 'agent__name')
     readonly_fields = ('date_created', 'created_by', 'updated_by', 'user_promo_code', 'patient_id_photo_image',

@@ -1,3 +1,5 @@
+from import_export.admin import ImportExportModelAdmin
+
 from django.contrib import admin
 from django.utils.html import format_html, mark_safe
 # from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
@@ -6,7 +8,7 @@ from jet.filters import DateRangeFilter
 from .models import PainCreamAndFootBath
 
 
-class PainCreamAndFootBathProfile(admin.ModelAdmin):
+class PainCreamAndFootBathProfile(ImportExportModelAdmin):
     list_display = ('submission_date', 'patient_first_name', 'patient_last_name',
                     'promo_code', 'insurance_type', 'ppo_hmo_information_mem_id',
                     'ppo_hmo_information_ppo_name')

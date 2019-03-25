@@ -20,6 +20,7 @@ nav.navbar {
 nav.navbar .container {
   padding-left: 0 !important;
   padding-right: 0 !important;
+  max-width: 95% !important;
 }
 
 nav.navbar .navbar-brand img {
@@ -29,6 +30,11 @@ nav.navbar .navbar-brand img {
 nav.navbar .navbar-top-links .dropdown .dropdown-menu {
   left: unset !important;
   right: 0;
+}
+
+nav .dropdown-menu.mobile {
+  right: 0;
+  left: unset;
 }
 
 [v-cloak] {
@@ -206,8 +212,12 @@ label {
 
 
 /** Bootstrap customizations **/
-@media (min-width: 1300px) {
-  .container {
-    max-width: 1290px;
+@media (max-width: 990px) {
+  nav.navbar {
+    padding: 0 !important;
+  }
+
+  nav.navbar .navbar-brand img {
+    height: 50px;
   }
 }

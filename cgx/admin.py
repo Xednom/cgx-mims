@@ -1,14 +1,16 @@
-from import_export.admin import ImportExportModelAdmin
+from import_export.admin import ImportExportModelAdmin, ExportMixin
 from django.utils.html import format_html, mark_safe
-#from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
+#from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter -- commented this out due to Jet's own version of this package
 from jet.filters import DateRangeFilter
 
 from django.contrib import admin
 
 from .models import Agent, Manager, Status, Test_choices, BioConfirmMaster
 
+from .resources import BioConfirmMasterResource
 
-class BioConfirmMasterProfile(admin.ModelAdmin):
+
+class BioConfirmMasterProfile(ImportExportModelAdmin):
     list_display = ('patient_name', 'promo_code', 'agent', 'manager',
                     'date_submitted_to_telemed', 'date_telemed_returned',
                     'date_app_rec', 'date_sample_rec', 'date_of_qca', 'date_paid',
@@ -28,6 +30,7 @@ class BioConfirmMasterProfile(admin.ModelAdmin):
         ('insurance_verified_tsg_verification', DateRangeFilter),
         )
     list_per_page = 30
+    resource_class = BioConfirmMasterResource
     # change_list_template = 'cgx/change_list_graph.html'
     search_fields = ('patient_name', 'promo_code', 'agent__name')
     readonly_fields = [
