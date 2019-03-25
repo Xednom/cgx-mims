@@ -5,6 +5,8 @@ from rest_framework import viewsets, filters
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser
+from drf_renderer_xlsx.mixins import XLSXFileMixin
+from drf_renderer_xlsx.renderers import XLSXRenderer
 
 from django import template
 from django.shortcuts import render
@@ -76,13 +78,14 @@ class BioConfirmMasterFilter(django_filters.FilterSet):
                   'patient_name',)
 
 
-class BioConfirmMasterViewSet(viewsets.ModelViewSet):
+class BioConfirmMasterViewSet(XLSXFileMixin, viewsets.ModelViewSet):
     serializer_class = BioConfirmMasterSerializer
     authentication_classes = (CsrftExemptSessionAuthentication, BasicAuthentication)
     permission_classes = (IsAuthenticated,)
     parser_classes = (MultiPartParser,)
     filter_class = (BioConfirmMasterFilter)
     search_fields = ('promo_code', 'patient_name')
+    filename = 'bio-confirm-master-reports.xlsx'
 
     def get_queryset(self):
         user = self.request.user

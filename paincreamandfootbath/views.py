@@ -1,6 +1,8 @@
 from rest_framework import viewsets, filters
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
+from drf_renderer_xlsx.mixins import XLSXFileMixin
+from drf_renderer_xlsx.renderers import XLSXRenderer
 
 from django.shortcuts import render
 
@@ -15,12 +17,13 @@ class CsrftExemptSessionAuthentication(SessionAuthentication):
         return  # will not enforce a csrf check
 
 
-class PainCreamAndFootBathViewSet(viewsets.ModelViewSet):
+class PainCreamAndFootBathViewSet(XLSXFileMixin, viewsets.ModelViewSet):
     serializer_class = PainCreamAndFootBathSerializer
     authentication_classes = (CsrftExemptSessionAuthentication, BasicAuthentication)
     permission_classes = (IsAuthenticated,)
     filter_backends = [filters.SearchFilter]
     search_fields = ('patient_first_name', 'patient_last_name', 'promo_code',)
+    filename = 'pc-and-fb-reports.xlsx'
 
     def get_queryset(self):
         user = self.request.user

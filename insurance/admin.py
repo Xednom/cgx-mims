@@ -1,3 +1,5 @@
+from import_export.admin import ImportExportModelAdmin
+
 from django.contrib import admin
 from django.utils.html import format_html, mark_safe
 from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
@@ -5,7 +7,7 @@ from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 from .models import Insurance, TypeOfInsurance
 
 
-class InsuranceProfile(admin.ModelAdmin):
+class InsuranceProfile(ImportExportModelAdmin):
     list_display = ('name', 'promo_code', 'agent', 'manager', 'state',
                     'type_of_insurance', 'test', 'active_inactive', 'status',
                     'insurance_status', 'policy_number', 'verification_date',

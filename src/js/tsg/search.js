@@ -59,7 +59,7 @@ new Vue({
   methods: {
     getBioConfirms: function() {
       // Search function
-      let api_url = `/api/v1/bio-confirm-master/?date_app_rec__gte=${this.bioconfirm_from_date_app_rec}&date_app_rec__lte=${this.bioconfirm_to_date_app_rec}&date_sample_rec__gte=${this.bioconfirm_from_date_sample_rec}&date_sample_rec__lte=${this.bioconfirm_to_date_sample_rec}&date_of_qca__gte=${this.bioconfirm_from_date_of_qca}&date_of_qca__lte=${this.bioconfirm_to_date_of_qca}&date_created__gte=${this.bioconfirm_from_date_created}&date_created__lte=${this.bioconfirm_to_date_created}&patient_name=${this.bioconfirm_search_patient_name}`
+      api_url = `/api/v1/bio-confirm-master/?date_app_rec__gte=${this.bioconfirm_from_date_app_rec}&date_app_rec__lte=${this.bioconfirm_to_date_app_rec}&date_sample_rec__gte=${this.bioconfirm_from_date_sample_rec}&date_sample_rec__lte=${this.bioconfirm_to_date_sample_rec}&date_of_qca__gte=${this.bioconfirm_from_date_of_qca}&date_of_qca__lte=${this.bioconfirm_to_date_of_qca}&date_created__gte=${this.bioconfirm_from_date_created}&date_created__lte=${this.bioconfirm_to_date_created}&patient_name=${this.bioconfirm_search_patient_name}`
         this.bioConfirms = null;
         this.loading = true;
         this.$http.get(api_url)
@@ -86,6 +86,19 @@ new Vue({
               console.log(err);
             })
         },
+    extractCarrier: function () {
+      api_url = `/api/v1/carrier/?format=xlsx`
+      this.loading = true;
+      this.$http.get(api_url)
+          .then((response) => {
+            this.loading = false;
+            this.carriers = response.data;
+          })
+          .catch((err) => {
+            this.loading = false;
+            console.log(err);
+          })
+    },
     getDmes: function() {
         // Search function
       api_url = `/api/v1/dme/?submission_date__gte=${this.dme_form_submission_date}&submission_date__lte=${this.dme_to_submission_date}&patients_first_name${this.dme_patients_first_name}&patients_last_name=${this.dme_patients_last_name}`

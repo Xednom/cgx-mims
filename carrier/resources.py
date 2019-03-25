@@ -1,9 +1,11 @@
 from import_export import resources
 from import_export.fields import Field
-from .models import Agent, BioConfirmMaster, Manager
+
+from .models import Carrier
+from cgx.models import Agent, Manager
 
 
-class BioConfirmMasterResource(resources.ModelResource):
+class CarrierResource(resources.ModelResource):
     patient_name = Field(attribute="patient_name", column_name="PATIENT'S NAME")
     patient_phone_number = Field(attribute="patient_phone_number", column_name="PATIENT'S PHONE NUMBER")
     promo_code = Field(attribute="promo_code", column_name="PROMO CODE")
@@ -40,13 +42,5 @@ class BioConfirmMasterResource(resources.ModelResource):
 
 
     class Meta:
-        model = BioConfirmMaster    
+        model = Carrier    
         exclude = ('id',)
-
-
-class AgentResource(resources.ModelResource):
-    name = Field(attribute="name", column_name="AGENT")
-
-    class Meta:
-        model = Agent
-        exclude = ['id', 'agent__name']

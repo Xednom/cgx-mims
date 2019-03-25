@@ -12,5 +12,5 @@ media/
 .png
 *.xlsx
 *.csv
-staticfiles/*
+staticfiles/
 node_modules/
