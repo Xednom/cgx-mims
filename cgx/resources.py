@@ -4,6 +4,7 @@ from .models import Agent, BioConfirmMaster, Manager
 
 
 class BioConfirmMasterResource(resources.ModelResource):
+    id = Field(attribute="id", column_name="ID")
     patient_name = Field(attribute="patient_name", column_name="PATIENT'S NAME")
     patient_phone_number = Field(attribute="patient_phone_number", column_name="PATIENT'S PHONE NUMBER")
     promo_code = Field(attribute="promo_code", column_name="PROMO CODE")
