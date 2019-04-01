@@ -17,7 +17,6 @@ class DMEIIProfile(ImportExportModelAdmin):
         'state_province',
          'insurance_status', 
          'insurance_notes',
-         ('date_created', DateRangeFilter),
          ('submission_date', DateRangeFilter),
          ('date_created', DateRangeFilter),
          )
