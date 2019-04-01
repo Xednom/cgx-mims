@@ -163,7 +163,7 @@
             <h5 class="title1">
               Patient Date Informations
             </h5>
-            <div class="form-row">
+            <div class="form-row" v-if="!loading">
               <div class="form-group col-md-4 col-sm-12">
                 <label>Date application recorded</label>
                 <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.date_app_rec" disabled>

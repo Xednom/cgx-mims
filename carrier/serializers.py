@@ -20,8 +20,8 @@ class ManagerSerializer(serializers.ModelSerializer):
 
 
 class CarrierSerializer(serializers.ModelSerializer):
-    agent = serializers.SlugRelatedField(slug_field='name', queryset=Agent.objects.all())
-    manager = serializers.SlugRelatedField(slug_field='name', queryset=Manager.objects.all())
+    agent = serializers.SlugRelatedField(slug_field='name', queryset=Agent.objects.all(), required=False)
+    manager = serializers.SlugRelatedField(slug_field='name', queryset=Manager.objects.all(), required=False)
     type_of_test = serializers.SlugRelatedField(slug_field='name', queryset=Test_choices.objects.all(), required=False)
     status = serializers.SlugRelatedField(slug_field='name', queryset=Status.objects.all(), required=False)
     date_app_rec = serializers.DateField(default=datetime.date.today)

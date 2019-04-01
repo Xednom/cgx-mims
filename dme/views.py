@@ -46,10 +46,8 @@ class DMEIIViewSet(XLSXFileMixin, viewsets.ModelViewSet):
     def get_queryset(self):
         agent_promo_code = self.request.user.agent_promo_code
         return DME_II.objects.filter(agents_promod_code=agent_promo_code)
-
-    def post(self, request, format=None):
-        #  to access files
-        print (request.FILES)
-        #  to access data
-        print (request.data)
-        return Response({'recieved data': request.data})
+    
+    def perform_create(self, serializer):
+        user = self.request.user
+        promo_code = self.request.user.agent_promo_code
+        serializer.save(created_by=user, user_promo_code=promo_code)

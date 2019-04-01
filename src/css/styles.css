@@ -78,6 +78,14 @@ nav .dropdown-menu.mobile {
   margin: 0px 40px 0px 40px;
 }
 
+.table-wrap {
+  overflow-x: auto;
+}
+
+.table-carrier {
+  overflow-x: auto;
+}
+
 .card-body {
   margin-bottom: 15px !important;
 }
@@ -219,5 +227,15 @@ label {
 
   nav.navbar .navbar-brand img {
     height: 50px;
+  }
+
+  #myTabContent {
+    margin: 0px 0px 0px 0px;
+  }
+}
+
+@media (max-width: 600px) {
+  #myTabContent {
+    margin: 0px 0px 0px 0px;
   }
 }

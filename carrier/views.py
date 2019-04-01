@@ -83,3 +83,8 @@ class CarrierViewSet(XLSXFileMixin, ModelViewSet):
         else:
             queryset = Carrier.objects.filter(agent__name=user)
         return queryset
+
+    def perform_create(self, serializer):
+        user = self.request.user
+        promo_code = self.request.user.agent_promo_code
+        serializer.save(created_by=user, user_promo_code=promo_code)

@@ -190,7 +190,7 @@
               Medical Informations
             </h5>
             <!-- form-row -->
-            <div class="form-row">
+            <div class="form-row" v-if="!loading">
               <div class="form-group col-md-6 col-sm-12">
                 <label>Location of Pain</label>
                 <input type="text" class="form-control form-control-sm" v-model="currentPcFb.location_of_pain" id="inputLocOfPain" disabled>
