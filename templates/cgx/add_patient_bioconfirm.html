@@ -53,11 +53,18 @@
             <label for="input">State</label>
             <input type="text" class="form-control form-control-sm" id="inputState" v-model="newBioConfirm.state" :disabled="loading == true">
           </div>
-          <div class="form-group col-md-4 col-sm-12">
+          <div class="form-group col-md-2 col-sm-12">
             <label>Agent Name</label>
             <select id="inputAgent" class="form-control form-control-sm" v-model="newBioConfirm.agent" :disabled="loading == true"
               required>
               <option v-for="agent in agentNames" selected="selected">[[ agent.name ]]</option>
+            </select>
+          </div>
+          <div class="form-group col-md-2 col-sm-12">
+            <label>Manager Name</label>
+            <select id="inputAgent" class="form-control form-control-sm" v-model="newBioConfirm.manager"
+              :disabled="loading == true" required>
+              <option v-for="manager in managerNames" selected="selected">[[ manager.name ]]</option>
             </select>
           </div>
           <div class="form-group col-md-4 col-sm-12">

@@ -78,6 +78,11 @@ nav .dropdown-menu.mobile {
   margin: 0px 40px 0px 40px;
 }
 
+.filter {
+  border-radius: 0px;
+  margin-bottom: 10px;
+}
+
 .search-carrier {
   margin-bottom: 10px;
 }

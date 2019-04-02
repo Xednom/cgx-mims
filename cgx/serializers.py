@@ -38,6 +38,7 @@ class BioConfirmMasterSerializer(serializers.ModelSerializer):
     type_of_test = serializers.SlugRelatedField(slug_field='name', queryset=Test_choices.objects.all(), required=False)
     status = serializers.SlugRelatedField(slug_field='name', queryset=Status.objects.all(), required=False)
     date_app_rec = serializers.DateField(default=datetime.date.today)
+    date_created = serializers.DateField(default=datetime.date.today)
 
     class Meta:
         model = BioConfirmMaster

@@ -78,6 +78,27 @@ nav .dropdown-menu.mobile {
   margin: 0px 40px 0px 40px;
 }
 
+.filter {
+  border-radius: 0px;
+  margin-bottom: 10px;
+}
+
+.search-carrier {
+  margin-bottom: 10px;
+}
+
+.search-bio-confirm {
+  margin-bottom: 10px;
+}
+
+.search-dme {
+  margin-bottom: 10px;
+}
+
+.search-insurance {
+  margin-bottom: 10px;
+}
+
 .table-wrap {
   overflow-x: auto;
 }

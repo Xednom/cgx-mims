@@ -60,7 +60,14 @@
               <option v-for="agent in agentNames">[[ agent.name ]]</option>
             </select>
           </div>
-          <div class="form-group col-md-6 col-sm-12">
+          <div class="form-group col-md-2">
+            <label>Manager Name</label>
+            <select id="inputAgent" class="form-control form-control-sm" v-model="newCarrier.manager"
+              :disabled="loading == true" required>
+              <option v-for="manager in managerNames">[[ manager.name ]]</option>
+            </select>
+          </div>
+          <div class="form-group col-md-4 col-sm-12">
             <label for="inputInsurance">Insurance Company Name</label>
             <input type="text" class="form-control form-control-sm" id="inputInsurance" v-model="newCarrier.insurance_company"
               :disabled="loading == true">

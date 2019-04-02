@@ -5,6 +5,7 @@ new Vue({
   data: {
     bioconfirms: [],
     agentNames: [],
+    managerNames: [],
     testChoices: [],
     statuses: [],
     message: null,
@@ -15,6 +16,7 @@ new Vue({
       'patient_phone_number': "",
       'promo_code': "",
       'agent': "",
+      'manager': "",
       'date_app_rec': "",
       'date_sample_rec': "",
       'type_of_test': "",
@@ -53,6 +55,7 @@ new Vue({
   mounted: function() {
     this.getBioConfirms();
     this.getAgentNames();
+    this.getManagerNames();
     this.getTestChoices();
     this.getStatuses();
 		this.setDefaultDates();
@@ -97,6 +100,18 @@ new Vue({
             this.loading = false;
             console.log(err);
           })
+    },
+    getManagerNames: function () {
+      this.loading = true;
+      this.$http.get(`/api/v1/manager/`)
+        .then((response) => {
+          this.managerNames = response.data;
+          this.loading = false;
+        })
+        .catch((err) => {
+          this.loading = false;
+          console.log(err);
+        })
     },
     getTestChoices: function () {
         this.loading = true;

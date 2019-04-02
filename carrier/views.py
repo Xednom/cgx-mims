@@ -2,7 +2,7 @@ import django_filters
 from django_filters import DateRangeFilter, DateFilter, CharFilter
 
 from rest_framework import viewsets, filters
-from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
+from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet, ReadOnlyModelViewSet
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser
@@ -68,7 +68,7 @@ class CarrierViewSet(XLSXFileMixin, ModelViewSet):
     serializer_class = CarrierSerializer
     authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
     permission_classes = (IsAuthenticated,)
-    # renderer_classes = (XLSXRenderer,) # commented this to be able to view the ModelViewSet in the API
+    #  renderer_classes = (XLSXRenderer,) # commented this to be able to view the ModelViewSet in the API
     parser_classes = (MultiPartParser,) #  for uploading of attachments
     filename = 'carrier-reports.xlsx'
     filter_class = (CarrierFilter) #  filtering From date and To date
