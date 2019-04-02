@@ -114,14 +114,14 @@ new Vue({
     searchDmes: function () {
       // Search function
       api_url = `/api/v1/dme/?submission_date__gte=${this.dme_form_submission_date}&submission_date__lte=${this.dme_to_submission_date}&patients_first_name${this.dme_patients_first_name}&patients_last_name=${this.dme_patients_last_name}`
-      this.loading = true;
+      this.searching = true;
       this.$http.get(api_url)
         .then((response) => {
           this.dmes = response.data;
-          this.loading = false;
+          this.searching = false;
         })
         .catch((err) => {
-          this.loading = false;
+          this.searching = false;
           console.log(err);
         })
     },

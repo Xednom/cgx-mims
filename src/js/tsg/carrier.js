@@ -111,7 +111,6 @@ new Vue({
         .then((response) => {
           this.carriers = response.data;
           this.searching = false;
-          event.target.reset();
         })
         .catch((err) => {
           this.searching = false;
