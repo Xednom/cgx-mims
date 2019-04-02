@@ -3,6 +3,46 @@
     <h5 class="title1">
       DME
     </h5>
+    <!-- from and to date search for DME App -->
+    <div class="collapse multi-collapse" id="CollapseSearchDME">
+      <div class="card card-body">
+        <div class="form-row">
+          <div class=form-group col-md-2 col-sm-12>
+            <h5 class="title1">
+              DME Search Information
+            </h5>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-2 col-sm-12">
+            <label>Submission date from:</label>
+            <input class="form-control form-control-sm" type="date" v-model="dme_form_submission_date">
+          </div>
+          <div class="form-group col-md-2 col-sm-12">
+            <label>Submission date to:</label>
+            <input class="form-control form-control-sm" type="date" v-model="dme_to_submission_date">
+          </div>
+          <div class="form-group col-md-2 col-sm-12">
+            <label>Search Patient First Name:</label>
+            <input class="form-control form-control-sm" type="text" v-model="dme_patients_first_name">
+          </div>
+          <div class="form-group col-md-2 col-sm-12">
+            <label>Search Patient Last Name:</label>
+            <input class="form-control form-control-sm" type="text" v-model="dme_patients_last_name">
+          </div>
+        </div>
+        <template v-if="loading == true">
+          <button class="btn btn-primary btn-search" type="button" disabled style="float: right;">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Searching...
+          </button>
+        </template>
+        <template v-else>
+          <button class="btn btn-primary btn-search" type="button" data-dismiss="modal"
+            v-on:click.prevent="getDmes">Search</button>
+        </template>
+      </div>
+    </div>
     <!-- loading -->
     <div class="custom-loader" v-if="loading">
       <div class="col-md-12 col-sm-12">
@@ -14,6 +54,8 @@
       </div>
     </div>
     <!-- end loading -->
+    <a href="#CollapseSearchDME" class="btn btn-primary fa fa-filter pull-right filter" data-toggle="collapse"
+      role="button" aria-expanded="false" aria-controls="CollapseSearchDME"></a>
     <div class="table-responsive" v-if="!loading">
       <table class="table table-hover table-bordered table-sm">
         <thead class="thead-light">
@@ -178,7 +220,6 @@
                 <div class="form-group col-md-12 col-sm-12">
                   <label>Insurance Status</label>
                   <input type="text" class="form-control form-control-sm" v-model="currentDme.insurance_status" id="inputInsuranceStat" disabled>
-                </div
               </div>
               <!-- end of form-row -->
             </div>

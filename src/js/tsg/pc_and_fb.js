@@ -6,6 +6,8 @@ new Vue({
     pcfbs: [],
     message: null,
     loading: false,
+    searching: false,
+    loading_view: false,
     currentPcFb: {},
     agentNames: [],
     newPcFb: {
@@ -53,6 +55,18 @@ new Vue({
     },
     search_term: '',
 
+    // from date queries
+    pcfb_from_date_created: '',
+    pcfb_from_date_faxed_to_pharmacy: '',
+    pcfb_from_submission_date: '',
+    pcfb_patient_first_name: '',
+    pcfb_patient_last_name: '',
+
+    // to date queries
+    pcfb_to_date_created: '',
+    pcfb_to_date_faxed_to_pharmacy: '',
+    pcfb_to_submission_date: '',
+
     // for pagination
     currentPage: 1,
     pageSize: RECORDS_PER_PAGE,
@@ -94,6 +108,22 @@ new Vue({
             this.loading = false;
             console.log(err);
           })
+    },
+    searchPcFbs: function () {
+      let api_url = `/api/v1/pain-cream-and-foot-bath/?date_created__gte=${this.pcfb_from_date_created}&date_created__lte=${this.pcfb_to_date_created}&date_faxed_to_pharmacy__gte=${this.pcfb_from_date_faxed_to_pharmacy}&date_faxed_to_pharmacy__lte=${this.pcfb_to_date_faxed_to_pharmacy}&submission_date__gte=${this.pcfb_from_submission_date}&submission_date__lte=${this.pcfb_to_submission_date}&patient_first_name=${this.pcfb_patient_first_name}&patient_last_name=${this.pcfb_patient_last_name}`;
+      /*if(this.search_term!==''||this.search_term!==null) {
+         api_url = `/api/v1/pain-cream-and-foot-bath/?search=${this.search_term}`
+       }*/
+      this.searching = true;
+      this.$http.get(api_url)
+        .then((response) => {
+          this.pcfbs = response.data;
+          this.searching = false;
+        })
+        .catch((err) => {
+          this.searching = false;
+          console.log(err);
+        })
     },
     getAgentNames: function() {
       this.loading = true;
@@ -149,14 +179,14 @@ new Vue({
     },
     // view data
     viewPcFb: function (id) {
-      this.loading = true;
+      this.loading_view = true;
       this.$http.get(`/api/v1/pain-cream-and-foot-bath/${id}/`)
           .then((response) => {
             this.currentPcFb = response.data;
-            this.loading = false;
+            this.loading_view = false;
           })
           .catch((err) => {
-            this.loading = false;
+            this.loading_view = false;
             console.log(err);
           })
     },

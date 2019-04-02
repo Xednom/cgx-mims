@@ -10,6 +10,8 @@ new Vue({
     statuses: [],
     message: null,
     loading: false,
+    searching: false,
+    loading_view: false,
     currentBioConfirm: {},
     newBioConfirm: {
       'patient_name': "",
@@ -43,6 +45,19 @@ new Vue({
       'user_promo_code': "",
     },
     search_term: '',
+
+    // queries for Bio Confirm Master app from date and to date
+    // From dates
+    bioconfirm_from_date_app_rec: '',
+    bioconfirm_from_date_sample_rec: '',
+    bioconfirm_from_date_of_qca: '',
+    bioconfirm_from_date_created: '',
+    // To dates
+    bioconfirm_to_date_app_rec: '',
+    bioconfirm_to_date_sample_rec: '',
+    bioconfirm_to_date_of_qca: '',
+    bioconfirm_to_date_created: '',
+    bioconfirm_search_patient_name: '',
 
     // for pagination
     currentPage: 1,
@@ -88,6 +103,21 @@ new Vue({
             this.loading = false;
             console.log(err);
           })
+    },
+    searchBioConfirms: function () {
+      // Search function
+      api_url = `/api/v1/bio-confirm-master/?date_app_rec__gte=${this.bioconfirm_from_date_app_rec}&date_app_rec__lte=${this.bioconfirm_to_date_app_rec}&date_sample_rec__gte=${this.bioconfirm_from_date_sample_rec}&date_sample_rec__lte=${this.bioconfirm_to_date_sample_rec}&date_of_qca__gte=${this.bioconfirm_from_date_of_qca}&date_of_qca__lte=${this.bioconfirm_to_date_of_qca}&date_created__gte=${this.bioconfirm_from_date_created}&date_created__lte=${this.bioconfirm_to_date_created}&patient_name=${this.bioconfirm_search_patient_name}`
+      
+      this.searching = true;
+      this.$http.get(api_url)
+        .then((response) => {
+          this.bioconfirms = response.data;
+          this.searching = false;
+        })
+        .catch((err) => {
+          this.searching = false;
+          console.log(err);
+        })
     },
     getAgentNames: function() {
       this.loading = true;
@@ -180,14 +210,14 @@ new Vue({
     },
     // viewing of full datas
     viewBioConfirm: function(id) {
-      this.loading = true;
+      this.loading_view = true;
       this.$http.get(`/api/v1/bio-confirm-master/${id}/`)
           .then((response) => {
-            this.loading = false;
+            this.loading_view = false;
             this.currentBioConfirm = response.data;
           })
           .catch((err) => {
-            this.loading = false;
+            this.loading_view = false;
             console.log(err);
           })
     },

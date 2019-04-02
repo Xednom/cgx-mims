@@ -10,6 +10,8 @@ new Vue({
     statuses: [],
     message: null,
     loading: false,
+    searching: false,
+    loading_view: false,
     csrf_token: ['csrf_token'],
     currentCarrier: {},
     newCarrier: {
@@ -104,15 +106,15 @@ new Vue({
     searchCarriers: function () {
       // Search function
       api_url = `/api/v1/carrier/?date_app_rec__gte=${this.carrier_from_date_app_rec}&date_app_rec__lte=${this.carrier_to_date_app_rec}&date_sample_rec__gte=${this.carrier_from_date_sample_rec}&date_sample_rec__lte=${this.carrier_to_date_sample_rec}&date_of_qca__gte=${this.carrier_from_date_of_qca}&date_of_qca__lte=${this.carrier_to_date_of_qca}&date_created__gte=${this.carrier_from_date_created}&date_created__lte=${this.carrier_to_date_created}&patient_name=${this.carrier_search_patient_name}`
-      this.loading = true;
+      this.searching = true;
       this.$http.get(api_url)
         .then((response) => {
           this.carriers = response.data;
-          this.loading = false;
+          this.searching = false;
           event.target.reset();
         })
         .catch((err) => {
-          this.loading = false;
+          this.searching = false;
           console.log(err);
         })
     },
@@ -207,14 +209,14 @@ new Vue({
     },
     // viewing of full datas
     viewCarrier: function(id) {
-      this.loading = true;
+      this.loading_view = true;
       this.$http.get(`/api/v1/carrier/${id}/`)
           .then((response) => {
-            this.loading = false;
+            this.loading_view = false;
             this.currentCarrier = response.data;
           })
           .catch((err) => {
-            this.loading = false;
+            this.loading_view = false;
             console.log(err);
           })
     },

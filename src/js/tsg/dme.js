@@ -6,6 +6,8 @@ new Vue({
     dmes: [],
     message: null,
     loading: false,
+    searching: false,
+    loading_view: false,
     currentDme: {},
     newDme: {
         'submission_date': "",
@@ -62,6 +64,12 @@ new Vue({
     },
     search_term: '',
 
+    // queries for DME app from date and to date
+    dme_form_submission_date: '',
+    dme_to_submission_date: '',
+    dme_patients_first_name: '',
+    dme_patients_last_name: '',
+
     // for pagination
     currentPage: 1,
     pageSize: RECORDS_PER_PAGE,
@@ -102,6 +110,20 @@ new Vue({
             this.loading = false;
             console.log(err);
           })
+    },
+    searchDmes: function () {
+      // Search function
+      api_url = `/api/v1/dme/?submission_date__gte=${this.dme_form_submission_date}&submission_date__lte=${this.dme_to_submission_date}&patients_first_name${this.dme_patients_first_name}&patients_last_name=${this.dme_patients_last_name}`
+      this.loading = true;
+      this.$http.get(api_url)
+        .then((response) => {
+          this.dmes = response.data;
+          this.loading = false;
+        })
+        .catch((err) => {
+          this.loading = false;
+          console.log(err);
+        })
     },
     // new code using axios
     addDme: function (event) {
@@ -145,14 +167,14 @@ new Vue({
     },
     // view data
     viewDme: function (id) {
-      this.loading = true;
+      this.loading_view = true;
       this.$http.get(`/api/v1/dme/${id}/`)
           .then((response) => {
             this.currentDme = response.data;
-            this.loading = false;
+            this.loading_view = false;
           })
           .catch((err) => {
-            this.loading = false;
+            this.loading_view = false;
             console.log(err);
           })
     },

@@ -3,6 +3,54 @@
     <h5 class="title1">
       Pain Cream and Foot Bath
     </h5>
+    <!-- advanced filter -->
+    <div class="collapse multi-collapse" id="CollapseSearchPcAndFb">
+      <div class="card card-body">
+        <div class="form-row">
+          <div class=form-group col-md-2 col-sm-12>
+            <h5 class="title1">
+              Pain Cream and Foot Bath Search Information
+            </h5>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-2 col-sm-12">
+            <label>From Date created:</label>
+            <input class="form-control form-control-sm" type="date" v-model="pcfb_from_date_created">
+            <label>To Date created:</label>
+            <input class="form-control form-control-sm" type="date" v-model="pcfb_to_date_created">
+          </div>
+          <div class="form-group col-md-2 col-sm-12">
+            <label>From Date Faxed to Pharmacy:</label>
+            <input class="form-control form-control-sm" type="date" v-model="pcfb_from_date_faxed_to_pharmacy">
+            <label>To Date Faxed to Pharmacy:</label>
+            <input class="form-control form-control-sm" type="date" v-model="pcfb_to_date_faxed_to_pharmacy">
+          </div>
+          <div class="form-group col-md-2 col-sm-12">
+            <label>From Date of Submission:</label>
+            <input class="form-control form-control-sm" type="date" v-model="pcfb_from_submission_date">
+            <label>To Date of Submission:</label>
+            <input class="form-control form-control-sm" type="date" v-model="pcfb_to_submission_date">
+          </div>
+          <div class="form-group col-md-2 col-sm-12">
+            <label>Search Patient First Name:</label>
+            <input class="form-control form-control-sm" type="text" v-model="pcfb_patient_first_name">
+            <label>Search Patient Last Name:</label>
+            <input class="form-control form-control-sm" type="text" v-model="pcfb_patient_last_name">
+          </div>
+        </div>
+        <template v-if="loading == true">
+          <button class="btn btn-primary btn-search" type="button" disabled style="float: right;">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Searching...
+          </button>
+        </template>
+        <template v-else>
+          <button class="btn btn-primary btn-search" type="button" v-on:click.prevent="searchPcFbs">Search</button>
+        </template>
+      </div>
+    </div>
+
     <!-- loading -->
     <div class="custom-loader" v-if="loading">
       <div class="col-md-12 col-sm-12">
@@ -14,6 +62,8 @@
       </div>
     </div>
     <!-- end loading -->
+    <a href="#CollapseSearchPcAndFb" class="btn btn-primary fa fa-filter pull-right filter" data-toggle="collapse"
+      role="button" aria-expanded="false" aria-controls="CollapseSearchPcAndFb"></a>
     <div class="table-responsive"  v-if="!loading">
       <table class="table table-hover table-bordered table-sm">
         <thead class="thead-light">
@@ -91,7 +141,7 @@
         </div>
           <div class="modal-body">
             <!-- loading -->
-            <div class="custom-loader" v-if="loading">
+            <div class="custom-loader" v-if="loading_view">
               <div class="col-md-12 col-sm-12">
                 <div class="d-flex flex-column align-items-center">
                   <div class="spinner-border" role="status"></div>
@@ -105,7 +155,7 @@
               Patient's Informations
             </h5>
             <div>
-              <div class="form-row" v-if="!loading">
+              <div class="form-row" v-if="!loading_view">
                 <div class="form-group col-md-4 col-sm-12">
                   <label>Patient's First Name</label>
                   <input type="text" class="form-control form-control-sm" v-model="currentPcFb.patient_first_name" id="inputFirstName" disabled>
@@ -134,7 +184,7 @@
                   <input type="text" class="form-control form-control-sm" v-model="currentPcFb.best_time_to_call" id="inputBestTime" disabled>
                 </div>
               </div>
-              <div class="form-row">
+              <div class="form-row" v-if="!loading_view">
                 <div class="form-group col-md-6 col-sm-12">
                   <label>Street Address</label>
                   <input type="text" class="form-control form-control-sm" v-model="currentPcFb.street_address" id="inputStreet" disabled>
@@ -178,7 +228,7 @@
                 <div class="form-group col-md-12 col-sm-12">
                   <label>Insurance Status</label>
                   <input type="text" class="form-control form-control-sm" v-model="currentPcFb.insurance_status" id="inputInsuranceStat" disabled>
-                </div
+                
               </div>
               <!-- end of form-row -->
             </div>
@@ -190,7 +240,7 @@
               Medical Informations
             </h5>
             <!-- form-row -->
-            <div class="form-row" v-if="!loading">
+            <div class="form-row" v-if="!loading_view">
               <div class="form-group col-md-6 col-sm-12">
                 <label>Location of Pain</label>
                 <input type="text" class="form-control form-control-sm" v-model="currentPcFb.location_of_pain" id="inputLocOfPain" disabled>

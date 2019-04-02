@@ -34,15 +34,7 @@ class AgentViewSet(viewsets.ModelViewSet):
 class ManagerViewSet(viewsets.ModelViewSet):
     queryset = Manager.objects.all()
     serializer_class = ManagerSerializer
-
-
-class CarrierSearchFilter(django_filters.FilterSet):
-    patient_name = CharFilter(field_name='patient_name', lookup_expr='patient_name')
-
-    class Meta:
-        model = Carrier
-        fields = ('patient_name',)
-
+    
 
 class CarrierFilter(django_filters.FilterSet):
     date_app_rec__gte = DateFilter(field_name='date_app_rec', lookup_expr='gte')
