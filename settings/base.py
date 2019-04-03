@@ -45,6 +45,7 @@ THIRD_PART_APPS = (
     'corsheaders',
     'storages',
     'rangefilter',
+    'easy_pdf',
 )
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True

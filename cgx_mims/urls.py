@@ -27,6 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include(router.urls)),
     path('cgx/', include(('cgx.urls', 'cgx'), namespace='cgx')),
+    path('carrier/', include(('carrier.urls', 'carrier'), namespace='carrier')),
     path('supply/', include('supplies.urls')),
     path('', include('web.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

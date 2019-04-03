@@ -36,3 +36,7 @@ tablib>=0.12
 
 # Excel, CSV, XLSX, XLS Extract
 drf-renderer-xlsx==0.3.2
+
+#  PDF Generation
+django-easy-pdf==0.2.0
+WeasyPrint>=0.34
