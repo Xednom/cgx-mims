@@ -147,7 +147,8 @@ class CarrierViewSet(XLSXFileMixin, PDFTemplateResponseMixin, ModelViewSet):
 class PdfCarrier(View):
 
     def get(self, request):
-        carriers = Carrier.objects.all()
+        user = self.request.user
+        carriers = Carrier.objects.filter(agent__name=user)
         today = timezone.now()
         params = {
             'today': today,
