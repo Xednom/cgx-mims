@@ -10,6 +10,7 @@ from drf_renderer_xlsx.renderers import XLSXRenderer
 
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import DME_II
 from .serializers import DMEIISerializer
@@ -21,11 +22,11 @@ class CsrftExemptSessionAuthentication(SessionAuthentication):
         return  # will not enforce a csrf check
 
 
-class DmeView(TemplateView):
+class DmeView(LoginRequiredMixin, TemplateView):
     template_name = 'dme/dme.html'
     
 
-class AddDmeView(TemplateView):
+class AddDmeView(LoginRequiredMixin, TemplateView):
     template_name = 'dme/add_patient_dme.html'
 
 class DMEFilter(django_filters.FilterSet):

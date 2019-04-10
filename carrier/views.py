@@ -16,6 +16,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from django.http import HttpResponse
 from django.template.loader import get_template, render_to_string
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.template import Context
 from django.shortcuts import render
 from django.views.generic import TemplateView, DetailView, View, ListView
@@ -41,7 +42,7 @@ class CsrfExemptSessionAuthentication(SessionAuthentication):
         return  # To not perform the csrf check previously happening
 
 
-class PDFView(PDFTemplateView):
+class PDFView(LoginRequiredMixin, PDFTemplateView):
     template_name = 'carrier/carrier.html'
     download_filename = 'carrier_report.pdf'
 
@@ -53,11 +54,11 @@ class PDFView(PDFTemplateView):
         )
 
 
-class CarrierView(TemplateView):
+class CarrierView(LoginRequiredMixin, TemplateView):
     template_name = 'carrier/carrier.html'
 
 
-class AddCarrierView(TemplateView):
+class AddCarrierView(LoginRequiredMixin, TemplateView):
     template_name = 'carrier/add_patient_carrier.html'
 
 

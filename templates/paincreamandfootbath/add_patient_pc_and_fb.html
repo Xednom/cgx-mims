@@ -8,6 +8,12 @@ Add Pain Cream and Foot Bath | TSG System
 {% block content %}
 <div class="container" style="margin-top: 25px;">
   <div id="pc-and-fb-app" v-cloak>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'web:home' %}">Home</a></li>
+        <li class="breadcrumb-item">Add Pain Cream and Foot bath</a></li>
+      </ol>
+    </nav>
     <!-- patient info -->
     <form v-on:submit.prevent="addPcFb" enctype="multipart/form-data" method="POST" id="formPcFb">
       {% csrf_token %}

@@ -9,6 +9,7 @@ from drf_renderer_xlsx.renderers import XLSXRenderer
 
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import PainCreamAndFootBath
 
@@ -21,11 +22,11 @@ class CsrftExemptSessionAuthentication(SessionAuthentication):
         return  # will not enforce a csrf check
 
 
-class PcFbView(TemplateView):
+class PcFbView(LoginRequiredMixin, TemplateView):
     template_name = 'paincreamandfootbath/pc_and_fb.html'
 
 
-class AddPcFbView(TemplateView):
+class AddPcFbView(LoginRequiredMixin, TemplateView):
     template_name = 'paincreamandfootbath/add_patient_pc_and_fb.html'
 
 
