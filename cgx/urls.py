@@ -20,6 +20,7 @@ from . import views
 app_name = 'cgx'
 
 urlpatterns = [
-    path('bioconfirm', views.BioConfirmView.as_view(), name='bioconfirm'),
+    path('view-bioconfirm', views.BioConfirmView.as_view(), name='bioconfirm'),
+    path('add-bioconfirm', views.AddBioConfirmView.as_view(), name='add-bioconfirm'),
     path('cgx_upload_data/', views.upload_bcm, name='upload_bcm'),
 ]

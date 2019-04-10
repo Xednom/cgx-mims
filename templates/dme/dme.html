@@ -1,340 +1,385 @@
-<div id="dme-app" v-cloak>
-  <div class="col-md-12">
-    <h5 class="title1">
-      DME
-    </h5>
-    <!-- from and to date search for DME App -->
-    <div class="collapse multi-collapse" id="CollapseSearchDME">
-      <div class="card card-body">
-        <div class="form-row">
-          <div class=form-group col-md-2 col-sm-12>
-            <h5 class="title1">
-              DME Search Information
-            </h5>
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+DME | TSG System
+{% endblock %}
+
+{% block content %}
+<div class="tsg-tabs">
+  <div class="nav-tabs-container">
+    <div id="dme-app" v-cloak>
+      <div class="col-md-12">
+        <h5 class="title1 text-center">
+          DME
+        </h5>
+        <!-- from and to date search for DME App -->
+        <div class="collapse multi-collapse" id="CollapseSearchDME">
+          <div class="card card-body">
+            <div class="form-row">
+              <div class=form-group col-md-2 col-sm-12>
+                <h5 class="title1">
+                  DME Search Information
+                </h5>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-2 col-sm-12">
+                <label>Submission date from:</label>
+                <input class="form-control form-control-sm" type="date" v-model="dme_form_submission_date">
+              </div>
+              <div class="form-group col-md-2 col-sm-12">
+                <label>Submission date to:</label>
+                <input class="form-control form-control-sm" type="date" v-model="dme_to_submission_date">
+              </div>
+              <div class="form-group col-md-2 col-sm-12">
+                <label>Search Patient First Name:</label>
+                <input class="form-control form-control-sm" type="text" v-model="dme_patients_first_name">
+              </div>
+              <div class="form-group col-md-2 col-sm-12">
+                <label>Search Patient Last Name:</label>
+                <input class="form-control form-control-sm" type="text" v-model="dme_patients_last_name">
+              </div>
+            </div>
+            <template v-if="searching == true">
+              <button class="btn btn-primary btn-search" type="button" disabled style="float: right;">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Searching...
+              </button>
+            </template>
+            <template v-else>
+              <button class="btn btn-primary btn-search" type="button" data-dismiss="modal"
+                v-on:click.prevent="getDmes">Search</button>
+            </template>
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group col-md-2 col-sm-12">
-            <label>Submission date from:</label>
-            <input class="form-control form-control-sm" type="date" v-model="dme_form_submission_date">
-          </div>
-          <div class="form-group col-md-2 col-sm-12">
-            <label>Submission date to:</label>
-            <input class="form-control form-control-sm" type="date" v-model="dme_to_submission_date">
-          </div>
-          <div class="form-group col-md-2 col-sm-12">
-            <label>Search Patient First Name:</label>
-            <input class="form-control form-control-sm" type="text" v-model="dme_patients_first_name">
-          </div>
-          <div class="form-group col-md-2 col-sm-12">
-            <label>Search Patient Last Name:</label>
-            <input class="form-control form-control-sm" type="text" v-model="dme_patients_last_name">
+        <!-- loading -->
+        <div class="custom-loader" v-if="loading">
+          <div class="col-md-12 col-sm-12">
+            <div class="d-flex flex-column align-items-center">
+              <div class="spinner-border" role="status"></div>
+              <br />
+              <strong>Fetching data...</strong>
+            </div>
           </div>
         </div>
-        <template v-if="searching == true">
-          <button class="btn btn-primary btn-search" type="button" disabled style="float: right;">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            Searching...
-          </button>
-        </template>
-        <template v-else>
-          <button class="btn btn-primary btn-search" type="button" data-dismiss="modal"
-            v-on:click.prevent="getDmes">Search</button>
-        </template>
+        <!-- end loading -->
+        <a href="#CollapseSearchDME" class="btn btn-primary fa fa-filter pull-right filter" data-toggle="collapse"
+          role="button" aria-expanded="false" aria-controls="CollapseSearchDME" v-if="!loading"></a>
+        <div class="table-responsive" v-if="!loading">
+          <table class="table table-hover table-bordered table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Submission date</th>
+                <th scope="col">Patient's first name</th>
+                <th scope="col">Patient's last name</th>
+                <th scope="col">Agent's promo code</th>
+                <th scope="col">Insurance type</th>
+                <th scope="col">Policy number(Medicare)</th>
+                <th scope="col">PPO Information(If not straight from Medicare)(Member ID#)</th>
+                <th scope="col">PPO Information(If not straight from Medicare)(PPO Name)</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="14" class="text-center" v-if="!dmes.length">No records for <strong>DME</strong> as of now.
+                </td>
+              </tr>
+              <tr v-for="(dme, i) in paginatedRecords">
+                <td>[[ dme.submission_date ]]</td>
+                <td>[[ dme.patients_first_name ]]</td>
+                <td>[[ dme.patients_last_name ]]</td>
+                <td>[[ dme.agents_promod_code ]]</td>
+                <td>[[ dme.insurance_type ]]</td>
+                <td>[[ dme.policy_number ]]</td>
+                <td>[[ dme.ppo_information_mem_id ]]</td>
+                <td>[[ dme.ppo_information_ppo_name ]]</td>
+                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewModalDme"
+                    v-on:click="viewDme(dme.id)">View</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <nav class="pagination-wrapper" v-if="endPage > 1">
+          <ul class="pagination justify-content-end">
+            <li v-bind:class="[{disabled: currentPage === 1}, 'page-item']">
+              <a class="page-link" tabindex="-1" v-on:click="goToPage(currentPage - 1)">
+                Previous
+              </a>
+            </li>
+            <li v-for="pageNumber in pages" v-bind:class="[{active: pageNumber === currentPage}, 'page-item']">
+              <a class="page-link" v-on:click="goToPage(pageNumber)">
+                [[ pageNumber ]]
+              </a>
+            </li>
+            <li v-bind:class="[{disabled: (currentPage * 1) === totalPages}, 'page-item']">
+              <a class="page-link" v-on:click="goToPage(currentPage + 1)">
+                Next
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
-    </div>
-    <!-- loading -->
-    <div class="custom-loader" v-if="loading">
-      <div class="col-md-12 col-sm-12">
-        <div class="d-flex flex-column align-items-center">
-          <div class="spinner-border" role="status"></div>
-          <br/>
-          <strong>Fetching data...</strong>
+      <!-- data view using modal -->
+      <div class="modal fade" id="viewModalDme" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">DME Information on patient [[
+                currentDme.patients_first_name
+                ]] [[ currentDme.patients_last_name ]]</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <!-- loading -->
+              <div class="custom-loader" v-if="loading_view">
+                <div class="col-md-12 col-sm-12">
+                  <div class="d-flex flex-column align-items-center">
+                    <div class="spinner-border" role="status"></div>
+                    <br />
+                    <strong>Fetching data...</strong>
+                  </div>
+                </div>
+              </div>
+              <!-- end loading -->
+              <h5 class="title1">
+                Patient's Informations
+              </h5>
+              <div>
+                <div class="form-row" v-if="!loading_view">
+                  <div class="form-group col-md-4 col-sm-12">
+                    <label>Patient's First Name</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentDme.patients_first_name"
+                      id="inputFirstName" disabled>
+                  </div>
+                  <div class="form-group col-md-4 col-sm-12">
+                    <label>Patient's Last Name</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentDme.patients_last_name"
+                      id="inputLastName" disabled>
+                  </div>
+                  <div class="form-group col-md-4 col-sm-12">
+                    <label>Birth Date</label>
+                    <input type="date" class="form-control form-control-sm" v-model="currentDme.birth_date"
+                      id="inputDate" disabled>
+                  </div>
+                  <div class="form-group col-md-2 col-sm-12">
+                    <label>Gender</label>
+                    <select id="inputTest" class="form-control form-control-sm" v-model="currentDme.gender" disabled>
+                      <option>MALE</option>
+                      <option>FEMALE</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-4 col-sm-12">
+                    <label>Patient's Phone Number</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentDme.patients_phone_number"
+                      id="inputPhone" disabled>
+                  </div>
+                  <div class="form-group col-md-6 col-sm-12">
+                    <label>Best time to call</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentDme.best_time_to_call"
+                      id="inputBestTime" disabled>
+                  </div>
+                </div>
+                <div class="form-row" v-if="!loading_view">
+                  <div class="form-group col-md-6 col-sm-12">
+                    <label>Street Address</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentDme.street_address"
+                      id="inputStreet" disabled>
+                  </div>
+                  <div class="form-group col-md-6 col-sm-12">
+                    <label>Street Address line 2</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentDme.street_address_line_2"
+                      disabled>
+                  </div>
+                  <div class="form-group col-md-2 col-sm-12">
+                    <label>City</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentDme.city" id="inputCity"
+                      disabled>
+                  </div>
+                  <div class="form-group col-md-2 col-sm-12">
+                    <label>State/Province</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentDme.state_province"
+                      id="inputState" disabled>
+                  </div>
+                  <div class="form-group col-md-2 col-sm-12">
+                    <label>Postal/Zip code</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentDme.postal_zip_code"
+                      id="inputPostal" disabled>
+                  </div>
+                  <div class="form-group col-md-6 col-sm-12">
+                    <label>Country</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentDme.country"
+                      id="inputCountry" disabled>
+                  </div>
+                  <div class="form-group col-md-6 col-sm-12">
+                    <label>Insurance Type</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentDme.insurance_type"
+                      id="inputInsuranceType" disabled>
+                  </div>
+                  <div class="form-group col-md-6 col-sm-12">
+                    <label>Policy number</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentDme.policy_number"
+                      id="inputMemMediPolicy" disabled>
+                  </div>
+                  <div class="form-group col-md-6 col-sm-12">
+                    <label>PPO Information (If not straight Medicare)(Medicare ID#)</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentDme.ppo_information_mem_id"
+                      id="inputPPOMemID" disabled>
+                  </div>
+                  <div class="form-group col-md-6 col-sm-12">
+                    <label>PPO Information(If not straight Medicare)(PPO Name)</label>
+                    <input type="text" class="form-control form-control-sm"
+                      v-model="currentDme.ppo_information_ppo_name" id="inputPPOName" disabled>
+                  </div>
+                  <div class="form-group col-md-12 col-sm-12">
+                    <label>Insurance Status</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentDme.insurance_status"
+                      id="inputInsuranceStat" disabled>
+                  </div>
+                  <!-- end of form-row -->
+                </div>
+                <!-- end of patient info -->
+                <hr />
+                <!-- medical info -->
+                <div>
+                  <h5 class="title1">
+                    Medical Informations
+                  </h5>
+                  <!-- form-row -->
+                  <div class="form-row" v-if="!loading_view">
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Location of Back Pain</label>
+                      <input type="text" class="form-control form-control-sm" v-model="currentDme.location_of_back_pain"
+                        id="inputLocOfBackPain" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Location of Shoulder Pain</label>
+                      <input type="text" class="form-control form-control-sm"
+                        v-model="currentDme.location_of_shoulder_pain" id="inputShoulderpain" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Location of Knee Pain</label>
+                      <input type="text" class="form-control form-control-sm" v-model="currentDme.location_of_knee_pain"
+                        id="inputKneePain" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Location of Elbow Pain</label>
+                      <input type="text" class="form-control form-control-sm"
+                        v-model="currentDme.location_of_elbow_pain" id="inputElbowPain" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Location of Wrist Pain</label>
+                      <input type="text" class="form-control form-control-sm"
+                        v-model="currentDme.location_of_wrist_pain" id="inputWristPain" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Height</label>
+                      <input type="text" class="form-control form-control-sm" v-model="currentDme.height"
+                        id="inputHeight" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Weight</label>
+                      <input type="text" class="form-control form-control-sm" v-model="currentDme.weight"
+                        id="inputWeight" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Size of Brace</label>
+                      <input type="text" class="form-control form-control-sm" v-model="currentDme.size_of_brace"
+                        id="inputOrderStatus" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Major Medical Conditionsmajor_medical_conditions</label>
+                      <input type="text" class="form-control form-control-sm"
+                        v-model="currentDme.major_medical_conditions" id="inputFaxedPharmacy" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Cause of Pain/Discomfort</label>
+                      <input type="text" class="form-control form-control-sm"
+                        v-model="currentDme.cause_of_pain_discomfort" id="inputPainDiscomfort" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Level of Pain</label>
+                      <input type="text" class="form-control form-control-sm" v-model="currentDme.level_of_pain"
+                        id="inputPainDiscomfort" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>How long have you been experiencing discomfort</label>
+                      <input type="text" class="form-control form-control-sm"
+                        v-model="currentDme.experiencing_discomfort" id="inputPainDiscomfort" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Frequency of Pain</label>
+                      <input type="text" class="form-control form-control-sm" v-model="currentDme.frequency_of_pain"
+                        id="inputFrequencyOfPain" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Describe the Pain</label>
+                      <input type="text" class="form-control form-control-sm" v-model="currentDme.describe_pain"
+                        id="inputDescPain" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Pain Symptoms</label>
+                      <input type="text" class="form-control form-control-sm" v-model="currentDme.pain_symptoms"
+                        id="inputPainSymptoms" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>What makes the Pain Worse</label>
+                      <input type="text" class="form-control form-control-sm" v-model="currentDme.pain_worse"
+                        id="inputPainWorse" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>What makes the Pain Worse</label>
+                      <input type="text" class="form-control form-control-sm" v-model="currentDme.pain_worse"
+                        id="inputPainWorse" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Treatments Tried</label>
+                      <input type="text" class="form-control form-control-sm" v-model="currentDme.treatments_tried"
+                        id="inputTreatTried" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Have you seen a doctor in the last year?</label>
+                      <input type="text" class="form-control form-control-sm" v-model="currentDme.seen_doctor"
+                        id="inputSeenDoctor" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Any Surgeries in the last year?</label>
+                      <input type="text" class="form-control form-control-sm" v-model="currentDme.surgeries"
+                        id="inputSeenDoctor" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>ip</label>
+                      <input type="text" class="form-control form-control-sm" v-model="currentDme.ip"
+                        id="inputSeenDoctor" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Submission ID</label>
+                      <input type="text" class="form-control form-control-sm" v-model="currentDme.submission_id"
+                        id="inputSubId" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Edit link</label>
+                      <input type="text" class="form-control form-control-sm" v-model="currentDme.edit_link"
+                        id="inputSubId" disabled>
+                    </div>
+                  </div>
+                  <!-- end of form-row -->
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+              <!-- end medical info -->
+            </div>
+          </div>
         </div>
       </div>
+      <!-- end of view -->
     </div>
-    <!-- end loading -->
-    <a href="#CollapseSearchDME" class="btn btn-primary fa fa-filter pull-right filter" data-toggle="collapse"
-      role="button" aria-expanded="false" aria-controls="CollapseSearchDME" v-if="!loading"></a>
-    <div class="table-responsive" v-if="!loading">
-      <table class="table table-hover table-bordered table-sm">
-        <thead class="thead-light">
-          <tr>
-            <th scope="col">Submission date</th>
-            <th scope="col">Patient's first name</th>
-            <th scope="col">Patient's last name</th>
-            <th scope="col">Agent's promo code</th>
-            <th scope="col">Insurance type</th>
-            <th scope="col">Policy number(Medicare)</th>
-            <th scope="col">PPO Information(If not straight from Medicare)(Member ID#)</th>
-            <th scope="col">PPO Information(If not straight from Medicare)(PPO Name)</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td colspan="14" class="text-center" v-if="!dmes.length">No records for <strong>DME</strong> as of now.</td>
-          </tr>
-          <tr v-for="(dme, i) in paginatedRecords">
-            <td>[[ dme.submission_date ]]</td>
-            <td>[[ dme.patients_first_name ]]</td>
-            <td>[[ dme.patients_last_name ]]</td>
-            <td>[[ dme.agents_promod_code ]]</td>
-            <td>[[ dme.insurance_type ]]</td>
-            <td>[[ dme.policy_number ]]</td>
-            <td>[[ dme.ppo_information_mem_id ]]</td>
-            <td>[[ dme.ppo_information_ppo_name ]]</td>
-            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewModalDme" v-on:click="viewDme(dme.id)">View</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <nav class="pagination-wrapper" v-if="endPage > 1">
-      <ul class="pagination justify-content-end">
-        <li v-bind:class="[{disabled: currentPage === 1}, 'page-item']">
-          <a
-            class="page-link" tabindex="-1"
-            v-on:click="goToPage(currentPage - 1)"
-          >
-            Previous
-          </a>
-        </li>
-        <li
-          v-for="pageNumber in pages"
-          v-bind:class="[{active: pageNumber === currentPage}, 'page-item']"
-        >
-          <a
-            class="page-link"
-            v-on:click="goToPage(pageNumber)"
-          >
-            [[ pageNumber ]]
-          </a>
-        </li>
-        <li v-bind:class="[{disabled: (currentPage * 1) === totalPages}, 'page-item']">
-          <a
-            class="page-link"
-            v-on:click="goToPage(currentPage + 1)"
-          >
-            Next
-          </a>
-        </li>
-      </ul>
-    </nav>
   </div>
-  <!-- data view using modal -->
-  <div class="modal fade" id="viewModalDme" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">DME Information on patient [[ currentDme.patients_first_name ]] [[ currentDme.patients_last_name ]]</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-          <div class="modal-body">
-            <!-- loading -->
-            <div class="custom-loader" v-if="loading_view">
-              <div class="col-md-12 col-sm-12">
-                <div class="d-flex flex-column align-items-center">
-                  <div class="spinner-border" role="status"></div>
-                  <br />
-                  <strong>Fetching data...</strong>
-                </div>
-              </div>
-            </div>
-            <!-- end loading -->
-            <h5 class="title1">
-              Patient's Informations
-            </h5>
-            <div>
-              <div class="form-row" v-if="!loading_view">
-                <div class="form-group col-md-4 col-sm-12">
-                  <label>Patient's First Name</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentDme.patients_first_name" id="inputFirstName" disabled>
-                </div>
-                <div class="form-group col-md-4 col-sm-12">
-                  <label>Patient's Last Name</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentDme.patients_last_name" id="inputLastName" disabled>
-                </div>
-                <div class="form-group col-md-4 col-sm-12">
-                  <label>Birth Date</label>
-                  <input type="date" class="form-control form-control-sm" v-model="currentDme.birth_date" id="inputDate"  disabled>
-                </div>
-                <div class="form-group col-md-2 col-sm-12">
-                  <label>Gender</label>
-                  <select id="inputTest" class="form-control form-control-sm" v-model="currentDme.gender" disabled>
-                    <option>MALE</option>
-                    <option>FEMALE</option>
-                  </select>
-                </div>
-                <div class="form-group col-md-4 col-sm-12">
-                  <label>Patient's Phone Number</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentDme.patients_phone_number" id="inputPhone" disabled>
-                </div>
-                <div class="form-group col-md-6 col-sm-12">
-                  <label>Best time to call</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentDme.best_time_to_call" id="inputBestTime" disabled>
-                </div>
-              </div>
-              <div class="form-row" v-if="!loading_view">
-                <div class="form-group col-md-6 col-sm-12">
-                  <label>Street Address</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentDme.street_address" id="inputStreet" disabled>
-                </div>
-                <div class="form-group col-md-6 col-sm-12">
-                  <label>Street Address line 2</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentDme.street_address_line_2" disabled>
-                </div>
-                <div class="form-group col-md-2 col-sm-12">
-                  <label>City</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentDme.city" id="inputCity" disabled>
-                </div>
-                <div class="form-group col-md-2 col-sm-12">
-                  <label>State/Province</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentDme.state_province" id="inputState" disabled>
-                </div>
-                <div class="form-group col-md-2 col-sm-12">
-                  <label>Postal/Zip code</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentDme.postal_zip_code" id="inputPostal" disabled>
-                </div>
-                <div class="form-group col-md-6 col-sm-12">
-                  <label>Country</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentDme.country" id="inputCountry" disabled>
-                </div>
-                <div class="form-group col-md-6 col-sm-12">
-                  <label>Insurance Type</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentDme.insurance_type" id="inputInsuranceType" disabled>
-                </div>
-                <div class="form-group col-md-6 col-sm-12">
-                  <label>Policy number</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentDme.policy_number" id="inputMemMediPolicy" disabled>
-                </div>
-                <div class="form-group col-md-6 col-sm-12">
-                  <label>PPO Information (If not straight Medicare)(Medicare ID#)</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentDme.ppo_information_mem_id" id="inputPPOMemID" disabled>
-                </div>
-                <div class="form-group col-md-6 col-sm-12">
-                  <label>PPO Information(If not straight Medicare)(PPO Name)</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentDme.ppo_information_ppo_name" id="inputPPOName" disabled>
-                </div>
-                <div class="form-group col-md-12 col-sm-12">
-                  <label>Insurance Status</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentDme.insurance_status" id="inputInsuranceStat" disabled>
-              </div>
-              <!-- end of form-row -->
-            </div>
-          <!-- end of patient info -->
-            <hr />
-          <!-- medical info -->
-          <div>
-            <h5 class="title1">
-              Medical Informations
-            </h5>
-            <!-- form-row -->
-            <div class="form-row" v-if="!loading_view">
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Location of Back Pain</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentDme.location_of_back_pain" id="inputLocOfBackPain" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Location of Shoulder Pain</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentDme.location_of_shoulder_pain" id="inputShoulderpain" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Location of Knee Pain</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentDme.location_of_knee_pain" id="inputKneePain" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Location of Elbow Pain</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentDme.location_of_elbow_pain" id="inputElbowPain" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Location of Wrist Pain</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentDme.location_of_wrist_pain" id="inputWristPain" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Height</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentDme.height" id="inputHeight" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Weight</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentDme.weight" id="inputWeight" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Size of Brace</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentDme.size_of_brace" id="inputOrderStatus" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Major Medical Conditionsmajor_medical_conditions</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentDme.major_medical_conditions" id="inputFaxedPharmacy" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Cause of Pain/Discomfort</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentDme.cause_of_pain_discomfort" id="inputPainDiscomfort" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Level of Pain</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentDme.level_of_pain" id="inputPainDiscomfort" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>How long have you been experiencing discomfort</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentDme.experiencing_discomfort" id="inputPainDiscomfort" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Frequency of Pain</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentDme.frequency_of_pain" id="inputFrequencyOfPain" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Describe the Pain</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentDme.describe_pain" id="inputDescPain" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Pain Symptoms</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentDme.pain_symptoms" id="inputPainSymptoms" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>What makes the Pain Worse</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentDme.pain_worse" id="inputPainWorse" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>What makes the Pain Worse</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentDme.pain_worse" id="inputPainWorse" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Treatments Tried</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentDme.treatments_tried" id="inputTreatTried" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Have you seen a doctor in the last year?</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentDme.seen_doctor" id="inputSeenDoctor" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Any Surgeries in the last year?</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentDme.surgeries" id="inputSeenDoctor" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>ip</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentDme.ip" id="inputSeenDoctor" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Submission ID</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentDme.submission_id" id="inputSubId" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Edit link</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentDme.edit_link" id="inputSubId" disabled>
-              </div>
-            </div>
-            <!-- end of form-row -->
-          </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-          <!-- end medical info -->
-        </div>
-      </div>
-    </div>
-    </div>
-  <!-- end of view -->
 </div>
+{% endblock %}

@@ -21,6 +21,13 @@ class CsrftExemptSessionAuthentication(SessionAuthentication):
         return  # will not enforce a csrf check
 
 
+class DmeView(TemplateView):
+    template_name = 'dme/dme.html'
+    
+
+class AddDmeView(TemplateView):
+    template_name = 'dme/add_patient_dme.html'
+
 class DMEFilter(django_filters.FilterSet):
     submission_date__gte = DateFilter(field_name='submission_date', lookup_expr='gte')
     submission_date__lte = DateFilter(field_name='submission_date', lookup_expr='lte')

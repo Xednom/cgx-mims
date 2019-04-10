@@ -8,6 +8,7 @@ from drf_renderer_xlsx.mixins import XLSXFileMixin
 from drf_renderer_xlsx.renderers import XLSXRenderer
 
 from django.shortcuts import render
+from django.views.generic import TemplateView
 
 from .models import PainCreamAndFootBath
 
@@ -18,6 +19,14 @@ class CsrftExemptSessionAuthentication(SessionAuthentication):
 
     def enforce_csrf(self, request):
         return  # will not enforce a csrf check
+
+
+class PcFbView(TemplateView):
+    template_name = 'paincreamandfootbath/pc_and_fb.html'
+
+
+class AddPcFbView(TemplateView):
+    template_name = 'paincreamandfootbath/add_patient_pc_and_fb.html'
 
 
 class PcAndFbFilter(django_filters.FilterSet):

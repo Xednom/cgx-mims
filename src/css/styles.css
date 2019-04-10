@@ -11,6 +11,7 @@ body {
 }
 
 nav.navbar {
+  font-size: 15px;
   height: 64px;
   background-color: #f0f0f0;
   padding-left: 0 !important;
@@ -24,12 +25,16 @@ nav.navbar .container {
 }
 
 nav.navbar .navbar-brand img {
-  height: 64px;
+  height: 55px;
 }
 
 nav.navbar .navbar-top-links .dropdown .dropdown-menu {
   left: unset !important;
   right: 0;
+}
+
+.dropdown-item {
+  font-size: 14px;
 }
 
 nav .dropdown-menu.mobile {
@@ -134,14 +139,22 @@ nav .dropdown-menu.mobile {
   border-radius: 0 !important;
 }
 
+.card-header {
+  padding-left: 15px;
+  background-color: #3174AE;
+  color: #FFFFFF;
+}
+
+.card-header:hover {
+  color: #FFFFFF;
+}
+
 .card-info {
   margin-top: 15px;
 }
 
 .nav-tabs-container {
   padding: 50px 20px 0;
-  background-color: #f9f9f9;
-  border-bottom: 1px solid #dee2e6;
 }
 
 .nav-tabs-container .nav.nav-tabs {
@@ -182,10 +195,6 @@ nav .dropdown-menu.mobile {
   background-color: white;
   height: 100%;
   font-size: 14px;
-}
-
-.card-header {
-  padding: 5px 5px 5px 5px;
 }
 
 .add-btn a {

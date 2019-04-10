@@ -25,8 +25,9 @@
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
           <a class="navbar-brand" href="{% url 'web:home' %}">
-              <img class="img-fluid" alt="TSG Systems" src="{% static 'images/logo/TSG3.png' %}">
+            <img class="img-fluid" alt="TSG Systems" src="{% static 'images/logo/TSG3.png' %}">
           </a>
+          
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -38,6 +39,48 @@
           </div>
 
           <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  Bio Confirm Master
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'cgx:add-bioconfirm' %}">Add Bio Confirm Master data</a>
+                  <a class="dropdown-item" href="{% url 'cgx:bioconfirm' %}">View Bio Confirm Master data</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Carrier
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'carrier:add-carrier' %}">Add Carrier data</a>
+                <a class="dropdown-item" href="{% url 'carrier:view-carrier' %}">View Carrier data</a>
+              </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  DME
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'dme:add-dme' %}">Add DME data</a>
+                  <a class="dropdown-item" href="{% url 'dme:view-dme' %}">View DME data</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  Rx
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'pcfb:add-pcandfb' %}">Add Pain Cream and Foot Bath data</a>
+                  <a class="dropdown-item" href="{% url 'pcfb:view-pcandfb' %}">View Pain Cream and Foot Bath data</a>
+                </div>
+              </li>
+            </ul>
             <ul class="navbar-nav mr-auto">
             </ul>
             <ul class="nav navbar-top-links navbar-right">

@@ -1,4 +1,6 @@
+import datetime
 import django_filters
+
 from django_filters import DateRangeFilter, DateFilter, CharFilter
 from xhtml2pdf import pisa
 
@@ -16,14 +18,15 @@ from django.http import HttpResponse
 from django.template.loader import get_template, render_to_string
 from django.template import Context
 from django.shortcuts import render
-from django.views.generic import TemplateView, DetailView, View
+from django.views.generic import TemplateView, DetailView, View, ListView
 from django.utils import timezone
+from django.db.models import Q
 
 from cgx.models import Agent, Manager
 from .models import Carrier
 from cgx.serializers import AgentSerializer, ManagerSerializer
 from .serializers import CarrierSerializer
-from .render import Render
+from .render import Render, render_to_pdf
 
 # 3rd party app(s)
 from easy_pdf.views import PDFTemplateView, PDFTemplateResponseMixin
@@ -48,6 +51,14 @@ class PDFView(PDFTemplateView):
             title='Carrier Report!',
             **kwargs
         )
+
+
+class CarrierView(TemplateView):
+    template_name = 'carrier/carrier.html'
+
+
+class AddCarrierView(TemplateView):
+    template_name = 'carrier/add_patient_carrier.html'
 
 
 class AgentViewSet(viewsets.ModelViewSet):
@@ -81,15 +92,20 @@ class CarrierFilter(django_filters.FilterSet):
 
 
 class CarrierViewSet(XLSXFileMixin, PDFTemplateResponseMixin, ModelViewSet):
+    queryset = Carrier.objects.all()
     serializer_class = CarrierSerializer
     authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
     permission_classes = (IsAuthenticated,)
     parser_classes = (MultiPartParser,) #  for uploading of attachments
     filename = 'carrier-reports.xlsx'
-    pdf_filename = 'carrier-report.pdf'
     filter_class = (CarrierFilter)  # filtering From date and To date
     filterset_fields = ('patient_name', 'promo_code')
     search_fields = ('patient_name', 'promo_code', 'insurance_verified_tsg_verification')
+
+    #  xhtml2pdf
+    def get(self, request, queryset, *args, **kwargs):
+        pdf = render_to_pdf('carrier_print.html', queryset)
+        return HttpResponse(pdf, content_type='application/pdf')
 
     def get_queryset(self):
         user = self.request.user
@@ -99,48 +115,23 @@ class CarrierViewSet(XLSXFileMixin, PDFTemplateResponseMixin, ModelViewSet):
         else:
             queryset = Carrier.objects.filter(agent__name=user)
         return queryset
-    
-    def queryset(self, request, format=None):
-        carrier = Carrier.objects.all()
-        template_path = 'carrier/carrier_print.html'
-        response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = 'attachment; filename="carrier-report.pdf"'
-
-        html = render_to_string(template_path, {'carrier': carrier})
-        print(html)
-
-        pisaStatus = pisa.CreatePDF(html, dest=response)
-
-        return response
-
+        
     def perform_create(self, serializer):
         user = self.request.user
         promo_code = self.request.user.agent_promo_code
         serializer.save(created_by=user, user_promo_code=promo_code)
 
-    #  xhtml2pdf
-    def get(self, request):
-        user = self.request.user
-        position = self.request.user.position
-        if position == 'Manager':
-            queryset = Carrier.objects.filter(manager__name=user)
-        else:
-            queryset = Carrier.objects.filter(agent__name=user)
-        return queryset
+    def generate_pdf(self, request):
         template_path = 'carrier/carrier_print.html'
-        # Create a Django response object, and specify content_type as pdf
+
         response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = 'attachment; filename="carrier-report.pdf"'
-        # find the template and render it.
-        html = render_to_string(template_path, {'queryset': queryset})
+        response['Content-Disposition'] = 'attachment; filename="Carrier-Report.pdf"'
+
+        html = render_to_string(template_path, {'report': report})
         print(html)
 
-        # create a pdf
         pisaStatus = pisa.CreatePDF(html, dest=response)
 
-        # if error then show some funny view
-        if pisaStatus.err:
-            return HttpResponse('We had some errors <pre>' + html + '</pre>')
         return response
 
 

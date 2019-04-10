@@ -1,359 +1,402 @@
-<div id="dme-app" v-cloak>
-  <!-- patient info -->
-  <form v-on:submit.prevent="addDme" enctype="multipart/form-data" method="POST" id="formDme">
-    {% csrf_token %}
-    <div>
-      <h5 class="title1">
-        Agent Information
-      </h5>
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+DME | TSG System
+{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 25px;">
+  <div id="dme-app" v-cloak>
+    <!-- patient info -->
+    <form v-on:submit.prevent="addDme" enctype="multipart/form-data" method="POST" id="formDme">
+      {% csrf_token %}
       <div>
-        <div class="form-row">
-          <div class="form-group col-md-6 col-sm-12">
-            <label>First name</label>
-            <input type="text" class="form-control form-control-sm" id="inputPatientName" v-model="newDme.first_name" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-6 col-sm-12">
-            <label>Last name</label>
-            <input type="text" class="form-control form-control-sm" id="inputLastName" v-model="newDme.last_name" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-4 col-sm-12">
-            <label>Agent's Promo Code</label>
-            <input type="text" class="form-control form-control-sm" id="inputPromo" v-model="newDme.agents_promod_code" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-4 col-sm-12">
-            <label>Agent's Email</label>
-            <input type="email" class="form-control form-control-sm" id="inputPromo" v-model="newDme.agents_email" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-4 col-sm-12">
-            <label>Submission Date</label>
-            <input type="date" class="form-control form-control-sm" v-model="newDme.submission_date" id="inputSubDate" :disabled="loading == true">
+        <h5 class="title1 text-center">
+          Agent Information
+        </h5>
+        <div>
+          <div class="form-row">
+            <div class="form-group col-md-6 col-sm-12">
+              <label>First name</label>
+              <input type="text" class="form-control form-control-sm" id="inputPatientName" v-model="newDme.first_name"
+                :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-6 col-sm-12">
+              <label>Last name</label>
+              <input type="text" class="form-control form-control-sm" id="inputLastName" v-model="newDme.last_name"
+                :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+              <label>Agent's Promo Code</label>
+              <input type="text" class="form-control form-control-sm" id="inputPromo"
+                v-model="newDme.agents_promod_code" :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+              <label>Agent's Email</label>
+              <input type="email" class="form-control form-control-sm" id="inputPromo" v-model="newDme.agents_email"
+                :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+              <label>Submission Date</label>
+              <input type="date" class="form-control form-control-sm" v-model="newDme.submission_date" id="inputSubDate"
+                :disabled="loading == true">
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- end agent info -->
-    <hr />
-    <!-- patient info -->
-    <div>
-      <h5 class="title1">
-        Patient's Informations
-      </h5>
+      <!-- end agent info -->
+      <hr />
+      <!-- patient info -->
       <div>
-        <div class="form-row">
-          <div class="form-group col-md-4 col-sm-12">
-            <label>Patient's First Name</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.patients_first_name" id="inputFirstName" :disabled="loading == true">
+        <h5 class="title1 text-center">
+          Patient's Informations
+        </h5>
+        <div>
+          <div class="form-row">
+            <div class="form-group col-md-4 col-sm-12">
+              <label>Patient's First Name</label>
+              <input type="text" class="form-control form-control-sm" v-model="newDme.patients_first_name"
+                id="inputFirstName" :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+              <label>Patient's Last Name</label>
+              <input type="text" class="form-control form-control-sm" v-model="newDme.patients_last_name"
+                id="inputLastName" :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+              <label>Birth Date</label>
+              <input type="date" class="form-control form-control-sm" v-model="newDme.birth_date" id="inputDate"
+                :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-2 col-sm-12">
+              <label>Gender</label>
+              <select id="inputTest" class="form-control form-control-sm" v-model="newDme.gender"
+                :disabled="loading == true">
+                <option>MALE</option>
+                <option>FEMALE</option>
+              </select>
+            </div>
+            <div class="form-group col-md-2 col-sm-12">
+              <label>Patient's Phone Number</label>
+              <input type="text" class="form-control form-control-sm" v-model="newDme.patients_phone_number"
+                id="inputPhone" :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-2 col-sm-12">
+              <label>Best time to call</label>
+              <input type="text" class="form-control form-control-sm" v-model="newDme.best_time_to_call"
+                id="inputBestTime" :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-6 col-sm-12">
+              <label>Street Address</label>
+              <input type="text" class="form-control form-control-sm" v-model="newDme.street_address" id="inputStreet"
+                :disabled="loading == true">
+            </div>
           </div>
-          <div class="form-group col-md-4 col-sm-12">
-            <label>Patient's Last Name</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.patients_last_name" id="inputLastName" :disabled="loading == true">
+          <div class="form-row">
+            <div class="form-group col-md-6 col-sm-12">
+              <label>Street Address line 2</label>
+              <input type="text" class="form-control form-control-sm" v-model="newDme.street_address_line_2"
+                :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-2 col-sm-12">
+              <label>City</label>
+              <input type="text" class="form-control form-control-sm" v-model="newDme.city" id="inputCity"
+                :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-2 col-sm-12">
+              <label>State/Province</label>
+              <input type="text" class="form-control form-control-sm" v-model="newDme.state_province" id="inputState"
+                :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-2 col-sm-12">
+              <label>Postal/Zip code</label>
+              <input type="text" class="form-control form-control-sm" v-model="newDme.postal_zip_code" id="inputPostal"
+                :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-2 col-sm-12">
+              <label>Country</label>
+              <input type="text" class="form-control form-control-sm" v-model="newDme.country" id="inputCountry"
+                :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-2 col-sm-12">
+              <label>Insurance Type</label>
+              <input type="text" class="form-control form-control-sm" v-model="newDme.insurance_type"
+                id="inputInsurance" :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-2 col-sm-12">
+              <label>Policy Number</label>
+              <input type="text" class="form-control form-control-sm" v-model="newDme.policy_number" id="inputPolicy"
+                :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-6 col-sm-12">
+              <label>PPO Information(If not straight from Medicare)(Member ID#)</label>
+              <input type="text" class="form-control form-control-sm" v-model="newDme.ppo_information_mem_id"
+                id="inputPPOMemID" :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-6 col-sm-12">
+              <label>PPO Information(If not straight from Medicare)(PPO Name)</label>
+              <input type="text" class="form-control form-control-sm" v-model="newDme.ppo_information_ppo_name"
+                id="inputPPOName" :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-6 col-sm-12">
+              <label>Insurance Status</label>
+              <input type="text" class="form-control form-control-sm" v-model="newDme.insurance_status"
+                id="inputInsuranceStat" :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+              <label>Location of Back pain</label>
+              <input type="text" class="form-control form-control-sm" v-model="newDme.location_of_back_pain"
+                id="inputBackPain" :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+              <label>Location of Shoulder pain</label>
+              <input type="text" class="form-control form-control-sm" v-model="newDme.location_of_shoulder_pain"
+                id="inputShoulderPain" :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+              <label>Location of Knee pain</label>
+              <input type="text" class="form-control form-control-sm" v-model="newDme.location_of_knee_pain"
+                id="inputKneePain" :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+              <label>Location of Ankle pain</label>
+              <input type="text" class="form-control form-control-sm" v-model="newDme.location_of_ankle_pain"
+                id="inputAnklePain" :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+              <label>Location of Elbow pain</label>
+              <input type="text" class="form-control form-control-sm" v-model="newDme.location_of_elbow_pain"
+                id="inputElbowPain" :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+              <label>Location of Wrist pain</label>
+              <input type="text" class="form-control form-control-sm" v-model="newDme.location_of_wrist_pain"
+                id="inputWristPain" :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-2 col-sm-12">
+              <label>Height</label>
+              <input type="text" class="form-control form-control-sm" v-model="newDme.height" id="inputHeight"
+                :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-2 col-sm-12">
+              <label>Weight</label>
+              <input type="text" class="form-control form-control-sm" v-model="newDme.weight" id="inputWeight"
+                :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-2 col-sm-12">
+              <label>Size of Brace</label>
+              <input type="text" class="form-control form-control-sm" v-model="newDme.size_of_brace" id="inputSizeBrace"
+                :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-6 col-sm-12">
+              <label>Cause of Pain & Discomfort</label>
+              <input type="text" class="form-control form-control-sm" v-model="newDme.cause_of_pain_discomfort"
+                id="inputCausePain" :disabled="loading == true">
+            </div>
+            <div class="form-group col-md-12">
+              <label>Insurance Notes</label>
+              <textarea class="form-control form-control-sm" name="name" v-model="newDme.insurance_notes"
+                :disabled="loading == true" rows="10" cols="80"></textarea>
+            </div>
           </div>
-          <div class="form-group col-md-4 col-sm-12">
-            <label>Birth Date</label>
-            <input type="date" class="form-control form-control-sm" v-model="newDme.birth_date" id="inputDate" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-2 col-sm-12">
-            <label>Gender</label>
-            <select id="inputTest" class="form-control form-control-sm" v-model="newDme.gender" :disabled="loading == true">
-              <option>MALE</option>
-              <option>FEMALE</option>
-            </select>
-          </div>
-          <div class="form-group col-md-2 col-sm-12">
-            <label>Patient's Phone Number</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.patients_phone_number" id="inputPhone" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-2 col-sm-12">
-            <label>Best time to call</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.best_time_to_call" id="inputBestTime" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-6 col-sm-12">
-            <label>Street Address</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.street_address" id="inputStreet" :disabled="loading == true">
-          </div>
+          <!-- end of form-row -->
         </div>
+      </div>
+      <!-- end of patient info -->
+      <hr />
+      <!-- medical info -->
+      <div>
+        <h5 class="title1 text-center">
+          Medical Informations
+        </h5>
+        <!-- form-row -->
         <div class="form-row">
           <div class="form-group col-md-6 col-sm-12">
-            <label>Street Address line 2</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.street_address_line_2" :disabled="loading == true">
+            <label>Major Medical Conditions</label>
+            <input type="text" class="form-control form-control-sm" v-model="newDme.major_medical_conditions"
+              id="inputMajorMedical" :disabled="loading == true">
           </div>
           <div class="form-group col-md-2 col-sm-12">
-            <label>City</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.city" id="inputCity" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-2 col-sm-12">
-            <label>State/Province</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.state_province" id="inputState" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-2 col-sm-12">
-            <label>Postal/Zip code</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.postal_zip_code" id="inputPostal" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-2 col-sm-12">
-            <label>Country</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.country" id="inputCountry" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-2 col-sm-12">
-            <label>Insurance Type</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.insurance_type" id="inputInsurance" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-2 col-sm-12">
-            <label>Policy Number</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.policy_number" id="inputPolicy" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-6 col-sm-12">
-            <label>PPO Information(If not straight from Medicare)(Member ID#)</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.ppo_information_mem_id" id="inputPPOMemID" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-6 col-sm-12">
-            <label>PPO Information(If not straight from Medicare)(PPO Name)</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.ppo_information_ppo_name" id="inputPPOName" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-6 col-sm-12">
-            <label>Insurance Status</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.insurance_status" id="inputInsuranceStat" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-4 col-sm-12">
-            <label>Location of Back pain</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.location_of_back_pain" id="inputBackPain" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-4 col-sm-12">
-            <label>Location of Shoulder pain</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.location_of_shoulder_pain" id="inputShoulderPain" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-4 col-sm-12">
-            <label>Location of Knee pain</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.location_of_knee_pain" id="inputKneePain" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-4 col-sm-12">
-            <label>Location of Ankle pain</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.location_of_ankle_pain" id="inputAnklePain"
+            <label>Level of Pain</label>
+            <input type="text" class="form-control form-control-sm" v-model="newDme.level_of_pain" id="inputCausePain"
               :disabled="loading == true">
           </div>
           <div class="form-group col-md-4 col-sm-12">
-            <label>Location of Elbow pain</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.location_of_elbow_pain" id="inputElbowPain" :disabled="loading == true">
+            <label>How long have you been experiencing discomfort?</label>
+            <input type="text" class="form-control form-control-sm" v-model="newDme.experiencing_discomfort"
+              id="inputExpDiscomfort" :disabled="loading == true">
           </div>
           <div class="form-group col-md-4 col-sm-12">
-            <label>Location of Wrist pain</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.location_of_wrist_pain" id="inputWristPain" :disabled="loading == true">
+            <label>Frequency of Pain</label>
+            <input type="text" class="form-control form-control-sm" v-model="newDme.frequency_of_pain" id="inputFeqPain"
+              :disabled="loading == true">
           </div>
-          <div class="form-group col-md-2 col-sm-12">
-            <label>Height</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.height" id="inputHeight" :disabled="loading == true">
+          <div class="form-group col-md-4 col-sm-12">
+            <label>Describe Pain</label>
+            <input type="text" class="form-control form-control-sm" v-model="newDme.describe_pain" id="inputDescPain"
+              :disabled="loading == true">
           </div>
-          <div class="form-group col-md-2 col-sm-12">
-            <label>Weight</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.weight" id="inputWeight" :disabled="loading == true">
-          </div>
-          <div class="form-group col-md-2 col-sm-12">
-            <label>Size of Brace</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.size_of_brace" id="inputSizeBrace" :disabled="loading == true">
+          <div class="form-group col-md-4 col-sm-12">
+            <label>Pain Symtoms</label>
+            <input type="text" class="form-control form-control-sm" v-model="newDme.pain_symtoms" id="inputPainSymtoms"
+              :disabled="loading == true">
           </div>
           <div class="form-group col-md-6 col-sm-12">
-            <label>Cause of Pain & Discomfort</label>
-            <input type="text" class="form-control form-control-sm" v-model="newDme.cause_of_pain_discomfort" id="inputCausePain" :disabled="loading == true">
+            <label>What makes the Pain Worse</label>
+            <input type="text" class="form-control form-control-sm" v-model="newDme.pain_worse" id="inputPainWorse"
+              :disabled="loading == true">
           </div>
-          <div class="form-group col-md-12">
-            <label>Insurance Notes</label>
-            <textarea class="form-control form-control-sm" name="name" v-model="newDme.insurance_notes" :disabled="loading == true" rows="10" cols="80"></textarea>
+          <div class="form-group col-md-6 col-sm-12">
+            <label>Treatments Tried</label>
+            <input type="text" class="form-control form-control-sm" v-model="newDme.treatments_tried"
+              id="inputTreatTried" :disabled="loading == true">
+          </div>
+          <div class="form-group col-md-6 col-sm-12">
+            <label>Have you seen a doctor in the last year?</label>
+            <input type="text" class="form-control form-control-sm" v-model="newDme.seen_doctor" id="inputExpDiscomfort"
+              :disabled="loading == true">
+          </div>
+          <div class="form-group col-md-6 col-sm-12">
+            <label>Surgeries</label>
+            <input type="text" class="form-control form-control-sm" v-model="newDme.surgeries" id="inputSurgeries"
+              :disabled="loading == true">
+          </div>
+          <div class="form-group col-md-2 col-sm-12">
+            <label>IP</label>
+            <input type="text" class="form-control form-control-sm" v-model="newDme.ip" id="inputIP"
+              :disabled="loading == true">
+          </div>
+          <div class="form-group col-md-4 col-sm-12">
+            <label>Submission ID</label>
+            <input type="text" class="form-control form-control-sm" v-model="newDme.submission_id" id="inputSubID"
+              :disabled="loading == true">
+          </div>
+          <div class="form-group col-md-6 col-sm-12">
+            <label>Edit Link</label>
+            <input type="url" class="form-control form-control-sm" v-model="newDme.edit_link" id="inputEditLink"
+              :disabled="loading == true">
           </div>
         </div>
         <!-- end of form-row -->
       </div>
-    </div>
-    <!-- end of patient info -->
+      <!-- end medical info -->
       <hr />
-    <!-- medical info -->
-    <div>
-      <h5 class="title1">
-        Medical Informations
-      </h5>
-      <!-- form-row -->
-      <div class="form-row">
-        <div class="form-group col-md-6 col-sm-12">
-          <label>Major Medical Conditions</label>
-          <input type="text" class="form-control form-control-sm" v-model="newDme.major_medical_conditions" id="inputMajorMedical" :disabled="loading == true">
-        </div>
-        <div class="form-group col-md-2 col-sm-12">
-          <label>Level of Pain</label>
-          <input type="text" class="form-control form-control-sm" v-model="newDme.level_of_pain" id="inputCausePain" :disabled="loading == true">
-        </div>
-        <div class="form-group col-md-4 col-sm-12">
-          <label>How long have you been experiencing discomfort?</label>
-          <input type="text" class="form-control form-control-sm" v-model="newDme.experiencing_discomfort" id="inputExpDiscomfort" :disabled="loading == true">
-        </div>
-        <div class="form-group col-md-4 col-sm-12">
-          <label>Frequency of Pain</label>
-          <input type="text" class="form-control form-control-sm" v-model="newDme.frequency_of_pain" id="inputFeqPain" :disabled="loading == true">
-        </div>
-        <div class="form-group col-md-4 col-sm-12">
-          <label>Describe Pain</label>
-          <input type="text" class="form-control form-control-sm" v-model="newDme.describe_pain" id="inputDescPain" :disabled="loading == true">
-        </div>
-        <div class="form-group col-md-4 col-sm-12">
-          <label>Pain Symtoms</label>
-          <input type="text" class="form-control form-control-sm" v-model="newDme.pain_symtoms" id="inputPainSymtoms" :disabled="loading == true">
-        </div>
-        <div class="form-group col-md-6 col-sm-12">
-          <label>What makes the Pain Worse</label>
-          <input type="text" class="form-control form-control-sm" v-model="newDme.pain_worse" id="inputPainWorse" :disabled="loading == true">
-        </div>
-        <div class="form-group col-md-6 col-sm-12">
-          <label>Treatments Tried</label>
-          <input type="text" class="form-control form-control-sm" v-model="newDme.treatments_tried" id="inputTreatTried" :disabled="loading == true">
-        </div>
-        <div class="form-group col-md-6 col-sm-12">
-          <label>Have you seen a doctor in the last year?</label>
-          <input type="text" class="form-control form-control-sm" v-model="newDme.seen_doctor" id="inputExpDiscomfort" :disabled="loading == true">
-        </div>
-        <div class="form-group col-md-6 col-sm-12">
-          <label>Surgeries</label>
-          <input type="text" class="form-control form-control-sm" v-model="newDme.surgeries" id="inputSurgeries" :disabled="loading == true">
-        </div>
-        <div class="form-group col-md-2 col-sm-12">
-          <label>IP</label>
-          <input type="text" class="form-control form-control-sm" v-model="newDme.ip" id="inputIP" :disabled="loading == true">
-        </div>
-        <div class="form-group col-md-4 col-sm-12">
-          <label>Submission ID</label>
-          <input type="text" class="form-control form-control-sm" v-model="newDme.submission_id" id="inputSubID" :disabled="loading == true">
-        </div>
-        <div class="form-group col-md-6 col-sm-12">
-          <label>Edit Link</label>
-          <input type="url" class="form-control form-control-sm" v-model="newDme.edit_link" id="inputEditLink" :disabled="loading == true">
-        </div>
-      </div>
-      <!-- end of form-row -->
-    </div>
-    <!-- end medical info -->
-    <hr />
-    <!-- attachments -->
-    <div>
-      <h5 class="title1">
-        Attachments
-      </h5>
+      <!-- attachments -->
       <div>
-        <div class="row">
-          <div class="form-group col-sm-12">
-            <label>Patient ID Photo</label>
-            <div class="custom-file" v-on:click="$refs.patient_id_photo_ref.click()" :disabled="loading == true">
-              <input
-                  type="file" accept="image/*" class="form-control form-control-file form-control-sm"
-                  name="patient_id_photo" id="inputIDPhoto"
-                  v-on:change="onFileChange($event)"
-                  ref="patient_id_photo_ref"
-              >
-              <label class="custom-file-label" for="customFile">
-                <template v-if="!newDme.patient_id_photo.name">
-                  Choose file
-                </template>
-                <template v-else>
-                  [[ newDme.patient_id_photo.name ]]
-                </template>
-              </label>
+        <h5 class="title1 text-center">
+          Attachments
+        </h5>
+        <div>
+          <div class="row">
+            <div class="form-group col-sm-12">
+              <label>Patient ID Photo</label>
+              <div class="custom-file" v-on:click="$refs.patient_id_photo_ref.click()" :disabled="loading == true">
+                <input type="file" accept="image/*" class="form-control form-control-file form-control-sm"
+                  name="patient_id_photo" id="inputIDPhoto" v-on:change="onFileChange($event)"
+                  ref="patient_id_photo_ref">
+                <label class="custom-file-label" for="customFile">
+                  <template v-if="!newDme.patient_id_photo.name">
+                    Choose file
+                  </template>
+                  <template v-else>
+                    [[ newDme.patient_id_photo.name ]]
+                  </template>
+                </label>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-12">
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-group col-sm-12 col-md-6">
-            <label>Insurance card photo</label>
-            <div class="custom-file" v-on:click="$refs.insurance_card_photo_front_ref.click()" :disabled="loading == true">
-              <input
-                  type="file" accept="image/*" class="form-control form-control-file form-control-sm"
-                  name="insurance_card_photo_front" id="inputInsuranceFront"
-                  v-on:change="onFileChange($event)"
-                  ref="insurance_card_photo_front_ref"
-              >
-              <label class="custom-file-label" for="customFile">
-                <template v-if="!newDme.insurance_card_photo_front.name">
-                  Choose file
-                </template>
-                <template v-else>
-                  [[ newDme.insurance_card_photo_front.name ]]
-                </template>
-              </label>
-            </div>
-            <small class="text-muted">Insurance card photo front</small>
-          </div>
-          <div class="form-group col-sm-12 col-md-6">
-            <label>&nbsp;</label>
-            <div class="custom-file" v-on:click="$refs.insurance_card_photo_back_ref.click()" :disabled="loading == true">
-              <input
-                  type="file" accept="image/*" class="form-control form-control-file form-control-sm"
-                  name="insurance_card_photo_back" id="inputInsuranceFront"
-                  v-on:change="onFileChange($event)"
-                  ref="insurance_card_photo_back_ref"
-              >
-              <label class="custom-file-label" for="customFile">
-                <template v-if="!newDme.insurance_card_photo_back.name">
-                  Choose file
-                </template>
-                <template v-else>
-                  [[ newDme.insurance_card_photo_back.name ]]
-                </template>
-              </label>
-            </div>
-            <small class="text-muted">Insurance card photo back</small>
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-group col-sm-12">
-            <label>Additional Insurance card</label>
-            <div class="custom-file" v-on:click="$refs.additional_insurance_cards_ref.click()">
-              <input
-                  type="file" accept="image/*" class="form-control form-control-file form-control-sm"
-                  name="additional_insurance_cards" id="inputInsuranceAdditional"
-                  v-on:change="onFileChange($event)"
-                  ref="additional_insurance_cards_ref"
-              >
-              <label class="custom-file-label" for="customFile" :disabled="loading == true">
-                <template v-if="!newDme.additional_insurance_cards.name">
-                  Choose file
-                </template>
-                <template v-else>
-                  [[ newDme.additional_insurance_cards.name ]]
-                </template>
-              </label>
+          <div class="row">
+            <div class="col-sm-12">
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="form-group col-sm-12">
-            <label>Consent Recording</label>
-            <div class="custom-file" v-on:click="$refs.consent_recording_ref.click()" :disabled="loading == true">
-              <input
-                  type="file" accept="video/*" class="form-control form-control-file form-control-sm"
-                  name="consent_recording" id="inputRecording"
-                  v-on:change="onFileChange($event)"
-                  ref="consent_recording_ref"
-              >
-              <label class="custom-file-label" for="customFile" >
-                <template v-if="!newDme.consent_recording.name">
-                  Choose file
-                </template>
-                <template v-else>
-                  [[ newDme.consent_recording.name ]]
-                </template>
-              </label>
+          <div class="row">
+            <div class="form-group col-sm-12 col-md-6">
+              <label>Insurance card photo</label>
+              <div class="custom-file" v-on:click="$refs.insurance_card_photo_front_ref.click()"
+                :disabled="loading == true">
+                <input type="file" accept="image/*" class="form-control form-control-file form-control-sm"
+                  name="insurance_card_photo_front" id="inputInsuranceFront" v-on:change="onFileChange($event)"
+                  ref="insurance_card_photo_front_ref">
+                <label class="custom-file-label" for="customFile">
+                  <template v-if="!newDme.insurance_card_photo_front.name">
+                    Choose file
+                  </template>
+                  <template v-else>
+                    [[ newDme.insurance_card_photo_front.name ]]
+                  </template>
+                </label>
+              </div>
+              <small class="text-muted">Insurance card photo front</small>
+            </div>
+            <div class="form-group col-sm-12 col-md-6">
+              <label>&nbsp;</label>
+              <div class="custom-file" v-on:click="$refs.insurance_card_photo_back_ref.click()"
+                :disabled="loading == true">
+                <input type="file" accept="image/*" class="form-control form-control-file form-control-sm"
+                  name="insurance_card_photo_back" id="inputInsuranceFront" v-on:change="onFileChange($event)"
+                  ref="insurance_card_photo_back_ref">
+                <label class="custom-file-label" for="customFile">
+                  <template v-if="!newDme.insurance_card_photo_back.name">
+                    Choose file
+                  </template>
+                  <template v-else>
+                    [[ newDme.insurance_card_photo_back.name ]]
+                  </template>
+                </label>
+              </div>
+              <small class="text-muted">Insurance card photo back</small>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-12">
+              <label>Additional Insurance card</label>
+              <div class="custom-file" v-on:click="$refs.additional_insurance_cards_ref.click()">
+                <input type="file" accept="image/*" class="form-control form-control-file form-control-sm"
+                  name="additional_insurance_cards" id="inputInsuranceAdditional" v-on:change="onFileChange($event)"
+                  ref="additional_insurance_cards_ref">
+                <label class="custom-file-label" for="customFile" :disabled="loading == true">
+                  <template v-if="!newDme.additional_insurance_cards.name">
+                    Choose file
+                  </template>
+                  <template v-else>
+                    [[ newDme.additional_insurance_cards.name ]]
+                  </template>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-12">
+              <label>Consent Recording</label>
+              <div class="custom-file" v-on:click="$refs.consent_recording_ref.click()" :disabled="loading == true">
+                <input type="file" accept="video/*" class="form-control form-control-file form-control-sm"
+                  name="consent_recording" id="inputRecording" v-on:change="onFileChange($event)"
+                  ref="consent_recording_ref">
+                <label class="custom-file-label" for="customFile">
+                  <template v-if="!newDme.consent_recording.name">
+                    Choose file
+                  </template>
+                  <template v-else>
+                    [[ newDme.consent_recording.name ]]
+                  </template>
+                </label>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- end of attachments -->
-    <template v-if="loading == true">
-      <button class="btn btn-success save-btn-insurance" type="button" disabled style="float: right;">
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Saving...
-      </button>
-    </template>
-    <template v-else-if="loading == false">
-      <button type="submit" class="btn btn-success save-btn-insurance" style="float: right;">Save</button>
-    </template>
-   </div>
+      <!-- end of attachments -->
+      <template v-if="loading == true">
+        <button class="btn btn-success save-btn-insurance" type="button" disabled style="float: right;">
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Saving...
+        </button>
+      </template>
+      <template v-else-if="loading == false">
+        <button type="submit" class="btn btn-success save-btn-insurance" style="float: right; margin-bottom: 25px;">Save</button>
+      </template>
+  </div>
   </form>
+</div>
+{% endblock %}

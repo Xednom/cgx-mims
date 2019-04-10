@@ -106,6 +106,10 @@ class BioConfirmView(TemplateView):
     template_name = 'cgx/bioconfirm.html'
 
 
+class AddBioConfirmView(TemplateView):
+    template_name = 'cgx/add_patient_bioconfirm.html'
+
+
 def index(request):
     if request.method == "POST":
         bioconfirm_resource = BioConfirmMasterResource()
