@@ -267,13 +267,13 @@ Add Carrier Data | TSG System
       <!-- end of attachments -->
 
       <!-- loading -->
-      <template v-if="loading == true">
+      <template v-if="saving == true">
         <button class="btn btn-success save-btn-carrier" type="button" disabled style="float: right;">
           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
           Saving...
         </button>
       </template>
-      <template v-else-if="loading == false">
+      <template v-else-if="saving == false">
         <button type="submit" class="btn btn-success save-btn-carrier" style="float: right;">Save</button>
       </template>
       <!-- end of loading -->

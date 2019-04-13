@@ -63,14 +63,17 @@ Carrier | TSG System
               </div>
             </form>
             <template v-if="searching == true">
+            <div class="col-md-4 col-sm-12 float-right">
               <button class="btn btn-primary btn-search" type="button" disabled style="float: right;">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 Searching...
               </button>
+            </div>
             </template>
             <template v-else>
-              <button class="btn btn-primary btn-search" type="button"
-                v-on:click.prevent="searchCarriers">Search</button>
+              <div class="col-md-4 col-sm-12 float-right">
+                <button class="btn btn-primary btn-search" type="button" v-on:click.prevent="searchCarriers">Search</button>
+              </div>
             </template>
           </div>
         </div>

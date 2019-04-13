@@ -6,6 +6,7 @@ new Vue({
     insurances: [],
     message: null,
     loading: false,
+    saving: false,
     searching: false,
     loading_view: false,
     agentNames: [],

@@ -10,6 +10,7 @@ new Vue({
     statuses: [],
     message: null,
     loading: false,
+    saving: false,
     searching: false,
     loading_view: false,
     currentBioConfirm: {},
@@ -179,7 +180,7 @@ new Vue({
           formData.append(key, obj);
         }
       });
-      this.loading = true;
+      this.saving = true;
       this.$http.post(`/api/v1/bio-confirm-master/`, formData).then((response) => {
           swal({
             title: "TSG System",
@@ -188,7 +189,7 @@ new Vue({
             buttons: false,
             timer: 2000
           })
-          this.loading = false;
+        this.saving = false;
           this.getBioConfirms();
           // reset form
           this.resetFields();
@@ -205,7 +206,7 @@ new Vue({
           buttons: "Ok",
         });
         console.log(err);
-        this.loading = false;
+        this.saving = false;
       })
     },
     // viewing of full datas

@@ -10,6 +10,7 @@ new Vue({
     statuses: [],
     message: null,
     loading: false,
+    saving: false,
     searching: false,
     loading_view: false,
     csrf_token: ['csrf_token'],
@@ -128,7 +129,7 @@ new Vue({
             formData.append(key, obj);
           }
       });
-      this.loading = true;
+      this.saving = true;
       axios.post('/api/v1/carrier/', formData).then((response) => {
         console.log(formData);
         swal({
@@ -138,7 +139,7 @@ new Vue({
           buttons: false,
           timer: 2000
         });
-        this.loading = false;
+        this.saving = false;
         this.getCarriers();
         // reset form
         this.resetFields();
@@ -148,13 +149,13 @@ new Vue({
         event.target.reset();
       })
       .catch((err) => {
-        this.loading = false;
         swal({
           title: "TSG System",
           text: "Something has happened when processing the data, if the error persist. Please contact your Administrator.",
           icon: "error",
           buttons: "Ok",
         });
+        this.saving = false;
         console.log(err);
       })
     },
