@@ -2,7 +2,21 @@
   <hr>
   <h5 class="title1">
     Search information: 
-      <a class="btn btn-primary search-carrier" data-toggle="collapse" href="#CollapseSearchCarrier" role="button" aria-expanded="false"
+    <a href="#" data-toggle="modal" data-target="#exampleModal">advanced search</a>
+  </h5>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title title1" id="exampleModalLabel">Advance search</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <a class="btn btn-primary search-carrier" data-toggle="collapse" href="#CollapseSearchCarrier" role="button" aria-expanded="false"
         aria-controls="CollapseSearchCarrier">Carrier Search Information</a>
       <a class="btn btn-primary search-bio-confirm" data-toggle="collapse" href="#CollapseSearchBioConfirm" role="button"
           aria-expanded="false" aria-controls="CollapseSearchBioConfirm">Bio Confirm Master Search Information</a>
@@ -10,192 +24,197 @@
             aria-expanded="false" aria-controls="CollapseSearchDME">DME Search Information</a>
       <a class="btn btn-primary search-insurance" data-toggle="collapse" href="#CollapseSearchInsurance" role="button"
             aria-expanded="false" aria-controls="CollapseSearchInsurance">Insurance Search Information</a>
+        </div>
+        <!-- from and to date search for Carrier App -->
+        <div class="collapse multi-collapse" id="CollapseSearchCarrier">
+          <div class="card card-body">
+            <div class="form-row">
+              <div class=form-group col-md-2 col-sm-12>
+                <h5 class="title1">
+                  Carrier Search Information
+                </h5>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-4 col-sm-12">
+                <label>From date application recorded:</label>
+                <input class="form-control form-control-sm" type="date" v-model="carrier_from_date_app_rec">
+                <label>To date application recorded:</label>
+                <input class="form-control form-control-sm" type="date" v-model="carrier_to_date_app_rec">
+              </div>
+              <div class="form-group col-md-4 col-sm-12">
+                <label>From date sample recorded:</label>
+                <input class="form-control form-control-sm" type="date" v-model="carrier_from_date_sample_rec">
+                <label>To date sample recorded:</label>
+                <input class="form-control form-control-sm" type="date" v-model="carrier_to_date_sample_rec">
+              </div>
+              <div class="form-group col-md-4 col-sm-12">
+                <label>From date of QCA:</label>
+                <input class="form-control form-control-sm" type="date" v-model="carrier_from_date_of_qca">
+                <label>To date of QCA:</label>
+                <input class="form-control form-control-sm" type="date" v-model="carrier_to_date_of_qca">
+              </div>
+              <div class="form-group col-md-4 col-sm-12">
+                <label>From date created:</label>
+                <input class="form-control form-control-sm" type="date" v-model="carrier_from_date_created">
+                <label>To date created:</label>
+                <input class="form-control form-control-sm" type="date" v-model="carrier_to_date_created">
+              </div>
+              <div class="form-group col-md-4 col-sm-12">
+                <label>Search Patient Name:</label>
+                <input class="form-control form-control-sm" type="text" v-model="carrier_search_patient_name">
+              </div>
+            </div>
+            <template v-if="loading == true">
+              <button class="btn btn-primary btn-search" type="button" disabled style="float: right;">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Searching...
+              </button>
+            </template>
+            <template v-else>
+              <button class="btn btn-primary btn-search" type="button" data-dismiss="modal" v-on:click.prevent="getCarriers">Search</button>
+            </template>
+          </div>
+        </div>
+        
+        <!-- from and to date search for Bio Confirm Master App -->
+        <div class="collapse multi-collapse" id="CollapseSearchBioConfirm">
+          <div class="card card-body">
+            <div class="form-row">
+              <div class=form-group col-md-2 col-sm-12>
+                <h5 class="title1">
+                  Bio Confirm Master Search Information
+                </h5>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-4 col-sm-12">
+                <label>From date application recorded:</label>
+                <input class="form-control form-control-sm" type="date" v-model="bioconfirm_from_date_app_rec">
+                <label>To date application recorded:</label>
+                <input class="form-control form-control-sm" type="date" v-model="bioconfirm_to_date_app_rec">
+              </div>
+              <div class="form-group col-md-4 col-sm-12">
+                <label>From date sample recorded:</label>
+                <input class="form-control form-control-sm" type="date" v-model="bioconfirm_from_date_sample_rec">
+                <label>To date sample recorded:</label>
+                <input class="form-control form-control-sm" type="date" v-model="bioconfirm_to_date_sample_rec">
+              </div>
+              <div class="form-group col-md-4 col-sm-12">
+                <label>From date of QCA:</label>
+                <input class="form-control form-control-sm" type="date" v-model="bioconfirm_from_date_of_qca">
+                <label>To date of QCA:</label>
+                <input class="form-control form-control-sm" type="date" v-model="bioconfirm_to_date_of_qca">
+              </div>
+              <div class="form-group col-md-4 col-sm-12">
+                <label>From date created:</label>
+                <input class="form-control form-control-sm" type="date" v-model="bioconfirm_from_date_created">
+                <label>To date created:</label>
+                <input class="form-control form-control-sm" type="date" v-model="bioconfirm_to_date_created">
+              </div>
+              <div class="form-group col-md-4 col-sm-12">
+                <label>Search Patient Name:</label>
+                <input class="form-control form-control-sm" type="text" v-model="bioconfirm_search_patient_name">
+              </div>
+            </div>
+            <template v-if="loading == true">
+              <button class="btn btn-primary btn-search" type="button" disabled style="float: right;">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Searching...
+              </button>
+            </template>
+            <template v-else>
+              <button class="btn btn-primary btn-search" type="button" data-dismiss="modal" v-on:click.prevent="getBioConfirms">Search</button>
+            </template>
+          </div>
+        </div>
+        
+        <!-- from and to date search for DME App -->
+        <div class="collapse multi-collapse" id="CollapseSearchDME">
+          <div class="card card-body">
+            <div class="form-row">
+              <div class=form-group col-md-2 col-sm-12>
+                <h5 class="title1">
+                  DME Search Information
+                </h5>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-4 col-sm-12">
+                <label>Submission date from:</label>
+                <input class="form-control form-control-sm" type="date" v-model="dme_form_submission_date">
+              </div>
+              <div class="form-group col-md-4 col-sm-12">
+                <label>Submission date to:</label>
+                <input class="form-control form-control-sm" type="date" v-model="dme_to_submission_date">
+              </div>
+              <div class="form-group col-md-4 col-sm-12">
+                <label>Search Patient First Name:</label>
+                <input class="form-control form-control-sm" type="text" v-model="dme_patients_first_name">
+              </div>
+              <div class="form-group col-md-4 col-sm-12">
+                <label>Search Patient Last Name:</label>
+                <input class="form-control form-control-sm" type="text" v-model="dme_patients_last_name">
+              </div>
+            </div>
+            <template v-if="loading == true">
+              <button class="btn btn-primary btn-search" type="button" disabled style="float: right;">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Searching...
+              </button>
+            </template>
+            <template v-else>
+              <button class="btn btn-primary btn-search" type="button" data-dismiss="modal" v-on:click.prevent="getDmes">Search</button>
+            </template>
+          </div>
+        </div>
+        
+        <!-- from and to date search for Insurance App -->
+        <div class="collapse multi-collapse" id="CollapseSearchInsurance">
+          <div class="card card-body">
+            <div class="form-row">
+              <div class=form-group col-md-2 col-sm-12>
+                <h5 class="title1">
+                  Insurance Search Information
+                </h5>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-4 col-sm-12">
+                <label>Date created from:</label>
+                <input class="form-control form-control-sm" type="date" v-model="insurance_from_date_created">
+              </div>
+              <div class="form-group col-md-4 col-sm-12">
+                <label>Submission date to:</label>
+                <input class="form-control form-control-sm" type="date" v-model="insurance_to_date_created">
+              </div>
+              <div class="form-group col-md-4 col-sm-12">
+                <label>Search by Patient Name:</label>
+                <input class="form-control form-control-sm" type="text" v-model="insurance_name">
+              </div>
+              <div class="form-group col-md-4 col-sm-12">
+                <label>Search by Promo Code:</label>
+                <input class="form-control form-control-sm" type="text" v-model="insurance_promo_code">
+              </div>
+            </div>
+            <template v-if="loading == true">
+              <button class="btn btn-primary btn-search" type="button" disabled style="float: right;">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Searching...
+              </button>
+            </template>
+            <template v-else>
+              <button class="btn btn-primary btn-search" type="button" data-dismiss="modal" v-on:click.prevent="getInsurances">Search</button>
+            </template>
+          </div>
+        </div>
 
-  </h5>
-  <!-- from and to date search for Carrier App -->
-  <div class="collapse multi-collapse" id="CollapseSearchCarrier">
-    <div class="card card-body">
-      <div class="form-row">
-        <div class=form-group col-md-2 col-sm-12>
-          <h5 class="title1">
-            Carrier Search Information
-          </h5>
+        <div class="modal-footer">
         </div>
       </div>
-      <div class="form-row">
-        <div class="form-group col-md-2 col-sm-12">
-          <label>From date application recorded:</label>
-          <input class="form-control form-control-sm" type="date" v-model="carrier_from_date_app_rec">
-          <label>To date application recorded:</label>
-          <input class="form-control form-control-sm" type="date" v-model="carrier_to_date_app_rec">
-        </div>
-        <div class="form-group col-md-2 col-sm-12 offset-1">
-          <label>From date sample recorded:</label>
-          <input class="form-control form-control-sm" type="date" v-model="carrier_from_date_sample_rec">
-          <label>To date sample recorded:</label>
-          <input class="form-control form-control-sm" type="date" v-model="carrier_to_date_sample_rec">
-        </div>
-        <div class="form-group col-md-2 col-sm-12 offset-1">
-          <label>From date of QCA:</label>
-          <input class="form-control form-control-sm" type="date" v-model="carrier_from_date_of_qca">
-          <label>To date of QCA:</label>
-          <input class="form-control form-control-sm" type="date" v-model="carrier_to_date_of_qca">
-        </div>
-        <div class="form-group col-md-2 col-sm-12 offset-1">
-          <label>From date created:</label>
-          <input class="form-control form-control-sm" type="date" v-model="carrier_from_date_created">
-          <label>To date created:</label>
-          <input class="form-control form-control-sm" type="date" v-model="carrier_to_date_created">
-        </div>
-        <div class="form-group col-md-2 col-sm-12">
-          <label>Search Patient Name:</label>
-          <input class="form-control form-control-sm" type="text" v-model="carrier_search_patient_name">
-        </div>
-      </div>
-      <template v-if="loading == true">
-        <button class="btn btn-primary btn-search" type="button" disabled style="float: right;">
-          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-          Searching...
-        </button>
-      </template>
-      <template v-else>
-      <button class="btn btn-primary btn-search" type="button" v-on:click.prevent="getCarriers">Search</button>
-      </template>
     </div>
   </div>
-
-  <!-- from and to date search for Bio Confirm Master App -->
-  <div class="collapse multi-collapse" id="CollapseSearchBioConfirm">
-    <div class="card card-body">
-      <div class="form-row">
-        <div class=form-group col-md-2 col-sm-12>
-          <h5 class="title1">
-            Bio Confirm Master Search Information
-          </h5>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-2 col-sm-12">
-          <label>From date application recorded:</label>
-          <input class="form-control form-control-sm" type="date" v-model="bioconfirm_from_date_app_rec">
-          <label>To date application recorded:</label>
-          <input class="form-control form-control-sm" type="date" v-model="bioconfirm_to_date_app_rec">
-        </div>
-        <div class="form-group col-md-2 col-sm-12 offset-1">
-          <label>From date sample recorded:</label>
-          <input class="form-control form-control-sm" type="date" v-model="bioconfirm_from_date_sample_rec">
-          <label>To date sample recorded:</label>
-          <input class="form-control form-control-sm" type="date" v-model="bioconfirm_to_date_sample_rec">
-        </div>
-        <div class="form-group col-md-2 col-sm-12 offset-1">
-          <label>From date of QCA:</label>
-          <input class="form-control form-control-sm" type="date" v-model="bioconfirm_from_date_of_qca">
-          <label>To date of QCA:</label>
-          <input class="form-control form-control-sm" type="date" v-model="bioconfirm_to_date_of_qca">
-        </div>
-        <div class="form-group col-md-2 col-sm-12 offset-1">
-          <label>From date created:</label>
-          <input class="form-control form-control-sm" type="date" v-model="bioconfirm_from_date_created">
-          <label>To date created:</label>
-          <input class="form-control form-control-sm" type="date" v-model="bioconfirm_to_date_created">
-        </div>
-        <div class="form-group col-md-2 col-sm-12">
-          <label>Search Patient Name:</label>
-          <input class="form-control form-control-sm" type="text" v-model="bioconfirm_search_patient_name">
-        </div>
-      </div>
-      <template v-if="loading == true">
-        <button class="btn btn-primary btn-search" type="button" disabled style="float: right;">
-          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-          Searching...
-        </button>
-      </template>
-      <template v-else>
-        <button class="btn btn-primary btn-search" type="button" v-on:click.prevent="getBioConfirms">Search</button>
-      </template>
-    </div>
-  </div>
-
-  <!-- from and to date search for DME App -->
-  <div class="collapse multi-collapse" id="CollapseSearchDME">
-    <div class="card card-body">
-      <div class="form-row">
-        <div class=form-group col-md-2 col-sm-12>
-          <h5 class="title1">
-            DME Search Information
-          </h5>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-2 col-sm-12">
-          <label>Submission date from:</label>
-          <input class="form-control form-control-sm" type="date" v-model="dme_form_submission_date">
-        </div>
-        <div class="form-group col-md-2 col-sm-12">
-          <label>Submission date to:</label>
-          <input class="form-control form-control-sm" type="date" v-model="dme_to_submission_date">
-        </div>
-        <div class="form-group col-md-2 col-sm-12">
-          <label>Search Patient First Name:</label>
-          <input class="form-control form-control-sm" type="text" v-model="dme_patients_first_name">
-        </div>
-        <div class="form-group col-md-2 col-sm-12">
-          <label>Search Patient Last Name:</label>
-          <input class="form-control form-control-sm" type="text" v-model="dme_patients_last_name">
-        </div>
-      </div>
-      <template v-if="loading == true">
-        <button class="btn btn-primary btn-search" type="button" disabled style="float: right;">
-          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-          Searching...
-        </button>
-      </template>
-      <template v-else>
-        <button class="btn btn-primary btn-search" type="button" v-on:click.prevent="getDmes">Search</button>
-      </template>
-    </div>
-  </div>
-
-  <!-- from and to date search for Insurance App -->
-  <div class="collapse multi-collapse" id="CollapseSearchInsurance">
-    <div class="card card-body">
-      <div class="form-row">
-        <div class=form-group col-md-2 col-sm-12>
-          <h5 class="title1">
-            Insurance Search Information
-          </h5>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-2 col-sm-12">
-          <label>Date created from:</label>
-          <input class="form-control form-control-sm" type="date" v-model="insurance_from_date_created">
-        </div>
-        <div class="form-group col-md-2 col-sm-12">
-          <label>Submission date to:</label>
-          <input class="form-control form-control-sm" type="date" v-model="insurance_to_date_created">
-        </div>
-        <div class="form-group col-md-2 col-sm-12">
-          <label>Search by Patient Name:</label>
-          <input class="form-control form-control-sm" type="text" v-model="insurance_name">
-        </div>
-        <div class="form-group col-md-2 col-sm-12">
-          <label>Search by Promo Code:</label>
-          <input class="form-control form-control-sm" type="text" v-model="insurance_promo_code">
-        </div>
-      </div>
-      <template v-if="loading == true">
-        <button class="btn btn-primary btn-search" type="button" disabled style="float: right;">
-          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-          Searching...
-        </button>
-      </template>
-      <template v-else>
-        <button class="btn btn-primary btn-search" type="button" v-on:click.prevent="getInsurances">Search</button>
-      </template>
-    </div>
-  </div>
-
+  
 
 <hr>
   <div class="card" id="card-table">

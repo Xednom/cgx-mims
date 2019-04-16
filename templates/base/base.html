@@ -9,11 +9,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- bootstrap ver 4.2.1 for spinner -->
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <style>
-    {% block page_style %}{% endblock %}
     </style>
 
     <title>{% block title %}TSG Systems{% endblock %}</title>
@@ -25,8 +25,9 @@
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
           <a class="navbar-brand" href="{% url 'web:home' %}">
-              <img class="img-fluid" alt="TSG Systems" src="{% static 'images/logo/TSG3.png' %}">
+            <img class="img-fluid" alt="TSG Systems" src="{% static 'images/logo/TSG3.png' %}">
           </a>
+          
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -39,6 +40,48 @@
 
           <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  Bio Confirm Master
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'cgx:add-bioconfirm' %}">Add Bio Confirm Master data</a>
+                  <a class="dropdown-item" href="{% url 'cgx:bioconfirm' %}">View Bio Confirm Master data</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Carrier
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'carrier:add-carrier' %}">Add Carrier data</a>
+                <a class="dropdown-item" href="{% url 'carrier:view-carrier' %}">View Carrier data</a>
+              </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  DME
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'dme:add-dme' %}">Add DME data</a>
+                  <a class="dropdown-item" href="{% url 'dme:view-dme' %}">View DME data</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  Rx
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'pcfb:add-pcandfb' %}">Add Pain Cream and Foot Bath data</a>
+                  <a class="dropdown-item" href="{% url 'pcfb:view-pcandfb' %}">View Pain Cream and Foot Bath data</a>
+                </div>
+              </li>
+            </ul>
+            <ul class="navbar-nav mr-auto">
             </ul>
             <ul class="nav navbar-top-links navbar-right">
               <li class="nav-item dropdown">
@@ -46,7 +89,6 @@
                 {{ request.user }}
               </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">Settings</a>
                   <a class="dropdown-item" href="{% url 'web:logout' %}">Logout</a>
                   <hr />
                   <label class="promo-code">Your promo code: {{ request.user.agent_promo_code }}</label>

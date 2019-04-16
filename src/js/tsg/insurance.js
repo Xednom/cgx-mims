@@ -6,6 +6,9 @@ new Vue({
     insurances: [],
     message: null,
     loading: false,
+    saving: false,
+    searching: false,
+    loading_view: false,
     agentNames: [],
     managerNames: [],
     typeOfInsurance: [],
@@ -33,6 +36,12 @@ new Vue({
       'consent_recording': "",
     },
     search_term: '',
+
+    // queries from Insurance app from date and to date
+    insurance_from_date_created: '',
+    insurance_to_date_created: '',
+    insurance_name: '',
+    insurance_promo_code: '',
 
     // for pagination
     currentPage: 1,
@@ -77,6 +86,20 @@ new Vue({
             this.loading = false;
             console.log(err);
           })
+    },
+    viewInsurances: function () {
+      // Search function
+      api_url = `/api/v1/insurance/?date_created__gte=${this.insurance_from_date_created}&date_created__lte=${this.insurance_to_date_created}&name=${this.insurance_name}&promo_code=${this.insurance_promo_code}`
+      this.loading_view = true;
+      this.$http.get(api_url)
+        .then((response) => {
+          this.insurances = response.data;
+          this.loading_view = false;
+        })
+        .catch((err) => {
+          this.loading_view = false;
+          console.log(err);
+        })
     },
     addInsurance: function (event) {
       const formData = new FormData();
@@ -153,14 +176,14 @@ new Vue({
           })
     },
     viewInsurance: function (id) {
-      this.loading = true;
+      this.loading_view = true;
       this.$http.get(`/api/v1/insurance/${id}/`)
           .then((response) => {
             this.currentInsurance = response.data;
-            this.loading = false;
+            this.loading_view  = false;
           })
           .catch((err) => {
-            this.loading = false;
+            this.loading_view = false;
             console.log(err);
           })
     },

@@ -1,5 +1,6 @@
 import uuid
 import datetime
+from django.utils import timezone
 from django.db import models
 
 from cgx.models import Agent
@@ -53,7 +54,7 @@ class PainCreamAndFootBath(models.Model):
     insurance_card_photo = models.ImageField(upload_to='pc_fb/insurance-card-photo/', max_length=1000, null=True, blank=True)
     ppo_card_photo = models.ImageField(upload_to='pc_fb/ppo-card-photo/', max_length=1000, null=True, blank=True)
     consent_recording = models.FileField(upload_to='pc_fb/consent-recording/', max_length=1000, null=True, blank=True)
-    date_created = models.DateTimeField(default=datetime.datetime.today, null=True, blank=True)
+    date_created = models.DateField(default=datetime.date.today, null=True, blank=True)
     created_by = models.CharField(max_length=100, null=True, blank=True)
     updated_by = models.CharField(max_length=100, null=True, blank=True)
     user_promo_code = models.CharField(max_length=100, verbose_name="Promo code of the agent who created this record.", null=True, blank=True)

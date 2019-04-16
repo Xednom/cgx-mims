@@ -78,6 +78,35 @@ nav .dropdown-menu.mobile {
   margin: 0px 40px 0px 40px;
 }
 
+.filter {
+  border-radius: 0px;
+  margin-bottom: 10px;
+}
+
+.search-carrier {
+  margin-bottom: 10px;
+}
+
+.search-bio-confirm {
+  margin-bottom: 10px;
+}
+
+.search-dme {
+  margin-bottom: 10px;
+}
+
+.search-insurance {
+  margin-bottom: 10px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.table-carrier {
+  overflow-x: auto;
+}
+
 .card-body {
   margin-bottom: 15px !important;
 }
@@ -219,5 +248,15 @@ label {
 
   nav.navbar .navbar-brand img {
     height: 50px;
+  }
+
+  #myTabContent {
+    margin: 0px 0px 0px 0px;
+  }
+}
+
+@media (max-width: 600px) {
+  #myTabContent {
+    margin: 0px 0px 0px 0px;
   }
 }

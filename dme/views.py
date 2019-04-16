@@ -10,6 +10,7 @@ from drf_renderer_xlsx.renderers import XLSXRenderer
 
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import DME_II
 from .serializers import DMEIISerializer
@@ -20,6 +21,13 @@ class CsrftExemptSessionAuthentication(SessionAuthentication):
     def enforce_csrf(self, request):
         return  # will not enforce a csrf check
 
+
+class DmeView(LoginRequiredMixin, TemplateView):
+    template_name = 'dme/dme.html'
+    
+
+class AddDmeView(LoginRequiredMixin, TemplateView):
+    template_name = 'dme/add_patient_dme.html'
 
 class DMEFilter(django_filters.FilterSet):
     submission_date__gte = DateFilter(field_name='submission_date', lookup_expr='gte')
@@ -46,10 +54,8 @@ class DMEIIViewSet(XLSXFileMixin, viewsets.ModelViewSet):
     def get_queryset(self):
         agent_promo_code = self.request.user.agent_promo_code
         return DME_II.objects.filter(agents_promod_code=agent_promo_code)
-
-    def post(self, request, format=None):
-        #  to access files
-        print (request.FILES)
-        #  to access data
-        print (request.data)
-        return Response({'recieved data': request.data})
+    
+    def perform_create(self, serializer):
+        user = self.request.user
+        promo_code = self.request.user.agent_promo_code
+        serializer.save(created_by=user, user_promo_code=promo_code)

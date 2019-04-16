@@ -1,247 +1,335 @@
-<div id="pc-and-fb-app" v-cloak>
-  <div class="col-md-12">
-    <h5 class="title1">
-      Pain Cream and Foot Bath
-    </h5>
-    <!-- loading -->
-    <div class="custom-loader" v-if="loading">
-      <div class="col-md-12 col-sm-12">
-        <div class="d-flex flex-column align-items-center">
-          <div class="spinner-border" role="status"></div>
-          <br/>
-          <strong>Fetching data...</strong>
-        </div>
-      </div>
-    </div>
-    <!-- end loading -->
-    <div class="table-responsive"  v-if="!loading">
-      <table class="table table-hover table-bordered table-sm">
-        <thead class="thead-light">
-          <tr>
-            <th scope="col">Submission date</th>
-            <th scope="col">Patient's first name</th>
-            <th scope="col">Patient's last name</th>
-            <th scope="col">Agent's promo code</th>
-            <th scope="col">Insurance type</th>
-            <th scope="col">Policy number(Medicare)</th>
-            <th scope="col">PPO/HMO Information (If not straight Medicare)(Medicare ID#)</th>
-            <th scope="col">PPO/HMO Information(If not straight Medicare)(PPO Name)</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td colspan="14" class="text-center" v-if="!pcfbs.length">No records for <strong>Pain Cream and Foot Bath</strong> as of now.</td>
-          </tr>
-          <tr v-for="pcfb in pcfbs">
-            <td>[[ pcfb.submission_date ]]</td>
-            <td>[[ pcfb.patient_first_name ]]</td>
-            <td>[[ pcfb.patient_last_name ]]</td>
-            <td>[[ pcfb.promo_code ]]</td>
-            <td>[[ pcfb.insurance_type ]]</td>
-            <td>[[ pcfb.medicare_medicaid_policy ]]</td>
-            <td>[[ pcfb.ppo_hmo_information_mem_id ]]</td>
-            <td>[[ pcfb.ppo_hmo_information_ppo_name ]]</td>
-            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewModalPcFb" v-on:click="viewPcFb(pcfb.id)">View</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <nav class="pagination-wrapper" v-if="endPage > 1">
-      <ul class="pagination justify-content-end">
-        <li v-bind:class="[{disabled: currentPage === 1}, 'page-item']">
-          <a
-            class="page-link" tabindex="-1"
-            v-on:click="goToPage(currentPage - 1)"
-          >
-            Previous
-          </a>
-        </li>
-        <li
-          v-for="pageNumber in pages"
-          v-bind:class="[{active: pageNumber === currentPage}, 'page-item']"
-        >
-          <a
-            class="page-link"
-            v-on:click="goToPage(pageNumber)"
-          >
-            [[ pageNumber ]]
-          </a>
-        </li>
-        <li v-bind:class="[{disabled: (currentPage * 1) === totalPages}, 'page-item']">
-          <a
-            class="page-link"
-            v-on:click="goToPage(currentPage + 1)"
-          >
-            Next
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </div>
-  <!-- data view using modal -->
-  <div class="modal fade" id="viewModalPcFb" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">PC & FB Information on patient [[ currentPcFb.patient_first_name ]] [[ currentPcFb.patient_last_name ]]</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-          <div class="modal-body">
-            <!-- loading -->
-            <div class="custom-loader" v-if="loading">
-              <div class="col-md-12 col-sm-12">
-                <div class="d-flex flex-column align-items-center">
-                  <div class="spinner-border" role="status"></div>
-                  <br />
-                  <strong>Fetching data...</strong>
-                </div>
-              </div>
-            </div>
-            <!-- end loading -->
-            <h5 class="title1">
-              Patient's Informations
-            </h5>
-            <div>
-              <div class="form-row" v-if="!loading">
-                <div class="form-group col-md-4 col-sm-12">
-                  <label>Patient's First Name</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentPcFb.patient_first_name" id="inputFirstName" disabled>
-                </div>
-                <div class="form-group col-md-4 col-sm-12">
-                  <label>Patient's Last Name</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentPcFb.patient_last_name" id="inputLastName" disabled>
-                </div>
-                <div class="form-group col-md-4 col-sm-12">
-                  <label>Birth Date</label>
-                  <input type="date" class="form-control form-control-sm" v-model="currentPcFb.birth_date" id="inputDate"  disabled>
-                </div>
-                <div class="form-group col-md-2 col-sm-12">
-                  <label>Gender</label>
-                  <select id="inputTest" class="form-control form-control-sm" v-model="currentPcFb.gender" disabled>
-                    <option>MALE</option>
-                    <option>FEMALE</option>
-                  </select>
-                </div>
-                <div class="form-group col-md-4 col-sm-12">
-                  <label>Patient's Phone Number</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentPcFb.patient_phone_number" id="inputPhone" disabled>
-                </div>
-                <div class="form-group col-md-6 col-sm-12">
-                  <label>Best time to call</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentPcFb.best_time_to_call" id="inputBestTime" disabled>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-6 col-sm-12">
-                  <label>Street Address</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentPcFb.street_address" id="inputStreet" disabled>
-                </div>
-                <div class="form-group col-md-6 col-sm-12">
-                  <label>Street Address line 2</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentPcFb.street_address_2" disabled>
-                </div>
-                <div class="form-group col-md-2 col-sm-12">
-                  <label>City</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentPcFb.city" id="inputCity" disabled>
-                </div>
-                <div class="form-group col-md-2 col-sm-12">
-                  <label>State/Province</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentPcFb.state_province" id="inputState" disabled>
-                </div>
-                <div class="form-group col-md-2 col-sm-12">
-                  <label>Postal/Zip code</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentPcFb.postal_zip_code" id="inputPostal" disabled>
-                </div>
-                <div class="form-group col-md-6 col-sm-12">
-                  <label>Country</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentPcFb.country" id="inputCountry" disabled>
-                </div>
-                <div class="form-group col-md-6 col-sm-12">
-                  <label>Insurance Type</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentPcFb.insurance_type" id="inputInsuranceType" disabled>
-                </div>
-                <div class="form-group col-md-6 col-sm-12">
-                  <label>Medicare/Medicaid Policy #</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentPcFb.medicare_medicaid_policy" id="inputMemMediPolicy" disabled>
-                </div>
-                <div class="form-group col-md-12 col-sm-12">
-                  <label>PPO/HMO Information (If not straight Medicare)(Medicare ID#)</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentPcFb.ppo_hmo_information_mem_id" id="inputPPOMemID" disabled>
-                </div>
-                <div class="form-group col-md-12 col-sm-12">
-                  <label>PPO/HMO Information(If not straight Medicare)(PPO Name)</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentPcFb.ppo_hmo_information_ppo_name" id="inputPPOName" disabled>
-                </div>
-                <div class="form-group col-md-12 col-sm-12">
-                  <label>Insurance Status</label>
-                  <input type="text" class="form-control form-control-sm" v-model="currentPcFb.insurance_status" id="inputInsuranceStat" disabled>
-                </div
-              </div>
-              <!-- end of form-row -->
-            </div>
-          <!-- end of patient info -->
-            <hr />
-          <!-- medical info -->
-          <div>
-            <h5 class="title1">
-              Medical Informations
-            </h5>
-            <!-- form-row -->
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+Rx | TSG System
+{% endblock %}
+
+{% block content %}
+<div class="tsg-tabs">
+  <div class="nav-tabs-container">
+    <div id="pc-and-fb-app" v-cloak>
+      <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'web:home' %}">Home</a></li>
+            <li class="breadcrumb-item">View Data on Pain Cream and Foot Bath</a></li>
+          </ol>
+        </nav>
+        <h5 class="title1 text-center">
+          Pain Cream and Foot Bath
+        </h5>
+        <!-- advanced filter -->
+        <div class="collapse multi-collapse" id="CollapseSearchPcAndFb">
+          <div class="card card-body">
             <div class="form-row">
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Location of Pain</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentPcFb.location_of_pain" id="inputLocOfPain" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Level of Pain</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentPcFb.level_of_pain" id="inputLevelOfPain" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>How long have you been experiencing discomfort?</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentPcFb.discomfort" id="inputDiscomfort" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Frequency of Pain</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentPcFb.freq_of_pain" id="inputFeqPain" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Based upon the level of pain to the areas the patient is requesting braces and/or foot pain. would the patient also like for the doctor to prescribe pain cream?</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentPcFb.prescribe_pain_cream" id="inputPainCream" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Location of Foot Issue</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentPcFb.location_of_foot_issue" id="inputLocFootIssue" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Describe Foot issue</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentPcFb.describe_foot_issue" id="inputFootIssue" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Order Status</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentPcFb.order_status" id="inputOrderStatus" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>Date faxed to Pharmacy</label>
-                <input type="date" class="form-control form-control-sm" v-model="currentPcFb.date_faxed_to_pharmacy" id="inputFaxedPharmacy" disabled>
-              </div>
-              <div class="form-group col-md-6 col-sm-12">
-                <label>IP Address</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentPcFb.ip" id="inputIP" disabled>
+              <div class=form-group col-md-2 col-sm-12>
+                <h5 class="title1">
+                  Pain Cream and Foot Bath Search Information
+                </h5>
               </div>
             </div>
-            <!-- end of form-row -->
-          </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <div class="form-row">
+              <div class="form-group col-md-2 col-sm-12">
+                <label>From Date created:</label>
+                <input class="form-control form-control-sm" type="date" v-model="pcfb_from_date_created">
+                <label>To Date created:</label>
+                <input class="form-control form-control-sm" type="date" v-model="pcfb_to_date_created">
+              </div>
+              <div class="form-group col-md-2 col-sm-12">
+                <label>From Date Faxed to Pharmacy:</label>
+                <input class="form-control form-control-sm" type="date" v-model="pcfb_from_date_faxed_to_pharmacy">
+                <label>To Date Faxed to Pharmacy:</label>
+                <input class="form-control form-control-sm" type="date" v-model="pcfb_to_date_faxed_to_pharmacy">
+              </div>
+              <div class="form-group col-md-2 col-sm-12">
+                <label>From Date of Submission:</label>
+                <input class="form-control form-control-sm" type="date" v-model="pcfb_from_submission_date">
+                <label>To Date of Submission:</label>
+                <input class="form-control form-control-sm" type="date" v-model="pcfb_to_submission_date">
+              </div>
+              <div class="form-group col-md-2 col-sm-12">
+                <label>Search Patient First Name:</label>
+                <input class="form-control form-control-sm" type="text" v-model="pcfb_patient_first_name">
+                <label>Search Patient Last Name:</label>
+                <input class="form-control form-control-sm" type="text" v-model="pcfb_patient_last_name">
+              </div>
             </div>
+            <template v-if="searching == true">
+              <button class="btn btn-primary btn-search" type="button" disabled style="float: right;">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Searching...
+              </button>
+            </template>
+            <template v-else>
+              <button class="btn btn-primary btn-search" type="button" v-on:click.prevent="searchPcFbs">Search</button>
+            </template>
           </div>
-          <!-- end medical info -->
         </div>
+
+        <!-- loading -->
+        <div class="custom-loader" v-if="loading">
+          <div class="col-md-12 col-sm-12">
+            <div class="d-flex flex-column align-items-center">
+              <div class="spinner-border" role="status"></div>
+              <br />
+              <strong>Fetching data...</strong>
+            </div>
+          </div>
+        </div>
+        <!-- end loading -->
+        <a href="#CollapseSearchPcAndFb" class="btn btn-primary fa fa-filter pull-right filter" data-toggle="collapse"
+          role="button" aria-expanded="false" aria-controls="CollapseSearchPcAndFb" v-if="!loading"></a>
+        <div class="table-responsive" v-if="!loading">
+          <table class="table table-hover table-bordered table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Submission date</th>
+                <th scope="col">Patient's first name</th>
+                <th scope="col">Patient's last name</th>
+                <th scope="col">Agent's promo code</th>
+                <th scope="col">Insurance type</th>
+                <th scope="col">Policy number(Medicare)</th>
+                <th scope="col">PPO/HMO Information (If not straight Medicare)(Medicare ID#)</th>
+                <th scope="col">PPO/HMO Information(If not straight Medicare)(PPO Name)</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="14" class="text-center" v-if="!pcfbs.length">No records for <strong>Pain Cream and Foot
+                    Bath</strong> as of now.</td>
+              </tr>
+              <tr v-for="pcfb in pcfbs">
+                <td>[[ pcfb.submission_date ]]</td>
+                <td>[[ pcfb.patient_first_name ]]</td>
+                <td>[[ pcfb.patient_last_name ]]</td>
+                <td>[[ pcfb.promo_code ]]</td>
+                <td>[[ pcfb.insurance_type ]]</td>
+                <td>[[ pcfb.medicare_medicaid_policy ]]</td>
+                <td>[[ pcfb.ppo_hmo_information_mem_id ]]</td>
+                <td>[[ pcfb.ppo_hmo_information_ppo_name ]]</td>
+                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewModalPcFb"
+                    v-on:click="viewPcFb(pcfb.id)">View</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <nav class="pagination-wrapper" v-if="endPage > 1">
+          <ul class="pagination justify-content-end">
+            <li v-bind:class="[{disabled: currentPage === 1}, 'page-item']">
+              <a class="page-link" tabindex="-1" v-on:click="goToPage(currentPage - 1)">
+                Previous
+              </a>
+            </li>
+            <li v-for="pageNumber in pages" v-bind:class="[{active: pageNumber === currentPage}, 'page-item']">
+              <a class="page-link" v-on:click="goToPage(pageNumber)">
+                [[ pageNumber ]]
+              </a>
+            </li>
+            <li v-bind:class="[{disabled: (currentPage * 1) === totalPages}, 'page-item']">
+              <a class="page-link" v-on:click="goToPage(currentPage + 1)">
+                Next
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <!-- data view using modal -->
+      <div class="modal fade" id="viewModalPcFb" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">PC & FB Information on patient [[
+                currentPcFb.patient_first_name ]] [[ currentPcFb.patient_last_name ]]</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <!-- loading -->
+              <div class="custom-loader" v-if="loading_view">
+                <div class="col-md-12 col-sm-12">
+                  <div class="d-flex flex-column align-items-center">
+                    <div class="spinner-border" role="status"></div>
+                    <br />
+                    <strong>Fetching data...</strong>
+                  </div>
+                </div>
+              </div>
+              <!-- end loading -->
+              <h5 class="title1">
+                Patient's Informations
+              </h5>
+              <div>
+                <div class="form-row" v-if="!loading_view">
+                  <div class="form-group col-md-4 col-sm-12">
+                    <label>Patient's First Name</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentPcFb.patient_first_name"
+                      id="inputFirstName" disabled>
+                  </div>
+                  <div class="form-group col-md-4 col-sm-12">
+                    <label>Patient's Last Name</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentPcFb.patient_last_name"
+                      id="inputLastName" disabled>
+                  </div>
+                  <div class="form-group col-md-4 col-sm-12">
+                    <label>Birth Date</label>
+                    <input type="date" class="form-control form-control-sm" v-model="currentPcFb.birth_date"
+                      id="inputDate" disabled>
+                  </div>
+                  <div class="form-group col-md-2 col-sm-12">
+                    <label>Gender</label>
+                    <select id="inputTest" class="form-control form-control-sm" v-model="currentPcFb.gender" disabled>
+                      <option>MALE</option>
+                      <option>FEMALE</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-4 col-sm-12">
+                    <label>Patient's Phone Number</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentPcFb.patient_phone_number"
+                      id="inputPhone" disabled>
+                  </div>
+                  <div class="form-group col-md-6 col-sm-12">
+                    <label>Best time to call</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentPcFb.best_time_to_call"
+                      id="inputBestTime" disabled>
+                  </div>
+                </div>
+                <div class="form-row" v-if="!loading_view">
+                  <div class="form-group col-md-6 col-sm-12">
+                    <label>Street Address</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentPcFb.street_address"
+                      id="inputStreet" disabled>
+                  </div>
+                  <div class="form-group col-md-6 col-sm-12">
+                    <label>Street Address line 2</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentPcFb.street_address_2"
+                      disabled>
+                  </div>
+                  <div class="form-group col-md-2 col-sm-12">
+                    <label>City</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentPcFb.city" id="inputCity"
+                      disabled>
+                  </div>
+                  <div class="form-group col-md-2 col-sm-12">
+                    <label>State/Province</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentPcFb.state_province"
+                      id="inputState" disabled>
+                  </div>
+                  <div class="form-group col-md-2 col-sm-12">
+                    <label>Postal/Zip code</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentPcFb.postal_zip_code"
+                      id="inputPostal" disabled>
+                  </div>
+                  <div class="form-group col-md-6 col-sm-12">
+                    <label>Country</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentPcFb.country"
+                      id="inputCountry" disabled>
+                  </div>
+                  <div class="form-group col-md-6 col-sm-12">
+                    <label>Insurance Type</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentPcFb.insurance_type"
+                      id="inputInsuranceType" disabled>
+                  </div>
+                  <div class="form-group col-md-6 col-sm-12">
+                    <label>Medicare/Medicaid Policy #</label>
+                    <input type="text" class="form-control form-control-sm"
+                      v-model="currentPcFb.medicare_medicaid_policy" id="inputMemMediPolicy" disabled>
+                  </div>
+                  <div class="form-group col-md-12 col-sm-12">
+                    <label>PPO/HMO Information (If not straight Medicare)(Medicare ID#)</label>
+                    <input type="text" class="form-control form-control-sm"
+                      v-model="currentPcFb.ppo_hmo_information_mem_id" id="inputPPOMemID" disabled>
+                  </div>
+                  <div class="form-group col-md-12 col-sm-12">
+                    <label>PPO/HMO Information(If not straight Medicare)(PPO Name)</label>
+                    <input type="text" class="form-control form-control-sm"
+                      v-model="currentPcFb.ppo_hmo_information_ppo_name" id="inputPPOName" disabled>
+                  </div>
+                  <div class="form-group col-md-12 col-sm-12">
+                    <label>Insurance Status</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentPcFb.insurance_status"
+                      id="inputInsuranceStat" disabled>
+
+                  </div>
+                  <!-- end of form-row -->
+                </div>
+                <!-- end of patient info -->
+                <hr />
+                <!-- medical info -->
+                <div>
+                  <h5 class="title1">
+                    Medical Informations
+                  </h5>
+                  <!-- form-row -->
+                  <div class="form-row" v-if="!loading_view">
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Location of Pain</label>
+                      <input type="text" class="form-control form-control-sm" v-model="currentPcFb.location_of_pain"
+                        id="inputLocOfPain" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Level of Pain</label>
+                      <input type="text" class="form-control form-control-sm" v-model="currentPcFb.level_of_pain"
+                        id="inputLevelOfPain" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>How long have you been experiencing discomfort?</label>
+                      <input type="text" class="form-control form-control-sm" v-model="currentPcFb.discomfort"
+                        id="inputDiscomfort" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Frequency of Pain</label>
+                      <input type="text" class="form-control form-control-sm" v-model="currentPcFb.freq_of_pain"
+                        id="inputFeqPain" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Based upon the level of pain to the areas the patient is requesting braces and/or foot
+                        pain. would the patient also like for the doctor to prescribe pain cream?</label>
+                      <input type="text" class="form-control form-control-sm" v-model="currentPcFb.prescribe_pain_cream"
+                        id="inputPainCream" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Location of Foot Issue</label>
+                      <input type="text" class="form-control form-control-sm"
+                        v-model="currentPcFb.location_of_foot_issue" id="inputLocFootIssue" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Describe Foot issue</label>
+                      <input type="text" class="form-control form-control-sm" v-model="currentPcFb.describe_foot_issue"
+                        id="inputFootIssue" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Order Status</label>
+                      <input type="text" class="form-control form-control-sm" v-model="currentPcFb.order_status"
+                        id="inputOrderStatus" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>Date faxed to Pharmacy</label>
+                      <input type="date" class="form-control form-control-sm"
+                        v-model="currentPcFb.date_faxed_to_pharmacy" id="inputFaxedPharmacy" disabled>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <label>IP Address</label>
+                      <input type="text" class="form-control form-control-sm" v-model="currentPcFb.ip" id="inputIP"
+                        disabled>
+                    </div>
+                  </div>
+                  <!-- end of form-row -->
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+              <!-- end medical info -->
+            </div>
+          </div>
+        </div>
+        <!-- end of view -->
       </div>
     </div>
-  <!-- end of view -->
   </div>
 </div>
+{% endblock %}

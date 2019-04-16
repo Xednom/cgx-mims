@@ -11,54 +11,49 @@ Home | TSG Systems
 <div class="tsg-tabs">
   <div class="nav-tabs-container">
     <div class="container">
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active" id="bioconfirm-tab" data-toggle="tab" href="#bioconfirm" role="tab" aria-controls="home" aria-selected="true">Bio Confirm Master</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="carrier-tab" data-toggle="tab" href="#carrier" role="tab" aria-controls="profile" aria-selected="false">Carrier</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="dme-tab" data-toggle="tab" href="#dme" role="tab" aria-controls="contact" aria-selected="false">DME</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="insurance-tab" data-toggle="tab" href="#insurance" role="tab" aria-controls="contact" aria-selected="false">Insurance</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="pc-and-fb-tab" data-toggle="tab" href="#pc-and-fb" role="tab" aria-controls="contact" aria-selected="false">Pain Cream and Foot Bath</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="search-tab" data-toggle="tab" href="#search" role="tab" aria-controls="insurance" aria-selected="false">Search</a>
-        </li>
-        <li class="nav-item add-btn">
-          <a class="nav-link" id="add-tab" href="{% url 'web:add_record' %}">Add</a>
-        </li>
-        <li class="nav-item supply-btn">
-          <a class="nav-link" id="supply-tab" href="{% url 'supplies:add_supplies' %}">Request Supplies</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="bioconfirm" role="tabpanel" aria-labelledby="bioconfirm-tab">
-      {% include 'cgx/bioconfirm.html' %}
-    </div>
-    <div class="tab-pane fade" id="carrier" role="tabpanel" aria-labelledby="carrier-tab">
-      {% include 'carrier/carrier.html' %}
-    </div>
-    <div class="tab-pane fade" id="dme" role="tabpanel" aria-labelledby="dme-tab">
-      {% include 'dme/dme.html' %}
-    </div>
-    <div class="tab-pane fade" id="insurance" role="tabpanel" aria-labelledby="insurance-tab">
-      {% include 'insurance/insurance.html' %}
-    </div>
-    <div class="tab-pane fade" id="pc-and-fb" role="tabpanel" aria-labelledby="pc-and-fb-tab">
-      {% include 'paincreamandfootbath/pc_and_fb.html' %}
-    </div>
-    <div class="tab-pane fade" id="search" role="tabpanel" aria-labelledby="search-tab">
-      {% include 'search/search_page.html' %}
-    </div>
-  </div>
+      <div class="card-group">
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="card mb-3">
+            <a href="{% url 'cgx:bioconfirm' %}" class="card-header">Bio Confirm Master</a>
+            <div class="card-body">
+              <p class="card-text">View all <strong>Bio Confirm Master</strong> data that are assigned
+                to you.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="card mb-3">
+            <a href="{% url 'carrier:view-carrier' %}" class="card-header">Carrier</a>
+            <div class="card-body">
+              <p class="card-text">View all <strong>Carrier</strong> data that are assigned
+                to you.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="card mb-3">
+            <a href="{% url 'cgx:bioconfirm' %}" class="card-header">DME</a>
+            <div class="card-body">
+              <p class="card-text">View all <strong>DME</strong> data that are assigned
+                to you.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="card mb-3">
+            <a href="{% url 'pcfb:view-pcandfb' %}" class="card-header">Rx</a>
+            <div class="card-body">
+              <p class="card-text">View all <strong>Rx</strong> data that are assigned
+                to you.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
 </div>
 
 {% endblock %}

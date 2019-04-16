@@ -5,10 +5,14 @@ new Vue({
   data: {
     carriers: [],
     agentNames: [],
+    managerNames: [],
     testChoices: [],
     statuses: [],
     message: null,
     loading: false,
+    saving: false,
+    searching: false,
+    loading_view: false,
     csrf_token: ['csrf_token'],
     currentCarrier: {},
     newCarrier: {
@@ -16,6 +20,7 @@ new Vue({
       'patient_phone_number': "",
       'promo_code': "",
       'agent': "",
+      'manager': "",
       'date_app_rec': "",
       'date_sample_rec': "",
       'type_of_test': "",
@@ -40,6 +45,20 @@ new Vue({
     },
     search_term: '',
 
+    // queries for Carrier app from date and to date
+    // From dates
+    carrier_from_date_app_rec: '',
+    carrier_from_date_sample_rec: '',
+    carrier_from_date_of_qca: '',
+    carrier_from_date_created: '',
+    
+    // To dates
+    carrier_to_date_app_rec: '',
+    carrier_to_date_sample_rec: '',
+    carrier_to_date_of_qca: '',
+    carrier_to_date_created: '',
+    carrier_search_patient_name: '',
+
     // for pagination
     currentPage: 1,
     pageSize: RECORDS_PER_PAGE,
@@ -51,6 +70,7 @@ new Vue({
   mounted: function() {
     this.getCarriers();
     this.getAgentNames();
+    this.getManagerNames();
     this.getStatuses();
     this.getTestChoices();
     this.setDefaultDates();
@@ -84,6 +104,20 @@ new Vue({
             console.log(err);
           })
     },
+    searchCarriers: function () {
+      // Search function
+      api_url = `/api/v1/carrier/?date_app_rec__gte=${this.carrier_from_date_app_rec}&date_app_rec__lte=${this.carrier_to_date_app_rec}&date_sample_rec__gte=${this.carrier_from_date_sample_rec}&date_sample_rec__lte=${this.carrier_to_date_sample_rec}&date_of_qca__gte=${this.carrier_from_date_of_qca}&date_of_qca__lte=${this.carrier_to_date_of_qca}&date_created__gte=${this.carrier_from_date_created}&date_created__lte=${this.carrier_to_date_created}&patient_name=${this.carrier_search_patient_name}`
+      this.searching = true;
+      this.$http.get(api_url)
+        .then((response) => {
+          this.carriers = response.data;
+          this.searching = false;
+        })
+        .catch((err) => {
+          this.searching = false;
+          console.log(err);
+        })
+    },
     // new code using axios
     addCarrier: function (event) {
       const formData = new FormData();
@@ -95,8 +129,8 @@ new Vue({
             formData.append(key, obj);
           }
       });
-      this.loading = true;
-      this.$http.post('/api/v1/carrier/', formData).then((response) => {
+      this.saving = true;
+      axios.post('/api/v1/carrier/', formData).then((response) => {
         console.log(formData);
         swal({
           title: "TSG System",
@@ -105,7 +139,7 @@ new Vue({
           buttons: false,
           timer: 2000
         });
-        this.loading = false;
+        this.saving = false;
         this.getCarriers();
         // reset form
         this.resetFields();
@@ -115,13 +149,13 @@ new Vue({
         event.target.reset();
       })
       .catch((err) => {
-        this.loading = false;
         swal({
           title: "TSG System",
           text: "Something has happened when processing the data, if the error persist. Please contact your Administrator.",
           icon: "error",
           buttons: "Ok",
         });
+        this.saving = false;
         console.log(err);
       })
     },
@@ -136,6 +170,18 @@ new Vue({
             this.loading = false;
             console.log(err);
           })
+    },
+    getManagerNames: function () {
+      this.loading = true;
+      this.$http.get(`/api/v1/manager/`)
+        .then((response) => {
+          this.managerNames = response.data;
+          this.loading = false;
+        })
+        .catch((err) => {
+          this.loading = false;
+          console.log(err);
+        })
     },
     getTestChoices: function () {
       this.loading = true;
@@ -163,14 +209,14 @@ new Vue({
     },
     // viewing of full datas
     viewCarrier: function(id) {
-      this.loading = true;
+      this.loading_view = true;
       this.$http.get(`/api/v1/carrier/${id}/`)
           .then((response) => {
-            this.loading = false;
+            this.loading_view = false;
             this.currentCarrier = response.data;
           })
           .catch((err) => {
-            this.loading = false;
+            this.loading_view = false;
             console.log(err);
           })
     },

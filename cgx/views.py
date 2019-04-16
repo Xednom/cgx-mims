@@ -11,6 +11,7 @@ from drf_renderer_xlsx.renderers import XLSXRenderer
 from django import template
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from tablib import Dataset
 import openpyxl, datetime
 
@@ -96,9 +97,18 @@ class BioConfirmMasterViewSet(XLSXFileMixin, viewsets.ModelViewSet):
             queryset = BioConfirmMaster.objects.filter(agent__name=user)
         return queryset
 
+    def perform_create(self, serializer):
+        user = self.request.user
+        promo_code = self.request.user.agent_promo_code
+        serializer.save(created_by=user, user_promo_code=promo_code)
 
-class BioConfirmView(TemplateView):
+
+class BioConfirmView(LoginRequiredMixin, TemplateView):
     template_name = 'cgx/bioconfirm.html'
+
+
+class AddBioConfirmView(LoginRequiredMixin, TemplateView):
+    template_name = 'cgx/add_patient_bioconfirm.html'
 
 
 def index(request):

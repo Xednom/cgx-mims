@@ -6,6 +6,9 @@ new Vue({
     dmes: [],
     message: null,
     loading: false,
+    saving: false,
+    searching: false,
+    loading_view: false,
     currentDme: {},
     newDme: {
         'submission_date': "",
@@ -62,6 +65,12 @@ new Vue({
     },
     search_term: '',
 
+    // queries for DME app from date and to date
+    dme_form_submission_date: '',
+    dme_to_submission_date: '',
+    dme_patients_first_name: '',
+    dme_patients_last_name: '',
+
     // for pagination
     currentPage: 1,
     pageSize: RECORDS_PER_PAGE,
@@ -103,6 +112,20 @@ new Vue({
             console.log(err);
           })
     },
+    searchDmes: function () {
+      // Search function
+      api_url = `/api/v1/dme/?submission_date__gte=${this.dme_form_submission_date}&submission_date__lte=${this.dme_to_submission_date}&patients_first_name${this.dme_patients_first_name}&patients_last_name=${this.dme_patients_last_name}`
+      this.searching = true;
+      this.$http.get(api_url)
+        .then((response) => {
+          this.dmes = response.data;
+          this.searching = false;
+        })
+        .catch((err) => {
+          this.searching = false;
+          console.log(err);
+        })
+    },
     // new code using axios
     addDme: function (event) {
       const formData = new FormData();
@@ -114,7 +137,7 @@ new Vue({
             formData.append(key, obj);
           }
       });
-      this.loading = true;
+      this.saving = true;
       axios.post('/api/v1/dme/', formData).then((response) => {
         swal({
           title: "TSG System",
@@ -123,7 +146,7 @@ new Vue({
           buttons: false,
           timer: 2000
         });
-        this.loading = false;
+        this.saving = false;
         this.getDmes();
         // reset form
         this.resetFields();
@@ -133,7 +156,7 @@ new Vue({
         event.target.reset();
       })
       .catch((err) => {
-        this.loading = false;
+        this.saving = false;
         swal({
           title: "TSG System",
           text: "Something has happened when processing the data, if the error persist. Please contact your Administrator.",
@@ -145,14 +168,14 @@ new Vue({
     },
     // view data
     viewDme: function (id) {
-      this.loading = true;
+      this.loading_view = true;
       this.$http.get(`/api/v1/dme/${id}/`)
           .then((response) => {
             this.currentDme = response.data;
-            this.loading = false;
+            this.loading_view = false;
           })
           .catch((err) => {
-            this.loading = false;
+            this.loading_view = false;
             console.log(err);
           })
     },

@@ -10,11 +10,7 @@ pytz==2018.7
 Pillow==5.4.1
 
 # Django admin theme
-django-grappelli==2.12.1
 django-jet==1.0.8
-
-# Django-jet google analytics api
-google-api-python-client==1.4.1
 
 # S3 file storage
 boto3==1.9.103
@@ -32,6 +28,12 @@ openpyxl==2.5.12
 django-excel==0.0.10
 xlrd==1.2.0
 django-import-export==1.1.0
+tablib>=0.12
 
 # Excel, CSV, XLSX, XLS Extract
 drf-renderer-xlsx==0.3.2
+
+#  PDF Generation
+#  django-easy-pdf==0.2.0
+WeasyPrint>=0.34
+xhtml2pdf==0.2.3

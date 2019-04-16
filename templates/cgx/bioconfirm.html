@@ -1,102 +1,77 @@
-<div id="bioconfirm-app" v-cloak>
-  <div class="col-md-12">
-    <h5 class="title1">
-      Bio Confirm Master
-    </h5>
-    <!-- loading -->
-    <div class="custom-loader" v-if="loading">
-      <div class="col-md-12 col-sm-12">
-        <div class="d-flex flex-column align-items-center">
-          <div class="spinner-border" role="status"></div>
-          <br/>
-          <strong>Fetching data...</strong>
-        </div>
-      </div>
-    </div>
-    <!-- end loading -->
-    <div class="table-responsive" v-if="!loading">
-      <table class="table table-hover table-bordered table-sm">
-        <thead class="thead-light">
-          <tr>
-            <th scope="col">Patient name</th>
-            <th scope="col">Promo code</th>
-            <th scope="col">Agent name</th>
-            <th scope="col">Date submitted to telemed</th>
-            <th scope="col">Date telemed returned</th>
-            <th scope="col">Date application recorded</th>
-            <th scope="col">Date sample recorded</th>
-            <th scope="col">Date paid</th>
-            <th scope="col">Insurance company name</th>
-            <th scope="col">Rejection date</th>
-            <th scope="col">Date Submitted to Tamika ins verifier</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td colspan="14" class="text-center" v-if="!bioconfirms.length">No records for <strong>Bio Confirm</strong> as of now.</td>
-          </tr>
-          <tr v-for="(bioconfirm, i) in paginatedRecords">
-            <td>[[ bioconfirm.patient_name ]]</td>
-            <td>[[ bioconfirm.promo_code ]]</td>
-            <td>[[ bioconfirm.agent ]]</td>
-            <td>[[ bioconfirm.date_submitted_to_telemed ]]</td>
-            <td>[[ bioconfirm.date_telemed_returned ]]</td>
-            <td>[[ bioconfirm.date_app_rec ]]</td>
-            <td>[[ bioconfirm.date_sample_rec ]]</td>
-            <td>[[ bioconfirm.date_paid ]]</td>
-            <td>[[ bioconfirm.insurance_company ]]</td>
-            <td>[[ bioconfirm.rejection_date ]]</td>
-            <td>[[ bioconfirm.submitted_to_tamika_ins_verifier ]]</td>
-            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewModalBioConfirm" v-on:click="viewBioConfirm(bioconfirm.id)">View</button></td
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <nav class="pagination-wrapper" v-if="endPage > 1">
-      <ul class="pagination justify-content-end">
-        <li v-bind:class="[{disabled: currentPage === 1}, 'page-item']">
-          <a
-            class="page-link" tabindex="-1"
-            v-on:click="goToPage(currentPage - 1)"
-          >
-            Previous
-          </a>
-        </li>
-        <li
-          v-for="pageNumber in pages"
-          v-bind:class="[{active: pageNumber === currentPage}, 'page-item']"
-        >
-          <a
-            class="page-link"
-            v-on:click="goToPage(pageNumber)"
-          >
-            [[ pageNumber ]]
-          </a>
-        </li>
-        <li v-bind:class="[{disabled: (currentPage * 1) === totalPages}, 'page-item']">
-          <a
-            class="page-link"
-            v-on:click="goToPage(currentPage + 1)"
-          >
-            Next
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </div>
+{% extends 'base/base.html' %}
+{% load static %}
+{% load staticfiles %}
 
-  <!-- data view using modal -->
-  <div class="modal fade" id="viewModalBioConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">BioConfirm Information on [[currentBioConfirm.patient_name]]</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
+{% block title %}
+Bio Confirm Master | TSG System
+{% endblock %}
+
+{% block content %}
+<div class="tsg-tabs">
+  <div class="nav-tabs-container">
+    <div id="bioconfirm-app" v-cloak>
+      <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'web:home' %}">Home</a></li>
+            <li class="breadcrumb-item">View Bio Confirm Master</a></li>
+          </ol>
+        </nav>
+        <h5 class="title1 text-center">
+          Bio Confirm Master
+        </h5>
+        <!-- from and to date search for Bio Confirm Master App -->
+        <div class="collapse multi-collapse" id="CollapseSearchBioConfirm">
+          <div class="card card-body">
+            <div class="form-row">
+              <div class=form-group col-md-2 col-sm-12>
+                <h5 class="title1">
+                  Bio Confirm Master Search Information
+                </h5>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-2 col-sm-12">
+                <label>From date application recorded:</label>
+                <input class="form-control form-control-sm" type="date" v-model="bioconfirm_from_date_app_rec">
+                <label>To date application recorded:</label>
+                <input class="form-control form-control-sm" type="date" v-model="bioconfirm_to_date_app_rec">
+              </div>
+              <div class="form-group col-md-2 col-sm-12">
+                <label>From date sample recorded:</label>
+                <input class="form-control form-control-sm" type="date" v-model="bioconfirm_from_date_sample_rec">
+                <label>To date sample recorded:</label>
+                <input class="form-control form-control-sm" type="date" v-model="bioconfirm_to_date_sample_rec">
+              </div>
+              <div class="form-group col-md-2 col-sm-12">
+                <label>From date of QCA:</label>
+                <input class="form-control form-control-sm" type="date" v-model="bioconfirm_from_date_of_qca">
+                <label>To date of QCA:</label>
+                <input class="form-control form-control-sm" type="date" v-model="bioconfirm_to_date_of_qca">
+              </div>
+              <div class="form-group col-md-2 col-sm-12">
+                <label>From date created:</label>
+                <input class="form-control form-control-sm" type="date" v-model="bioconfirm_from_date_created">
+                <label>To date created:</label>
+                <input class="form-control form-control-sm" type="date" v-model="bioconfirm_to_date_created">
+              </div>
+              <div class="form-group col-md-2 col-sm-12">
+                <label>Search Patient Name:</label>
+                <input class="form-control form-control-sm" type="text" v-model="bioconfirm_search_patient_name">
+              </div>
+            </div>
+            <template v-if="searching == true">
+              <button class="btn btn-primary btn-search" type="button" disabled style="float: right;">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Searching...
+              </button>
+            </template>
+            <template v-else>
+              <button class="btn btn-primary btn-search" type="button" data-dismiss="modal"
+                v-on:click.prevent="searchBioConfirms">Search</button>
+            </template>
+          </div>
+        </div>
         <!-- loading -->
         <div class="custom-loader" v-if="loading">
           <div class="col-md-12 col-sm-12">
@@ -108,107 +83,208 @@
           </div>
         </div>
         <!-- end loading -->
-        <h5 class="title1">
-          Patient Informations
-        </h5>
-        <div>
-          <div class="form-row" v-if="!loading">
-            <div class="form-group col-md-4 col-sm-12">
-              <label>Patient name</label>
-              <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.patient_name" disabled>
+        <a href="#CollapseSearchBioConfirm" class="btn btn-primary fa fa-filter pull-right filter" data-toggle="collapse"
+          role="button" aria-expanded="false" aria-controls="CollapseSearchBioConfirm" v-if="!loading"></a>
+        <div class="table-responsive" v-if="!loading">
+          
+          <table class="table table-hover table-bordered table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Patient name</th>
+                <th scope="col">Promo code</th>
+                <th scope="col">Agent name</th>
+                <th scope="col">Date submitted to telemed</th>
+                <th scope="col">Date telemed returned</th>
+                <th scope="col">Date application recorded</th>
+                <th scope="col">Date sample recorded</th>
+                <th scope="col">Date paid</th>
+                <th scope="col">Insurance company name</th>
+                <th scope="col">Rejection date</th>
+                <th scope="col">Date Submitted to Tamika ins verifier</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="14" class="text-center" v-if="!bioconfirms.length">No records for <strong>Bio Confirm</strong> as of now.</td>
+              </tr>
+              <tr v-for="(bioconfirm, i) in paginatedRecords">
+                <td>[[ bioconfirm.patient_name ]]</td>
+                <td>[[ bioconfirm.promo_code ]]</td>
+                <td>[[ bioconfirm.agent ]]</td>
+                <td>[[ bioconfirm.date_submitted_to_telemed ]]</td>
+                <td>[[ bioconfirm.date_telemed_returned ]]</td>
+                <td>[[ bioconfirm.date_app_rec ]]</td>
+                <td>[[ bioconfirm.date_sample_rec ]]</td>
+                <td>[[ bioconfirm.date_paid ]]</td>
+                <td>[[ bioconfirm.insurance_company ]]</td>
+                <td>[[ bioconfirm.rejection_date ]]</td>
+                <td>[[ bioconfirm.submitted_to_tamika_ins_verifier ]]</td>
+                <td><button type="button" class="btn btn-primary fa fa-eye" data-toggle="modal" data-target="#viewModalBioConfirm" v-on:click="viewBioConfirm(bioconfirm.id)"></button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <nav class="pagination-wrapper" v-if="endPage > 1">
+          <ul class="pagination justify-content-end">
+            <li v-bind:class="[{disabled: currentPage === 1}, 'page-item']">
+              <a
+                class="page-link" tabindex="-1"
+                v-on:click="goToPage(currentPage - 1)"
+              >
+                Previous
+              </a>
+            </li>
+            <li
+              v-for="pageNumber in pages"
+              v-bind:class="[{active: pageNumber === currentPage}, 'page-item']"
+            >
+              <a
+                class="page-link"
+                v-on:click="goToPage(pageNumber)"
+              >
+                [[ pageNumber ]]
+              </a>
+            </li>
+            <li v-bind:class="[{disabled: (currentPage * 1) === totalPages}, 'page-item']">
+              <a
+                class="page-link"
+                v-on:click="goToPage(currentPage + 1)"
+              >
+                Next
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- data view using modal -->
+      <div class="modal fade" id="viewModalBioConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">BioConfirm Information on [[currentBioConfirm.patient_name]]</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- loading -->
+            <div class="custom-loader" v-if="loading_view">
+              <div class="col-md-12 col-sm-12">
+                <div class="d-flex flex-column align-items-center">
+                  <div class="spinner-border" role="status"></div>
+                  <br />
+                  <strong>Fetching data...</strong>
+                </div>
+              </div>
             </div>
-            <div class="form-group col-md-4 col-sm-12">
-              <label>Patient phone number</label>
-              <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.patient_phone_number" disabled>
-            </div>
-            <div class="form-group col-md-4 col-sm-12">
-              <label>Submitted to Tamika ins verifier</label>
-              <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.submitted_to_tamika_ins_verifier" disabled>
-            </div>
-            <div class="form-group col-md-4 col-sm-12">
-              <label>Promo code</label>
-              <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.promo_code" disabled>
-            </div>
-            <div class="form-group col-md-4 col-sm-12">
-              <label>Status</label>
-              <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.status" disabled>
-            </div>
-            <div class="form-group col-md-4 col-sm-12">
-              <label>State</label>
-              <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.state" disabled>
-            </div>
-            <div class="form-group col-md-4 col-sm-12">
-              <label>Test choice</label>
-              <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.type_of_test" disabled>
-            </div>
-            <div class="form-group col-md-4 col-sm-12">
-              <label>Agent</label>
-              <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.agent" disabled>
-            </div>
-            <div class="form-group col-md-4 col-sm-12">
-              <label>Telemed name</label>
-              <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.telemed_name" disabled>
-            </div>
-            <div class="form-group col-md-4 col-sm-12">
-              <label>Insurance Company</label>
-              <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.insurance_company" disabled>
-            </div>
-            <div class="form-group col-md-12">
-              <label>Notes</label>
-              <textarea class="form-control form-control-sm" name="name" v-model="currentBioConfirm.notes" rows="10" cols="80" disabled></textarea>
+            <!-- end loading -->
+            <h5 class="title1">
+              Patient Informations
+            </h5>
+            <div>
+              <div class="form-row" v-if="!loading_view">
+                <div class="form-group col-md-4 col-sm-12">
+                  <label>Patient name</label>
+                  <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.patient_name" disabled>
+                </div>
+                <div class="form-group col-md-4 col-sm-12">
+                  <label>Patient phone number</label>
+                  <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.patient_phone_number" disabled>
+                </div>
+                <div class="form-group col-md-4 col-sm-12">
+                  <label>Submitted to Tamika ins verifier</label>
+                  <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.submitted_to_tamika_ins_verifier" disabled>
+                </div>
+                <div class="form-group col-md-4 col-sm-12">
+                  <label>Promo code</label>
+                  <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.promo_code" disabled>
+                </div>
+                <div class="form-group col-md-4 col-sm-12">
+                  <label>Status</label>
+                  <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.status" disabled>
+                </div>
+                <div class="form-group col-md-4 col-sm-12">
+                  <label>State</label>
+                  <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.state" disabled>
+                </div>
+                <div class="form-group col-md-4 col-sm-12">
+                  <label>Test choice</label>
+                  <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.type_of_test" disabled>
+                </div>
+                <div class="form-group col-md-4 col-sm-12">
+                  <label>Agent</label>
+                  <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.agent" disabled>
+                </div>
+                <div class="form-group col-md-4 col-sm-12">
+                  <label>Telemed name</label>
+                  <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.telemed_name" disabled>
+                </div>
+                <div class="form-group col-md-4 col-sm-12">
+                  <label>Insurance Company</label>
+                  <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.insurance_company" disabled>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Notes</label>
+                  <textarea class="form-control form-control-sm" name="name" v-model="currentBioConfirm.notes" rows="10" cols="80" disabled></textarea>
+                </div>
+              </div>
+              <hr />
+              <div>
+                <h5 class="title1">
+                  Patient Date Informations
+                </h5>
+                <div class="form-row" v-if="!loading_view">
+                  <div class="form-group col-md-4 col-sm-12">
+                    <label>Date application recorded</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.date_app_rec" disabled>
+                  </div>
+                  <div class="form-group col-md-4 col-sm-12">
+                    <label>Date sample recorded</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.date_sample_rec" disabled>
+                  </div>
+                  <div class="form-group col-md-4 col-sm-12">
+                    <label>Date of QCA</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.date_of_qca" disabled>
+                  </div>
+                  <div class="form-group col-md-4 col-sm-12">
+                    <label>Date submitted to Telemed</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.date_submitted_to_telemed" disabled>
+                  </div>
+                  <div class="form-group col-md-4 col-sm-12">
+                    <label>Date Telemed returned</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.date_submitted_to_telemed" disabled>
+                  </div>
+                  <div class="form-group col-md-4 col-sm-12">
+                    <label>Date bioconfirm recorded application</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.date_bioconfim_rec_app" disabled>
+                  </div>
+                  <div class="form-group col-md-4 col-sm-12">
+                    <label>Date paid</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.date_paid" disabled>
+                  </div>
+                  <div class="form-group col-md-4 col-sm-12">
+                    <label>month</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.month" disabled>
+                  </div>
+                  <div class="form-group col-md-4 col-sm-12">
+                    <label>Rejection Date</label>
+                    <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.rejection_date" disabled>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <hr />
-          <div>
-            <h5 class="title1">
-              Patient Date Informations
-            </h5>
-            <div class="form-row">
-              <div class="form-group col-md-4 col-sm-12">
-                <label>Date application recorded</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.date_app_rec" disabled>
-              </div>
-              <div class="form-group col-md-4 col-sm-12">
-                <label>Date sample recorded</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.date_sample_rec" disabled>
-              </div>
-              <div class="form-group col-md-4 col-sm-12">
-                <label>Date of QCA</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.date_of_qca" disabled>
-              </div>
-              <div class="form-group col-md-4 col-sm-12">
-                <label>Date submitted to Telemed</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.date_submitted_to_telemed" disabled>
-              </div>
-              <div class="form-group col-md-4 col-sm-12">
-                <label>Date Telemed returned</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.date_submitted_to_telemed" disabled>
-              </div>
-              <div class="form-group col-md-4 col-sm-12">
-                <label>Date bioconfirm recorded application</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.date_bioconfim_rec_app" disabled>
-              </div>
-              <div class="form-group col-md-4 col-sm-12">
-                <label>Date paid</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.date_paid" disabled>
-              </div>
-              <div class="form-group col-md-4 col-sm-12">
-                <label>month</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.month" disabled>
-              </div>
-              <div class="form-group col-md-4 col-sm-12">
-                <label>Rejection Date</label>
-                <input type="text" class="form-control form-control-sm" v-model="currentBioConfirm.rejection_date" disabled>
-              </div>
-            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
+    </div>
+    <!-- end of view -->
     </div>
   </div>
 </div>
-<!-- end of view -->
-</div>
+
+{% endblock %}
