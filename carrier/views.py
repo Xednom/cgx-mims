@@ -30,7 +30,7 @@ from .serializers import CarrierSerializer
 from .render import Render, render_to_pdf
 
 # 3rd party app(s)
-from easy_pdf.views import PDFTemplateView, PDFTemplateResponseMixin
+# from easy_pdf.views import PDFTemplateView, PDFTemplateResponseMixin
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -42,16 +42,16 @@ class CsrfExemptSessionAuthentication(SessionAuthentication):
         return  # To not perform the csrf check previously happening
 
 
-class PDFView(LoginRequiredMixin, PDFTemplateView):
-    template_name = 'carrier/carrier.html'
-    download_filename = 'carrier_report.pdf'
+# class PDFView(LoginRequiredMixin, PDFTemplateView):
+#     template_name = 'carrier/carrier.html'
+#     download_filename = 'carrier_report.pdf'
 
-    def get_context_data(self, **kwargs):
-        return super(PDFView, self).get_context_data(
-            pagesize='A4',
-            title='Carrier Report!',
-            **kwargs
-        )
+#     def get_context_data(self, **kwargs):
+#         return super(PDFView, self).get_context_data(
+#             pagesize='A4',
+#             title='Carrier Report!',
+#             **kwargs
+#         )
 
 
 class CarrierView(LoginRequiredMixin, TemplateView):
@@ -92,7 +92,7 @@ class CarrierFilter(django_filters.FilterSet):
                   'patient_name',)
 
 
-class CarrierViewSet(XLSXFileMixin, PDFTemplateResponseMixin, ModelViewSet):
+class CarrierViewSet(XLSXFileMixin, ModelViewSet):
     queryset = Carrier.objects.all()
     serializer_class = CarrierSerializer
     authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
