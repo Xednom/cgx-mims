@@ -2,6 +2,7 @@ import datetime
 import django_filters
 
 from django_filters import DateRangeFilter, DateFilter, CharFilter
+from openpyxl import Workbook
 from xhtml2pdf import pisa
 
 from rest_framework import viewsets, filters
@@ -147,4 +148,110 @@ class PdfCarrier(View):
             'carriers': carriers,
             'request': request
         }
+
+        if request.GET.get('format', '') == 'xlsx': 
+            response = self.generate_excel(request, carriers)
+            return response
+
         return Render.render('carrier/carrier_print.html', params)
+
+
+    def generate_excel(self, request, carriers):
+        workbook = Workbook()
+        filename = 'carrier-reports.xlsx'
+
+        worksheet = workbook.active
+
+        worksheet.append(self.excel_header())
+
+        for carrier in carriers:
+            worksheet.append(self.excel_row(carrier))
+
+        response = HttpResponse(content_type='application/vnd.ms-excel')
+        response['Content-Disposition'] = 'attachment; filename={file}'\
+            .format(file = filename)
+
+        workbook.save(response)
+
+        return response
+
+        # SAMPLE FOR EXCEL CONTENT
+        # for y in range(1, 101):
+        #     for x in range(1, 101):
+        #         worksheet.cell(row=x, column=y, value=x*y)
+
+        # workbook.save('/home/station/workstation/files/workbook1.xlsx')
+
+
+    def excel_row(self, carrier):
+        return (
+            carrier.patient_name,
+            carrier.patient_phone_number,
+            carrier.promo_code,
+            carrier.agent,
+            carrier.manager,
+            carrier.date_app_rec,
+            carrier.date_sample_rec,
+            carrier.type_of_test,
+            carrier.date_of_qca,
+            carrier.insurance_verified_tsg_verification,
+            carrier.telemed_name,
+            carrier.date_submitted_to_telemed,
+            carrier.date_telemed_returned,
+            carrier.date_bioconfim_rec_app,
+            carrier.date_paid,
+            carrier.date_lab_recorded_app,
+            carrier.lab_type,
+            carrier.state,
+            carrier.status,
+            carrier.month,
+            carrier.insurance_company,
+            carrier.notes,
+            carrier.rejection_date,
+            carrier.patient_id_photo,
+            carrier.insurance_card_photo_front,
+            carrier.insurance_card_photo_back,
+            carrier.additional_insurance_cards,
+            carrier.consent_recording,
+            carrier.date_created,
+            carrier.created_by,
+            carrier.updated_by,
+            carrier.user_promo_code
+            )
+
+    def excel_header(self):
+        return (
+            'Patient Name',
+            'Patient Phone Number',
+            'Promo Code',
+            'Agent',
+            'Manager',
+            'Date App Record',
+            'Date Sample Record',
+            'Type of Test',
+            'Date of QCA',
+            'Insurance Verified TSG Verification',
+            'Telemed Name',
+            'Date Submitted to Telemed',
+            'Date Telemed Returned',
+            'Date Bioconfim Record App',
+            'Date Paid',
+            'Date Lab Recorded App',
+            'Lab Type',
+            'State',
+            'status',
+            'Month',
+            'Insurance Company',
+            'Notes',
+            'Rejection Date',
+            'Patient ID Photo',
+            'Insurance Card Photo Front',
+            'Insurance Card Photo Back',
+            'Additional Insurance Cards',
+            'Consent Recording',
+            'Date Created',
+            'Created by',
+            'Updated by',
+            'User Promo Code'
+            )
+
