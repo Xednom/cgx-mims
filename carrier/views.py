@@ -149,12 +149,17 @@ class PdfCarrier(View):
             'request': request
         }
 
-        if request.GET.get('format', '') == 'xlsx': 
-            response = self.generate_excel(request, carriers)
-            return response
-
         return Render.render('carrier/carrier_print.html', params)
 
+
+class ExcelCarrier(View):
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        carriers = Carrier.objects.filter(agent__name=user)
+
+        response = self.generate_excel(request, carriers)
+        return response
 
     def generate_excel(self, request, carriers):
         workbook = Workbook()
@@ -182,17 +187,16 @@ class PdfCarrier(View):
 
         # workbook.save('/home/station/workstation/files/workbook1.xlsx')
 
-
     def excel_row(self, carrier):
         return (
             carrier.patient_name,
             carrier.patient_phone_number,
             carrier.promo_code,
-            carrier.agent,
-            carrier.manager,
+            carrier.agent.name,
+            carrier.manager.name,
             carrier.date_app_rec,
             carrier.date_sample_rec,
-            carrier.type_of_test,
+            carrier.type_of_test.name,
             carrier.date_of_qca,
             carrier.insurance_verified_tsg_verification,
             carrier.telemed_name,
@@ -203,7 +207,7 @@ class PdfCarrier(View):
             carrier.date_lab_recorded_app,
             carrier.lab_type,
             carrier.state,
-            carrier.status,
+            carrier.status.name,
             carrier.month,
             carrier.insurance_company,
             carrier.notes,
@@ -254,4 +258,3 @@ class PdfCarrier(View):
             'Updated by',
             'User Promo Code'
             )
-

@@ -91,7 +91,7 @@ Carrier | TSG System
         <a href="#CollapseSearchCarrier" class="btn btn-primary fa fa-filter pull-right filter" data-toggle="collapse"
           role="button" aria-expanded="false" aria-controls="CollapseSearchCarrier" v-if="!loading"></a>
         <a href="{% url 'carrier:print_carrier' %}" class="btn btn-success fa fa-print pull-right filter"></a>
-        <a href="{% url 'carrier:print_carrier' %}?format=xlsx" class="btn btn-success fa fa-file-excel-o pull-right filter"></a>
+        <a href="{% url 'carrier:excel_carrier' %}" class="btn btn-success fa fa-file-excel-o pull-right filter"></a>
         <div class="table-responsive table-carrier" v-if="!loading">
           <table class="table table-hover table-bordered table-sm">
 
