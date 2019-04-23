@@ -58,8 +58,8 @@ class PainCreamAndFootBathViewSet(XLSXFileMixin, viewsets.ModelViewSet):
     filename = 'pc-and-fb-reports.xlsx'
 
     def get_queryset(self):
-        code = self.request.user.agent_promo_code
-        queryset = PainCreamAndFootBath.objects.filter(promo_code=code)
+        user = self.request.user
+        queryset = PainCreamAndFootBath.objects.filter(agent_name__name=user)
         return queryset
 
     def perform_create(self, serializer):
