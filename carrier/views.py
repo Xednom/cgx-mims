@@ -103,6 +103,9 @@ class CarrierViewSet(XLSXFileMixin, ModelViewSet):
     filter_class = (CarrierFilter)  # filtering From date and To date
     filterset_fields = ('patient_name', 'promo_code')
     search_fields = ('patient_name', 'promo_code', 'insurance_verified_tsg_verification')
+    response = HttpResponse(content_type='application/xlsx')
+    response['Content-Disposition'] = 'attachment; filename="Carrier-Report.xlsx"'
+    
 
     #  xhtml2pdf
     def get(self, request, queryset, *args, **kwargs):
@@ -192,11 +195,11 @@ class ExcelCarrier(View):
             carrier.patient_name,
             carrier.patient_phone_number,
             carrier.promo_code,
-            carrier.agent.name,
-            carrier.manager.name,
+            str(carrier.agent),
+            str(carrier.manager),
             carrier.date_app_rec,
             carrier.date_sample_rec,
-            carrier.type_of_test.name,
+            str(carrier.type_of_test),
             carrier.date_of_qca,
             carrier.insurance_verified_tsg_verification,
             carrier.telemed_name,
@@ -207,16 +210,16 @@ class ExcelCarrier(View):
             carrier.date_lab_recorded_app,
             carrier.lab_type,
             carrier.state,
-            carrier.status.name,
+            str(carrier.status),
             carrier.month,
             carrier.insurance_company,
             carrier.notes,
             carrier.rejection_date,
-            carrier.patient_id_photo,
-            carrier.insurance_card_photo_front,
-            carrier.insurance_card_photo_back,
-            carrier.additional_insurance_cards,
-            carrier.consent_recording,
+            str(carrier.patient_id_photo),
+            str(carrier.insurance_card_photo_front),
+            str(carrier.insurance_card_photo_back),
+            str(carrier.additional_insurance_cards),
+            str(carrier.consent_recording),
             carrier.date_created,
             carrier.created_by,
             carrier.updated_by,

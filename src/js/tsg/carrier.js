@@ -118,6 +118,20 @@ new Vue({
           console.log(err);
         })
     },
+    downloadCarriers: function () {
+      api_url = `/api/v1/carrier/?date_app_rec__gte=${this.carrier_from_date_app_rec}&date_app_rec__lte=${this.carrier_to_date_app_rec}&date_sample_rec__gte=${this.carrier_from_date_sample_rec}&date_sample_rec__lte=${this.carrier_to_date_sample_rec}&date_of_qca__gte=${this.carrier_from_date_of_qca}&date_of_qca__lte=${this.carrier_to_date_of_qca}&date_created__gte=${this.carrier_from_date_created}&date_created__lte=${this.carrier_to_date_created}&patient_name=${this.carrier_search_patient_name}?format=xlsx`      
+      this.$http.get(api_url)
+        .then((response) => {
+            let a = document.createElement('A')
+            a.href = response.data
+            a.download = true
+            document.body.appendChild(a)
+            a.click()
+          })
+        .catch((err) => {
+          console.log(err);
+        })
+    },
     // new code using axios
     addCarrier: function (event) {
       const formData = new FormData();
