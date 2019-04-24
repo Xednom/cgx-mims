@@ -222,6 +222,217 @@ new Vue({
         }
       }
     },
+    generateExcelFile: function() {
+      let uri = 'data:application/vnd.ms-excel;base64,';
+
+      let context = {
+        worksheet: 'Worksheet1',
+        header: this.htmlConverter(this.generateExcelHeader()),
+        table: this.generateRows()
+      }
+      let htmlXML = this.generateXMLNS();
+      let formattedTemplate = this.formatTemplate(htmlXML, context);
+
+      let a = document.createElement('A');
+      a.href = uri + this.base64(formattedTemplate);
+      a.download = 'Insurance-Report-' + Date.now() + '.xlsx';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    },
+    htmlConverter: function(data) {
+      temporaryContainer = document.createElement('div');
+      temporaryContainer.appendChild(data);
+
+      return temporaryContainer.innerHTML
+    },
+    generateRows: function() {
+      let insurances = this.insurances;
+      let tableRows = '';
+
+      for (let i=0; i<insurances.length; i++) {
+        tableRows += this.htmlConverter(
+          this.generateData(insurances[i])
+          );
+      }
+
+      return tableRows
+
+    },
+    generateData: function(insurance) {
+      let tr = document.createElement('tr');
+
+      let name = document.createElement('td');
+      let promoCode = document.createElement('td');
+      let agent = document.createElement('td');
+      let manager = document.createElement('td');
+      let dateOfBirth = document.createElement('td');
+      let state = document.createElement('td');
+      let typeOfInsurance = document.createElement('td');
+      let test = document.createElement('td');
+      let activeInactive = document.createElement('td');
+      let status = document.createElement('td');
+      let insuranceStatus = document.createElement('td');
+      let policyNumber = document.createElement('td');
+      let verificationDate = document.createElement('td');
+      let deductibleRemaining = document.createElement('td');
+      let notes = document.createElement('td');
+      let patientIDPhoto = document.createElement('td');
+      let insuranceCardPhotoFront = document.createElement('td');
+      let insuranceCardPhotoBack = document.createElement('td');
+      let additionalInsuranceCards = document.createElement('td');
+      let consentRecording = document.createElement('td');
+      let dateCreated = document.createElement('td');
+      let createdBy = document.createElement('td');
+      let updatedBy = document.createElement('td');
+      let userPromoCode = document.createElement('td');
+
+      name.textContent = insurance['name'];
+      promoCode.textContent = insurance['promo_code'];
+      agent.textContent = insurance['agent'];
+      manager.textContent = insurance['manager'];
+      dateOfBirth.textContent = insurance['date_of_birth'];
+      state.textContent = insurance['state'];
+      typeOfInsurance.textContent = insurance['type_of_insurance'];
+      test.textContent = insurance['test'];
+      activeInactive.textContent = insurance['active_inactive'];
+      status.textContent = insurance['status'];
+      insuranceStatus.textContent = insurance['insurance_status'];
+      policyNumber.textContent = insurance['policy_number'];
+      verificationDate.textContent = insurance['verification_date'];
+      deductibleRemaining.textContent = insurance['deductible_remainding'];
+      notes.textContent = insurance['notes'];
+      patientIDPhoto.textContent = insurance['patient_id_photo'];
+      insuranceCardPhotoFront.textContent = insurance['insurance_card_photo_front'];
+      insuranceCardPhotoBack.textContent = insurance['insurance_card_photo_back'];
+      additionalInsuranceCards.textContent = insurance['additional_insurance_cards'];
+      consentRecording.textContent = insurance['consent_recording'];
+      dateCreated.textContent = insurance['date_created'];
+      createdBy.textContent = insurance['created_by'];
+      updatedBy.textContent = insurance['updated_by'];
+      userPromoCode.textContent = insurance['user_promo_code'];
+
+      tr.appendChild(name);
+      tr.appendChild(promoCode);
+      tr.appendChild(agent);
+      tr.appendChild(manager);
+      tr.appendChild(dateOfBirth);
+      tr.appendChild(state);
+      tr.appendChild(typeOfInsurance);
+      tr.appendChild(test);
+      tr.appendChild(activeInactive);
+      tr.appendChild(status);
+      tr.appendChild(insuranceStatus);
+      tr.appendChild(policyNumber);
+      tr.appendChild(verificationDate);
+      tr.appendChild(deductibleRemaining);
+      tr.appendChild(notes);
+      tr.appendChild(patientIDPhoto);
+      tr.appendChild(insuranceCardPhotoFront);
+      tr.appendChild(insuranceCardPhotoBack);
+      tr.appendChild(additionalInsuranceCards);
+      tr.appendChild(consentRecording);
+      tr.appendChild(dateCreated);
+      tr.appendChild(createdBy);
+      tr.appendChild(updatedBy);
+      tr.appendChild(userPromoCode);
+
+      return tr
+    },
+    generateExcelHeader: function() {
+      let tr = document.createElement('tr');
+
+      let name = document.createElement('th');
+      let promoCode = document.createElement('th');
+      let agent = document.createElement('th');
+      let manager = document.createElement('th');
+      let dateOfBirth = document.createElement('th');
+      let state = document.createElement('th');
+      let typeOfInsurance = document.createElement('th');
+      let test = document.createElement('th');
+      let activeInactive = document.createElement('th');
+      let status = document.createElement('th');
+      let insuranceStatus = document.createElement('th');
+      let policyNumber = document.createElement('th');
+      let verificationDate = document.createElement('th');
+      let deductibleRemaining = document.createElement('th');
+      let notes = document.createElement('th');
+      let patientIDPhoto = document.createElement('th');
+      let insuranceCardPhotoFront = document.createElement('th');
+      let insuranceCardPhotoBack = document.createElement('th');
+      let additionalInsuranceCards = document.createElement('th');
+      let consentRecording = document.createElement('th');
+      let dateCreated = document.createElement('th');
+      let createdBy = document.createElement('th');
+      let updatedBy = document.createElement('th');
+      let userPromoCode = document.createElement('th');
+
+      name.textContent = 'Patient Name';
+      promoCode.textContent = 'Promo Code';
+      agent.textContent = 'Agent';
+      manager.textContent = 'Manager';
+      dateOfBirth.textContent = 'Date of Birth';
+      state.textContent = 'State';
+      typeOfInsurance.textContent = 'Type of Insurance';
+      test.textContent = 'Test';
+      activeInactive.textContent = 'Active/Inactive';
+      status.textContent = 'Status';
+      insuranceStatus.textContent = 'Insurance Status';
+      policyNumber.textContent = 'Policy Number';
+      verificationDate.textContent = 'Verification Date';
+      deductibleRemaining.textContent = 'Deductible Remaining';
+      notes.textContent = 'Notes';
+      patientIDPhoto.textContent = 'Patient ID Photo';
+      insuranceCardPhotoFront.textContent = 'Insurance Card Photo Front';
+      insuranceCardPhotoBack.textContent = 'Insurance Card Photo Back';
+      additionalInsuranceCards.textContent = 'Additional Insurance Cards';
+      consentRecording.textContent = 'Consent Recording';
+      dateCreated.textContent = 'Date Created';
+      createdBy.textContent = 'Created by';
+      updatedBy.textContent = 'Updated by';
+      userPromoCode.textContent = 'User Promo Code';
+
+      tr.appendChild(name);
+      tr.appendChild(promoCode);
+      tr.appendChild(agent);
+      tr.appendChild(manager);
+      tr.appendChild(dateOfBirth);
+      tr.appendChild(state);
+      tr.appendChild(typeOfInsurance);
+      tr.appendChild(test);
+      tr.appendChild(activeInactive);
+      tr.appendChild(status);
+      tr.appendChild(insuranceStatus);
+      tr.appendChild(policyNumber);
+      tr.appendChild(verificationDate);
+      tr.appendChild(deductibleRemaining);
+      tr.appendChild(notes);
+      tr.appendChild(patientIDPhoto);
+      tr.appendChild(insuranceCardPhotoFront);
+      tr.appendChild(insuranceCardPhotoBack);
+      tr.appendChild(additionalInsuranceCards);
+      tr.appendChild(consentRecording);
+      tr.appendChild(dateCreated);
+      tr.appendChild(createdBy);
+      tr.appendChild(updatedBy);
+      tr.appendChild(userPromoCode);
+
+      return tr
+    },
+    generateXMLNS: function() {
+      let htmlOpenTag = '<html xmlns:o="urn:schemas-microsoft.com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">';
+      let htmlHead = '<head><!-- [if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"></head>';
+      let htmlBody = '<body><table>{header}{table}</table></body>';
+      let htmlCloseTag = '</html>';
+
+      return htmlOpenTag + htmlHead + htmlBody + htmlCloseTag;
+    },
+    base64: function(template) {
+      return window.btoa(unescape(encodeURIComponent(template)))
+    },
+    formatTemplate: function(template, context) {
+      return template.replace(/{(\w+)}/g, function(m, p) { return context[p] })
+    }
   },
   watch: {
     insurances: function(newInsurancesRecords, oldInsurancesRecords) {
