@@ -266,7 +266,7 @@ new Vue({
     generateData: function(pcfb) {
       let tr = document.createElement('tr');
 
-      let submission_date = document.createElement('td');
+      let submissionDate = document.createElement('td');
       let promoCode = document.createElement('td');
       let agent = document.createElement('td');
       let agentEmail = document.createElement('td');
@@ -307,10 +307,10 @@ new Vue({
       let updatedBy = document.createElement('td');
       let userPromoCode = document.createElement('td');
 
-      submission_date.textContent = pcfb['submission_date'];
+      submissionDate.textContent = pcfb['submission_date'];
       promoCode.textContent = pcfb['promo_code'];
       agent.textContent = pcfb['agent'];
-      agentEmail.textContent = pcfb['agentEmail'];
+      agentEmail.textContent = pcfb['agent_email'];
       patientFirstName.textContent = pcfb['patient_first_name'];
       patientLastName.textContent = pcfb['patient_last_name'];
       birthDate.textContent = pcfb['birth_date'];
@@ -348,7 +348,7 @@ new Vue({
       updatedBy.textContent = pcfb['updated_by'];
       userPromoCode.textContent = pcfb['user_promo_code'];
 
-      tr.appendChild(submission_date);
+      tr.appendChild(submissionDate);
       tr.appendChild(promoCode);
       tr.appendChild(agent);
       tr.appendChild(agentEmail);
@@ -394,7 +394,7 @@ new Vue({
     generateExcelHeader: function() {
       let tr = document.createElement('tr');
 
-      let submission_date = document.createElement('th');
+      let submissionDate = document.createElement('th');
       let promoCode = document.createElement('th');
       let agent = document.createElement('th');
       let agentEmail = document.createElement('th');
@@ -435,7 +435,7 @@ new Vue({
       let updatedBy = document.createElement('th');
       let userPromoCode = document.createElement('th');
 
-      submission_date.textContent = 'Submission Date';
+      submissionDate.textContent = 'Submission Date';
       promoCode.textContent = 'Promo Code';
       agent.textContent = 'Agent';
       agentEmail.textContent = 'Agent Email';
@@ -476,7 +476,7 @@ new Vue({
       updatedBy.textContent = 'Updated by';
       userPromoCode.textContent = 'User Promo Code';
 
-      tr.appendChild(submission_date);
+      tr.appendChild(submissionDate);
       tr.appendChild(promoCode);
       tr.appendChild(agent);
       tr.appendChild(agentEmail);

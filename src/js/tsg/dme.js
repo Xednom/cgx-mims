@@ -243,9 +243,7 @@ new Vue({
       let tableRows = '';
 
       for (let i=0; i<dmes.length; i++) {
-        tableRows += this.htmlConverter(
-          this.generateData(dmes[i])
-          );
+        tableRows += this.htmlConverter(this.generateData(dmes[i]));
       }
 
       return tableRows
@@ -311,10 +309,10 @@ new Vue({
       let userPromoCode = document.createElement('td');
 
       submissionDate.textContent = dme['submission_date'];
-      firstName.textContent = dme['submission_date'];
-      lastName.textContent = dme['submission_date'];
-      agentsPromoCode.textContent = dme['promo_code'];
-      agentEmail.textContent = dme['agentEmail'];
+      firstName.textContent = dme['first_name'];
+      lastName.textContent = dme['last_name'];
+      agentsPromoCode.textContent = dme['agents_promod_code'];
+      agentEmail.textContent = dme['agents_email'];
       patientFirstName.textContent = dme['patient_first_name'];
       patientLastName.textContent = dme['patient_last_name'];
       birthDate.textContent = dme['birth_date'];
@@ -329,38 +327,38 @@ new Vue({
       country.textContent = dme['country'];
       patientIDPhoto.textContent = dme['patient_id_photo'];
       insuranceType.textContent = dme['insurance_type'];
-      policyNumber.textContent = dme['medicare_medicaid_policy'];
+      policyNumber.textContent = dme['policy_number'];
       ppoHmoInformationMemID.textContent = dme['ppo_hmo_information_mem_id'];
       ppoHmoInformationPpoName.textContent = dme['ppo_hmo_information_ppo_name'];
       insuranceStatus.textContent = dme['insurance_status'];
-      insuranceNotes.textContent = dme['location_of_pain'];
-      insuranceCardPhotoFront.textContent = dme['insurance_card_photo'];
-      insuranceCardPhotoBack.textContent = dme['insurance_card_photo'];
-      additionalInsuranceCards.textContent = dme['insurance_card_photo'];
-      locationOfBackPain.textContent = dme['level_of_pain'];
-      locationOfShoulderPain.textContent = dme['level_of_pain'];
-      locationOfKneePain.textContent = dme['level_of_pain'];
-      locationOfAnklePain.textContent = dme['level_of_pain'];
-      locationOfElbowPain.textContent = dme['level_of_pain'];
-      locationOfWristPain.textContent = dme['level_of_pain'];
-      height.textContent = dme['level_of_pain'];
-      weight.textContent = dme['level_of_pain'];
-      sizeOfBrace.textContent = dme['level_of_pain'];
-      majorMedicalConditions.textContent = dme['level_of_pain'];
-      causeOfPainDiscomfort.textContent = dme['level_of_pain'];
+      insuranceNotes.textContent = dme['insurance_notes'];
+      insuranceCardPhotoFront.textContent = dme['insurance_card_photo_front'];
+      insuranceCardPhotoBack.textContent = dme['insurance_card_photo_back'];
+      additionalInsuranceCards.textContent = dme['additional_insurance_cards'];
+      locationOfBackPain.textContent = dme['location_of_back_pain'];
+      locationOfShoulderPain.textContent = dme['location_of_shoulder_pain'];
+      locationOfKneePain.textContent = dme['location_of_knee_pain'];
+      locationOfAnklePain.textContent = dme['location_of_ankle_pain'];
+      locationOfElbowPain.textContent = dme['location_of_elbow_pain'];
+      locationOfWristPain.textContent = dme['location_of_wrist_pain'];
+      height.textContent = dme['height'];
+      weight.textContent = dme['weight'];
+      sizeOfBrace.textContent = dme['size_of_brace'];
+      majorMedicalConditions.textContent = dme['major_medical_conditions'];
+      causeOfPainDiscomfort.textContent = dme['cause_of_pain_discomfort'];
       levelOfPain.textContent = dme['level_of_pain'];
-      experiencingDiscomfort.textContent = dme['discomfort'];
-      frequencyOfPain.textContent = dme['feq_of_pain'];
-      describePain.textContent = dme['prescribe_pain_cream'];
-      painSymptoms.textContent = dme['prescribe_pain_cream'];
-      painWorse.textContent = dme['prescribe_pain_cream'];
-      treatmentsTried.textContent = dme['location_of_foot_issue'];
-      seenDoctor.textContent = dme['describe_foot_issue'];
-      surgeries.textContent = dme['order_status'];
+      experiencingDiscomfort.textContent = dme['experiencing_discomfort'];
+      frequencyOfPain.textContent = dme['frequency_of_pain'];
+      describePain.textContent = dme['describe_pain'];
+      painSymptoms.textContent = dme['pain_symptoms'];
+      painWorse.textContent = dme['pain_worse'];
+      treatmentsTried.textContent = dme['treatments_tried'];
+      seenDoctor.textContent = dme['seen_doctor'];
+      surgeries.textContent = dme['surgeries'];
       consentRecording.textContent = dme['consent_recording'];
       ip.textContent = dme['ip'];
       submissionID.textContent = dme['submission_id'];
-      editLink.textContent = dme['ppo_card_photo'];
+      editLink.textContent = dme['edit_link'];
       dateCreated.textContent = dme['date_created'];
       createdBy.textContent = dme['created_by'];
       updatedBy.textContent = dme['updated_by'];
