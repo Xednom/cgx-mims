@@ -608,6 +608,32 @@ new Vue({
     },
     formatTemplate: function(template, context) {
       return template.replace(/{(\w+)}/g, function(m, p) { return context[p] })
+    },
+    generatePDF: function() {
+      let columns = this.generatePDFColumns();
+
+      let pdf = new jsPDF('l', 'pt');
+      let options = {
+        theme: 'grid',
+        headerStyles: {
+          fillColor: [233, 236, 239],
+          textColor: 26
+        }
+      }
+      pdf.autoTable(columns, this.dmes, options);
+      pdf.save('DME-Report-' + Date.now() + '.pdf');
+    },
+    generatePDFColumns: function() {
+      return [
+        {title: "Submission Date", dataKey: "submission_date"},
+        {title: "Patient's First Name", dataKey: "first_name"},
+        {title: "Patient's Last Name", dataKey: "last_name"},
+        {title: "Agent's Promo Code", dataKey: "agents_promod_code"},
+        {title: "Insurance Type", dataKey: "insurance_type"},
+        {title: "Policy Number(Medicare)", dataKey: "policy_number"},
+        {title: "PPO Information(If not straight from Medicare)(Member ID#)", dataKey: "ppo_information_mem_id"},
+        {title: "PPO Information(If not straight from Medicare)(PPO Name)", dataKey: "ppo_information_ppo_name"},
+      ];
     }
   },
   watch: {

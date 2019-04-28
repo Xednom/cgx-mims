@@ -523,6 +523,35 @@ new Vue({
     },
     formatTemplate: function(template, context) {
       return template.replace(/{(\w+)}/g, function(m, p) { return context[p] })
+    },
+    generatePDF: function() {
+      let columns = this.generatePDFColumns();
+
+      let pdf = new jsPDF('l', 'pt');
+      let options = {
+        theme: 'grid',
+        headerStyles: {
+          fillColor: [233, 236, 239],
+          textColor: 26
+        }
+      }
+      pdf.autoTable(columns, this.carriers, options);
+      pdf.save('Carrier-Report-' + Date.now() + '.pdf');
+    },
+    generatePDFColumns: function() {
+      return [
+        {title: "Patient Name", dataKey: "patient_name"},
+        {title: "Promo Code", dataKey: "promo_code"},
+        {title: "Agent Name", dataKey: "agent"},
+        {title: "Date Submitted to Telemed", dataKey: "date_submitted_to_telemed"},
+        {title: "Date Telemed Returned", dataKey: "date_telemed_returned"},
+        {title: "Date Application Recorded", dataKey: "date_app_rec"},
+        {title: "Date Sample Recorded", dataKey: "date_sample_rec"},
+        {title: "Date Paid", dataKey: "date_paid"},
+        {title: "Insurance Company Name", dataKey: "insurance_company"},
+        {title: "Rejection Date", dataKey: "rejection_date"},
+        {title: "Date Submitted to Tamika ins verifier", dataKey: "date_submitted_to_tamika_ins_verifier"},
+      ];
     }
   },
   watch: {
