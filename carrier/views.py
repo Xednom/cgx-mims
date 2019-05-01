@@ -29,9 +29,11 @@ from .models import Carrier
 from cgx.serializers import AgentSerializer, ManagerSerializer
 from .serializers import CarrierSerializer
 from .render import Render, render_to_pdf
+from settings import base
 
 # 3rd party app(s)
 # from easy_pdf.views import PDFTemplateView, PDFTemplateResponseMixin
+from weasyprint import HTML, default_url_fetcher
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -142,18 +144,24 @@ class CarrierViewSet(XLSXFileMixin, ModelViewSet):
 
 class PdfCarrier(View):
 
-    def get(self, request):
+    def get(self, request, carrier_id):
         user = self.request.user
-        carriers = Carrier.objects.filter(agent__name=user)
-        today = timezone.now()
+        carrier = Carrier.objects.filter(id=carrier_id).first()
         params = {
-            'today': today,
-            'carriers': carriers,
-            'request': request
+        'today': timezone.now(),
+        'carrier': carrier,
+        'request': request
         }
 
-        return Render.render('carrier/carrier_print.html', params)
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = "inline; filename=Carrier-Report.pdf"
 
+        html = render_to_string('carrier/carrier_pdf.html', params)
+        css = [base.BASE_DIR + '/staticfiles/css/bootstrap/bootstrap.css']
+
+        HTML(string=html).write_pdf(response, stylesheets=css)
+        return response
+        # return Render.render('carrier/carrier_print.html', params)
 
 class ExcelCarrier(View):
 
