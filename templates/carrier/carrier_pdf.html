@@ -40,6 +40,9 @@
             margin-bottom: 0px;
             padding-bottom: 0px;
         }
+        .img-attachments {
+            margin-bottom: 15px;
+        }
 
         .input-container {
 
@@ -53,8 +56,8 @@
 
         <section class="row">
             <h6>Carrier Information on {{ carrier.patient_name }}</h6>
-        </section>
-
+        </section> 
+        <hr>
         <section class="row">
             <h6>Patient Information</h6>
         </section>
@@ -63,7 +66,7 @@
             <div class="flex-box">
                 <div class="form-group by-3">
                     <label>Patient Name:</label>
-                    <div class="form-control">
+                    <div>
                         <span>
                         {% if carrier.patient_name %}
                             {{ carrier.patient_name }}
@@ -75,7 +78,7 @@
                 </div>
                 <div class="form-group by-3">
                     <label>Patient Phone Number:</label>
-                    <div class="form-control">
+                    <div>
                         <span>
                         {% if carrier.patient_phone_number %}
                             {{ carrier.patient_phone_number }}
@@ -87,7 +90,7 @@
                 </div>
                 <div class="form-group by-3">
                     <label>Submitted to Tamika ins Verifier:</label>
-                    <div class="form-control">
+                    <div>
                         <span>
                         {% if carrier.submitted_to_tamika_ins_verifier %}
                             {{ carrier.submitted_to_tamika_ins_verifier }}
@@ -101,7 +104,7 @@
             <div class="flex-box">
                 <div class="form-group by-3">
                     <label>Promo Code:</label>
-                    <div class="form-control">
+                    <div>
                         <span>
                         {% if carrier.promo_code %}
                             {{ carrier.promo_code }}
@@ -113,7 +116,7 @@
                 </div>
                 <div class="form-group by-3">
                     <label>Status:</label>
-                    <div class="form-control">
+                    <div>
                         <span>
                         {% if carrier.status %}
                             {{ carrier.status }}
@@ -125,7 +128,7 @@
                 </div>
                 <div class="form-group by-3">
                     <label>State:</label>
-                    <div class="form-control">
+                    <div>
                         <span>
                         {% if carrier.state %}
                             {{ carrier.state }}
@@ -139,7 +142,7 @@
             <div class="flex-box">
                 <div class="form-group by-3">
                     <label>Test Choice:</label>
-                    <div class="form-control">
+                    <div>
                         <span>
                         {% if carrier.type_of_test %}
                             {{ carrier.type_of_test }}
@@ -151,7 +154,7 @@
                 </div>
                 <div class="form-group by-3">
                     <label>Agent:</label>
-                    <div class="form-control">
+                    <div>
                         <span>
                         {% if carrier.agent %}
                             {{ carrier.agent }}
@@ -163,7 +166,7 @@
                 </div>
                 <div class="form-group by-3">
                     <label>Telemed Name:</label>
-                    <div class="form-control">
+                    <div class="">
                         <span>
                         {% if carrier.telemed_name %}
                             {{ carrier.telemed_name }}
@@ -177,7 +180,7 @@
             <div class="flex-box">
                 <div class="form-group by-3">
                     <label>Insurance Company:</label>
-                    <div class="form-control">
+                    <div>
                         <span>
                         {% if carrier.insurance_company %}
                             {{ carrier.insurance_company }}
@@ -195,7 +198,7 @@
             <div class="flex-box">
                 <div class="form-group by-3">
                     <label>Notes:</label>
-                    <textarea class="form-control">{{ carrier.notes }}</textarea>
+                    <textarea>{{ carrier.notes }}</textarea>
                 </div>
             </div>
 
@@ -211,7 +214,7 @@
             <div class="flex-box">
                 <div class="form-group by-3">
                     <label>Date Application Recorded:</label>
-                    <div class="form-control">
+                    <div>
                         <span>
                         {% if carrier.date_app_rec %}
                             {{ carrier.date_app_rec }}
@@ -223,7 +226,7 @@
                 </div>
                 <div class="form-group by-3">
                     <label>Date Sample Recorded:</label>
-                    <div class="form-control">
+                    <div>
                         <span>
                         {% if carrier.date_sample_rec %}
                             {{ carrier.date_sample_rec }}
@@ -235,7 +238,7 @@
                 </div>
                 <div class="form-group by-3">
                     <label>Date of QCA:</label>
-                    <div class="form-control">
+                    <div>
                         <span>
                         {% if carrier.date_of_qca %}
                             {{ carrier.date_of_qca }}
@@ -249,7 +252,7 @@
             <div class="flex-box">
                 <div class="form-group by-3">
                     <label>Date Submitted to Telemed:</label>
-                    <div class="form-control">
+                    <div>
                         <span>
                         {% if carrier.date_submitted_to_telemed %}
                             {{ carrier.date_submitted_to_telemed }}
@@ -261,7 +264,7 @@
                 </div>
                 <div class="form-group by-3">
                     <label>Date Telemed Returned:</label>
-                    <div class="form-control">
+                    <div>
                         <span>
                         {% if carrier.date_telemed_returned %}
                             {{ carrier.date_telemed_returned }}
@@ -273,7 +276,7 @@
                 </div>
                 <div class="form-group by-3">
                     <label>Date Bioconfirm Recorded Application:</label>
-                    <div class="form-control">
+                    <div>
                         <span>
                         {% if carrier.date_bioconfim_rec_app %}
                             {{ carrier.date_bioconfim_rec_app }}
@@ -287,7 +290,7 @@
             <div class="flex-box">
                 <div class="form-group by-3">
                     <label>Date Paid:</label>
-                    <div class="form-control">
+                    <div>
                         <span>
                         {% if carrier.date_paid %}
                             {{ carrier.date_paid }}
@@ -299,7 +302,7 @@
                 </div>
                 <div class="form-group by-3">
                     <label>Month:</label>
-                    <div class="form-control">
+                    <div>
                         <span>
                         {% if carrier.month %}
                             {{ carrier.month }}
@@ -311,7 +314,7 @@
                 </div>
                 <div class="form-group by-3">
                     <label>Rejection Date:</label>
-                    <div class="form-control">
+                    <div>
                         <span>
                         {% if carrier.rejection_date %}
                             {{ carrier.rejection_date }}
@@ -323,34 +326,49 @@
                 </div>
             </div>
         </section>
-
-        <section class="attachments">
-
-            {% if carrier.insurance_card_photo_front %}
-            <div>
-                <img src="{{ carrier.insurance_card_photo_front.url | get64 }}">
-            </div>
-            {% endif %}
-
-            {% if carrier.insurance_card_photo_front %}
-            <div class="page-break">
-                <img src="{{ carrier.insurance_card_photo_back.url | get64 }}">
-            </div>
-            {% endif %}
-
-            {% if carrier.insurance_card_photo_front %}
-            <div>
-                <img src="{{ carrier.additional_insurance_cards.url | get64 }}">
-            </div>
-            {% endif %}
-
-            {% if carrier.insurance_card_photo_front %}
-            <div class="page-break">
-                <img src="{{ carrier.patient_id_photo.url | get64 }}">
-            </div>
-            {% endif %}
-
+        <hr>
+        <section class="row">
+            Attachments
         </section>
+            <section class="attachments">
+
+                {% if carrier.insurance_card_photo_front %}
+                <div class="img-attachments">
+                    <label>Insurance Card Photo Front</label>
+                    <div class="col-md-4">
+                    <img src="{{ carrier.insurance_card_photo_front.url | get64 }}">
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if carrier.insurance_card_photo_front %}
+                <div class="img-attachments page-break">
+                    <label>Insurance Card Photo Back</label>
+                    <div class="col-md-4">
+                        <img src="{{ carrier.insurance_card_photo_back.url | get64 }}">
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if carrier.insurance_card_photo_front %}
+                <div class="img-attachments">
+                    <label>Additional Insurance Card</label>
+                    <div class="col-md-4">
+                        <img src="{{ carrier.additional_insurance_cards.url | get64 }}">
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if carrier.insurance_card_photo_front %}
+                <div class="img-attachments page-break">
+                    <label>Patient ID Photo</label>
+                    <div class="col-md-4">
+                        <img src="{{ carrier.patient_id_photo.url | get64 }}">
+                    </div>
+                </div>
+                {% endif %}
+
+            </section>
     </main>
 
 </body>
