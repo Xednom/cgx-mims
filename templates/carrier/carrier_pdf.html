@@ -207,7 +207,7 @@
             <h6>Patient Date Information</h6>
         </section>
 
-        <section class="row">
+        <section class="row page-break">
             <div class="flex-box">
                 <div class="form-group by-3">
                     <label>Date Application Recorded:</label>
@@ -327,7 +327,7 @@
         <section class="attachments">
 
             {% if carrier.insurance_card_photo_front %}
-            <div class="page-break">
+            <div>
                 <img src="{{ carrier.insurance_card_photo_front.url | get64 }}">
             </div>
             {% endif %}
@@ -339,7 +339,7 @@
             {% endif %}
 
             {% if carrier.insurance_card_photo_front %}
-            <div class="page-break">
+            <div>
                 <img src="{{ carrier.additional_insurance_cards.url | get64 }}">
             </div>
             {% endif %}

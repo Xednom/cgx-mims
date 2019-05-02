@@ -531,7 +531,9 @@ new Vue({
       let link = document.createElement('a');
       link.href = `/carrier/${id}/carrier-report.pdf`;
       link.download = 'Carrier-Report-' + Date.now();
+      document.body.appendChild(link);
       link.click();
+      document.body.removeChild(link);
     },
     loadButton: function(buttonNumber) {
       Vue.set(this.buttonsLoading, buttonNumber, 1);
@@ -540,7 +542,7 @@ new Vue({
 
       setTimeout(function() {
         Vue.set(self.buttonsLoading, buttonNumber, 0);
-      }, 3000);
+      }, 8000);
     }
   },
   watch: {
