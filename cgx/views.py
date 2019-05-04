@@ -10,11 +10,15 @@ from drf_renderer_xlsx.renderers import XLSXRenderer
 
 from django import template
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils import timezone
+from django.http import HttpResponse
+from django.template.loader import render_to_string
 from tablib import Dataset
 import openpyxl, datetime
 
+from settings import base
 from .resources import BioConfirmMasterResource
 from .models import Agent, BioConfirmMaster, Manager, Status, Test_choices
 from .serializers import AgentSerializer, BioConfirmMasterSerializer, ManagerSerializer
@@ -24,6 +28,9 @@ from .serializers import (AgentSerializer, ManagerSerializer,
                           BioConfirmMasterSerializer, TestChoicesSerializer,
                           StatusSerializer)
 
+# 3rd party app(s)
+# from easy_pdf.views import PDFTemplateView, PDFTemplateResponseMixin
+from weasyprint import HTML, default_url_fetcher
 
 register = template.Library()
 
@@ -109,6 +116,27 @@ class BioConfirmView(LoginRequiredMixin, TemplateView):
 
 class AddBioConfirmView(LoginRequiredMixin, TemplateView):
     template_name = 'cgx/add_patient_bioconfirm.html'
+
+
+class PdfBioconfirm(View):
+
+    def get(self, request, bioconfirm_id):
+        user = self.request.user
+        bioconfirm = BioConfirmMaster.objects.filter(id=bioconfirm_id).first()
+        params = {
+        'today': timezone.now(),
+        'bioconfirm': bioconfirm,
+        'request': request
+        }
+
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = "inline; filename=Bioconfirm-Report.pdf"
+
+        html = render_to_string('cgx/bioconfirm_pdf.html', params)
+        css = [base.BASE_DIR + '/staticfiles/css/bootstrap/bootstrap.css']
+
+        HTML(string=html).write_pdf(response, stylesheets=css)
+        return response
 
 
 def index(request):

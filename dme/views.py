@@ -9,12 +9,19 @@ from drf_renderer_xlsx.mixins import XLSXFileMixin
 from drf_renderer_xlsx.renderers import XLSXRenderer
 
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.template.loader import render_to_string
+from django.http import HttpResponse
+from django.utils import timezone
 
 from .models import DME_II
 from .serializers import DMEIISerializer
+from settings import base
 
+# 3rd party app(s)
+# from easy_pdf.views import PDFTemplateView, PDFTemplateResponseMixin
+from weasyprint import HTML, default_url_fetcher
 
 class CsrftExemptSessionAuthentication(SessionAuthentication):
 
@@ -59,3 +66,24 @@ class DMEIIViewSet(XLSXFileMixin, viewsets.ModelViewSet):
         user = self.request.user
         promo_code = self.request.user.agent_promo_code
         serializer.save(created_by=user, user_promo_code=promo_code)
+
+
+class PdfDME(View):
+
+    def get(self, request, dme_id):
+        user = self.request.user
+        dme = DME_II.objects.filter(id=dme_id).first()
+        params = {
+        'today': timezone.now(),
+        'dme': dme,
+        'request': request
+        }
+
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = "inline; filename=DME-Report.pdf"
+
+        html = render_to_string('dme/dme_pdf.html', params)
+        css = [base.BASE_DIR + '/staticfiles/css/bootstrap/bootstrap.css']
+
+        HTML(string=html).write_pdf(response, stylesheets=css)
+        return response

@@ -4,6 +4,7 @@ new Vue({
   delimiters: ['[[',']]'],
   data: {
     pcfbs: [],
+    buttonsLoading: [],
     message: null,
     loading: false,
     saving: false,
@@ -533,31 +534,24 @@ new Vue({
     formatTemplate: function(template, context) {
       return template.replace(/{(\w+)}/g, function(m, p) { return context[p] })
     },
-    generatePDF: function() {
-      let columns = this.generatePDFColumns();
+    generatePDF: function(id, buttonNumber) {
+      this.loadButton(buttonNumber);
 
-      let pdf = new jsPDF('l', 'pt');
-      let options = {
-        theme: 'grid',
-        headerStyles: {
-          fillColor: [233, 236, 239],
-          textColor: 26
-        }
-      }
-      pdf.autoTable(columns, this.pcfbs, options);
-      pdf.save('PCFB-Report-' + Date.now() + '.pdf');
+      let link = document.createElement('a');
+      link.href = `/rx/${id}/pcfb-report.pdf`;
+      link.download = 'PCFB-Report-' + Date.now();
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     },
-    generatePDFColumns: function() {
-      return [
-        {title: "Submission Date", dataKey: "submission_date"},
-        {title: "Patient's First Name", dataKey: "patient_first_name"},
-        {title: "Patient's Last Name", dataKey: "patient_last_name"},
-        {title: "Agent's Promo Code", dataKey: "promo_code"},
-        {title: "Insurance Type", dataKey: "insurance_type"},
-        {title: "Policy Number(Medicare)", dataKey: "medicare_medicaid_policy"},
-        {title: "PPO Information(If not straight from Medicare)(Member ID#)", dataKey: "ppo_hmo_information_mem_id"},
-        {title: "PPO Information(If not straight from Medicare)(PPO Name)", dataKey: "ppo_hmo_information_ppo_name"},
-      ];
+    loadButton: function(buttonNumber) {
+      Vue.set(this.buttonsLoading, buttonNumber, 1);
+
+      let self = this;
+
+      setTimeout(function() {
+        Vue.set(self.buttonsLoading, buttonNumber, 0);
+      }, 8000);
     }
   },
   watch: {

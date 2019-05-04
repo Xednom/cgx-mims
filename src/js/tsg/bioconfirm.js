@@ -8,6 +8,7 @@ new Vue({
     managerNames: [],
     testChoices: [],
     statuses: [],
+    buttonsLoading: [],
     message: null,
     loading: false,
     saving: false,
@@ -516,34 +517,24 @@ new Vue({
     formatTemplate: function(template, context) {
       return template.replace(/{(\w+)}/g, function(m, p) { return context[p] })
     },
-    generatePDF: function() {
-      let columns = this.generatePDFColumns();
+    generatePDF: function(id, buttonNumber) {
+      this.loadButton(buttonNumber);
 
-      let pdf = new jsPDF('l', 'pt');
-      let options = {
-        theme: 'grid',
-        headerStyles: {
-          fillColor: [233, 236, 239],
-          textColor: 26
-        }
-      }
-      pdf.autoTable(columns, this.bioconfirms, options);
-      pdf.save('Bioconfirm-Report-' + Date.now() + '.pdf');
+      let link = document.createElement('a');
+      link.href = `/cgx/${id}/bioconfirm-report.pdf`;
+      link.download = 'Bioconfirm-Report-' + Date.now();
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     },
-    generatePDFColumns: function() {
-      return [
-        {title: "Patient Name", dataKey: "patient_name"},
-        {title: "Promo Code", dataKey: "promo_code"},
-        {title: "Agent Name", dataKey: "agent"},
-        {title: "Date Submitted to Telemed", dataKey: "date_submitted_to_telemed"},
-        {title: "Date Telemed Returned", dataKey: "date_telemed_returned"},
-        {title: "Date Application Recorded", dataKey: "date_app_rec"},
-        {title: "Date Sample Recorded", dataKey: "date_sample_rec"},
-        {title: "Date Paid", dataKey: "date_paid"},
-        {title: "Insurance Company Name", dataKey: "insurance_company"},
-        {title: "Rejection Date", dataKey: "rejection_date"},
-        {title: "Date Submitted to Tamika ins verifier", dataKey: "date_submitted_to_tamika_ins_verifier"},
-      ];
+    loadButton: function(buttonNumber) {
+      Vue.set(this.buttonsLoading, buttonNumber, 1);
+
+      let self = this;
+
+      setTimeout(function() {
+        Vue.set(self.buttonsLoading, buttonNumber, 0);
+      }, 8000);
     }
   },
   watch: {
