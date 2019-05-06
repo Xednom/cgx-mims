@@ -91,7 +91,7 @@ class PdfPCFB(View):
         response['Content-Disposition'] = "inline; filename=PCFB-Report.pdf"
 
         html = render_to_string('paincreamandfootbath/pcfb_pdf.html', params)
-        css = [base.BASE_DIR + '/staticfiles/css/bootstrap/bootstrap.css']
+        css = [base.BASE_DIR + '/src/css/bootstrap/bootstrap.min.css']
 
         HTML(string=html).write_pdf(response, stylesheets=css)
         return response
