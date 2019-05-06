@@ -12,17 +12,6 @@
             margin: 1cm;
         }
 
-/*        * {
-            -ms-word-break: break-all;
-            word-break: break-all;
-
-            word-break: break-word;
-            -webkit-hyphens: auto;
-            -moz-hyphens: auto;
-            -ms-hyphens: auto;
-            hyphens: auto;
-        }*/
-
         span, label, textarea {
             font-size: 12px;
         }
@@ -31,52 +20,13 @@
             page-break-after: always;
         }
 
-        main {
-            width: 700px;
-            margin-left: 0px;
-        }
-
-        .flex-box {
-            display: flex;
-            width: 100%;
-            /*background-color: salmon;*/
-        }
-
-        .flex-pad {
-            padding: 10px;
-        }
-
-        .flex-1 {
-            flex-grow: 1;
-        }
-
-        .flex-2 {
-            flex-grow: 2;
-        }
-
-        .flex-3 {
-            flex-grow: 3;
-        }
-
-        .width--50 {
-            width: 50%;
-        }
-
-        .width--16 {
-            width: 16.66%;
-        }
-
-        .width--33 {
-            width: 33.33%;
-        }
-
-        .form-group {
-            margin-bottom: 0px;
-            padding-bottom: 0px;
-        }
-
-        .img-attachments {
+        .row {
             margin-bottom: 15px;
+        }
+
+        main {
+            width: 720px;
+            margin-left: 0px;
         }
 
         span {
@@ -94,216 +44,214 @@
     <main class="container-fluid">
 
         <section class="row">
-            <h6>PCFB Information on {{ pcfb.patient_name }}</h6>
+            <h4>PCFB Information on {{ pcfb.patient_name }}</h4>
         </section> 
         <hr>
         <section class="row">
-            <h6>Patient Information</h6>
+            <h4>Patient Information</h4>
         </section>
 
-        <section class="row">
-            <div class="flex-box">
-                <div class="form-group flex-pad flex-1 width--33">
-                    <label>Patient's First Name:</label>
-                    <div>
-                        <span>
-                        {% if pcfb.patient_first_name %}
-                            {{ pcfb.patient_first_name }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group flex-pad flex-1 width--33">
-                    <label>Patient's Last name:</label>
-                    <div>
-                        <span>
-                        {% if pcfb.patient_last_name %}
-                            {{ pcfb.patient_last_name }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group flex-pad flex-1 width--33">
-                    <label>Birth Date:</label>
-                    <div>
-                        <span>
-                        {% if pcfb.birth_date %}
-                            {{ pcfb.birth_date }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
+        <section class="row patient-information">
+            <div class="col-xs-4">
+                <label>Patient's First Name:</label>
+                <div>
+                    <span>
+                    {% if pcfb.patient_first_name %}
+                        {{ pcfb.patient_first_name }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
                 </div>
             </div>
-            <div class="flex-box">
-                <div class="form-group flex-pad flex-1 width--16">
-                    <label>Gender:</label>
-                    <div>
-                        <span>
-                        {% if pcfb.gender %}
-                            {{ pcfb.gender }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group flex-pad flex-2 width--33">
-                    <label>Patient's Phone Number:</label>
-                    <div>
-                        <span>
-                        {% if pcfb.patient_phone_number %}
-                            {{ pcfb.patient_phone_number }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group flex-pad flex-3 width--50">
-                    <label>Best Time to Call:</label>
-                    <div>
-                        <span>
-                        {% if pcfb.best_time_to_call %}
-                            {{ pcfb.best_time_to_call }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
+            <div class="col-xs-4">
+                <label>Patient's Last name:</label>
+                <div>
+                    <span>
+                    {% if pcfb.patient_last_name %}
+                        {{ pcfb.patient_last_name }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
                 </div>
             </div>
-            <div class="flex-box">
-                <div class="form-group flex-pad flex-1 width--50">
-                    <label>Street Address:</label>
-                    <div>
-                        <span>
-                        {% if pcfb.street_address %}
-                            {{ pcfb.street_address }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group flex-pad flex-1 width--50">
-                    <label>Street Address line 2:</label>
-                    <div>
-                        <span>
-                        {% if pcfb.street_address_2 %}
-                            {{ pcfb.street_address_2 }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
+            <div class="col-xs-4">
+                <label>Birth Date:</label>
+                <div>
+                    <span>
+                    {% if pcfb.birth_date %}
+                        {{ pcfb.birth_date }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
                 </div>
             </div>
-            <div class="flex-box">
-                <div class="form-group flex-pad flex-1 width--16">
-                    <label>City:</label>
-                    <div>
-                        <span>
-                        {% if pcfb.city %}
-                            {{ pcfb.city }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group flex-pad flex-1 width--16">
-                    <label>State/Province:</label>
-                    <div>
-                        <span>
-                        {% if pcfb.state_province %}
-                            {{ pcfb.state_province }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group flex-pad flex-1 width--16">
-                    <label>Postal/Zip Code:</label>
-                    <div>
-                        <span>
-                        {% if pcfb.postal_zip_code %}
-                            {{ pcfb.postal_zip_code }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group flex-pad flex-3 width--50">
-                    <label>Country:</label>
-                    <div>
-                        <span>
-                        {% if pcfb.country %}
-                            {{ pcfb.country }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
+        </section>
+        <section class="row patient-information">
+            <div class="col-xs-2">
+                <label>Gender:</label>
+                <div>
+                    <span>
+                    {% if pcfb.gender %}
+                        {{ pcfb.gender }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
                 </div>
             </div>
-            <div class="flex-box">
-                <div class="form-group flex-pad flex-1 width--50">
-                    <label>Insurance Type:</label>
-                    <div>
-                        <span>
-                        {% if pcfb.insurance_type %}
-                            {{ pcfb.insurance_type }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group flex-pad flex-1 width--50">
-                    <label>Policy Number:</label>
-                    <div>
-                        <span>
-                        {% if pcfb.medicare_medicaid_policy %}
-                            {{ pcfb.medicare_medicaid_policy }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
+            <div class="col-xs-4">
+                <label>Patient's Phone Number:</label>
+                <div>
+                    <span>
+                    {% if pcfb.patient_phone_number %}
+                        {{ pcfb.patient_phone_number }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
                 </div>
             </div>
-            <div class="flex-box">
-                <div class="form-group flex-pad flex-1 width--50">
-                    <label>PPO Information (if not straight Medicare)(Medicare ID#):</label>
-                    <div>
-                        <span>
-                        {% if pcfb.ppo_hmo_information_mem_id %}
-                            {{ pcfb.ppo_hmo_information_mem_id }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
+            <div class="col-xs-6">
+                <label>Best Time to Call:</label>
+                <div>
+                    <span>
+                    {% if pcfb.best_time_to_call %}
+                        {{ pcfb.best_time_to_call }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
                 </div>
-                <div class="form-group flex-pad flex-1 width--50">
-                    <label>PPO Information (if not straight Medicare)(PPO Name):</label>
-                    <div>
-                        <span>
-                        {% if pcfb.ppo_hmo_information_ppo_name %}
-                            {{ pcfb.ppo_hmo_information_ppo_name }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
+            </div>
+        </section>
+        <section class="row patient-information">
+            <div class="col-xs-6">
+                <label>Street Address:</label>
+                <div>
+                    <span>
+                    {% if pcfb.street_address %}
+                        {{ pcfb.street_address }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <label>Street Address line 2:</label>
+                <div>
+                    <span>
+                    {% if pcfb.street_address_2 %}
+                        {{ pcfb.street_address_2 }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+        </section>
+        <section class="row patient-information">
+            <div class="col-xs-2">
+                <label>City:</label>
+                <div>
+                    <span>
+                    {% if pcfb.city %}
+                        {{ pcfb.city }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-2">
+                <label>State/Province:</label>
+                <div>
+                    <span>
+                    {% if pcfb.state_province %}
+                        {{ pcfb.state_province }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-2">
+                <label>Postal/Zip Code:</label>
+                <div>
+                    <span>
+                    {% if pcfb.postal_zip_code %}
+                        {{ pcfb.postal_zip_code }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-5">
+                <label>Country:</label>
+                <div>
+                    <span>
+                    {% if pcfb.country %}
+                        {{ pcfb.country }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+        </section>
+        <section class="row patient-information">
+            <div class="col-xs-6">
+                <label>Insurance Type:</label>
+                <div>
+                    <span>
+                    {% if pcfb.insurance_type %}
+                        {{ pcfb.insurance_type }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <label>Policy Number:</label>
+                <div>
+                    <span>
+                    {% if pcfb.medicare_medicaid_policy %}
+                        {{ pcfb.medicare_medicaid_policy }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+        </section>
+        <section class="row patient-information">
+            <div class="col-xs-6">
+                <label>PPO Information (if not straight Medicare)(Medicare ID#):</label>
+                <div>
+                    <span>
+                    {% if pcfb.ppo_hmo_information_mem_id %}
+                        {{ pcfb.ppo_hmo_information_mem_id }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <label>PPO Information (if not straight Medicare)(PPO Name):</label>
+                <div>
+                    <span>
+                    {% if pcfb.ppo_hmo_information_ppo_name %}
+                        {{ pcfb.ppo_hmo_information_ppo_name }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
                 </div>
             </div>
         </section>
@@ -311,123 +259,125 @@
         <hr>
 
         <section class="row">
-            <h6>Medical Information</h6>
+            <h4>Medical Information</h4>
         </section>
 
-        <section class="row page-break">
-            <div class="flex-box">
-                <div class="form-group flex-pad flex-1 width--50">
-                    <label>Location of Pain:</label>
-                    <div>
-                        <span>
-                        {% if pcfb.location_of_pain %}
-                            {{ pcfb.location_of_pain }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group flex-pad flex-1 width--50">
-                    <label>Level of Pain:</label>
-                    <div>
-                        <span>
-                        {% if pcfb.level_of_pain %}
-                            {{ pcfb.level_of_pain }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
+        <section class="row medical-information">
+            <div class="col-xs-6">
+                <label>Location of Pain:</label>
+                <div>
+                    <span>
+                    {% if pcfb.location_of_pain %}
+                        {{ pcfb.location_of_pain }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
                 </div>
             </div>
-            <div class="flex-box">
-                <div class="form-group flex-pad flex-1 width--50">
-                    <label>How long have you been experiencing discomfort:</label>
-                    <div>
-                        <span>
-                        {% if pcfb.discomfort %}
-                            {{ pcfb.discomfort }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group flex-pad flex-1 width--50">
-                    <label>Frequency of Pain:</label>
-                    <div>
-                        <span>
-                        {% if pcfb.feq_of_pain %}
-                            {{ pcfb.feq_of_pain }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="flex-box">
-                <div class="form-group flex-pad flex-1 width--50 width--50">
-                    <label>Based upon the level of pain to the areas the patient is requesting braces and/or foot pain. Would the patient also like for the doctor to prescribe pain cream:</label>
-                    <div>
-                        <span>
-                        {% if pcfb.prescribe_pain_cream %}
-                            {{ pcfb.prescribe_pain_cream }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group flex-pad flex-1 width--50 width--50">
-                    <label>Location of Foot Issue:</label>
-                    <div>
-                        <span>
-                        {% if pcfb.location_of_foot_issue %}
-                            {{ pcfb.location_of_foot_issue }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="flex-box">
-                <div class="form-group flex-pad flex-1 width--50">
-                    <label>Date Faxed to Pharmacy:</label>
-                    <div>
-                        <span>
-                        {% if pcfb.date_faxed_to_pharmacy %}
-                            {{ pcfb.date_faxed_to_pharmacy }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group flex-pad flex-1 width--50">
-                    <label>IP Address:</label>
-                    <div>
-                        <span>
-                        {% if pcfb.ip %}
-                            {{ pcfb.ip }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
+            <div class="col-xs-6">
+                <label>Level of Pain:</label>
+                <div>
+                    <span>
+                    {% if pcfb.level_of_pain %}
+                        {{ pcfb.level_of_pain }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
                 </div>
             </div>
         </section>
-        <hr>
+        <section class="row medical-information">
+            <div class="col-xs-6">
+                <label>How long have you been experiencing discomfort:</label>
+                <div>
+                    <span>
+                    {% if pcfb.discomfort %}
+                        {{ pcfb.discomfort }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <label>Frequency of Pain:</label>
+                <div>
+                    <span>
+                    {% if pcfb.feq_of_pain %}
+                        {{ pcfb.feq_of_pain }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+        </section>
+        <section class="row medical-information">
+            <div class="col-xs-6">
+                <label>Based upon the level of pain to the areas the patient is requesting braces and/or foot pain. Would the patient also like for the doctor to prescribe pain cream:</label>
+                <div>
+                    <span>
+                    {% if pcfb.prescribe_pain_cream %}
+                        {{ pcfb.prescribe_pain_cream }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <label>Location of Foot Issue:</label>
+                <div>
+                    <span>
+                    {% if pcfb.location_of_foot_issue %}
+                        {{ pcfb.location_of_foot_issue }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+        </section>
+        <section class="row medical-information">
+            <div class="col-xs-6">
+                <label>Date Faxed to Pharmacy:</label>
+                <div>
+                    <span>
+                    {% if pcfb.date_faxed_to_pharmacy %}
+                        {{ pcfb.date_faxed_to_pharmacy }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <label>IP Address:</label>
+                <div>
+                    <span>
+                    {% if pcfb.ip %}
+                        {{ pcfb.ip }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        {%if pcfb.patient_id_photo or pcfb.insurance_card_photo or pcfb.ppo_card_photo %}
+
+        <hr class="page-break">
+
         <section class="row">
             Attachments
         </section>
-        <section class="attachments row">
 
+        <section class="attachments row">
             {% if pcfb.patient_id_photo %}
-            <div class="img-attachments">
+            <div class="img-attachments {% if not pcfb.insurance_card_photo %}page-break{% endif %}">
                 <label>Insurance Card Photo Front</label>
                 <div class="col-md-4">
                 <img src="{{ pcfb.patient_id_photo.url | get64 }}">
@@ -452,8 +402,9 @@
                 </div>
             </div>
             {% endif %}
-
         </section>
+
+        {% endif %}
     </main>
 
 </body>

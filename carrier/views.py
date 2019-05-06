@@ -157,7 +157,9 @@ class PdfCarrier(View):
         response['Content-Disposition'] = "inline; filename=Carrier-Report.pdf"
 
         html = render_to_string('carrier/carrier_pdf.html', params)
-        css = [base.BASE_DIR + '/staticfiles/css/bootstrap/bootstrap.css']
+        css = [
+            'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'
+        ]
 
         HTML(string=html).write_pdf(response, stylesheets=css)
         return response
