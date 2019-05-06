@@ -4,6 +4,7 @@ new Vue({
   delimiters: ['[[',']]'],
   data: {
     pcfbs: [],
+    buttonsLoading: [],
     message: null,
     loading: false,
     saving: false,
@@ -226,6 +227,332 @@ new Vue({
         }
       }
     },
+    generateExcelFile: function() {
+      let uri = 'data:application/vnd.ms-excel;base64,';
+
+      let context = {
+        worksheet: 'Worksheet1',
+        header: this.htmlConverter(this.generateExcelHeader()),
+        table: this.generateRows()
+      }
+      let htmlXML = this.generateXMLNS();
+      let formattedTemplate = this.formatTemplate(htmlXML, context);
+
+      let a = document.createElement('A');
+      a.href = uri + this.base64(formattedTemplate);
+      a.download = 'PCFB-Report-' + Date.now() + '.xlsx';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    },
+    htmlConverter: function(data) {
+      temporaryContainer = document.createElement('div');
+      temporaryContainer.appendChild(data);
+
+      return temporaryContainer.innerHTML
+    },
+    generateRows: function() {
+      let pcfbs = this.pcfbs;
+      let tableRows = '';
+
+      for (let i=0; i<pcfbs.length; i++) {
+        tableRows += this.htmlConverter(
+          this.generateData(pcfbs[i])
+          );
+      }
+
+      return tableRows
+
+    },
+    generateData: function(pcfb) {
+      let tr = document.createElement('tr');
+
+      let submissionDate = document.createElement('td');
+      let promoCode = document.createElement('td');
+      let agent = document.createElement('td');
+      let agentEmail = document.createElement('td');
+      let patientFirstName = document.createElement('td');
+      let patientLastName = document.createElement('td');
+      let birthDate = document.createElement('td');
+      let gender = document.createElement('td');
+      let patientPhoneNumber = document.createElement('td');
+      let bestTimeToCall = document.createElement('td');
+      let streetAddress = document.createElement('td');
+      let streetAddress2 = document.createElement('td');
+      let city = document.createElement('td');
+      let stateProvince = document.createElement('td');
+      let postalZipCode = document.createElement('td');
+      let country = document.createElement('td');
+      let insuranceType = document.createElement('td');
+      let medicareMedicaidPolicy = document.createElement('td');
+      let ppoHmoInformationMemID = document.createElement('td');
+      let ppoHmoInformationPpoName = document.createElement('td');
+      let insuranceStatus = document.createElement('td');
+      let locationOfPain = document.createElement('td');
+      let levelOfPain = document.createElement('td');
+      let discomfort = document.createElement('td');
+      let feqOfPain = document.createElement('td');
+      let prescribePainCream = document.createElement('td');
+      let locationOfFootIssue = document.createElement('td');
+      let describeFootIssue = document.createElement('td');
+      let orderStatus = document.createElement('td');
+      let dateFaxedToPharmacy = document.createElement('td');
+      let ip = document.createElement('td');
+      let submissionID = document.createElement('td');
+      let patientIDPhoto = document.createElement('td');
+      let insuranceCardPhoto = document.createElement('td');
+      let ppoCardPhoto = document.createElement('td');
+      let consentRecording = document.createElement('td');
+      let dateCreated = document.createElement('td');
+      let createdBy = document.createElement('td');
+      let updatedBy = document.createElement('td');
+      let userPromoCode = document.createElement('td');
+
+      submissionDate.textContent = pcfb['submission_date'];
+      promoCode.textContent = pcfb['promo_code'];
+      agent.textContent = pcfb['agent'];
+      agentEmail.textContent = pcfb['agent_email'];
+      patientFirstName.textContent = pcfb['patient_first_name'];
+      patientLastName.textContent = pcfb['patient_last_name'];
+      birthDate.textContent = pcfb['birth_date'];
+      gender.textContent = pcfb['gender'];
+      patientPhoneNumber.textContent = pcfb['patient_phone_number'];
+      bestTimeToCall.textContent = pcfb['best_time_to_call'];
+      streetAddress.textContent = pcfb['street_address'];
+      streetAddress2.textContent = pcfb['street_address_2'];
+      city.textContent = pcfb['city'];
+      stateProvince.textContent = pcfb['state_province'];
+      postalZipCode.textContent = pcfb['postal_zip_code'];
+      country.textContent = pcfb['country'];
+      insuranceType.textContent = pcfb['insurance_type'];
+      medicareMedicaidPolicy.textContent = pcfb['medicare_medicaid_policy'];
+      ppoHmoInformationMemID.textContent = pcfb['ppo_hmo_information_mem_id'];
+      ppoHmoInformationPpoName.textContent = pcfb['ppo_hmo_information_ppo_name'];
+      insuranceStatus.textContent = pcfb['insurance_status'];
+      locationOfPain.textContent = pcfb['location_of_pain'];
+      levelOfPain.textContent = pcfb['level_of_pain'];
+      discomfort.textContent = pcfb['discomfort'];
+      feqOfPain.textContent = pcfb['feq_of_pain'];
+      prescribePainCream.textContent = pcfb['prescribe_pain_cream'];
+      locationOfFootIssue.textContent = pcfb['location_of_foot_issue'];
+      describeFootIssue.textContent = pcfb['describe_foot_issue'];
+      orderStatus.textContent = pcfb['order_status'];
+      dateFaxedToPharmacy.textContent = pcfb['date_faxed_to_pharmacy'];
+      ip.textContent = pcfb['ip'];
+      submissionID.textContent = pcfb['submission_id'];
+      patientIDPhoto.textContent = pcfb['patient_id_photo'];
+      insuranceCardPhoto.textContent = pcfb['insurance_card_photo'];
+      ppoCardPhoto.textContent = pcfb['ppo_card_photo'];
+      consentRecording.textContent = pcfb['consent_recording'];
+      dateCreated.textContent = pcfb['date_created'];
+      createdBy.textContent = pcfb['created_by'];
+      updatedBy.textContent = pcfb['updated_by'];
+      userPromoCode.textContent = pcfb['user_promo_code'];
+
+      tr.appendChild(submissionDate);
+      tr.appendChild(promoCode);
+      tr.appendChild(agent);
+      tr.appendChild(agentEmail);
+      tr.appendChild(patientFirstName);
+      tr.appendChild(patientLastName);
+      tr.appendChild(birthDate);
+      tr.appendChild(gender);
+      tr.appendChild(patientPhoneNumber);
+      tr.appendChild(bestTimeToCall);
+      tr.appendChild(streetAddress);
+      tr.appendChild(streetAddress2);
+      tr.appendChild(city);
+      tr.appendChild(stateProvince);
+      tr.appendChild(postalZipCode);
+      tr.appendChild(country);
+      tr.appendChild(insuranceType);
+      tr.appendChild(medicareMedicaidPolicy);
+      tr.appendChild(ppoHmoInformationMemID);
+      tr.appendChild(ppoHmoInformationPpoName);
+      tr.appendChild(insuranceStatus);
+      tr.appendChild(locationOfPain);
+      tr.appendChild(levelOfPain);
+      tr.appendChild(discomfort);
+      tr.appendChild(feqOfPain);
+      tr.appendChild(prescribePainCream);
+      tr.appendChild(locationOfFootIssue);
+      tr.appendChild(describeFootIssue);
+      tr.appendChild(orderStatus);
+      tr.appendChild(dateFaxedToPharmacy);
+      tr.appendChild(ip);
+      tr.appendChild(submissionID);
+      tr.appendChild(patientIDPhoto);
+      tr.appendChild(insuranceCardPhoto);
+      tr.appendChild(ppoCardPhoto);
+      tr.appendChild(consentRecording);
+      tr.appendChild(dateCreated);
+      tr.appendChild(createdBy);
+      tr.appendChild(updatedBy);
+      tr.appendChild(userPromoCode);
+
+      return tr
+    },
+    generateExcelHeader: function() {
+      let tr = document.createElement('tr');
+
+      let submissionDate = document.createElement('th');
+      let promoCode = document.createElement('th');
+      let agent = document.createElement('th');
+      let agentEmail = document.createElement('th');
+      let patientFirstName = document.createElement('th');
+      let patientLastName = document.createElement('th');
+      let birthDate = document.createElement('th');
+      let gender = document.createElement('th');
+      let patientPhoneNumber = document.createElement('th');
+      let bestTimeToCall = document.createElement('th');
+      let streetAddress = document.createElement('th');
+      let streetAddress2 = document.createElement('th');
+      let city = document.createElement('th');
+      let stateProvince = document.createElement('th');
+      let postalZipCode = document.createElement('th');
+      let country = document.createElement('th');
+      let insuranceType = document.createElement('th');
+      let medicareMedicaidPolicy = document.createElement('th');
+      let ppoHmoInformationMemID = document.createElement('th');
+      let ppoHmoInformationPpoName = document.createElement('th');
+      let insuranceStatus = document.createElement('th');
+      let locationOfPain = document.createElement('th');
+      let levelOfPain = document.createElement('th');
+      let discomfort = document.createElement('th');
+      let feqOfPain = document.createElement('th');
+      let prescribePainCream = document.createElement('th');
+      let locationOfFootIssue = document.createElement('th');
+      let describeFootIssue = document.createElement('th');
+      let orderStatus = document.createElement('th');
+      let dateFaxedToPharmacy = document.createElement('th');
+      let ip = document.createElement('th');
+      let submissionID = document.createElement('th');
+      let patientIDPhoto = document.createElement('th');
+      let insuranceCardPhoto = document.createElement('th');
+      let ppoCardPhoto = document.createElement('th');
+      let consentRecording = document.createElement('th');
+      let dateCreated = document.createElement('th');
+      let createdBy = document.createElement('th');
+      let updatedBy = document.createElement('th');
+      let userPromoCode = document.createElement('th');
+
+      submissionDate.textContent = 'Submission Date';
+      promoCode.textContent = 'Promo Code';
+      agent.textContent = 'Agent';
+      agentEmail.textContent = 'Agent Email';
+      patientFirstName.textContent = 'Patient First Name';
+      patientLastName.textContent = 'Patient Last Name';
+      birthDate.textContent = 'Birthdate';
+      gender.textContent = 'Gender';
+      patientPhoneNumber.textContent = 'Patient Phone Number';
+      bestTimeToCall.textContent = 'Best Time to Call';
+      streetAddress.textContent = 'Street Address';
+      streetAddress2.textContent = 'Street Address 2';
+      city.textContent = 'City';
+      stateProvince.textContent = 'State Province';
+      postalZipCode.textContent = 'Postal Zip Code';
+      country.textContent = 'Country';
+      insuranceType.textContent = 'Insurance Type';
+      medicareMedicaidPolicy.textContent = 'Medicare Medicaid Policy';
+      ppoHmoInformationMemID.textContent = 'PPO HMO Information Mem ID';
+      ppoHmoInformationPpoName.textContent = 'PPO HMO Information PPO Name';
+      insuranceStatus.textContent = 'Insurance Status';
+      locationOfPain.textContent = 'Location of Pain';
+      levelOfPain.textContent = 'Level of Pain';
+      discomfort.textContent = 'Discomfort';
+      feqOfPain.textContent = 'Frequency of Pain';
+      prescribePainCream.textContent = 'Prescribe Pain Cream';
+      locationOfFootIssue.textContent = 'Location of Foot Issue';
+      describeFootIssue.textContent = 'Describe Foot Issue';
+      orderStatus.textContent = 'Order Status';
+      dateFaxedToPharmacy.textContent = 'Date Faxed to Pharmacy';
+      ip.textContent = 'IP';
+      submissionID.textContent = 'Submission ID';
+      patientIDPhoto.textContent = 'patient ID Photo';
+      insuranceCardPhoto.textContent = 'Insurance Card Photo';
+      ppoCardPhoto.textContent = 'PPO Card Photo';
+      consentRecording.textContent = 'Consent Recording';
+      dateCreated.textContent = 'Date Created';
+      createdBy.textContent = 'Created by';
+      updatedBy.textContent = 'Updated by';
+      userPromoCode.textContent = 'User Promo Code';
+
+      tr.appendChild(submissionDate);
+      tr.appendChild(promoCode);
+      tr.appendChild(agent);
+      tr.appendChild(agentEmail);
+      tr.appendChild(patientFirstName);
+      tr.appendChild(patientLastName);
+      tr.appendChild(birthDate);
+      tr.appendChild(gender);
+      tr.appendChild(patientPhoneNumber);
+      tr.appendChild(bestTimeToCall);
+      tr.appendChild(streetAddress);
+      tr.appendChild(streetAddress2);
+      tr.appendChild(city);
+      tr.appendChild(stateProvince);
+      tr.appendChild(postalZipCode);
+      tr.appendChild(country);
+      tr.appendChild(insuranceType);
+      tr.appendChild(medicareMedicaidPolicy);
+      tr.appendChild(ppoHmoInformationMemID);
+      tr.appendChild(ppoHmoInformationPpoName);
+      tr.appendChild(insuranceStatus);
+      tr.appendChild(locationOfPain);
+      tr.appendChild(levelOfPain);
+      tr.appendChild(discomfort);
+      tr.appendChild(feqOfPain);
+      tr.appendChild(prescribePainCream);
+      tr.appendChild(locationOfFootIssue);
+      tr.appendChild(describeFootIssue);
+      tr.appendChild(orderStatus);
+      tr.appendChild(dateFaxedToPharmacy);
+      tr.appendChild(ip);
+      tr.appendChild(submissionID);
+      tr.appendChild(patientIDPhoto);
+      tr.appendChild(insuranceCardPhoto);
+      tr.appendChild(ppoCardPhoto);
+      tr.appendChild(consentRecording);
+      tr.appendChild(dateCreated);
+      tr.appendChild(createdBy);
+      tr.appendChild(updatedBy);
+      tr.appendChild(userPromoCode);
+
+      return tr
+    },
+    generateXMLNS: function() {
+      let htmlOpenTag = '<html xmlns:o="urn:schemas-microsoft.com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">';
+      let htmlHead = '<head><!-- [if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"></head>';
+      let htmlBody = '<body><table>{header}{table}</table></body>';
+      let htmlCloseTag = '</html>';
+
+      return htmlOpenTag + htmlHead + htmlBody + htmlCloseTag;
+    },
+    base64: function(template) {
+      return window.btoa(unescape(encodeURIComponent(template)))
+    },
+    formatTemplate: function(template, context) {
+      return template.replace(/{(\w+)}/g, function(m, p) { return context[p] })
+    },
+    generatePDF: function(id, buttonNumber) {
+      this.loadButton(buttonNumber);
+
+      let link = document.createElement('a');
+      link.href = `/rx/${id}/pcfb-report.pdf`;
+      link.download = 'PCFB-Report-' + Date.now();
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    },
+    loadButton: function(buttonNumber) {
+      Vue.set(this.buttonsLoading, buttonNumber, 1);
+
+      let self = this;
+
+      setTimeout(function() {
+        Vue.set(self.buttonsLoading, buttonNumber, 0);
+      }, 8000);
+    }
   },
   watch: {
     pcfbs: function(newPcFbsRecords, oldpcfbsRecords) {

@@ -89,6 +89,8 @@ Bio Confirm Master | TSG System
         <!-- end loading -->
         <a href="#CollapseSearchBioConfirm" class="btn btn-primary fa fa-filter pull-right filter" data-toggle="collapse"
           role="button" aria-expanded="false" aria-controls="CollapseSearchBioConfirm" v-if="!loading"></a>
+        <!-- <a href="#" class="btn btn-success fa fa-print pull-right filter" v-on:click.prevent="generatePDF"></a> -->
+        <a href="#" class="btn btn-success fa fa-file-excel-o pull-right filter" v-on:click.prevent="generateExcelFile"></a>
         <div class="table-responsive" v-if="!loading">
           
           <table class="table table-hover table-bordered table-sm">
@@ -124,7 +126,17 @@ Bio Confirm Master | TSG System
                 <td>[[ bioconfirm.insurance_company ]]</td>
                 <td>[[ bioconfirm.rejection_date ]]</td>
                 <td>[[ bioconfirm.submitted_to_tamika_ins_verifier ]]</td>
-                <td><button type="button" class="btn btn-primary fa fa-eye" data-toggle="modal" data-target="#viewModalBioConfirm" v-on:click="viewBioConfirm(bioconfirm.id)"></button></td>
+                <td class="flex-justify">
+                  <div class="btn-group-vertical">
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#viewModalBioConfirm" v-on:click="viewBioConfirm(bioconfirm.id)">
+                      <i class="fa fa-eye"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-success" v-on:click="generatePDF(bioconfirm.id, i)">
+                      <i v-if="buttonsLoading[i]" class="fa fa-spinner fa-spin"></i>
+                      <i v-else class="fa fa-print filter"></i>
+                    </button>
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>

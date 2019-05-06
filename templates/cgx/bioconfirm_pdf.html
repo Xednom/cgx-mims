@@ -1,0 +1,396 @@
+{% load pdf_filters %}
+
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Bioconfirm Report</title>
+    <style type="text/css">
+        @page {
+            size: A4;
+            margin: 1cm;
+        }
+
+        span, label, textarea {
+            font-size: 12px;
+        }
+
+        .page-break {
+            page-break-after: always;
+        }
+
+        main {
+            width: 720px;
+            margin-left: 0px;
+        }
+
+        .flex-box {
+            display: flex;
+            width: 100%;
+            /*background-color: salmon;*/
+        }
+
+        .by-3 {
+            flex: 1 1;
+            padding: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 0px;
+            padding-bottom: 0px;
+        }
+        .img-attachments {
+            margin-bottom: 15px;
+        }
+
+        .input-container {
+
+        }
+
+        .width--50 {
+            width: 50%;
+        }
+
+        .width--16 {
+            width: 16.66%;
+        }
+
+        .width--33 {
+            width: 33.33%;
+        }
+
+        span {
+            text-decoration: underline;
+        }
+
+        label {
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="container-fluid">
+
+        <section class="row">
+            <h6>Bioconfirm Information on {{ bioconfirm.patient_name }}</h6>
+        </section> 
+        <hr>
+        <section class="row">
+            <h6>Patient Information</h6>
+        </section>
+
+        <section class="row">
+            <div class="flex-box">
+                <div class="form-group by-3 width--33">
+                    <label>Patient Name:</label>
+                    <div>
+                        <span>
+                        {% if bioconfirm.patient_name %}
+                            {{ bioconfirm.patient_name }}
+                        {% else %}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group by-3 width--33">
+                    <label>Patient Phone Number:</label>
+                    <div>
+                        <span>
+                        {% if bioconfirm.patient_phone_number %}
+                            {{ bioconfirm.patient_phone_number }}
+                        {% else %}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group by-3 width--33">
+                    <label>Submitted to Tamika ins Verifier:</label>
+                    <div>
+                        <span>
+                        {% if bioconfirm.submitted_to_tamika_ins_verifier %}
+                            {{ bioconfirm.submitted_to_tamika_ins_verifier }}
+                        {% else %}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-box">
+                <div class="form-group by-3 width--33">
+                    <label>Promo Code:</label>
+                    <div>
+                        <span>
+                        {% if bioconfirm.promo_code %}
+                            {{ bioconfirm.promo_code }}
+                        {% else %}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group by-3 width--33">
+                    <label>Status:</label>
+                    <div>
+                        <span>
+                        {% if bioconfirm.status %}
+                            {{ bioconfirm.status }}
+                        {% else %}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group by-3 width--33">
+                    <label>State:</label>
+                    <div>
+                        <span>
+                        {% if bioconfirm.state %}
+                            {{ bioconfirm.state }}
+                        {% else %}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-box">
+                <div class="form-group by-3 width--33">
+                    <label>Test Choice:</label>
+                    <div>
+                        <span>
+                        {% if bioconfirm.type_of_test %}
+                            {{ bioconfirm.type_of_test }}
+                        {% else %}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group by-3 width--33">
+                    <label>Agent:</label>
+                    <div>
+                        <span>
+                        {% if bioconfirm.agent %}
+                            {{ bioconfirm.agent }}
+                        {% else %}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group by-3 width--33">
+                    <label>Telemed Name:</label>
+                    <div class="">
+                        <span>
+                        {% if bioconfirm.telemed_name %}
+                            {{ bioconfirm.telemed_name }}
+                        {% else %}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-box">
+                <div class="form-group by-3 width--33">
+                    <label>Insurance Company:</label>
+                    <div>
+                        <span>
+                        {% if bioconfirm.insurance_company %}
+                            {{ bioconfirm.insurance_company }}
+                        {% else %}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group by-3 width--33">
+                </div>
+                <div class="form-group by-3 width--33">
+                </div>
+            </div>
+            <div class="flex-box">
+                <div class="form-group by-3 width--33">
+                    <label>Notes:</label>
+                    <textarea>{{ bioconfirm.notes }}</textarea>
+                </div>
+            </div>
+
+        </section>
+
+        <hr>
+
+        <section class="row">
+            <h6>Patient Date Information</h6>
+        </section>
+
+        <section class="row page-break">
+            <div class="flex-box">
+                <div class="form-group by-3 width--33">
+                    <label>Date Application Recorded:</label>
+                    <div>
+                        <span>
+                        {% if bioconfirm.date_app_rec %}
+                            {{ bioconfirm.date_app_rec }}
+                        {% else %}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group by-3 width--33">
+                    <label>Date Sample Recorded:</label>
+                    <div>
+                        <span>
+                        {% if bioconfirm.date_sample_rec %}
+                            {{ bioconfirm.date_sample_rec }}
+                        {% else %}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group by-3 width--33">
+                    <label>Date of QCA:</label>
+                    <div>
+                        <span>
+                        {% if bioconfirm.date_of_qca %}
+                            {{ bioconfirm.date_of_qca }}
+                        {% else %}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-box">
+                <div class="form-group by-3 width--33">
+                    <label>Date Submitted to Telemed:</label>
+                    <div>
+                        <span>
+                        {% if bioconfirm.date_submitted_to_telemed %}
+                            {{ bioconfirm.date_submitted_to_telemed }}
+                        {% else %}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group by-3 width--33">
+                    <label>Date Telemed Returned:</label>
+                    <div>
+                        <span>
+                        {% if bioconfirm.date_telemed_returned %}
+                            {{ bioconfirm.date_telemed_returned }}
+                        {% else %}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group by-3 width--33">
+                    <label>Date Bioconfirm Recorded Application:</label>
+                    <div>
+                        <span>
+                        {% if bioconfirm.date_bioconfim_rec_app %}
+                            {{ bioconfirm.date_bioconfim_rec_app }}
+                        {% else %}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-box">
+                <div class="form-group by-3 width--33">
+                    <label>Date Paid:</label>
+                    <div>
+                        <span>
+                        {% if bioconfirm.date_paid %}
+                            {{ bioconfirm.date_paid }}
+                        {% else %}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group by-3 width--33">
+                    <label>Month:</label>
+                    <div>
+                        <span>
+                        {% if bioconfirm.month %}
+                            {{ bioconfirm.month }}
+                        {% else %}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group by-3 width--33">
+                    <label>Rejection Date:</label>
+                    <div>
+                        <span>
+                        {% if bioconfirm.rejection_date %}
+                            {{ bioconfirm.rejection_date }}
+                        {% else %}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr>
+        <section class="row">
+            Attachments
+        </section>
+            <section class="attachments">
+
+                {% if bioconfirm.insurance_card_photo_front %}
+                <div class="img-attachments">
+                    <label>Insurance Card Photo Front</label>
+                    <div class="col-md-4">
+                    <img src="{{ bioconfirm.insurance_card_photo_front.url | get64 }}">
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if bioconfirm.insurance_card_photo_front %}
+                <div class="img-attachments page-break">
+                    <label>Insurance Card Photo Back</label>
+                    <div class="col-md-4">
+                        <img src="{{ bioconfirm.insurance_card_photo_back.url | get64 }}">
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if bioconfirm.insurance_card_photo_front %}
+                <div class="img-attachments">
+                    <label>Additional Insurance Card</label>
+                    <div class="col-md-4">
+                        <img src="{{ bioconfirm.additional_insurance_cards.url | get64 }}">
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if bioconfirm.insurance_card_photo_front %}
+                <div class="img-attachments page-break">
+                    <label>Patient ID Photo</label>
+                    <div class="col-md-4">
+                        <img src="{{ bioconfirm.patient_id_photo.url | get64 }}">
+                    </div>
+                </div>
+                {% endif %}
+
+            </section>
+    </main>
+
+</body>
+
+</html>

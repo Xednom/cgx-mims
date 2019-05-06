@@ -84,6 +84,8 @@ Rx | TSG System
         <!-- end loading -->
         <a href="#CollapseSearchPcAndFb" class="btn btn-primary fa fa-filter pull-right filter" data-toggle="collapse"
           role="button" aria-expanded="false" aria-controls="CollapseSearchPcAndFb" v-if="!loading"></a>
+        <!-- <a href="#" class="btn btn-success fa fa-print pull-right filter" v-on:click.prevent="generatePDF"></a> -->
+        <a href="#" class="btn btn-success fa fa-file-excel-o pull-right filter" v-on:click.prevent="generateExcelFile"></a>
         <div class="table-responsive" v-if="!loading">
           <table class="table table-hover table-bordered table-sm">
             <thead class="thead-light">
@@ -104,7 +106,7 @@ Rx | TSG System
                 <td colspan="14" class="text-center" v-if="!pcfbs.length">No records for <strong>Pain Cream and Foot
                     Bath</strong> as of now.</td>
               </tr>
-              <tr v-for="pcfb in pcfbs">
+              <tr v-for="(pcfb, i) in pcfbs">
                 <td>[[ pcfb.submission_date ]]</td>
                 <td>[[ pcfb.patient_first_name ]]</td>
                 <td>[[ pcfb.patient_last_name ]]</td>
@@ -113,9 +115,19 @@ Rx | TSG System
                 <td>[[ pcfb.medicare_medicaid_policy ]]</td>
                 <td>[[ pcfb.ppo_hmo_information_mem_id ]]</td>
                 <td>[[ pcfb.ppo_hmo_information_ppo_name ]]</td>
-                <td><button type="button" class="btn btn-primary fa fa-eye" data-toggle="modal"
-                    data-target="#viewModalPcFb"
-                    v-on:click="viewPcFb(pcfb.id)"></button></td>
+                <td class="flex-justify">
+                  <div class="btn-group-vertical">
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                      data-target="#viewModalPcFb"
+                      v-on:click="viewPcFb(pcfb.id)">
+                      <i class="fa fa-eye"></i>  
+                    </button>
+                    <button type="button" class="btn btn-sm btn-success" v-on:click="generatePDF(pcfb.id, i)">
+                      <i v-if="buttonsLoading[i]" class="fa fa-spinner fa-spin"></i>
+                      <i v-else class="fa fa-print filter"></i>
+                    </button>
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>

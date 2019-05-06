@@ -8,6 +8,7 @@ new Vue({
     managerNames: [],
     testChoices: [],
     statuses: [],
+    buttonsLoading: [],
     message: null,
     loading: false,
     saving: false,
@@ -268,6 +269,278 @@ new Vue({
             this.endPage = this.currentPage + maxPagesAfterCurrentPage;
         }
       }
+    },
+    generateExcelFile: function() {
+      let uri = 'data:application/vnd.ms-excel;base64,';
+
+      let context = {
+        worksheet: 'Worksheet1',
+        header: this.htmlConverter(this.generateExcelHeader()),
+        table: this.generateRows()
+      }
+      let htmlXML = this.generateXMLNS();
+      let formattedTemplate = this.formatTemplate(htmlXML, context);
+
+      let a = document.createElement('A');
+      a.href = uri + this.base64(formattedTemplate);
+      a.download = 'Carrier-Report-' + Date.now() + '.xlsx';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    },
+    htmlConverter: function(data) {
+      temporaryContainer = document.createElement('div');
+      temporaryContainer.appendChild(data);
+
+      return temporaryContainer.innerHTML
+    },
+    generateRows: function() {
+      let carriers = this.carriers;
+      let tableRows = '';
+
+      for (let i=0; i<carriers.length; i++) {
+        tableRows += this.htmlConverter(
+          this.generateData(carriers[i])
+          );
+      }
+
+      return tableRows
+
+    },
+    generateData: function(carrier) {
+      let tr = document.createElement('tr');
+
+      let patientName = document.createElement('td');
+      let patientPhoneNumber = document.createElement('td');
+      let promoCode = document.createElement('td');
+      let agent = document.createElement('td');
+      let manager = document.createElement('td');
+      let dateAppRec = document.createElement('td');
+      let dateSampleRec = document.createElement('td');
+      let typeOfTest = document.createElement('td');
+      let dateOfQCA = document.createElement('td');
+      let insuranceVerifiedTSGVerification = document.createElement('td');
+      let telemedName = document.createElement('td');
+      let dateSubmittedToTelemed = document.createElement('td');
+      let dateTelemedReturned = document.createElement('td');
+      let dateBioconfirmRecApp = document.createElement('td');
+      let datePaid = document.createElement('td');
+      let dateLabRecordedApp = document.createElement('td');
+      let labType = document.createElement('td');
+      let state = document.createElement('td');
+      let status = document.createElement('td');
+      let month = document.createElement('td');
+      let notes = document.createElement('td');
+      let rejectionDate = document.createElement('td');
+      let patientIDPhoto = document.createElement('td');
+      let insuranceCardPhotoFront = document.createElement('td');
+      let insuranceCardPhotoBack = document.createElement('td');
+      let additionalInsuranceCards = document.createElement('td');
+      let consentRecording = document.createElement('td');
+      let dateCreated = document.createElement('td');
+      let createdBy = document.createElement('td');
+      let updatedBy = document.createElement('td');
+      let userPromoCode = document.createElement('td');
+
+      patientName.textContent = carrier['patient_name'];
+      patientPhoneNumber.textContent = carrier['patient_phone_number'];
+      promoCode.textContent = carrier['promo_code'];
+      agent.textContent = carrier['agent'];
+      manager.textContent = carrier['manager'];
+      dateAppRec.textContent = carrier['date_app_rec'];
+      dateSampleRec.textContent = carrier['date_sample_rec'];
+      typeOfTest.textContent = carrier['type_of_test'];
+      dateOfQCA.textContent = carrier['date_of_qca'];
+      insuranceVerifiedTSGVerification.textContent = carrier['insurance_verified_tsg_verification'];
+      telemedName.textContent = carrier['telemed_name'];
+      dateSubmittedToTelemed.textContent = carrier['date_submitted_to_telemed'];
+      dateTelemedReturned.textContent = carrier['date_telemed_returned'];
+      dateBioconfirmRecApp.textContent = carrier['date_bioconfim_rec_app'];
+      datePaid.textContent = carrier['date_paid'];
+      dateLabRecordedApp.textContent = carrier['date_lab_recorded_app'];
+      labType.textContent = carrier['lab_type'];
+      state.textContent = carrier['state'];
+      status.textContent = carrier['status'];
+      month.textContent = carrier['month'];
+      notes.textContent = carrier['notes'];
+      rejectionDate.textContent = carrier['rejection_date'];
+      patientIDPhoto.textContent = carrier['patient_id_photo'];
+      insuranceCardPhotoFront.textContent = carrier['insurance_card_photo_front'];
+      insuranceCardPhotoBack.textContent = carrier['insurance_card_photo_back'];
+      additionalInsuranceCards.textContent = carrier['additional_insurance_cards'];
+      consentRecording.textContent = carrier['consent_recording'];
+      dateCreated.textContent = carrier['date_created'];
+      createdBy.textContent = carrier['created_by'];
+      updatedBy.textContent = carrier['updated_by'];
+      userPromoCode.textContent = carrier['user_promo_code'];
+
+      tr.appendChild(patientName);
+      tr.appendChild(patientPhoneNumber);
+      tr.appendChild(promoCode);
+      tr.appendChild(agent);
+      tr.appendChild(manager);
+      tr.appendChild(dateAppRec);
+      tr.appendChild(dateSampleRec);
+      tr.appendChild(typeOfTest);
+      tr.appendChild(dateOfQCA);
+      tr.appendChild(insuranceVerifiedTSGVerification);
+      tr.appendChild(telemedName);
+      tr.appendChild(dateSubmittedToTelemed);
+      tr.appendChild(dateTelemedReturned);
+      tr.appendChild(dateBioconfirmRecApp);
+      tr.appendChild(datePaid);
+      tr.appendChild(dateLabRecordedApp);
+      tr.appendChild(labType);
+      tr.appendChild(state);
+      tr.appendChild(status);
+      tr.appendChild(month);
+      tr.appendChild(notes);
+      tr.appendChild(rejectionDate);
+      tr.appendChild(patientIDPhoto);
+      tr.appendChild(insuranceCardPhotoFront);
+      tr.appendChild(insuranceCardPhotoBack);
+      tr.appendChild(additionalInsuranceCards);
+      tr.appendChild(consentRecording);
+      tr.appendChild(dateCreated);
+      tr.appendChild(createdBy);
+      tr.appendChild(updatedBy);
+      tr.appendChild(userPromoCode);
+
+      return tr
+    },
+    generateExcelHeader: function(carrier) {
+      let tr = document.createElement('tr');
+
+      let patientName = document.createElement('th');
+      let patientPhoneNumber = document.createElement('th');
+      let promoCode = document.createElement('th');
+      let agent = document.createElement('th');
+      let manager = document.createElement('th');
+      let dateAppRec = document.createElement('th');
+      let dateSampleRec = document.createElement('th');
+      let typeOfTest = document.createElement('th');
+      let dateOfQCA = document.createElement('th');
+      let insuranceVerifiedTSGVerification = document.createElement('th');
+      let telemedName = document.createElement('th');
+      let dateSubmittedToTelemed = document.createElement('th');
+      let dateTelemedReturned = document.createElement('th');
+      let dateBioconfirmRecApp = document.createElement('th');
+      let datePaid = document.createElement('th');
+      let dateLabRecordedApp = document.createElement('th');
+      let labType = document.createElement('th');
+      let state = document.createElement('th');
+      let status = document.createElement('th');
+      let month = document.createElement('th');
+      let notes = document.createElement('th');
+      let rejectionDate = document.createElement('th');
+      let patientIDPhoto = document.createElement('th');
+      let insuranceCardPhotoFront = document.createElement('th');
+      let insuranceCardPhotoBack = document.createElement('th');
+      let additionalInsuranceCards = document.createElement('th');
+      let consentRecording = document.createElement('th');
+      let dateCreated = document.createElement('th');
+      let createdBy = document.createElement('th');
+      let updatedBy = document.createElement('th');
+      let userPromoCode = document.createElement('th');
+
+      patientName.textContent = 'Patient Name';
+      patientPhoneNumber.textContent = 'Patient Phone Number';
+      promoCode.textContent = 'Promo Code';
+      agent.textContent = 'Agent';
+      manager.textContent = 'Manager';
+      dateAppRec.textContent = 'Date App Rec';
+      dateSampleRec.textContent = 'Date Sample Rec';
+      typeOfTest.textContent = 'Type of Test';
+      dateOfQCA.textContent = 'Date of QCA';
+      insuranceVerifiedTSGVerification.textContent = 'Insurance Verified TSG Verification';
+      telemedName.textContent = 'Telemed Name';
+      dateSubmittedToTelemed.textContent = 'Date Submitted to Telemed';
+      dateTelemedReturned.textContent = 'Date Telemed Return';
+      dateBioconfirmRecApp.textContent = 'Date Bioconfirm Rec App';
+      datePaid.textContent = 'Date Paid';
+      dateLabRecordedApp.textContent = 'Date Lab Recorded App';
+      labType.textContent = 'Lab Type';
+      state.textContent = 'State';
+      status.textContent = 'Status';
+      month.textContent = 'Month';
+      notes.textContent = 'Notes';
+      rejectionDate.textContent = 'Rejection Date';
+      patientIDPhoto.textContent = 'Patient ID Photo';
+      insuranceCardPhotoFront.textContent = 'Insurance Card Photo Front';
+      insuranceCardPhotoBack.textContent = 'Insurance Card Photo Back';
+      additionalInsuranceCards.textContent = 'Additional Insurance Cards';
+      consentRecording.textContent = 'Consent Recording';
+      dateCreated.textContent = 'Date Created';
+      createdBy.textContent = 'Created by';
+      updatedBy.textContent = 'Updated by';
+      userPromoCode.textContent = 'User Promo Code';
+
+      tr.appendChild(patientName);
+      tr.appendChild(patientPhoneNumber);
+      tr.appendChild(promoCode);
+      tr.appendChild(agent);
+      tr.appendChild(manager);
+      tr.appendChild(dateAppRec);
+      tr.appendChild(dateSampleRec);
+      tr.appendChild(typeOfTest);
+      tr.appendChild(dateOfQCA);
+      tr.appendChild(insuranceVerifiedTSGVerification);
+      tr.appendChild(telemedName);
+      tr.appendChild(dateSubmittedToTelemed);
+      tr.appendChild(dateTelemedReturned);
+      tr.appendChild(dateBioconfirmRecApp);
+      tr.appendChild(datePaid);
+      tr.appendChild(dateLabRecordedApp);
+      tr.appendChild(labType);
+      tr.appendChild(state);
+      tr.appendChild(status);
+      tr.appendChild(month);
+      tr.appendChild(notes);
+      tr.appendChild(rejectionDate);
+      tr.appendChild(patientIDPhoto);
+      tr.appendChild(insuranceCardPhotoFront);
+      tr.appendChild(insuranceCardPhotoBack);
+      tr.appendChild(additionalInsuranceCards);
+      tr.appendChild(consentRecording);
+      tr.appendChild(dateCreated);
+      tr.appendChild(createdBy);
+      tr.appendChild(updatedBy);
+      tr.appendChild(userPromoCode);
+
+      return tr
+    },
+    generateXMLNS: function() {
+      let htmlOpenTag = '<html xmlns:o="urn:schemas-microsoft.com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">';
+      let htmlHead = '<head><!-- [if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"></head>';
+      let htmlBody = '<body><table>{header}{table}</table></body>';
+      let htmlCloseTag = '</html>';
+
+      return htmlOpenTag + htmlHead + htmlBody + htmlCloseTag;
+    },
+    base64: function(template) {
+      return window.btoa(unescape(encodeURIComponent(template)))
+    },
+    formatTemplate: function(template, context) {
+      return template.replace(/{(\w+)}/g, function(m, p) { return context[p] })
+    },
+    generatePDF: function(id, buttonNumber) {
+      this.loadButton(buttonNumber);
+
+      let link = document.createElement('a');
+      link.href = `/carrier/${id}/carrier-report.pdf`;
+      link.download = 'Carrier-Report-' + Date.now();
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    },
+    loadButton: function(buttonNumber) {
+      Vue.set(this.buttonsLoading, buttonNumber, 1);
+
+      let self = this;
+
+      setTimeout(function() {
+        Vue.set(self.buttonsLoading, buttonNumber, 0);
+      }, 8000);
     }
   },
   watch: {
