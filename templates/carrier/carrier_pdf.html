@@ -20,44 +20,13 @@
             page-break-after: always;
         }
 
-        main {
-            width: 720px;
-            margin-left: 0px;
-        }
-
-        .flex-box {
-            display: flex;
-            width: 100%;
-            /*background-color: salmon;*/
-        }
-
-        .by-3 {
-            flex: 1 1;
-            padding: 10px;
-        }
-
-        .form-group {
-            margin-bottom: 0px;
-            padding-bottom: 0px;
-        }
-        .img-attachments {
+        .row {
             margin-bottom: 15px;
         }
 
-        .input-container {
-
-        }
-
-        .width--50 {
-            width: 50%;
-        }
-
-        .width--16 {
-            width: 16.66%;
-        }
-
-        .width--33 {
-            width: 33.33%;
+        main {
+            width: 720px;
+            margin-left: 0px;
         }
 
         span {
@@ -72,323 +41,332 @@
 
 <body>
 
-    <main class="container-fluid">
+    <main class="container">
 
         <section class="row">
-            <h6>Carrier Information on {{ carrier.patient_name }}</h6>
+            <h4>Carrier Information on {{ carrier.patient_name }}</h4>
         </section> 
         <hr>
         <section class="row">
-            <h6>Patient Information</h6>
+            <h4>Patient Information</h4>
         </section>
 
-        <section class="row">
-            <div class="flex-box">
-                <div class="form-group by-3 width--33">
-                    <label>Patient Name:</label>
-                    <div>
-                        <span>
-                        {% if carrier.patient_name %}
-                            {{ carrier.patient_name }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group by-3 width--33">
-                    <label>Patient Phone Number:</label>
-                    <div>
-                        <span>
-                        {% if carrier.patient_phone_number %}
-                            {{ carrier.patient_phone_number }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group by-3 width--33">
-                    <label>Submitted to Tamika ins Verifier:</label>
-                    <div>
-                        <span>
-                        {% if carrier.submitted_to_tamika_ins_verifier %}
-                            {{ carrier.submitted_to_tamika_ins_verifier }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
+        <section class="row patient-information">
+            <div class="col-xs-4">
+                <label>Patient Name:</label>
+                <div>
+                    <span>
+                    {% if carrier.patient_name %}
+                        {{ carrier.patient_name }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
                 </div>
             </div>
-            <div class="flex-box">
-                <div class="form-group by-3 width--33">
-                    <label>Promo Code:</label>
-                    <div>
-                        <span>
-                        {% if carrier.promo_code %}
-                            {{ carrier.promo_code }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group by-3 width--33">
-                    <label>Status:</label>
-                    <div>
-                        <span>
-                        {% if carrier.status %}
-                            {{ carrier.status }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group by-3 width--33">
-                    <label>State:</label>
-                    <div>
-                        <span>
-                        {% if carrier.state %}
-                            {{ carrier.state }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
+            <div class="col-xs-4">
+                <label>Patient Phone Number:</label>
+                <div>
+                    <span>
+                    {% if carrier.patient_phone_number %}
+                        {{ carrier.patient_phone_number }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
                 </div>
             </div>
-            <div class="flex-box">
-                <div class="form-group by-3 width--33">
-                    <label>Test Choice:</label>
-                    <div>
-                        <span>
-                        {% if carrier.type_of_test %}
-                            {{ carrier.type_of_test }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group by-3 width--33">
-                    <label>Agent:</label>
-                    <div>
-                        <span>
-                        {% if carrier.agent %}
-                            {{ carrier.agent }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group by-3 width--33">
-                    <label>Telemed Name:</label>
-                    <div class="">
-                        <span>
-                        {% if carrier.telemed_name %}
-                            {{ carrier.telemed_name }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
+            <div class="col-xs-4">
+                <label>Submitted to Tamika ins Verifier:</label>
+                <div>
+                    <span>
+                    {% if carrier.submitted_to_tamika_ins_verifier %}
+                        {{ carrier.submitted_to_tamika_ins_verifier }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
                 </div>
             </div>
-            <div class="flex-box">
-                <div class="form-group by-3 width--33">
-                    <label>Insurance Company:</label>
-                    <div>
-                        <span>
-                        {% if carrier.insurance_company %}
-                            {{ carrier.insurance_company }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group by-3 width--33">
-                </div>
-                <div class="form-group by-3 width--33">
-                </div>
-            </div>
-            <div class="flex-box">
-                <div class="form-group by-3 width--33">
-                    <label>Notes:</label>
-                    <textarea>{{ carrier.notes }}</textarea>
-                </div>
-            </div>
+        </section>
 
+        <section class="row patient-information">
+            <div class="col-xs-4">
+                <label>Promo Code:</label>
+                <div>
+                    <span>
+                    {% if carrier.promo_code %}
+                        {{ carrier.promo_code }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <label>Status:</label>
+                <div>
+                    <span>
+                    {% if carrier.status %}
+                        {{ carrier.status }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <label>State:</label>
+                <div>
+                    <span>
+                    {% if carrier.state %}
+                        {{ carrier.state }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <section class="row patient-information">
+            <div class="col-xs-4">
+                <label>Test Choice:</label>
+                <div>
+                    <span>
+                    {% if carrier.type_of_test %}
+                        {{ carrier.type_of_test }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <label>Agent:</label>
+                <div>
+                    <span>
+                    {% if carrier.agent %}
+                        {{ carrier.agent }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <label>Telemed Name:</label>
+                <div class="">
+                    <span>
+                    {% if carrier.telemed_name %}
+                        {{ carrier.telemed_name }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <section class="row patient-information">
+            <div class="col-xs-4">
+                <label>Insurance Company:</label>
+                <div>
+                    <span>
+                    {% if carrier.insurance_company %}
+                        {{ carrier.insurance_company }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-4">
+            </div>
+            <div class="col-xs-4">
+            </div>
+        </section>
+
+        <section class="row patient-information">    
+            <div class="col-xs-12">
+                <label>Notes:</label>
+                <div>
+                    <span>{{ carrier.notes }}</span>
+                </div>
+            </div>
         </section>
 
         <hr>
 
         <section class="row">
-            <h6>Patient Date Information</h6>
+            <h4>Patient Date Information</h4>
         </section>
 
-        <section class="row page-break">
-            <div class="flex-box">
-                <div class="form-group by-3 width--33">
-                    <label>Date Application Recorded:</label>
-                    <div>
-                        <span>
-                        {% if carrier.date_app_rec %}
-                            {{ carrier.date_app_rec }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group by-3 width--33">
-                    <label>Date Sample Recorded:</label>
-                    <div>
-                        <span>
-                        {% if carrier.date_sample_rec %}
-                            {{ carrier.date_sample_rec }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group by-3 width--33">
-                    <label>Date of QCA:</label>
-                    <div>
-                        <span>
-                        {% if carrier.date_of_qca %}
-                            {{ carrier.date_of_qca }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
+        <section class="row patient-date-information">
+            <div class="col-xs-4">
+                <label>Date Application Recorded:</label>
+                <div>
+                    <span>
+                    {% if carrier.date_app_rec %}
+                        {{ carrier.date_app_rec }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
                 </div>
             </div>
-            <div class="flex-box">
-                <div class="form-group by-3 width--33">
-                    <label>Date Submitted to Telemed:</label>
-                    <div>
-                        <span>
-                        {% if carrier.date_submitted_to_telemed %}
-                            {{ carrier.date_submitted_to_telemed }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group by-3 width--33">
-                    <label>Date Telemed Returned:</label>
-                    <div>
-                        <span>
-                        {% if carrier.date_telemed_returned %}
-                            {{ carrier.date_telemed_returned }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group by-3 width--33">
-                    <label>Date Bioconfirm Recorded Application:</label>
-                    <div>
-                        <span>
-                        {% if carrier.date_bioconfim_rec_app %}
-                            {{ carrier.date_bioconfim_rec_app }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
+            <div class="col-xs-4">
+                <label>Date Sample Recorded:</label>
+                <div>
+                    <span>
+                    {% if carrier.date_sample_rec %}
+                        {{ carrier.date_sample_rec }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
                 </div>
             </div>
-            <div class="flex-box">
-                <div class="form-group by-3 width--33">
-                    <label>Date Paid:</label>
-                    <div>
-                        <span>
-                        {% if carrier.date_paid %}
-                            {{ carrier.date_paid }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group by-3 width--33">
-                    <label>Month:</label>
-                    <div>
-                        <span>
-                        {% if carrier.month %}
-                            {{ carrier.month }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group by-3 width--33">
-                    <label>Rejection Date:</label>
-                    <div>
-                        <span>
-                        {% if carrier.rejection_date %}
-                            {{ carrier.rejection_date }}
-                        {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
+            <div class="col-xs-4">
+                <label>Date of QCA:</label>
+                <div>
+                    <span>
+                    {% if carrier.date_of_qca %}
+                        {{ carrier.date_of_qca }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
                 </div>
             </div>
         </section>
-        <hr>
+
+        <section class="row patient-date-information">
+            <div class="col-xs-4">
+                <label>Date Submitted to Telemed:</label>
+                <div>
+                    <span>
+                    {% if carrier.date_submitted_to_telemed %}
+                        {{ carrier.date_submitted_to_telemed }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <label>Date Telemed Returned:</label>
+                <div>
+                    <span>
+                    {% if carrier.date_telemed_returned %}
+                        {{ carrier.date_telemed_returned }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <label>Date Bioconfirm Recorded Application:</label>
+                <div>
+                    <span>
+                    {% if carrier.date_bioconfim_rec_app %}
+                        {{ carrier.date_bioconfim_rec_app }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <section class="row patient-date-information">
+            <div class="col-xs-4">
+                <label>Date Paid:</label>
+                <div>
+                    <span>
+                    {% if carrier.date_paid %}
+                        {{ carrier.date_paid }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <label>Month:</label>
+                <div>
+                    <span>
+                    {% if carrier.month %}
+                        {{ carrier.month }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <label>Rejection Date:</label>
+                <div>
+                    <span>
+                    {% if carrier.rejection_date %}
+                        {{ carrier.rejection_date }}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        {% if carrier.insurance_card_photo_front or carrier.insurance_card_photo_back or carrier.additional_insurance_cards or carrier.patient_id_photo %}
+
+        <hr class="page-break">
+
         <section class="row">
-            Attachments
+            <h4>Attachments</h4>
         </section>
-            <section class="attachments">
+        <section class="attachments">
 
-                {% if carrier.insurance_card_photo_front %}
-                <div class="img-attachments">
-                    <label>Insurance Card Photo Front</label>
-                    <div class="col-md-4">
-                    <img src="{{ carrier.insurance_card_photo_front.url | get64 }}">
-                    </div>
+            {% if carrier.insurance_card_photo_front %}
+            <div class="img-attachments {% if not carrier.insurance_card_photo_back %}page-break{% endif %}">
+                <label>Insurance Card Photo Front</label>
+                <div class="col-md-4">
+                <img src="{{ carrier.insurance_card_photo_front.url | get64 }}">
                 </div>
-                {% endif %}
+            </div>
+            {% endif %}
 
-                {% if carrier.insurance_card_photo_front %}
-                <div class="img-attachments page-break">
-                    <label>Insurance Card Photo Back</label>
-                    <div class="col-md-4">
-                        <img src="{{ carrier.insurance_card_photo_back.url | get64 }}">
-                    </div>
+            {% if carrier.insurance_card_photo_back %}
+            <div class="img-attachments page-break">
+                <label>Insurance Card Photo Back</label>
+                <div class="col-md-4">
+                    <img src="{{ carrier.insurance_card_photo_back.url | get64 }}">
                 </div>
-                {% endif %}
+            </div>
+            {% endif %}
 
-                {% if carrier.insurance_card_photo_front %}
-                <div class="img-attachments">
-                    <label>Additional Insurance Card</label>
-                    <div class="col-md-4">
-                        <img src="{{ carrier.additional_insurance_cards.url | get64 }}">
-                    </div>
+            {% if carrier.additional_insurance_cards %}
+            <div class="img-attachments">
+                <label>Additional Insurance Card</label>
+                <div class="col-md-4">
+                    <img src="{{ carrier.additional_insurance_cards.url | get64 }}">
                 </div>
-                {% endif %}
+            </div>
+            {% endif %}
 
-                {% if carrier.insurance_card_photo_front %}
-                <div class="img-attachments page-break">
-                    <label>Patient ID Photo</label>
-                    <div class="col-md-4">
-                        <img src="{{ carrier.patient_id_photo.url | get64 }}">
-                    </div>
+            {% if carrier.patient_id_photo %}
+            <div class="img-attachments">
+                <label>Patient ID Photo</label>
+                <div class="col-md-4">
+                    <img src="{{ carrier.patient_id_photo.url | get64 }}">
                 </div>
-                {% endif %}
+            </div>
+            {% endif %}
 
-            </section>
+        </section>
+
+        {% endif %}
     </main>
 
 </body>
