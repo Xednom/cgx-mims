@@ -113,8 +113,6 @@ new Vue({
         .then((response) => {
           this.carriers = response.data;
           this.searching = false;
-
-          this.generateExcelFile('wow', 'wow');
         })
         .catch((err) => {
           this.searching = false;

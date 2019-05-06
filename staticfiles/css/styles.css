@@ -248,6 +248,11 @@ label {
   color: #777777;
 }
 
+.flex-justify {
+  display: flex;
+  justify-content: center;
+}
+
 
 /** Bootstrap customizations **/
 @media (max-width: 990px) {
