@@ -47,6 +47,26 @@
         .input-container {
 
         }
+
+        .width--50 {
+            width: 50%;
+        }
+
+        .width--16 {
+            width: 16.66%;
+        }
+
+        .width--33 {
+            width: 33.33%;
+        }
+
+        span {
+            text-decoration: underline;
+        }
+
+        label {
+            font-weight: 700;
+        }
     </style>
 </head>
 
@@ -64,139 +84,139 @@
 
         <section class="row">
             <div class="flex-box">
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Patient Name:</label>
                     <div>
                         <span>
                         {% if bioconfirm.patient_name %}
                             {{ bioconfirm.patient_name }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Patient Phone Number:</label>
                     <div>
                         <span>
                         {% if bioconfirm.patient_phone_number %}
                             {{ bioconfirm.patient_phone_number }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Submitted to Tamika ins Verifier:</label>
                     <div>
                         <span>
                         {% if bioconfirm.submitted_to_tamika_ins_verifier %}
                             {{ bioconfirm.submitted_to_tamika_ins_verifier }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="flex-box">
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Promo Code:</label>
                     <div>
                         <span>
                         {% if bioconfirm.promo_code %}
                             {{ bioconfirm.promo_code }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Status:</label>
                     <div>
                         <span>
                         {% if bioconfirm.status %}
                             {{ bioconfirm.status }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>State:</label>
                     <div>
                         <span>
                         {% if bioconfirm.state %}
                             {{ bioconfirm.state }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="flex-box">
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Test Choice:</label>
                     <div>
                         <span>
                         {% if bioconfirm.type_of_test %}
                             {{ bioconfirm.type_of_test }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Agent:</label>
                     <div>
                         <span>
                         {% if bioconfirm.agent %}
                             {{ bioconfirm.agent }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Telemed Name:</label>
                     <div class="">
                         <span>
                         {% if bioconfirm.telemed_name %}
                             {{ bioconfirm.telemed_name }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="flex-box">
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Insurance Company:</label>
                     <div>
                         <span>
                         {% if bioconfirm.insurance_company %}
                             {{ bioconfirm.insurance_company }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                 </div>
             </div>
             <div class="flex-box">
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Notes:</label>
                     <textarea>{{ bioconfirm.notes }}</textarea>
                 </div>
@@ -212,114 +232,114 @@
 
         <section class="row page-break">
             <div class="flex-box">
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Date Application Recorded:</label>
                     <div>
                         <span>
                         {% if bioconfirm.date_app_rec %}
                             {{ bioconfirm.date_app_rec }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Date Sample Recorded:</label>
                     <div>
                         <span>
                         {% if bioconfirm.date_sample_rec %}
                             {{ bioconfirm.date_sample_rec }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Date of QCA:</label>
                     <div>
                         <span>
                         {% if bioconfirm.date_of_qca %}
                             {{ bioconfirm.date_of_qca }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="flex-box">
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Date Submitted to Telemed:</label>
                     <div>
                         <span>
                         {% if bioconfirm.date_submitted_to_telemed %}
                             {{ bioconfirm.date_submitted_to_telemed }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Date Telemed Returned:</label>
                     <div>
                         <span>
                         {% if bioconfirm.date_telemed_returned %}
                             {{ bioconfirm.date_telemed_returned }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Date Bioconfirm Recorded Application:</label>
                     <div>
                         <span>
                         {% if bioconfirm.date_bioconfim_rec_app %}
                             {{ bioconfirm.date_bioconfim_rec_app }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="flex-box">
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Date Paid:</label>
                     <div>
                         <span>
                         {% if bioconfirm.date_paid %}
                             {{ bioconfirm.date_paid }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Month:</label>
                     <div>
                         <span>
                         {% if bioconfirm.month %}
                             {{ bioconfirm.month }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Rejection Date:</label>
                     <div>
                         <span>
                         {% if bioconfirm.rejection_date %}
                             {{ bioconfirm.rejection_date }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>

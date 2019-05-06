@@ -58,6 +58,26 @@
         .input-container {
 
         }
+
+        .width--50 {
+            width: 50%;
+        }
+
+        .width--16 {
+            width: 16.66%;
+        }
+
+        .width--33 {
+            width: 33.33%;
+        }
+
+        span {
+            text-decoration: underline;
+        }
+
+        label {
+            font-weight: 700;
+        }
     </style>
 </head>
 
@@ -75,178 +95,204 @@
 
         <section class="row">
             <div class="flex-box">
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--33">
                     <label>Patient's First Name:</label>
                     <div>
                         <span>
                         {% if dme.patients_first_name %}
                             {{ dme.patients_first_name }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--33">
                     <label>Patient's Last name:</label>
                     <div>
                         <span>
                         {% if dme.patients_last_name %}
                             {{ dme.patients_last_name }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--33">
                     <label>Birth Date:</label>
                     <div>
                         <span>
                         {% if dme.birth_date %}
                             {{ dme.birth_date }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="flex-box">
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--16">
                     <label>Gender:</label>
                     <div>
                         <span>
                         {% if dme.gender %}
                             {{ dme.gender }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group flex-pad flex-2">
+                <div class="form-group flex-pad flex-2 width--33">
                     <label>Patient's Phone Number:</label>
                     <div>
                         <span>
                         {% if dme.patients_phone_number %}
                             {{ dme.patients_phone_number }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group flex-pad flex-3">
+                <div class="form-group flex-pad flex-3 width--50">
                     <label>Best Time to Call:</label>
                     <div>
                         <span>
                         {% if dme.best_time_to_call %}
                             {{ dme.best_time_to_call }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="flex-box">
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--50">
                     <label>Street Address:</label>
                     <div>
                         <span>
                         {% if dme.street_address %}
                             {{ dme.street_address }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--50">
                     <label>Street Address line 2:</label>
                     <div>
                         <span>
                         {% if dme.street_address_line_2 %}
                             {{ dme.street_address_line_2 }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="flex-box">
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--16">
                     <label>City:</label>
                     <div>
                         <span>
                         {% if dme.city %}
                             {{ dme.city }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--16">
                     <label>State/Province:</label>
                     <div>
                         <span>
                         {% if dme.state_province %}
                             {{ dme.state_province }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--16">
                     <label>Postal/Zip Code:</label>
                     <div>
                         <span>
                         {% if dme.postal_zip_code %}
                             {{ dme.postal_zip_code }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group flex-pad flex-3">
+                <div class="form-group flex-pad flex-3 width--50">
                     <label>Country:</label>
                     <div>
                         <span>
                         {% if dme.country %}
                             {{ dme.country }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="flex-box">
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--50">
                     <label>Insurance Type:</label>
                     <div>
                         <span>
                         {% if dme.insurance_type %}
                             {{ dme.insurance_type }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--50">
                     <label>Policy Number:</label>
                     <div>
                         <span>
                         {% if dme.policy_number %}
                             {{ dme.policy_number }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-box">
+                <div class="form-group flex-pad flex-1 width--50">
+                    <label>PPO Information (if not straight Medicare)(Medicare ID#):</label>
+                    <div>
+                        <span>
+                        {% if dme.ppo_information_mem_id %}
+                            {{ dme.ppo_information_mem_id }}
+                        {% else %}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group flex-pad flex-1 width--50">
+                    <label>PPO Information (if not straight Medicare)(PPO Name):</label>
+                    <div>
+                        <span>
+                        {% if dme.ppo_information_ppo_name %}
+                            {{ dme.ppo_information_ppo_name }}
+                        {% else %}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
@@ -254,25 +300,13 @@
             </div>
             <div class="flex-box">
                 <div class="form-group flex-pad flex-1">
-                    <label>PPO Information (if not straight Medicare)(Medicare ID#):</label>
+                    <label>Insurance Status:</label>
                     <div>
                         <span>
-                        {% if dme.ppo_information_mem_id %}
-                            {{ dme.ppo_information_mem_id }}
+                        {% if dme.insurance_status %}
+                            {{ dme.insurance_status }}
                         {% else %}
-                            &nbsp;
-                        {% endif %}
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group flex-pad flex-1">
-                    <label>PPO Information (if not straight Medicare)(PPO Name):</label>
-                    <div>
-                        <span>
-                        {% if dme.ppo_information_ppo_name %}
-                            {{ dme.ppo_information_ppo_name }}
-                        {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
@@ -286,262 +320,262 @@
             <h6>Medical Information</h6>
         </section>
 
-        <section class="row page-break">
+        <section class="row">
             <div class="flex-box">
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--50">
                     <label>Location of Back Pain:</label>
                     <div>
                         <span>
                         {% if dme.location_of_back_pain %}
                             {{ dme.location_of_back_pain }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--50">
                     <label>Location of Shoulder Pain:</label>
                     <div>
                         <span>
                         {% if dme.location_of_shoulder_pain %}
                             {{ dme.location_of_shoulder_pain }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="flex-box">
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--50">
                     <label>Location of Knee Pain:</label>
                     <div>
                         <span>
                         {% if dme.location_of_knee_pain %}
                             {{ dme.location_of_knee_pain }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--50">
                     <label>Location of Elbow Pain:</label>
                     <div>
                         <span>
                         {% if dme.location_of_elbow_pain %}
                             {{ dme.location_of_elbow_pain }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="flex-box">
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--50">
                     <label>Location of Wrist Pain:</label>
                     <div>
                         <span>
                         {% if dme.location_of_wrist_pain %}
                             {{ dme.location_of_wrist_pain }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--50">
                     <label>Size of Brace:</label>
                     <div>
                         <span>
                         {% if dme.size_of_brace %}
                             {{ dme.size_of_brace }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="flex-box">
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--50">
                     <label>Major Medical Conditions:</label>
                     <div>
                         <span>
                         {% if dme.major_medical_conditions %}
                             {{ dme.major_medical_conditions }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--50">
                     <label>Cause of Pain/Discomfort:</label>
                     <div>
                         <span>
                         {% if dme.cause_of_pain_discomfort %}
                             {{ dme.cause_of_pain_discomfort }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="flex-box">
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--50">
                     <label>Level of Pain:</label>
                     <div>
                         <span>
                         {% if dme.level_of_pain %}
                             {{ dme.level_of_pain }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--50">
                     <label>How long have you been experiencing discomfort:</label>
                     <div>
                         <span>
                         {% if dme.experiencing_discomfort %}
                             {{ dme.experiencing_discomfort }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="flex-box">
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--50">
                     <label>Frequency of Pain:</label>
                     <div>
                         <span>
                         {% if dme.frequency_of_pain %}
                             {{ dme.frequency_of_pain }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--50">
                     <label>Describe the Pain:</label>
                     <div>
                         <span>
                         {% if dme.describe_pain %}
                             {{ dme.describe_pain }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="flex-box">
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--50">
                     <label>Pain Symptoms:</label>
                     <div>
                         <span>
                         {% if dme.pain_symptoms %}
                             {{ dme.pain_symptoms }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--50">
                     <label>What makes the pain worse:</label>
                     <div>
                         <span>
                         {% if dme.pain_worse %}
                             {{ dme.pain_worse }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="flex-box">
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--50">
                     <label>Treatments Tried:</label>
                     <div>
                         <span>
                         {% if dme.treatments_tried %}
                             {{ dme.treatments_tried }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--50">
                     <label>Have you seen a doctor in the last year:</label>
                     <div>
                         <span>
                         {% if dme.seen_doctor %}
                             {{ dme.seen_doctor }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="flex-box">
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--50">
                     <label>Any surgeries in the last year:</label>
                     <div>
                         <span>
                         {% if dme.surgeries %}
                             {{ dme.surgeries }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--50">
                     <label>IP:</label>
                     <div>
                         <span>
                         {% if dme.ip %}
                             {{ dme.ip }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="flex-box">
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--50">
                     <label>Submission ID:</label>
                     <div>
                         <span>
                         {% if dme.submission_id %}
                             {{ dme.submission_id }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group flex-pad flex-1">
+                <div class="form-group flex-pad flex-1 width--50">
                     <label>Edit Link:</label>
                     <div>
                         <span>
                         {% if dme.edit_link %}
                             {{ dme.edit_link }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>

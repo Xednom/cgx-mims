@@ -47,6 +47,26 @@
         .input-container {
 
         }
+
+        .width--50 {
+            width: 50%;
+        }
+
+        .width--16 {
+            width: 16.66%;
+        }
+
+        .width--33 {
+            width: 33.33%;
+        }
+
+        span {
+            text-decoration: underline;
+        }
+
+        label {
+            font-weight: 700;
+        }
     </style>
 </head>
 
@@ -64,139 +84,139 @@
 
         <section class="row">
             <div class="flex-box">
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Patient Name:</label>
                     <div>
                         <span>
                         {% if carrier.patient_name %}
                             {{ carrier.patient_name }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Patient Phone Number:</label>
                     <div>
                         <span>
                         {% if carrier.patient_phone_number %}
                             {{ carrier.patient_phone_number }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Submitted to Tamika ins Verifier:</label>
                     <div>
                         <span>
                         {% if carrier.submitted_to_tamika_ins_verifier %}
                             {{ carrier.submitted_to_tamika_ins_verifier }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="flex-box">
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Promo Code:</label>
                     <div>
                         <span>
                         {% if carrier.promo_code %}
                             {{ carrier.promo_code }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Status:</label>
                     <div>
                         <span>
                         {% if carrier.status %}
                             {{ carrier.status }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>State:</label>
                     <div>
                         <span>
                         {% if carrier.state %}
                             {{ carrier.state }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="flex-box">
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Test Choice:</label>
                     <div>
                         <span>
                         {% if carrier.type_of_test %}
                             {{ carrier.type_of_test }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Agent:</label>
                     <div>
                         <span>
                         {% if carrier.agent %}
                             {{ carrier.agent }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Telemed Name:</label>
                     <div class="">
                         <span>
                         {% if carrier.telemed_name %}
                             {{ carrier.telemed_name }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="flex-box">
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Insurance Company:</label>
                     <div>
                         <span>
                         {% if carrier.insurance_company %}
                             {{ carrier.insurance_company }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                 </div>
             </div>
             <div class="flex-box">
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Notes:</label>
                     <textarea>{{ carrier.notes }}</textarea>
                 </div>
@@ -212,114 +232,114 @@
 
         <section class="row page-break">
             <div class="flex-box">
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Date Application Recorded:</label>
                     <div>
                         <span>
                         {% if carrier.date_app_rec %}
                             {{ carrier.date_app_rec }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Date Sample Recorded:</label>
                     <div>
                         <span>
                         {% if carrier.date_sample_rec %}
                             {{ carrier.date_sample_rec }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Date of QCA:</label>
                     <div>
                         <span>
                         {% if carrier.date_of_qca %}
                             {{ carrier.date_of_qca }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="flex-box">
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Date Submitted to Telemed:</label>
                     <div>
                         <span>
                         {% if carrier.date_submitted_to_telemed %}
                             {{ carrier.date_submitted_to_telemed }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Date Telemed Returned:</label>
                     <div>
                         <span>
                         {% if carrier.date_telemed_returned %}
                             {{ carrier.date_telemed_returned }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Date Bioconfirm Recorded Application:</label>
                     <div>
                         <span>
                         {% if carrier.date_bioconfim_rec_app %}
                             {{ carrier.date_bioconfim_rec_app }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="flex-box">
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Date Paid:</label>
                     <div>
                         <span>
                         {% if carrier.date_paid %}
                             {{ carrier.date_paid }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Month:</label>
                     <div>
                         <span>
                         {% if carrier.month %}
                             {{ carrier.month }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
                 </div>
-                <div class="form-group by-3">
+                <div class="form-group by-3 width--33">
                     <label>Rejection Date:</label>
                     <div>
                         <span>
                         {% if carrier.rejection_date %}
                             {{ carrier.rejection_date }}
                         {% else %}
-                            &nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {% endif %}
                         </span>
                     </div>
