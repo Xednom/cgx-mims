@@ -172,7 +172,7 @@ new Vue({
         this.saving = false;
         swal({
           title: "TSG System",
-          text: "Something has happened when processing the data, if the error persist. Please contact your Administrator.",
+          text: JSON.stringify(err.body),
           icon: "error",
           buttons: "Ok",
         });
