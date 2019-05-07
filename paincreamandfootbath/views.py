@@ -92,7 +92,7 @@ class PdfPCFB(View):
 
         html = render_to_string('paincreamandfootbath/pcfb_pdf.html', params)
         css = [
-            'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'
+            base.BASE_DIR + '/src/css/bootstrap3/css/bootstrap.min.css'
         ]
         HTML(string=html).write_pdf(response, stylesheets=css)
         return response
