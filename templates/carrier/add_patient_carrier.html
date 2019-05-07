@@ -28,7 +28,7 @@ Add Carrier Data | TSG System
             <div class="form-group col-md-8 col-sm-12">
               <label for="inputPatientName">Patient Name</label>
               <input type="text" class="form-control form-control-sm" id="inputPatientName"
-                v-model="newCarrier.patient_name" :disabled="loading == true">
+                v-model="newCarrier.patient_name" :disabled="loading == true" required>
             </div>
             <div class="form-group col-md-4 col-sm-12">
               <label for="inputPatientPhone">Patient Phone Number</label>

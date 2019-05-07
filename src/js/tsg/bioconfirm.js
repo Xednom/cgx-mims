@@ -202,7 +202,7 @@ new Vue({
       .catch((err) => {
         swal({
           title: "TSG System",
-          text: "Please check if the Patient name is already in the database. And if yes, and the error still persist please contact your site administrator.",
+          text: JSON.stringify(err.body),
           icon: "error",
           buttons: "Ok",
         });

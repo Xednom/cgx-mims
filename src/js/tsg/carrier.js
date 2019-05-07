@@ -75,6 +75,7 @@ new Vue({
     this.getStatuses();
     this.getTestChoices();
     this.setDefaultDates();
+    this.validateForm();
   },
   methods: {
     setDefaultDates: function() {
@@ -145,7 +146,7 @@ new Vue({
           }
       });
       this.saving = true;
-      axios.post('/api/v1/carrier/', formData).then((response) => {
+      this.$http.post('/api/v1/carrier/', formData).then((response) => {
         console.log(formData);
         swal({
           title: "TSG System",
@@ -166,12 +167,12 @@ new Vue({
       .catch((err) => {
         swal({
           title: "TSG System",
-          text: "Something has happened when processing the data, if the error persist. Please contact your Administrator.",
+          text: JSON.stringify(err.body),
           icon: "error",
           buttons: "Ok",
         });
         this.saving = false;
-        console.log(err);
+        console.log(err.body);
       })
     },
     getAgentNames: function() {
@@ -183,7 +184,7 @@ new Vue({
           })
           .catch((err) => {
             this.loading = false;
-            console.log(err);
+            console.log(JSON.stringify(err.bodyText));
           })
     },
     getManagerNames: function () {
