@@ -24,11 +24,20 @@ Add Bio Confirm Master Data | TSG System
         <h5 class="title1 text-center">
           Patient Informations for Bio Confirm Master
         </h5>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="errored">
+          <i class="fa fa-times-circle pull-left"></i>
+          <div v-if="errorbioconfirm.patient_name">
+          Patient name already exists in the database.
+          </div>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
         <div>
           <div class="form-row">
             <div class="form-group col-md-8 col-sm-12">
               <label for="inputPatientName">Patient Name</label>
-              <input type="text" class="form-control form-control-sm" id="inputPatientName" v-model="newBioConfirm.patient_name" :disabled="loading == true">
+              <input type="text" class="form-control form-control-sm" id="validationDefault03" v-model="newBioConfirm.patient_name" :disabled="loading == true" required>
             </div>
             <div class="form-group col-md-4 col-sm-12">
               <label for="inputPatientPhone">Patient Phone Number</label>
