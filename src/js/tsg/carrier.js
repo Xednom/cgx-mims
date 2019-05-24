@@ -4,6 +4,7 @@ new Vue({
   delimiters: ['[[',']]'],
   data: {
     carriers: [],
+    errorcarriers: [],
     agentNames: [],
     managerNames: [],
     testChoices: [],
@@ -11,6 +12,7 @@ new Vue({
     buttonsLoading: [],
     message: null,
     loading: false,
+    errored: false,
     saving: false,
     searching: false,
     loading_view: false,
@@ -156,6 +158,7 @@ new Vue({
           timer: 2000
         });
         this.saving = false;
+        this.errored = false;
         this.getCarriers();
         // reset form
         this.resetFields();
@@ -167,11 +170,13 @@ new Vue({
       .catch((err) => {
         swal({
           title: "TSG System",
-          text: JSON.stringify(err.body),
+          text: "The process was canceled due to some errors, please check if the patient name already exist in the database. If the error persist, please contact the admin.",
           icon: "error",
           buttons: "Ok",
         });
+        this.errorcarriers = err.body;
         this.saving = false;
+        this.errored = true;
         console.log(err.body);
       })
     },

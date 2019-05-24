@@ -4,6 +4,7 @@ new Vue({
   delimiters: ['[[',']]'],
   data: {
     bioconfirms: [],
+    errorbioconfirm: [],
     agentNames: [],
     managerNames: [],
     testChoices: [],
@@ -12,6 +13,7 @@ new Vue({
     message: null,
     loading: false,
     saving: false,
+    errored: false,
     searching: false,
     loading_view: false,
     currentBioConfirm: {},
@@ -191,6 +193,7 @@ new Vue({
             timer: 2000
           })
         this.saving = false;
+        this.errored = false;
           this.getBioConfirms();
           // reset form
           this.resetFields();
@@ -202,12 +205,14 @@ new Vue({
       .catch((err) => {
         swal({
           title: "TSG System",
-          text: JSON.stringify(err.body),
+          text: "The process was canceled due to some errors, please check if the patient name already exist in the database. If the error persist, please contact the admin.",
           icon: "error",
           buttons: "Ok",
         });
-        console.log(err);
+        this.errorbioconfirm = err.body;
+        this.errored = true;
         this.saving = false;
+        console.log(err);
       })
     },
     // viewing of full datas
