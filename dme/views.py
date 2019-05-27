@@ -59,7 +59,10 @@ class DMEIIViewSet(XLSXFileMixin, viewsets.ModelViewSet):
     filename = 'dme-reports.xlsx'
 
     def get_queryset(self):
-        agent_promo_code = self.request.user.agent_promo_code
+        if self.request.user.is_superuser:
+            queryset = DME_II.objects.all()
+        else:
+            agent_promo_code = self.request.user.agent_promo_code
         return DME_II.objects.filter(agents_promod_code=agent_promo_code)
     
     def perform_create(self, serializer):

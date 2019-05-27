@@ -119,6 +119,8 @@ class CarrierViewSet(XLSXFileMixin, ModelViewSet):
         position = self.request.user.position
         if position == 'Manager':
             queryset = Carrier.objects.filter(manager__name=user)
+        elif self.request.user.is_superuser:
+            queryset = Carrier.objects.all()
         else:
             queryset = Carrier.objects.filter(agent__name=user)
         return queryset

@@ -67,7 +67,10 @@ class PainCreamAndFootBathViewSet(XLSXFileMixin, viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        queryset = PainCreamAndFootBath.objects.filter(agent_name__name=user)
+        if self.request.user.is_superuser:
+            queryset = PainCreamAndFootBath.objects.all()
+        else:
+            queryset = PainCreamAndFootBath.objects.filter(agent_name__name=user)
         return queryset
 
     def perform_create(self, serializer):

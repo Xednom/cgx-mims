@@ -100,6 +100,8 @@ class BioConfirmMasterViewSet(XLSXFileMixin, viewsets.ModelViewSet):
         position = self.request.user.position
         if position == 'Manager':
             queryset = BioConfirmMaster.objects.filter(manager__name=user)
+        elif self.request.user.is_superuser:
+            queryset = BioConfirmMaster.objects.all()
         else:
             queryset = BioConfirmMaster.objects.filter(agent__name=user)
         return queryset

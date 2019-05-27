@@ -6,10 +6,34 @@ from django.utils.html import format_html, mark_safe
 from jet.filters import DateRangeFilter
 
 from .models import Carrier
+from .views import PdfCarrier
 from .resources import CarrierResource
 
 
+def pdf_carrier(modeladmin, request, queryset, carrier_id):
+        queryset = Carrier.objects.all()
+        carrier = queryset.filter(id=carrier_id).first()
+        params = {
+            'carrier': carrier,
+            'request': request
+        }
+
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = "inline; filename=Carrier-Report.pdf"
+
+        html = render_to_string('carrier/carrier_pdf.html', params)
+        css = [
+            base.BASE_DIR + '/src/css/bootstrap3/css/bootstrap.min.css'
+        ]
+
+        HTML(string=html).write_pdf(response, stylesheets=css)
+        return response
+        # return Render.render('carrier/carrier_print.html', params)
+        pdf_carrier.short_description = "Export as PDF"
+
+
 class CarrierProfile(ImportExportModelAdmin):
+    actions = [pdf_carrier]
     list_display = ('patient_name', 'promo_code', 'agent', 'manager',
                     'date_submitted_to_telemed', 'date_telemed_returned',
                     'date_app_rec', 'date_sample_rec', 'date_of_qca', 'date_paid',
