@@ -217,6 +217,10 @@ nav .dropdown-menu.mobile {
   margin-left: 10px;
 }
 
+.btn-action {
+  padding-right: 10px;
+}
+
 .save-btn-carrier {
   border-radius: 0 !important;
   padding: 10px 40px 10px 40px;
